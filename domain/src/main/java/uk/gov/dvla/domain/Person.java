@@ -17,6 +17,8 @@ public class Person {
 	private Date dob;
 	private Country countryOfBirth;
 
+    private Address address;
+
 	private Name name;
 	private int gender;
 	
@@ -26,6 +28,13 @@ public class Person {
 	private Boolean adi;
 	private Boolean military;
 	private Boolean foreignLicenceOffender;
+
+    public void setAddress(Address address1){
+        this.address = address1;
+    }
+    public Address getAddress(){
+        return address;
+    }
 	public ObjectId getId() {
 		return id;
 	}
