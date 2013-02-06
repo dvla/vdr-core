@@ -12,11 +12,11 @@ public class Driver extends Person {
 	private List<DriverNumber> driverNumber;
 	private List<DriverFlag> flag;
 	private List<Licence> licence;
+    private List<Integer> stopMarker;
+    private List<Integer> restrictionKey;
 	
 	private Boolean carHireEnqPmt = null;
 	private String statusCode = null;
-	private Boolean lifeFeePaid = null;
-	private Boolean higerFeePaid = null;
 	private Date photoExpiryDate;
 	
 	public void addLicence(Licence lic){
@@ -25,22 +25,38 @@ public class Driver extends Person {
 		}
 		licence.add(lic);
 	}
+
+    public void addStopMarker(Integer marker){
+        if (null == stopMarker){
+            stopMarker = new ArrayList<Integer>();
+        }
+        stopMarker.add(marker);
+    }
+
+    public void addRestrictionKey(Integer key){
+        if (null == restrictionKey){
+            restrictionKey = new ArrayList<Integer>();
+        }
+        restrictionKey.add(key);
+    }
 	
 	public void setLicence(List<Licence> lics)
 	{
 		licence = lics;
 	}
-	
-	public void addDriverNumber(){
-		if ( null == driverNumber ){
-			driverNumber = new ArrayList<DriverNumber>();			
-		}
-		DriverNumber dn = new DriverNumber();
-		dn.setDriverNumber("SMITH00000000000");
-		dn.setValidFrom(new Date());
-		dn.setValidTo(new Date());
-		driverNumber.add(dn);
-	}
+
+    public List<Integer> getStopMarker(){
+        return stopMarker;
+    }
+    public void setStopMarker(List<Integer> markers){
+        this.stopMarker = markers;
+    }
+    public List<Integer> getRestrictionKey(){
+        return restrictionKey;
+    }
+    public void setRestrictionKey(List<Integer> keys){
+        this.restrictionKey = keys;
+    }
 	public List<DriverNumber> getDriverNumber() {
 		return driverNumber;
 	}
@@ -64,18 +80,6 @@ public class Driver extends Person {
 	}
 	public void setStatusCode(String statusCode) {
 		this.statusCode = statusCode;
-	}
-	public Boolean getLifeFeePaid() {
-		return lifeFeePaid;
-	}
-	public void setLifeFeePaid(Boolean lifeFeePaid) {
-		this.lifeFeePaid = lifeFeePaid;
-	}
-	public Boolean getHigerFeePaid() {
-		return higerFeePaid;
-	}
-	public void setHigerFeePaid(Boolean higerFeePaid) {
-		this.higerFeePaid = higerFeePaid;
 	}
 	public Date getPhotoExpiryDate() {
 		return photoExpiryDate;
