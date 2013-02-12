@@ -13,6 +13,7 @@ public class Licence {
 	public Date validTo;
 	
 	private List<Entitlement> entitlements;
+    private List<Endorsement> endorsements;
 	
 	public void addEntitlement(String code){
 		if (null == entitlements){
@@ -49,4 +50,11 @@ public class Licence {
 		this.entitlements = entitlements;
 	}
 
+    public List<Endorsement> getEndorsements() {
+        return endorsements;
+    }
+
+    public void setEndorsements(List<Endorsement> endorsements) {
+        this.endorsements = endorsements;
+    }
 }
