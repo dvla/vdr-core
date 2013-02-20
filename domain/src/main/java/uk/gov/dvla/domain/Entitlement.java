@@ -1,6 +1,7 @@
 package uk.gov.dvla.domain;
 
 import java.util.Date;
+import java.util.List;
 
 import com.google.code.morphia.annotations.Embedded;
 
@@ -13,6 +14,7 @@ public class Entitlement {
 	private Boolean provisional = null;
 	private Boolean priorTo = null;
 	private Boolean stated = null;
+    private List<String> infoCodes;
 	public String getCode() {
 		return code;
 	}
@@ -49,5 +51,11 @@ public class Entitlement {
 	public void setStated(Boolean stated) {
 		this.stated = stated;
 	}
-	
+    public List<String> getInfoCodes() {
+        return infoCodes;
+    }
+
+    public void setInfoCodes(List<String> codes) {
+        this.infoCodes = codes;
+    }
 }
