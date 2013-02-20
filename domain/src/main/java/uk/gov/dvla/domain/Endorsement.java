@@ -2,23 +2,33 @@ package uk.gov.dvla.domain;
 
 import java.util.Date;
 import com.google.code.morphia.annotations.Embedded;
+import com.google.code.morphia.annotations.Property;
 
 @Embedded
 public class Endorsement {
 
+    @Property("disqual")
     public Boolean isDisqualification;
     //Both Penalty Points AND Disqualifications
+    @Property("code")
     public String offenceCode;
+    @Property("court")
     public String convictingCourtCode;
+    @Property("offDate")
     public Date offenceDate;
+    @Property("expDate")
     public Date expiryDate;
+    @Property("removed")
     public Date removedFromLicence;
     //Disqualification Only
+    @Property("convicition")
     public Date convictionDate;
+    @Property("sentencing")
     public Date sentencingDate;
     public String period;
     public Number fine;
     //Penalty Points Only
+    @Property("noPoints")
     public Integer numberOfPoints;
 
     public Boolean getDisqualification() {

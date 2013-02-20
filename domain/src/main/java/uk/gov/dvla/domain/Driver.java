@@ -5,11 +5,13 @@ import java.util.Date;
 import java.util.List;
 
 import com.google.code.morphia.annotations.Entity;
+import com.google.code.morphia.annotations.Indexed;
+import com.google.code.morphia.annotations.Property;
 
 @Entity(value="drivers", noClassnameStored=true)
 public class Driver extends Person {
-	
-	private List<DriverNumber> driverNumber;
+
+    private List<DriverNumber> dlnHistory;
 	private List<DriverFlag> flag;
 	private List<Licence> licence;
     private List<Integer> stopMarker;
@@ -18,6 +20,9 @@ public class Driver extends Person {
 	private Boolean carHireEnqPmt = null;
 	private String statusCode = null;
 	private Date photoExpiryDate;
+
+    @Property("dln") @Indexed
+    private String currentDriverNumber = null;
 	
 	public void addLicence(Licence lic){
 		if (null == licence){
@@ -57,11 +62,20 @@ public class Driver extends Person {
     public void setRestrictionKey(List<Integer> keys){
         this.restrictionKey = keys;
     }
-	public List<DriverNumber> getDriverNumber() {
-		return driverNumber;
+
+    public void setCurrentDriverNumber(String dln){
+        this.currentDriverNumber = dln;
+    }
+
+    public String getCurrentDriverNumber(){
+        return this.currentDriverNumber;
+    }
+
+	public List<DriverNumber> getDriverNumberHistory() {
+		return dlnHistory;
 	}
-	public void setDriverNumber(List<DriverNumber> driverNumber) {
-		this.driverNumber = driverNumber;
+	public void setDriverNumberHistory(List<DriverNumber> driverNumber) {
+		this.dlnHistory = driverNumber;
 	}
 	public List<DriverFlag> getFlag() {
 		return flag;
