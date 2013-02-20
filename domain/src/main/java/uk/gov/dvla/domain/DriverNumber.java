@@ -7,15 +7,15 @@ import com.google.code.morphia.annotations.Embedded;
 @Embedded
 public class DriverNumber {
 
-	private String driverNumber;
+	private String dln;
 	private Name name;
 	private Date validFrom;
 	private Date validTo;
 	public String getDriverNumber() {
-		return driverNumber;
+		return dln;
 	}
 	public void setDriverNumber(String driverNumber) {
-		this.driverNumber = driverNumber;
+		this.dln = driverNumber;
 	}
 	public Name getName() {
 		return name;

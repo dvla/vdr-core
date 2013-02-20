@@ -7,7 +7,7 @@ import com.google.code.morphia.annotations.Embedded;
 @Embedded
 public class Address {
 
-	private boolean insecure;
+	private Boolean insecure;
 	private Country country;
 	private String langCode;
 	private String pafKey;
