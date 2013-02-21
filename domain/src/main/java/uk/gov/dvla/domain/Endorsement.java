@@ -21,7 +21,7 @@ public class Endorsement {
     @Property("removed")
     public Date removedFromLicence;
     //Disqualification Only
-    @Property("convicition")
+    @Property("conviction")
     public Date convictionDate;
     @Property("sentencing")
     public Date sentencingDate;
