@@ -21,7 +21,7 @@ public class Driver extends Person {
 	private String statusCode = null;
 	private Date photoExpiryDate;
 
-    @Property("dln") @Indexed
+    @Property("dln") @Indexed(unique = true)
     private String currentDriverNumber = null;
 	
 	public void addLicence(Licence lic){
