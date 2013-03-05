@@ -11,6 +11,7 @@ public class Licence {
 	
 	public Date validFrom;
 	public Date validTo;
+    public String type;
 	
 	private List<Entitlement> entitlements;
     private List<Endorsement> endorsements;
@@ -41,6 +42,14 @@ public class Licence {
 	public void setValidTo(Date validTo) {
 		this.validTo = validTo;
 	}
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
 
 	public List<Entitlement> getEntitlements() {
 		return entitlements;

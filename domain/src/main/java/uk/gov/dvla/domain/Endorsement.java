@@ -26,7 +26,7 @@ public class Endorsement {
     @Property("sentencing")
     public Date sentencingDate;
     public String period;
-    public Number fine;
+    public double fine;
     //Penalty Points Only
     @Property("noPoints")
     public Integer numberOfPoints;
@@ -107,7 +107,7 @@ public class Endorsement {
         return fine;
     }
 
-    public void setFine(Number fine) {
+    public void setFine(double fine) {
         this.fine = fine;
     }
 
