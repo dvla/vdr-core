@@ -1,7 +1,7 @@
 package uk.gov.dvla.services.datastore;
 
-import uk.gov.dvla.entity.Person;
-import uk.gov.dvla.entity.drivers.Driver;
+import uk.gov.dvla.domain.Driver;
+import uk.gov.dvla.domain.Person;
 
 public interface DriversDataStore 
 {
