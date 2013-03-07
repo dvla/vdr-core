@@ -1,4 +1,4 @@
-package main.scala.uk.gov.dvla.core.domain
+package uk.gov.dvla.core.domain
 
 import org.joda.time.DateTime
 
