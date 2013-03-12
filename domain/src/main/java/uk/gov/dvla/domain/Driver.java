@@ -69,7 +69,7 @@ public class Driver extends Person {
         return restrictionKey;
     }
     
-    public void setgetCaseType(List<Integer> keys){
+    public void setCaseType(List<Integer> keys){
         this.caseType = keys;
     }
 
