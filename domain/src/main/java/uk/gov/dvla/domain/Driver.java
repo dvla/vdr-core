@@ -16,7 +16,7 @@ public class Driver extends Person {
 	private List<Licence> licence;
     private List<Integer> stopMarker;
     private List<Integer> restrictionKey;
-    private List<Integer> caseType;
+    private List<String> caseType;
 	
 	private Boolean carHireEnqPmt = null;
 	private String statusCode = null;
@@ -65,12 +65,12 @@ public class Driver extends Person {
         this.restrictionKey = keys;
     }
     
-    public List<Integer> getCaseType(){
-        return restrictionKey;
+    public List<String> getCaseType(){
+        return this.caseType;
     }
     
-    public void setCaseType(List<Integer> keys){
-        this.caseType = keys;
+    public void setCaseType(List<String> caseTypes){
+        this.caseType = caseTypes;
     }
 
     public void setCurrentDriverNumber(String dln){
