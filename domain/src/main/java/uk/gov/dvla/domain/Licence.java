@@ -12,6 +12,7 @@ public class Licence {
 	public Date validFrom;
 	public Date validTo;
     public String type;
+    public Integer directiveStatus;
 	
 	private List<Entitlement> entitlements;
     private List<Endorsement> endorsements;
@@ -26,6 +27,14 @@ public class Licence {
 		ent.setValidTo(new Date());
 		entitlements.add(ent);
 	}
+
+    public void setDirectiveStatus(Integer directiveStatus) {
+        this.directiveStatus = directiveStatus;
+    }
+
+    public Integer getDirectiveStatus() {
+        return  directiveStatus;
+    }
 
 	public Date getValidFrom() {
 		return validFrom;
