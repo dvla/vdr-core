@@ -51,6 +51,11 @@ public class Driver extends Person {
 		licence = lics;
 	}
 
+    public List<Licence> getLicence()
+    {
+        return this.licence;
+    }
+
     public List<Integer> getStopMarker(){
         return stopMarker;
     }
