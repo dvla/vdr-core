@@ -15,6 +15,7 @@ public class Entitlement {
 	private Boolean priorTo = null;
 	private Boolean stated = null;
     private List<String> infoCodes;
+    private Boolean unclaimedTestPass = false;
 	public String getCode() {
 		return code;
 	}
@@ -54,8 +55,13 @@ public class Entitlement {
     public List<String> getInfoCodes() {
         return infoCodes;
     }
-
     public void setInfoCodes(List<String> codes) {
         this.infoCodes = codes;
+    }
+    public Boolean getUnclaimedTestPass() {
+        return unclaimedTestPass;
+    }
+    public void setUnclaimedTestPass(Boolean unclaimedTestPass) {
+        this.unclaimedTestPass = unclaimedTestPass;
     }
 }
