@@ -11,11 +11,19 @@ public class Entitlement {
 	private String code;
 	private Date validFrom;
 	private Date validTo;
+    private Date datePassed;
 	private Boolean provisional = null;
 	private Boolean priorTo = null;
 	private Boolean stated = null;
     private List<String> infoCodes;
     private Boolean unclaimedTestPass = false;
+
+    public Date getDatePassed() {
+        return datePassed;
+    }
+    public  void setDatePassed(Date datePassed) {
+        this.datePassed = datePassed;
+    }
 	public String getCode() {
 		return code;
 	}
