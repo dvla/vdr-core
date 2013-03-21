@@ -2,6 +2,7 @@ package uk.gov.dvla.services.enquiry;
 
 import uk.gov.dvla.domain.Driver;
 import uk.gov.dvla.domain.Person;
+import uk.gov.dvla.domain.ServiceResult;
 import uk.gov.dvla.services.ManagedService;
 import uk.gov.dvla.services.NamedService;
 
