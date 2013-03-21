@@ -30,6 +30,7 @@ public class Endorsement {
     //Penalty Points Only
     @Property("noPoints")
     public Integer numberOfPoints;
+    public OtherSentence otherSentence;
 
     public Boolean getDisqualification() {
         return isDisqualification;
@@ -117,6 +118,14 @@ public class Endorsement {
 
     public void setNumberOfPoints(Integer numberOfPoints) {
         this.numberOfPoints = numberOfPoints;
+    }
+
+    public OtherSentence getOtherSentence() {
+        return otherSentence;
+    }
+
+    public void setOtherSentence(OtherSentence otherSentence){
+        this.otherSentence = otherSentence;
     }
 }
 
