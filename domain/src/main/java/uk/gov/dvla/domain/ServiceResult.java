@@ -7,6 +7,11 @@ public class ServiceResult<T>
     private T result;
     private List<Message> messages;
 
+    public ServiceResult(T result)
+    {
+        this(result, null);
+    }
+
     public ServiceResult(T result, List<Message> messages)
     {
         this.result = result;
