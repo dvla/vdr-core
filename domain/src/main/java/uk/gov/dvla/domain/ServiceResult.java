@@ -7,6 +7,8 @@ public class ServiceResult<T>
     private T result;
     private List<Message> messages;
 
+    public ServiceResult(){}
+
     public ServiceResult(T result)
     {
         this(result, null);
@@ -18,9 +20,19 @@ public class ServiceResult<T>
         this.messages = messages;
     }
 
+    public void setResult(T result)
+    {
+        this.result = result;
+    }
+
     public T getResult()
     {
         return result;
+    }
+
+    public void setMessages(List<Message> messages)
+    {
+        this.messages = messages;
     }
 
     public List<Message> getMessages()
