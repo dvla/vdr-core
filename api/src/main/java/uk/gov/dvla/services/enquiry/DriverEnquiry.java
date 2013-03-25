@@ -8,7 +8,7 @@ import uk.gov.dvla.services.NamedService;
 
 public interface DriverEnquiry extends ManagedService
 {
-    public static final String DRIVER_URI = "driver";
+    public static final String DRIVER_URI = "/driver/";
 
     public static final String FORENAME_PARAM = "fn";
     public static final String SURNAME_PARAM = "sn";
