@@ -45,6 +45,13 @@ public class Driver extends Person {
         }
         restrictionKey.add(key);
     }
+
+    public void addCaseType(String key) {
+        if (null == caseType) {
+            caseType = new ArrayList<String>();
+        }
+        caseType.add(key);
+    }
 	
 	public void setLicence(List<Licence> lics)
 	{
