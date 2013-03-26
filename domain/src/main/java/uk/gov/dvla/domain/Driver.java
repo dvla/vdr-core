@@ -8,107 +8,126 @@ import com.google.code.morphia.annotations.Entity;
 import com.google.code.morphia.annotations.Indexed;
 import com.google.code.morphia.annotations.Property;
 
-@Entity(value="drivers", noClassnameStored=true)
+@Entity(value = "drivers", noClassnameStored = true)
 public class Driver extends Person {
 
     private List<DriverNumber> dlnHistory;
-	private List<DriverFlag> flag;
-	private List<Licence> licence;
+    private List<DriverFlag> flag;
+    private List<Licence> licence;
     private List<Integer> stopMarker;
     private List<Integer> restrictionKey;
     private List<String> caseType;
-	
-	private Boolean carHireEnqPmt = null;
-	private String statusCode = null;
-	private Date photoExpiryDate;
-
-    @Property("dln") @Indexed
+    private Boolean carHireEnqPmt = null;
+    private String statusCode = null;
+    private Date photoExpiryDate;
+    private Boolean endorsmentAmountExcess;
+    
+    @Property("dln")
+    @Indexed
     private String currentDriverNumber = null;
-	
-	public void addLicence(Licence lic){
-		if (null == licence){
-			licence = new ArrayList<Licence>();
-		}
-		licence.add(lic);
-	}
 
-    public void addStopMarker(Integer marker){
-        if (null == stopMarker){
+    public void addLicence(Licence lic) {
+        if (null == licence) {
+            licence = new ArrayList<Licence>();
+        }
+        licence.add(lic);
+    }
+
+    public void addStopMarker(Integer marker) {
+        if (null == stopMarker) {
             stopMarker = new ArrayList<Integer>();
         }
         stopMarker.add(marker);
     }
 
-    public void addRestrictionKey(Integer key){
-        if (null == restrictionKey){
+    public void addRestrictionKey(Integer key) {
+        if (null == restrictionKey) {
             restrictionKey = new ArrayList<Integer>();
         }
         restrictionKey.add(key);
     }
-	
-	public void setLicence(List<Licence> lics)
-	{
-		licence = lics;
-	}
 
-    public List<Integer> getStopMarker(){
+    public void setLicence(List<Licence> lics) {
+        licence = lics;
+    }
+
+    public List<Integer> getStopMarker() {
         return stopMarker;
     }
-    public void setStopMarker(List<Integer> markers){
+
+    public void setStopMarker(List<Integer> markers) {
         this.stopMarker = markers;
     }
-    public List<Integer> getRestrictionKey(){
+
+    public List<Integer> getRestrictionKey() {
         return restrictionKey;
     }
-    
-    public void setRestrictionKey(List<Integer> keys){
+
+    public void setRestrictionKey(List<Integer> keys) {
         this.restrictionKey = keys;
     }
-    
-    public List<String> getCaseType(){
+
+    public List<String> getCaseType() {
         return this.caseType;
     }
-    
-    public void setCaseType(List<String> caseTypes){
+
+    public void setCaseType(List<String> caseTypes) {
         this.caseType = caseTypes;
     }
 
-    public void setCurrentDriverNumber(String dln){
+    public void setCurrentDriverNumber(String dln) {
         this.currentDriverNumber = dln;
     }
 
-    public String getCurrentDriverNumber(){
+    public String getCurrentDriverNumber() {
         return this.currentDriverNumber;
     }
 
-	public List<DriverNumber> getDriverNumberHistory() {
-		return dlnHistory;
-	}
-	public void setDriverNumberHistory(List<DriverNumber> driverNumber) {
-		this.dlnHistory = driverNumber;
-	}
-	public List<DriverFlag> getFlag() {
-		return flag;
-	}
-	public void setFlag(List<DriverFlag> flag) {
-		this.flag = flag;
-	}
-	public Boolean getCarHireEnqPmt() {
-		return carHireEnqPmt;
-	}
-	public void setCarHireEnqPmt(Boolean carHireEnqPmt) {
-		this.carHireEnqPmt = carHireEnqPmt;
-	}
-	public String getStatusCode() {
-		return statusCode;
-	}
-	public void setStatusCode(String statusCode) {
-		this.statusCode = statusCode;
-	}
-	public Date getPhotoExpiryDate() {
-		return photoExpiryDate;
-	}
-	public void setPhotoExpiryDate(Date photoExpiryDate) {
-		this.photoExpiryDate = photoExpiryDate;
-	}	
+    public List<DriverNumber> getDriverNumberHistory() {
+        return dlnHistory;
+    }
+
+    public void setDriverNumberHistory(List<DriverNumber> driverNumber) {
+        this.dlnHistory = driverNumber;
+    }
+
+    public List<DriverFlag> getFlag() {
+        return flag;
+    }
+
+    public void setFlag(List<DriverFlag> flag) {
+        this.flag = flag;
+    }
+
+    public Boolean getCarHireEnqPmt() {
+        return carHireEnqPmt;
+    }
+
+    public void setCarHireEnqPmt(Boolean carHireEnqPmt) {
+        this.carHireEnqPmt = carHireEnqPmt;
+    }
+
+    public String getStatusCode() {
+        return statusCode;
+    }
+
+    public void setStatusCode(String statusCode) {
+        this.statusCode = statusCode;
+    }
+
+    public Date getPhotoExpiryDate() {
+        return photoExpiryDate;
+    }
+
+    public void setPhotoExpiryDate(Date photoExpiryDate) {
+        this.photoExpiryDate = photoExpiryDate;
+    }
+    
+    public Boolean getEndorsmentAmountExcess() {
+        return endorsmentAmountExcess;
+    }
+
+    public void setEndorsmentAmountExcess(Boolean endorsmentAmountExcess) {
+        this.endorsmentAmountExcess = endorsmentAmountExcess;
+    }
 }
