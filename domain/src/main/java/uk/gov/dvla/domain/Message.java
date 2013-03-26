@@ -6,12 +6,19 @@ public class Message
     private String key;
     private String message;
     private boolean error;
+    private int type;
 
     public Message(){}
 
     public Message(String key)
     {
         this.key = key;
+    }
+
+    public Message(String key, MessageType type)
+    {
+        this.key = key;
+        this.type = type.getMessageType();
     }
 
     public Message(String message, boolean error)
@@ -43,5 +50,15 @@ public class Message
     public boolean isError()
     {
         return this.error;
+    }
+
+    public int getType()
+    {
+        return type;
+    }
+
+    public void setType(int type)
+    {
+        this.type = type;
     }
 }
