@@ -20,7 +20,7 @@ public class Driver extends Person {
     private Boolean carHireEnqPmt = null;
     private String statusCode = null;
     private Date photoExpiryDate;
-    private Boolean endorsmentAmountExcess;
+    private Boolean endorsementAmountExcess;
     
     @Property("dln")
     @Indexed
@@ -123,11 +123,11 @@ public class Driver extends Person {
         this.photoExpiryDate = photoExpiryDate;
     }
     
-    public Boolean getEndorsmentAmountExcess() {
-        return endorsmentAmountExcess;
+    public Boolean getEndorsementAmountExcess() {
+        return endorsementAmountExcess;
     }
 
-    public void setEndorsmentAmountExcess(Boolean endorsmentAmountExcess) {
-        this.endorsmentAmountExcess = endorsmentAmountExcess;
+    public void setEndorsementAmountExcess(Boolean endorsmentAmountExcess) {
+        this.endorsementAmountExcess = endorsmentAmountExcess;
     }
 }
