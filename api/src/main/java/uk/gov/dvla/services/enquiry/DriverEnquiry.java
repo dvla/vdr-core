@@ -19,4 +19,7 @@ public interface DriverEnquiry extends ManagedService
 	public Driver get(String dln);
 	
 	public Driver get(Person person);
+
+    public Driver get(String forename, String surname, String dob,
+                      String gender, String postCode);
 }
