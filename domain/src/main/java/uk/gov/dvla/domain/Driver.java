@@ -22,6 +22,7 @@ public class Driver extends Person {
     private String statusCode = null;
     private Date photoExpiryDate;
     private List<String> disqualificationStatusCodes;
+    private boolean nslInCorruptedRange;
     @Property("dln")
     @Indexed(unique = true)
     private String currentDriverNumber = null;
@@ -155,5 +156,13 @@ public class Driver extends Person {
 
     public void setDisqualificationStatusCodes(List<String> disqualificationStatusCodes) {
         this.disqualificationStatusCodes = disqualificationStatusCodes;
+    }
+
+    public Boolean getNslInCorruptedRange() {
+        return nslInCorruptedRange;
+    }
+
+    public void setNslInCorruptedRange(Boolean nslInCorruptedRange) {
+        this.nslInCorruptedRange = nslInCorruptedRange;
     }
 }
