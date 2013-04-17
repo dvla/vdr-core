@@ -17,13 +17,14 @@ public class Driver extends Person {
     private List<Integer> stopMarker;
     private List<Integer> restrictionKey;
     private List<String> caseType;
+    private List<String> errorCode;
+    private Boolean endorsementAmountExcess;
     private Boolean carHireEnqPmt = null;
     private String statusCode = null;
     private Date photoExpiryDate;
-    private Boolean endorsementAmountExcess;
     
     @Property("dln")
-    @Indexed
+    @Indexed(unique = true)
     private String currentDriverNumber = null;
 
     public void addLicence(Licence lic) {
@@ -47,8 +48,26 @@ public class Driver extends Person {
         restrictionKey.add(key);
     }
 
+    public void addCaseType(String key) {
+        if (null == caseType) {
+            caseType = new ArrayList<String>();
+        }
+        caseType.add(key);
+    }
+
+    public void addErrorCode(String code) {
+        if (null == errorCode) {
+            errorCode = new ArrayList<String>();
+        }
+        errorCode.add(code);
+    }
+
     public void setLicence(List<Licence> lics) {
         licence = lics;
+    }
+
+    public List<Licence> getLicence() {
+        return this.licence;
     }
 
     public List<Integer> getStopMarker() {
@@ -75,7 +94,16 @@ public class Driver extends Person {
         this.caseType = caseTypes;
     }
 
+    public List<String> getErrorCode() {
+        return this.errorCode;
+    }
+
+    public void setErrorCode(List<String> errorCodes) {
+        this.errorCode = errorCodes;
+    }
+
     public void setCurrentDriverNumber(String dln) {
+
         this.currentDriverNumber = dln;
     }
 
@@ -122,7 +150,7 @@ public class Driver extends Person {
     public void setPhotoExpiryDate(Date photoExpiryDate) {
         this.photoExpiryDate = photoExpiryDate;
     }
-    
+
     public Boolean getEndorsementAmountExcess() {
         return endorsementAmountExcess;
     }

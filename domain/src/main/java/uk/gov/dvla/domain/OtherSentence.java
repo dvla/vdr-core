@@ -9,7 +9,7 @@ import com.google.code.morphia.annotations.Embedded;
 public class OtherSentence {
 
     private String code;
-    private String duration;
+    private Integer duration;
     private String periodType;
 
     public String getCode() {
@@ -18,13 +18,13 @@ public class OtherSentence {
     public void setCode(String code ) {
         this.code = code;
     }
-    public String getDuration() {
+    public int getDuration() {
         return duration;
     }
-    public void setDuration(String duration ) {
+    public void setDuration(Integer duration ) {
         this.duration = duration;
     }
-    public String periodType() {
+    public String getPeriodType() {
         return periodType;
     }
     public void setPeriodType(String periodType ) {
