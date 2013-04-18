@@ -1,7 +1,91 @@
 package uk.gov.dvla.messages
 
 import uk.gov.dvla.servicebus.core.Message
+import org.joda.time.DateTime
 
-case class UserSuccessful(dln : String, result : String) extends Message
-case class UserUnsuccessful(dln : String, result : String) extends Message
-case class DvlaUserUnsuccessful(dln : String, result : String) extends Message
+object Status extends Enumeration {
+  val RecordFound, NotFound, NotValidDln, Suppressed, ServerError, MultipleRecordsFound  = Value
+}
+
+object Result extends Enumeration {
+  val Success, Failure = Value
+}
+
+object ServiceType extends Enumeration {
+  val CustomerPortal, DvlaPortal, ExternalInterface = Value
+}
+
+object AttributeType extends Enumeration {
+    val RecordType, StatusCode, RestrictionKey, StopMarker = Value
+}
+
+object Gender extends Enumeration {
+  val Male, Female = Value
+}
+
+case class Suppression(attributeType : AttributeType.Value, key : String)
+
+case class CustomerDlnSuccessful(dln : String, requestSent : DateTime, responseSent : DateTime, ipAddress : String) extends Message {
+  val result = Result.Success
+  val status = Status.RecordFound
+  val serviceType = ServiceType.CustomerPortal
+}
+
+case class CustomerPersonalDetailsSuccessful(dln : String, forename : String, surname : String, dob : DateTime, gender : Gender.Value, postcode : String,
+                              requestSent : DateTime, responseSent : DateTime, ipAddress : String) extends Message {
+  val result = Result.Success
+  val status = Status.RecordFound
+  val serviceType = ServiceType.CustomerPortal
+}
+
+case class CustomerNotValidDln(dln : String, requestSent : DateTime, responseSent : DateTime, ipAddress : String) extends Message {
+  val result = Result.Failure
+  val status = Status.NotValidDln
+  val serviceType = ServiceType.CustomerPortal
+}
+
+case class CustomerDlnNotFound(dln : String, requestSent : DateTime, responseSent : DateTime, ipAddress : String) extends Message {
+  val result = Result.Failure
+  val status = Status.NotFound
+  val serviceType = ServiceType.CustomerPortal
+}
+
+case class CustomerPersonalDetailsNotFound(forename : String, surname : String, dob : DateTime, gender : Gender.Value, postcode : String,
+                              requestSent : DateTime, responseSent : DateTime, ipAddress : String) extends Message {
+  val result = Result.Failure
+  val status = Status.NotFound
+  val serviceType = ServiceType.CustomerPortal
+}
+
+case class CustomerDlnServerError(dln : String, requestSent : DateTime, responseSent : DateTime, ipAddress : String) extends Message {
+  val result = Result.Failure
+  val status = Status.ServerError
+  val serviceType = ServiceType.CustomerPortal
+}
+
+case class CustomerPersonalDetailsServerError(forename : String, surname : String, dob : DateTime, gender : Gender.Value, postcode : String,
+                              requestSent : DateTime, responseSent : DateTime, ipAddress : String) extends Message {
+  val result = Result.Failure
+  val status = Status.ServerError
+  val serviceType = ServiceType.CustomerPortal
+}
+
+case class CustomerDlnSuppressed(dln : String, requestSent : DateTime, responseSent : DateTime, ipAddress : String, suppression : Suppression) extends Message {
+  val result = Result.Failure
+  val status = Status.Suppressed
+  val serviceType = ServiceType.CustomerPortal
+}
+
+case class CustomerPersonalDetailsSuppressed(forename : String, surname : String, dob : DateTime, gender : Gender.Value, postcode : String,
+                              requestSent : DateTime, responseSent : DateTime, ipAddress : String, suppression : Suppression) extends Message {
+  val result = Result.Failure
+  val status = Status.Suppressed
+  val serviceType = ServiceType.CustomerPortal
+}
+
+case class CustomerMultipleFound(forename : String, surname : String, dob : DateTime, gender : Gender.Value, postcode : String,
+                              requestSent : DateTime, responseSent : DateTime, ipAddress : String, suppression : Suppression) extends Message {
+  val result = Result.Failure
+  val status = Status.MultipleRecordsFound
+  val serviceType = ServiceType.CustomerPortal
+}
