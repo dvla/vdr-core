@@ -16,7 +16,6 @@ public class Entitlement {
 	private Boolean priorTo = null;
 	private Boolean stated = null;
     private List<String> infoCodes;
-//    private UnclaimedTestPass unclaimedTestPass = UnclaimedTestPass.Unclaimed;
     private Integer unclaimedTestPass = 0;
 
     public Date getDatePassed() {
