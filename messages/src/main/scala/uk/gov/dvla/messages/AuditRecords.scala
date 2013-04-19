@@ -4,7 +4,7 @@ import uk.gov.dvla.servicebus.core.Message
 import org.joda.time.DateTime
 
 object Status extends Enumeration {
-  val RecordFound, NotFound, NotValidDln, Suppressed, ServerError, MultipleRecordsFound  = Value
+  val RecordFound, NotFound, NotValid, Suppressed, ServerError, MultipleRecordsFound  = Value
 }
 
 object Result extends Enumeration {
@@ -38,9 +38,16 @@ case class CustomerPersonalDetailsSuccessful(dln : String, forename : String, su
   val serviceType = ServiceType.CustomerPortal
 }
 
-case class CustomerNotValidDln(dln : String, requestSent : DateTime, responseSent : DateTime, ipAddress : String) extends Message {
+case class CustomerDlnNotValid(dln : String, requestSent : DateTime, responseSent : DateTime, ipAddress : String) extends Message {
   val result = Result.Failure
-  val status = Status.NotValidDln
+  val status = Status.NotValid
+  val serviceType = ServiceType.CustomerPortal
+}
+
+case class CustomerPersonalDetailsNotValid(forename : String, surname : String, dob : DateTime, gender : Gender.Value, postcode : String,
+                                 requestSent : DateTime, responseSent : DateTime, ipAddress : String) extends Message {
+  val result = Result.Failure
+  val status = Status.NotValid
   val serviceType = ServiceType.CustomerPortal
 }
 
@@ -84,7 +91,7 @@ case class CustomerPersonalDetailsSuppressed(forename : String, surname : String
 }
 
 case class CustomerMultipleFound(forename : String, surname : String, dob : DateTime, gender : Gender.Value, postcode : String,
-                              requestSent : DateTime, responseSent : DateTime, ipAddress : String, suppression : Suppression) extends Message {
+                              requestSent : DateTime, responseSent : DateTime, ipAddress : String) extends Message {
   val result = Result.Failure
   val status = Status.MultipleRecordsFound
   val serviceType = ServiceType.CustomerPortal
