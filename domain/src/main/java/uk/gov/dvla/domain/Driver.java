@@ -22,7 +22,8 @@ public class Driver extends Person {
     private Boolean carHireEnqPmt = null;
     private String statusCode = null;
     private Date photoExpiryDate;
-    
+    private List<String> disqualificationStatusCodes;
+    private boolean nslInCorruptedRange;
     @Property("dln")
     @Indexed(unique = true)
     private String currentDriverNumber = null;
@@ -103,7 +104,6 @@ public class Driver extends Person {
     }
 
     public void setCurrentDriverNumber(String dln) {
-
         this.currentDriverNumber = dln;
     }
 
@@ -149,6 +149,22 @@ public class Driver extends Person {
 
     public void setPhotoExpiryDate(Date photoExpiryDate) {
         this.photoExpiryDate = photoExpiryDate;
+    }
+
+    public List<String> getDisqualificationStatusCodes() {
+        return disqualificationStatusCodes;
+    }
+
+    public void setDisqualificationStatusCodes(List<String> disqualificationStatusCodes) {
+        this.disqualificationStatusCodes = disqualificationStatusCodes;
+    }
+
+    public Boolean getNslInCorruptedRange() {
+        return nslInCorruptedRange;
+    }
+
+    public void setNslInCorruptedRange(Boolean nslInCorruptedRange) {
+        this.nslInCorruptedRange = nslInCorruptedRange;
     }
 
     public Boolean getEndorsementAmountExcess() {
