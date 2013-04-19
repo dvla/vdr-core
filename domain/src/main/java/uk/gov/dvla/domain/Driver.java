@@ -18,7 +18,7 @@ public class Driver extends Person {
     private List<Integer> restrictionKey;
     private List<String> caseType;
     private List<String> errorCode;
-    private boolean endorsementAmountExcess;
+    private Boolean endorsementAmountExcess;
     private Boolean carHireEnqPmt = null;
     private String statusCode = null;
     private Date photoExpiryDate;
