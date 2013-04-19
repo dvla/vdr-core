@@ -18,6 +18,7 @@ public class Driver extends Person {
     private List<Integer> restrictionKey;
     private List<String> caseType;
     private List<String> errorCode;
+    private Boolean endorsementAmountExcess;
     private Boolean carHireEnqPmt = null;
     private String statusCode = null;
     private Date photoExpiryDate;
@@ -164,5 +165,13 @@ public class Driver extends Person {
 
     public void setNslInCorruptedRange(Boolean nslInCorruptedRange) {
         this.nslInCorruptedRange = nslInCorruptedRange;
+    }
+
+    public Boolean getEndorsementAmountExcess() {
+        return endorsementAmountExcess;
+    }
+
+    public void setEndorsementAmountExcess(Boolean endorsmentAmountExcess) {
+        this.endorsementAmountExcess = endorsmentAmountExcess;
     }
 }
