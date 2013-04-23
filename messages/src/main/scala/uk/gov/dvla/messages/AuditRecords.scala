@@ -20,7 +20,9 @@ object AttributeType extends Enumeration {
 }
 
 object Gender extends Enumeration {
-  val Male, Female = Value
+  val Male = Value(0)
+  val Female = Value(1)
+  val MissingGender = Value(99)
 }
 
 case class Suppression(attributeType : AttributeType.Value, key : String)
