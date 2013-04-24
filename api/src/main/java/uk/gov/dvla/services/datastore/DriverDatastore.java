@@ -9,6 +9,6 @@ public interface DriverDatastore extends Datastore, ManagedService
 {
 	public Driver findByDln(String dln);
 	
-	public Driver findByPersonalDetails(List<String> forenames, String surname, Date dob, int gender, String postCode);
+	public List<Driver> findByPersonalDetails(List<String> forenames, String surname, Date dob, int gender, String postCode);
 
 }
