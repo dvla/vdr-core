@@ -19,12 +19,6 @@ object AttributeType extends Enumeration {
     val RecordType, StatusCode, RestrictionKey, StopMarker = Value
 }
 
-object Gender extends Enumeration {
-  val Male = Value(0)
-  val Female = Value(1)
-  val MissingGender = Value(99)
-}
-
 case class Suppression(attributeType : AttributeType.Value, key : String)
 
 case class CustomerDlnSuccessful(dln : String, requestSent : DateTime, responseSent : DateTime, ipAddress : String) extends Message {
@@ -33,7 +27,7 @@ case class CustomerDlnSuccessful(dln : String, requestSent : DateTime, responseS
   val serviceType = ServiceType.CustomerPortal
 }
 
-case class CustomerPersonalDetailsSuccessful(dln : String, forename : String, surname : String, dob : DateTime, gender : Gender.Value, postcode : String,
+case class CustomerPersonalDetailsSuccessful(dln : String, forename : String, surname : String, dob : DateTime, gender : Int, postcode : String,
                               requestSent : DateTime, responseSent : DateTime, ipAddress : String) extends Message {
   val result = Result.Success
   val status = Status.RecordFound
@@ -46,7 +40,7 @@ case class CustomerDlnNotValid(dln : String, requestSent : DateTime, responseSen
   val serviceType = ServiceType.CustomerPortal
 }
 
-case class CustomerPersonalDetailsNotValid(forename : String, surname : String, dob : DateTime, gender : Gender.Value, postcode : String,
+case class CustomerPersonalDetailsNotValid(forename : String, surname : String, dob : DateTime, gender : Int, postcode : String,
                                  requestSent : DateTime, responseSent : DateTime, ipAddress : String) extends Message {
   val result = Result.Failure
   val status = Status.NotValid
@@ -59,7 +53,7 @@ case class CustomerDlnNotFound(dln : String, requestSent : DateTime, responseSen
   val serviceType = ServiceType.CustomerPortal
 }
 
-case class CustomerPersonalDetailsNotFound(forename : String, surname : String, dob : DateTime, gender : Gender.Value, postcode : String,
+case class CustomerPersonalDetailsNotFound(forename : String, surname : String, dob : DateTime, gender : Int, postcode : String,
                               requestSent : DateTime, responseSent : DateTime, ipAddress : String) extends Message {
   val result = Result.Failure
   val status = Status.NotFound
@@ -72,7 +66,7 @@ case class CustomerDlnServerError(dln : String, requestSent : DateTime, response
   val serviceType = ServiceType.CustomerPortal
 }
 
-case class CustomerPersonalDetailsServerError(forename : String, surname : String, dob : DateTime, gender : Gender.Value, postcode : String,
+case class CustomerPersonalDetailsServerError(forename : String, surname : String, dob : DateTime, gender : Int, postcode : String,
                               requestSent : DateTime, responseSent : DateTime, ipAddress : String) extends Message {
   val result = Result.Failure
   val status = Status.ServerError
@@ -85,14 +79,14 @@ case class CustomerDlnSuppressed(dln : String, requestSent : DateTime, responseS
   val serviceType = ServiceType.CustomerPortal
 }
 
-case class CustomerPersonalDetailsSuppressed(forename : String, surname : String, dob : DateTime, gender : Gender.Value, postcode : String,
+case class CustomerPersonalDetailsSuppressed(forename : String, surname : String, dob : DateTime, gender : Int, postcode : String,
                               requestSent : DateTime, responseSent : DateTime, ipAddress : String, suppression : Suppression) extends Message {
   val result = Result.Failure
   val status = Status.Suppressed
   val serviceType = ServiceType.CustomerPortal
 }
 
-case class CustomerMultipleFound(forename : String, surname : String, dob : DateTime, gender : Gender.Value, postcode : String,
+case class CustomerMultipleFound(forename : String, surname : String, dob : DateTime, gender : Int, postcode : String,
                               requestSent : DateTime, responseSent : DateTime, ipAddress : String) extends Message {
   val result = Result.Failure
   val status = Status.MultipleRecordsFound
