@@ -19,8 +19,6 @@ object AttributeType extends Enumeration {
     val RecordType, StatusCode, RestrictionKey, StopMarker = Value
 }
 
-case class Suppression(attributeType : AttributeType.Value, key : String)
-
 case class CustomerDlnSuccessful(dln : String, requestSent : DateTime, responseSent : DateTime, ipAddress : String) extends Message {
   val result = Result.Success
   val status = Status.RecordFound
@@ -73,14 +71,14 @@ case class CustomerPersonalDetailsServerError(forename : String, surname : Strin
   val serviceType = ServiceType.CustomerPortal
 }
 
-case class CustomerDlnSuppressed(dln : String, requestSent : DateTime, responseSent : DateTime, ipAddress : String, suppression : Suppression) extends Message {
+case class CustomerDlnSuppressed(dln : String, requestSent : DateTime, responseSent : DateTime, ipAddress : String, suppressionReason : String) extends Message {
   val result = Result.Failure
   val status = Status.Suppressed
   val serviceType = ServiceType.CustomerPortal
 }
 
 case class CustomerPersonalDetailsSuppressed(forename : String, surname : String, dob : DateTime, gender : Int, postcode : String,
-                              requestSent : DateTime, responseSent : DateTime, ipAddress : String, suppression : Suppression) extends Message {
+                              requestSent : DateTime, responseSent : DateTime, ipAddress : String, suppressionReason : String) extends Message {
   val result = Result.Failure
   val status = Status.Suppressed
   val serviceType = ServiceType.CustomerPortal
