@@ -6,18 +6,20 @@ public class ServiceResult<T>
 {
     private T result;
     private List<Message> messages;
+    private String ruleApplied;
 
     public ServiceResult(){}
 
     public ServiceResult(T result)
     {
-        this(result, null);
+        this(result, null, null);
     }
 
-    public ServiceResult(T result, List<Message> messages)
+    public ServiceResult(T result, List<Message> messages, String ruleApplied)
     {
         this.result = result;
         this.messages = messages;
+        this.ruleApplied = ruleApplied;
     }
 
     public void setResult(T result)
@@ -62,5 +64,13 @@ public class ServiceResult<T>
             return true;
         }
         return false;
+    }
+
+    public String getRuleApplied() {
+        return ruleApplied;
+    }
+
+    public void setRuleApplied(String ruleApplied) {
+        this.ruleApplied = ruleApplied;
     }
 }
