@@ -13,7 +13,7 @@ class MessageSpec extends FlatSpec with MustMatchers {
   val forename = "John"
   val surname = "Smith"
   val dob = new DateTime(1980, 12, 12, 1, 1)
-  val gender = Gender(0)
+  val gender = 0
   val postcode = "SA11EW"
 
   "When created, a CustomerDlnSuccessful audit message" should "have the correct result, status and service type" in {
