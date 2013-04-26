@@ -82,7 +82,7 @@ class MessageSpec extends FlatSpec with MustMatchers {
 
   "When created, a CustomerDlnSuppressed audit message" should "have the correct result, status and service type" in {
 
-    val result = CustomerDlnSuppressed(dln, requestSentDate, responseSentDate, ipAddress, Suppression(AttributeType.RecordType, "N"))
+    val result = CustomerDlnSuppressed(dln, requestSentDate, responseSentDate, ipAddress, "RecordType N")
     result.status must be(Status.Suppressed)
     result.result must be(Result.Failure)
     result.serviceType must be(ServiceType.CustomerPortal)
@@ -90,7 +90,7 @@ class MessageSpec extends FlatSpec with MustMatchers {
 
   "When created, a CustomerPersonalDetailsSuppressed audit message" should "have the correct result, status and service type" in {
 
-    val result = CustomerPersonalDetailsSuppressed(forename, surname, dob, gender, postcode, requestSentDate, responseSentDate, ipAddress, Suppression(AttributeType.RecordType, "N"))
+    val result = CustomerPersonalDetailsSuppressed(forename, surname, dob, gender, postcode, requestSentDate, responseSentDate, ipAddress, "RecordType N")
     result.status must be(Status.Suppressed)
     result.result must be(Result.Failure)
     result.serviceType must be(ServiceType.CustomerPortal)
