@@ -19,7 +19,7 @@ object AttributeType extends Enumeration {
     val RecordType, StatusCode, RestrictionKey, StopMarker = Value
 }
 
-case class CustomerDlnSuccessful(dln : String, requestSent : DateTime, responseSent : DateTime, ipAddress : String) extends Message {
+case class CustomerDlnSuccessful(dln : String, postcode : String, requestSent : DateTime, responseSent : DateTime, ipAddress : String) extends Message {
   val result = Result.Success
   val status = Status.RecordFound
   val serviceType = ServiceType.CustomerPortal
@@ -45,7 +45,7 @@ case class CustomerPersonalDetailsNotValid(forename : String, surname : String, 
   val serviceType = ServiceType.CustomerPortal
 }
 
-case class CustomerDlnNotFound(dln : String, requestSent : DateTime, responseSent : DateTime, ipAddress : String) extends Message {
+case class CustomerDlnNotFound(dln : String, postcode: String, requestSent : DateTime, responseSent : DateTime, ipAddress : String) extends Message {
   val result = Result.Failure
   val status = Status.NotFound
   val serviceType = ServiceType.CustomerPortal
