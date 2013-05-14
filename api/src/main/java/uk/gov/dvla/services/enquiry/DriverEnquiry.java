@@ -7,7 +7,7 @@ import uk.gov.dvla.services.ManagedService;
 public interface DriverEnquiry extends ManagedService
 {
     public static final String DRIVER_URI = "/driver/";
-    public static final String CUSTOMER_PORTAL = "customer_portal";
+    public static final String CUSTOMER_PORTAL = "customer.portal";
     public static final String MIB = "mib";
 
     public static final String DLN_PARAM = "dln";
