@@ -6,4 +6,5 @@ import java.util.HashMap;
 public interface FilterService<T>
 {
     public ServiceResult<T> filter(T objectToFilter, HashMap<String, Object> otherValues);
+    public ServiceResult<T> filter(T objectToFilter);
 }
