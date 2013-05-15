@@ -6,6 +6,7 @@ import uk.gov.dvla.services.ManagedService;
 
 public interface DriverEnquiry extends ManagedService
 {
+    public static final String EXTERNAL_DRIVER_URI = "/external/driver/";
     public static final String DRIVER_URI = "/driver/";
     public static final String CUSTOMER_PORTAL = "customer.portal";
     public static final String MIB = "mib";
