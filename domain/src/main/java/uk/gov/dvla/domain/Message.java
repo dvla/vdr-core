@@ -4,7 +4,7 @@ package uk.gov.dvla.domain;
 public class Message
 {
     private String key;
-    private String message;
+    private String description;
     private boolean error;
     private int type;
 
@@ -21,9 +21,9 @@ public class Message
         this.type = type.getMessageType();
     }
 
-    public Message(String message, boolean error)
+    public Message(String description, boolean error)
     {
-        this.message = message;
+        this.description = description;
         this.error = error;
     }
 
@@ -37,9 +37,14 @@ public class Message
         this.key = key;
     }
 
-    public void setMessage(String message)
+    public String getDescription()
     {
-        this.message = message;
+        return this.description;
+    }
+
+    public void setDescription(String description)
+    {
+        this.description = description;
     }
 
     public void setError(boolean error)
