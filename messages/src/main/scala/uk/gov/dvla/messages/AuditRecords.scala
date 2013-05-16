@@ -38,6 +38,12 @@ case class CustomerDlnNotValid(dln : String, requestSent : DateTime, responseSen
   val serviceType = ServiceType.CustomerPortal
 }
 
+case class CustomerPostcodeNotMatched(dln : String, postcode : String, requestSent : DateTime, responseSent : DateTime, ipAddress : String,suppressionReason : String) extends Message {
+  val result = Result.Failure
+  val status = Status.NotValid
+  val serviceType = ServiceType.CustomerPortal
+}
+
 case class CustomerPersonalDetailsNotValid(forename : String, surname : String, dob : DateTime, gender : Int, postcode : String,
                                  requestSent : DateTime, responseSent : DateTime, ipAddress : String) extends Message {
   val result = Result.Failure
