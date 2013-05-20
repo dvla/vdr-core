@@ -1,9 +1,14 @@
 package uk.gov.dvla.services.filter;
 
 import uk.gov.dvla.domain.ServiceResult;
+import java.util.UUID;
 import java.util.HashMap;
+
 
 public interface FilterService<T>
 {
-    public ServiceResult<T> filter(T objectToFilter, HashMap<String, Object> otherValues);
+    public ServiceResult<T> filter(UUID id, T objectToFilter, String Context, HashMap<String, Object> otherValues);
+
+    public ServiceResult<T> filter(T objectToFilter, String Context, HashMap<String, Object> otherValues);
+
 }
