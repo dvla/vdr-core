@@ -18,7 +18,7 @@ class MessageSpec extends FlatSpec with MustMatchers {
 
   "When created, a CustomerDlnSuccessful audit message" should "have the correct result, status and service type" in {
 
-    val customerDlnSuccessful = CustomerDlnSuccessful(dln, requestSentDate, responseSentDate, ipAddress)
+    val customerDlnSuccessful = CustomerDlnSuccessful(dln, postcode, requestSentDate, responseSentDate, ipAddress)
     customerDlnSuccessful.status must be(Status.RecordFound)
     customerDlnSuccessful.result must be(Result.Success)
     customerDlnSuccessful.serviceType must be(ServiceType.CustomerPortal)
@@ -50,7 +50,7 @@ class MessageSpec extends FlatSpec with MustMatchers {
 
   "When created, a CustomerDlnNotFound audit message" should "have the correct result, status and service type" in {
 
-    val result = CustomerDlnNotFound(dln, requestSentDate, responseSentDate, ipAddress)
+    val result = CustomerDlnNotFound(dln, postcode, requestSentDate, responseSentDate, ipAddress)
     result.status must be(Status.NotFound)
     result.result must be(Result.Failure)
     result.serviceType must be(ServiceType.CustomerPortal)
