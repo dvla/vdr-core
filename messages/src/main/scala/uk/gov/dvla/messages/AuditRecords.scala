@@ -38,7 +38,7 @@ case class CustomerDlnNotValid(dln : String, requestSent : DateTime, responseSen
   val serviceType = ServiceType.CustomerPortal
 }
 
-case class CustomerPostcodeNotMatched(dln : String, postcode : String, requestSent : DateTime, responseSent : DateTime, ipAddress : String,suppressionReason : String) extends Message {
+case class CustomerPostcodeNotMatched(dln : String, postcode : String, requestSent : DateTime, responseSent : DateTime, ipAddress : String) extends Message {
   val result = Result.Failure
   val status = Status.NotValid
   val serviceType = ServiceType.CustomerPortal
