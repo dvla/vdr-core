@@ -5,8 +5,7 @@ public enum MessageType {
     SuppressEntitlements(1, "Entitlement Suppression"),
     SuppressLicenceStatus(2, "Suppress Licence Status"),
     SuppressLicenceValidFrom(3, "Suppress Licence Valid From Date"),
-    SuppressLicenceValidTo(4, "Suppress Licence Valid To Date"),
-    SuppressRecordPostcodeMismatch(5,"Suppress Record postcode mismatch");
+    SuppressLicenceValidTo(4, "Suppress Licence Valid To Date");
 
 
     public int getMessageType()
