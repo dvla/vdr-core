@@ -29,6 +29,13 @@ public class Licence {
 		entitlements.add(ent);
 	}
 
+    public void addEndorsement(Endorsement end) {
+        if (null == endorsements) {
+            endorsements = new ArrayList<Endorsement>();
+        }
+        endorsements.add(end);
+    }
+
     public void setIssueNumber(String issueNumber) {
         this.issueNumber = issueNumber;
     }
