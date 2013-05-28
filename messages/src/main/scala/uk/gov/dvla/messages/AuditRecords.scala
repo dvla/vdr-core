@@ -4,7 +4,13 @@ import uk.gov.dvla.servicebus.core.Message
 import org.joda.time.DateTime
 
 object Status extends Enumeration {
-  val RecordFound, NotFound, NotValid, Suppressed, ServerError, MultipleRecordsFound  = Value
+  val RecordFound,
+  NotFound,
+  NotValid,
+  Suppressed,
+  ServerError,
+  MultipleRecordsFound,
+  PostcodeContainsSpecialCharacter = Value
 }
 
 object Result extends Enumeration {
@@ -33,12 +39,6 @@ case class CustomerPersonalDetailsSuccessful(dln : String, forename : String, su
 }
 
 case class CustomerDlnNotValid(dln : String, requestSent : DateTime, responseSent : DateTime, ipAddress : String) extends Message {
-  val result = Result.Failure
-  val status = Status.NotValid
-  val serviceType = ServiceType.CustomerPortal
-}
-
-case class CustomerPostcodeNotMatched(dln : String, postcode : String, requestSent : DateTime, responseSent : DateTime, ipAddress : String) extends Message {
   val result = Result.Failure
   val status = Status.NotValid
   val serviceType = ServiceType.CustomerPortal
@@ -94,5 +94,18 @@ case class CustomerMultipleFound(forename : String, surname : String, dob : Date
                               requestSent : DateTime, responseSent : DateTime, ipAddress : String) extends Message {
   val result = Result.Failure
   val status = Status.MultipleRecordsFound
+  val serviceType = ServiceType.CustomerPortal
+}
+
+case class CustomerPostcodeNotMatched(dln : String, postcode : String, requestSent : DateTime, responseSent : DateTime, ipAddress : String) extends Message {
+  val result = Result.Failure
+  val status = Status.NotValid
+  val serviceType = ServiceType.CustomerPortal
+}
+
+case class CustomerPostcodeContainsSpecialCharacter(dln : String, postcode : String, requestSent : DateTime,
+                                                    responseSent : DateTime, ipAddress : String) extends Message {
+  val result = Result.Success
+  val status = Status.PostcodeContainsSpecialCharacter
   val serviceType = ServiceType.CustomerPortal
 }
