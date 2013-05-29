@@ -8,26 +8,25 @@ import com.google.code.morphia.annotations.Embedded;
 
 @Embedded
 public class Licence {
-	
-	public Date validFrom;
-	public Date validTo;
+
+    public Date validFrom;
+    public Date validTo;
     public String type;
     public Integer directiveStatus;
     public String issueNumber;
-	
-	private List<Entitlement> entitlements;
+    private List<Entitlement> entitlements;
     private List<Endorsement> endorsements;
-	
-	public void addEntitlement(String code){
-		if (null == entitlements){
-			entitlements = new ArrayList<Entitlement>();
-		}
-		Entitlement ent = new Entitlement();
-		ent.setCode(code);
-		ent.setValidFrom(new Date());
-		ent.setValidTo(new Date());
-		entitlements.add(ent);
-	}
+
+    public void addEntitlement(String code) {
+        if (null == entitlements) {
+            entitlements = new ArrayList<Entitlement>();
+        }
+        Entitlement ent = new Entitlement();
+        ent.setCode(code);
+        ent.setValidFrom(new Date());
+        ent.setValidTo(new Date());
+        entitlements.add(ent);
+    }
 
     public void addEndorsement(Endorsement end) {
         if (null == endorsements) {
@@ -41,7 +40,7 @@ public class Licence {
     }
 
     public String getIssueNumber() {
-        return  issueNumber;
+        return issueNumber;
     }
 
     public void setDirectiveStatus(Integer directiveStatus) {
@@ -49,24 +48,24 @@ public class Licence {
     }
 
     public Integer getDirectiveStatus() {
-        return  directiveStatus;
+        return directiveStatus;
     }
 
-	public Date getValidFrom() {
-		return validFrom;
-	}
+    public Date getValidFrom() {
+        return validFrom;
+    }
 
-	public void setValidFrom(Date validFrom) {
-		this.validFrom = validFrom;
-	}
+    public void setValidFrom(Date validFrom) {
+        this.validFrom = validFrom;
+    }
 
-	public Date getValidTo() {
-		return validTo;
-	}
+    public Date getValidTo() {
+        return validTo;
+    }
 
-	public void setValidTo(Date validTo) {
-		this.validTo = validTo;
-	}
+    public void setValidTo(Date validTo) {
+        this.validTo = validTo;
+    }
 
     public String getType() {
         return type;
@@ -76,13 +75,13 @@ public class Licence {
         this.type = type;
     }
 
-	public List<Entitlement> getEntitlements() {
-		return entitlements;
-	}
+    public List<Entitlement> getEntitlements() {
+        return entitlements;
+    }
 
-	public void setEntitlements(List<Entitlement> entitlements) {
-		this.entitlements = entitlements;
-	}
+    public void setEntitlements(List<Entitlement> entitlements) {
+        this.entitlements = entitlements;
+    }
 
     public List<Endorsement> getEndorsements() {
         return endorsements;
