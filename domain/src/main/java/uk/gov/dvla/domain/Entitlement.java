@@ -15,7 +15,7 @@ public class Entitlement {
     private Boolean provisional = null;
     private Boolean priorTo = null;
     private Boolean stated = null;
-    private List<InfoCode> infoCodes;
+    private List<EntitlementRestriction> restrictions;
     private Integer unclaimedTestPass = 0;
 
     public Date getDatePassed() {
@@ -74,12 +74,12 @@ public class Entitlement {
         this.stated = stated;
     }
 
-    public List<InfoCode> getInfoCodes() {
-        return infoCodes;
+    public List<EntitlementRestriction> getInfoCodes() {
+        return restrictions;
     }
 
-    public void setInfoCodes(List<InfoCode> codes) {
-        this.infoCodes = codes;
+    public void setInfoCodes(List<EntitlementRestriction> restrictions) {
+        this.restrictions = restrictions;
     }
 
     public Integer getUnclaimedTestPass() {
