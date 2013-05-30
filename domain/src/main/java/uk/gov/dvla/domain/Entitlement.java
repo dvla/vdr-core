@@ -74,11 +74,11 @@ public class Entitlement {
         this.stated = stated;
     }
 
-    public List<EntitlementRestriction> getInfoCodes() {
+    public List<EntitlementRestriction> getRestrictions() {
         return restrictions;
     }
 
-    public void setInfoCodes(List<EntitlementRestriction> restrictions) {
+    public void setRestrictions(List<EntitlementRestriction> restrictions) {
         this.restrictions = restrictions;
     }
 
