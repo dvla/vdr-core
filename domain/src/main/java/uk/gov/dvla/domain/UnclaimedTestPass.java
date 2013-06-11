@@ -8,7 +8,6 @@ public enum UnclaimedTestPass {
     Unclaimed(1, "True"),
     Cancelled(2, "Cancelled");
 
-
     public int getUnclaimedTestPass()
     {
         return value;

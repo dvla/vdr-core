@@ -16,7 +16,7 @@ public class Entitlement {
     private Boolean priorTo = null;
     private Boolean stated = null;
     private List<EntitlementRestriction> restrictions;
-    private Integer unclaimedTestPass = 0;
+    private UnclaimedTestPass unclaimedTestPass = null;
     private EntitlementType entitlementType = null;
 
     public Date getDatePassed() {
@@ -83,11 +83,11 @@ public class Entitlement {
         this.restrictions = restrictions;
     }
 
-    public Integer getUnclaimedTestPass() {
+    public UnclaimedTestPass getUnclaimedTestPass() {
         return unclaimedTestPass;
     }
 
-    public void setUnclaimedTestPass(Integer unclaimedTestPass) {
+    public void setUnclaimedTestPass(UnclaimedTestPass unclaimedTestPass) {
         this.unclaimedTestPass = unclaimedTestPass;
     }
 
