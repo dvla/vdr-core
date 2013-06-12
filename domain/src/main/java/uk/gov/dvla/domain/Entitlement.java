@@ -3,6 +3,7 @@ package uk.gov.dvla.domain;
 import java.util.Date;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.google.code.morphia.annotations.Embedded;
 
 @Embedded
@@ -12,12 +13,11 @@ public class Entitlement {
     private Date validFrom;
     private Date validTo;
     private Date datePassed;
-    private Boolean provisional = null;
-    private Boolean priorTo = null;
-    private Boolean stated = null;
+    private Boolean isProvisional = null;
+    private Boolean isPriorTo = null;
+    private Boolean isStated = null;
     private List<EntitlementRestriction> restrictions;
-    private UnclaimedTestPass unclaimedTestPass = null;
-    private EntitlementType entitlementType = null;
+    private TestPassStatus testPassStatus;
 
     public Date getDatePassed() {
         return datePassed;
@@ -51,28 +51,28 @@ public class Entitlement {
         this.validTo = validTo;
     }
 
-    public Boolean getProvisional() {
-        return provisional;
+    public Boolean getIsProvisional() {
+        return isProvisional;
     }
 
-    public void setProvisional(Boolean provisional) {
-        this.provisional = provisional;
+    public void setIsProvisional(Boolean provisional) {
+        this.isProvisional = provisional;
     }
 
-    public Boolean getPriorTo() {
-        return priorTo;
+    public Boolean getIsPriorTo() {
+        return isPriorTo;
     }
 
-    public void setPriorTo(Boolean priorTo) {
-        this.priorTo = priorTo;
+    public void setIsPriorTo(Boolean priorTo) {
+        this.isPriorTo = priorTo;
     }
 
-    public Boolean getStated() {
-        return stated;
+    public Boolean getIsStated() {
+        return isStated;
     }
 
-    public void setStated(Boolean stated) {
-        this.stated = stated;
+    public void setIsStated(Boolean isStated) {
+        this.isStated = isStated;
     }
 
     public List<EntitlementRestriction> getRestrictions() {
@@ -83,19 +83,27 @@ public class Entitlement {
         this.restrictions = restrictions;
     }
 
-    public UnclaimedTestPass getUnclaimedTestPass() {
-        return unclaimedTestPass;
+    public TestPassStatus getTestPassStatus() {
+        return this.testPassStatus;
     }
 
-    public void setUnclaimedTestPass(UnclaimedTestPass unclaimedTestPass) {
-        this.unclaimedTestPass = unclaimedTestPass;
+    public void setTestPassStatus(TestPassStatus testPassStatus) {
+        this.testPassStatus = testPassStatus;
     }
 
+    // Calculated field used to simplify data sent to the MIB
+    @JsonProperty("entitlementType")
     public EntitlementType getEntitlementType() {
-        return entitlementType;
-    }
+        EntitlementType entitlementType = EntitlementType.Full;
 
-    public void setEntitlementType(EntitlementType entitlementType) {
-        this.entitlementType = entitlementType;
+        if (isProvisional) {
+            if (testPassStatus == TestPassStatus.Unclaimed) {
+                entitlementType = EntitlementType.UnclaimedTestPass;
+            }else {
+                entitlementType = EntitlementType.Provisional;
+            }
+        }
+
+        return entitlementType;
     }
 }

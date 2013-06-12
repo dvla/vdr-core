@@ -3,12 +3,12 @@ package uk.gov.dvla.domain;
 import com.google.code.morphia.annotations.Embedded;
 
 @Embedded
-public enum UnclaimedTestPass {
-    NotUnclaimed(0, "False"),
-    Unclaimed(1, "True"),
+public enum TestPassStatus {
+    Claimed(0, "Claimed"),
+    Unclaimed(1, "Unclaimed"),
     Cancelled(2, "Cancelled");
 
-    public int getUnclaimedTestPass()
+    public int getTestPassStatus()
     {
         return value;
     }
@@ -16,7 +16,7 @@ public enum UnclaimedTestPass {
     private int value;
     private String valueName;
 
-    private UnclaimedTestPass(int value, String valueName) {
+    private TestPassStatus(int value, String valueName) {
         this.value = value;
         this.valueName = valueName;
     }
