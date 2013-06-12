@@ -2,8 +2,6 @@ package uk.gov.dvla.services.filter;
 
 import uk.gov.dvla.domain.ServiceResult;
 import java.util.UUID;
-import java.util.HashMap;
-
 
 public interface FilterService<T>
 {
