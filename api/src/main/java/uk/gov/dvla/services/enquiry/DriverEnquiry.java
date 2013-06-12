@@ -24,6 +24,9 @@ public interface DriverEnquiry extends ManagedService
 
     public static final String SERVICE_TYPE_PARAM = "type";
 
+    public static final String CONTACT_CHANNEL_PARAM = "cc";
+    public static final String ENQUIRY_REASON_PARAM = "er";
+
 	public Driver get(String dln);
 	
 	public Driver get(Person person);
