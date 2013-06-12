@@ -10,7 +10,8 @@ object Status extends Enumeration {
   Suppressed,
   ServerError,
   MultipleRecordsFound,
-  PostcodeContainsSpecialCharacter = Value
+  PostcodeContainsSpecialCharacter,
+  UnauthorisedAccess = Value
 }
 
 object Result extends Enumeration {
@@ -112,28 +113,32 @@ case class CustomerPostcodeContainsSpecialCharacter(dln : String, postcode : Str
 }
 
 case class DVLADlnSuccessful(dln : String, requestSent : DateTime, responseSent : DateTime,
-                             contactChannel : String, enquiryReason : String, userId: String) extends Message {
+                             contactChannel : String, enquiryReason : String, userId: String,
+                              ipAddress: String) extends Message {
   val result = Result.Success
   val status = Status.RecordFound
   val serviceType = ServiceType.DvlaPortal
 }
 
 case class DVLADlnNotFound(dln: String, requestSent: DateTime, responseSent: DateTime,
-                              contactChannel: String, enquiryReason: String, userId: String) extends Message {
+                            contactChannel: String, enquiryReason: String, userId: String,
+                            ipAddress: String) extends Message {
   val result = Result.Failure
   val status = Status.NotFound
   val serviceType = ServiceType.DvlaPortal
 }
 
 case class DVLADlnServerError(dln: String, requestSent: DateTime, responseSent: DateTime,
-                               contactChannel: String, enquiryReason: String, userId: String) extends Message {
+                               contactChannel: String, enquiryReason: String, userId: String,
+                               ipAddress: String) extends Message {
   val result = Result.Failure
   val status = Status.ServerError
   val serviceType = ServiceType.DvlaPortal
 }
 
 case class DVLADlnNotValid(dln: String, requestSent: DateTime, responseSent: DateTime,
-                            contactChannel: String, enquiryReason: String, userId: String) extends Message {
+                            contactChannel: String, enquiryReason: String, userId: String,
+                            ipAddress: String) extends Message {
   val result = Result.Failure
   val status = Status.NotValid
   val serviceType = ServiceType.DvlaPortal
@@ -141,7 +146,7 @@ case class DVLADlnNotValid(dln: String, requestSent: DateTime, responseSent: Dat
 
 case class DVLADlnSuppressed(dln: String, requestSent: DateTime, responseSent: DateTime,
                              suppressionReason: String, contactChannel: String, enquiryReason: String,
-                             userId: String) extends Message {
+                             ipAddress: String) extends Message {
   val result = Result.Failure
   val status = Status.Suppressed
   val serviceType = ServiceType.DvlaPortal
@@ -149,8 +154,8 @@ case class DVLADlnSuppressed(dln: String, requestSent: DateTime, responseSent: D
 
 case class DVLAPersonalDetailsSuccessful(dln: String, forename: String, surname: String, dob: DateTime, gender: Int,
                                           postCode: String, requestSent: DateTime, responseSent: DateTime,
-                                          contactChannel: String, enquiryReason: String, userId: String)
-                                          extends Message {
+                                          contactChannel: String, enquiryReason: String, userId: String,
+                                          ipAddress: String) extends Message {
   val result = Result.Success
   val status = Status.RecordFound
   val serviceType = ServiceType.DvlaPortal
@@ -158,7 +163,7 @@ case class DVLAPersonalDetailsSuccessful(dln: String, forename: String, surname:
 
 case class DVLAPersonalDetailsNotFound(forename: String, surname: String, dob: DateTime, gender: Int, postCode: String,
                                         requestSent: DateTime, responseSent: DateTime, contactChannel: String,
-                                        enquiryReason:String, userId: String) extends Message {
+                                        enquiryReason:String, userId: String, ipAddress: String) extends Message {
   val result = Result.Success
   val status = Status.NotFound
   val serviceType = ServiceType.DvlaPortal
@@ -166,7 +171,7 @@ case class DVLAPersonalDetailsNotFound(forename: String, surname: String, dob: D
 
 case class DVLAPersonalDetailsNotValid(forename: String, surname: String, dob: DateTime, gender: Int, postCode: String,
                                         requestSent: DateTime, responseSent: DateTime, contactChannel: String,
-                                        enquiryReason: String, userId: String) extends Message {
+                                        enquiryReason: String, userId: String, ipAddress: String) extends Message {
   val result = Result.Success
   val status = Status.NotFound
   val serviceType = ServiceType.DvlaPortal
@@ -175,8 +180,32 @@ case class DVLAPersonalDetailsNotValid(forename: String, surname: String, dob: D
 case class DVLAPersonalDetailsServerError(forename: String, surname: String, dob: DateTime, gender: Int,
                                            postCode: String, requestSent: DateTime, responseSent: DateTime,
                                            contactChannel: String, enquiryReason: String,
-                                           userId: String) extends Message {
+                                           userId: String, ipAddress: String) extends Message {
   val result = Result.Success
   val status = Status.ServerError
+  val serviceType = ServiceType.DvlaPortal
+}
+
+case class DVLAPersonalDetailsSuppressed(dln: String, forename: String, surname: String, dob: DateTime, gender: Int,
+                                          postCode: String, requestSent: DateTime, responseSent: DateTime,
+                                          suppressionReason: String, contactChannel: String, enquiryReason: String,
+                                          ipAddress: String) extends Message {
+  val result = Result.Failure
+  val status = Status.Suppressed
+  val serviceType = ServiceType.DvlaPortal
+}
+
+case class DVLAMultipleFound(forename : String, surname : String, dob : DateTime, gender : Int, postcode : String,
+                                 requestSent : DateTime, responseSent : DateTime, contactChannel: String,
+                                 enquiryReason: String, userId : String, ipAddress: String) extends Message {
+  val result = Result.Failure
+  val status = Status.MultipleRecordsFound
+  val serviceType = ServiceType.DvlaPortal
+}
+
+case class DVLAUnauthorisedAccess(userId: String, requestSent: DateTime, responseSent: DateTime,
+                                  ipAddress: String) extends Message {
+  val result = Result.Failure
+  val status = Status.UnauthorisedAccess
   val serviceType = ServiceType.DvlaPortal
 }
