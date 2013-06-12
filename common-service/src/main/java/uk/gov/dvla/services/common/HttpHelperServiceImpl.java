@@ -1,7 +1,5 @@
 package uk.gov.dvla.services.common;
 
-import org.joda.time.DateTime;
-
 import javax.servlet.http.HttpServletRequest;
 
 public class HttpHelperServiceImpl implements HttpHelperService {
