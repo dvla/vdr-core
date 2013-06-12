@@ -10,8 +10,6 @@ import java.util.Date;
 import java.util.List;
 
 public interface AuditorService {
-    public void auditMultipleFound(List<Driver> drivers, HttpServletRequest request, DateTime requestSent,
-                                   String forenames, String surname, Date parsedDob, Integer gender, String postcode);
 
     public void auditPostcodeMismatch(Driver driver, String dln, String postcode, HttpServletRequest request, DateTime requestSent);
 
@@ -20,5 +18,11 @@ public interface AuditorService {
     public void auditDetailsSuppression(ServiceResult<Driver> result, String forenames, String surname, String dob,
                                         Integer gender, String postcode, HttpServletRequest request, DateTime requestSent) throws ParseException;
 
-    public void auditDVLADlnSuppression(ServiceResult<Driver> driver, String dln, DateTime requestSent);
+    public void auditDVLADlnSuppression(ServiceResult<Driver> driver, String dln, DateTime requestSent, String
+            contactChannel, String enquiryReason, HttpServletRequest request);
+
+    public void auditDVLADetailsSuppression(ServiceResult<Driver> driver, String dln, String forenames,
+                                            String surname, String dob, Integer gender, String postcode,
+                                            DateTime requestSent, String contactChannel,
+                                            String enquiryReason, HttpServletRequest request) throws ParseException;
 }

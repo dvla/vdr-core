@@ -38,19 +38,8 @@ public class AuditorServiceImpl implements AuditorService {
     }
 
     @Override
-    public void auditMultipleFound(List<Driver> drivers, HttpServletRequest request, DateTime requestSent,
-                                   String forenames, String surname, Date parsedDob, Integer gender, String postcode) {
-        if (drivers.size() > 1) {
-
-            serviceBus.send(new CustomerMultipleFound(forenames, surname, new DateTime(parsedDob), gender,
-                    postcode, requestSent, new DateTime(), httpHelperService.getIpAddress(request)));
-
-            throw new WebApplicationException(Response.Status.CONFLICT);
-        }
-    }
-
-    @Override
-    public void auditPostcodeMismatch(Driver driver, String dln, String searchedPostcode, HttpServletRequest request, DateTime requestSent) {
+    public void auditPostcodeMismatch(Driver driver, String dln, String searchedPostcode, HttpServletRequest request,
+                                        DateTime requestTime) {
 
         Pattern p = Pattern.compile("[^a-zA-Z0-9]");
         searchedPostcode = searchedPostcode.replace(" ", "");
@@ -58,7 +47,7 @@ public class AuditorServiceImpl implements AuditorService {
         boolean hasSpecialChar = p.matcher(actualPostcode).find();
 
         if (hasSpecialChar) {
-            this.serviceBus.send(new CustomerPostcodeContainsSpecialCharacter(dln, searchedPostcode, requestSent,
+            this.serviceBus.send(new CustomerPostcodeContainsSpecialCharacter(dln, searchedPostcode, requestTime,
                     new DateTime(), httpHelperService.getIpAddress(request)));
         }
         else {
@@ -66,7 +55,7 @@ public class AuditorServiceImpl implements AuditorService {
                 if (!dummyPostcodes.contains(actualPostcode)) {
                     // Valid searchedPostcode - make sure it matches what is stored in the db
                     if (!searchedPostcode.equalsIgnoreCase(actualPostcode)) {
-                        this.serviceBus.send(new CustomerPostcodeNotMatched(dln, searchedPostcode, requestSent, new DateTime(),
+                        this.serviceBus.send(new CustomerPostcodeNotMatched(dln, searchedPostcode, requestTime, new DateTime(),
                                 httpHelperService.getIpAddress(request)));
 
                         throw new WebApplicationException(Response.Status.NOT_FOUND);
@@ -77,7 +66,8 @@ public class AuditorServiceImpl implements AuditorService {
     }
 
     @Override
-    public void auditDlnSuppression(ServiceResult<Driver> result, String dln, HttpServletRequest request, DateTime requestSent) {
+    public void auditDlnSuppression(ServiceResult<Driver> result, String dln, HttpServletRequest request,
+                                    DateTime requestSent) {
 
         if (isDriverFullySuppressed(result))  {
             this.serviceBus.send(new CustomerDlnSuppressed(dln, requestSent, new DateTime(),
@@ -87,7 +77,8 @@ public class AuditorServiceImpl implements AuditorService {
 
     @Override
     public void auditDetailsSuppression(ServiceResult<Driver> result, String forenames, String surname, String dob,
-                                        Integer gender, String postcode, HttpServletRequest request, DateTime requestSent) throws ParseException {
+                                        Integer gender, String postcode, HttpServletRequest request,
+                                        DateTime requestSent) throws ParseException {
 
         if (isDriverFullySuppressed(result)) {
             Date parsedDob = ServiceDateFormat.DEFAULT.parse(dob);
@@ -98,10 +89,25 @@ public class AuditorServiceImpl implements AuditorService {
     }
 
     @Override
-    public void auditDVLADlnSuppression(ServiceResult<Driver> result, String dln, DateTime requestSent) {
+    public void auditDVLADlnSuppression(ServiceResult<Driver> result, String dln, DateTime requestSent,
+                                        String contactChannel, String enquiryReason, HttpServletRequest request) {
         if (isDriverFullySuppressed(result)) {
-            this.serviceBus.send(new DVLADlnSuppressed(dln, requestSent, new DateTime(), result.getRuleApplied(), "Contact Channel TODO", "Enquiry Reason TODO", "LAN ID TODO"));
+            this.serviceBus.send(new DVLADlnSuppressed(dln, requestSent, new DateTime(),
+                    result.getRuleApplied(), contactChannel, enquiryReason, httpHelperService.getIpAddress(request)));
         }
+    }
+
+    @Override
+    public void auditDVLADetailsSuppression(ServiceResult<Driver> result, String dln, String forenames, String surname, String dob,
+                                            Integer gender, String postcode, DateTime requestSent, String contactChannel,
+                                            String enquiryReason, HttpServletRequest request) throws ParseException {
+        if (isDriverFullySuppressed(result)) {
+            Date parsedDob = ServiceDateFormat.DEFAULT.parse(dob);
+            this.serviceBus.send(new DVLAPersonalDetailsSuppressed(dln, forenames, surname, new DateTime(parsedDob),
+                    gender, postcode, requestSent, new DateTime(), result.getRuleApplied(),
+                   contactChannel, enquiryReason, httpHelperService.getIpAddress(request)));
+        }
+
     }
 
     private boolean isDriverFullySuppressed(ServiceResult<Driver> driverResult) {
