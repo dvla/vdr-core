@@ -164,7 +164,7 @@ case class DVLAPersonalDetailsSuccessful(dln: String, forename: String, surname:
 case class DVLAPersonalDetailsNotFound(forename: String, surname: String, dob: DateTime, gender: Int, postCode: String,
                                         requestSent: DateTime, responseSent: DateTime, contactChannel: String,
                                         enquiryReason:String, userId: String, ipAddress: String) extends Message {
-  val result = Result.Success
+  val result = Result.Failure
   val status = Status.NotFound
   val serviceType = ServiceType.DvlaPortal
 }
@@ -172,7 +172,7 @@ case class DVLAPersonalDetailsNotFound(forename: String, surname: String, dob: D
 case class DVLAPersonalDetailsNotValid(forename: String, surname: String, dob: DateTime, gender: Int, postCode: String,
                                         requestSent: DateTime, responseSent: DateTime, contactChannel: String,
                                         enquiryReason: String, userId: String, ipAddress: String) extends Message {
-  val result = Result.Success
+  val result = Result.Failure
   val status = Status.NotFound
   val serviceType = ServiceType.DvlaPortal
 }
@@ -181,7 +181,7 @@ case class DVLAPersonalDetailsServerError(forename: String, surname: String, dob
                                            postCode: String, requestSent: DateTime, responseSent: DateTime,
                                            contactChannel: String, enquiryReason: String,
                                            userId: String, ipAddress: String) extends Message {
-  val result = Result.Success
+  val result = Result.Failure
   val status = Status.ServerError
   val serviceType = ServiceType.DvlaPortal
 }
