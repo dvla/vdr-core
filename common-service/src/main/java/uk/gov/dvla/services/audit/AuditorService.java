@@ -6,8 +6,6 @@ import uk.gov.dvla.domain.ServiceResult;
 
 import javax.servlet.http.HttpServletRequest;
 import java.text.ParseException;
-import java.util.Date;
-import java.util.List;
 
 public interface AuditorService {
 
