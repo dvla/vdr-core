@@ -1,5 +1,6 @@
 package uk.gov.dvla.domain;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -76,4 +77,10 @@ public class ServiceResult<T>
     public UUID getEnquiryId() {
         return enquiryId;
     }
+
+    public void addMessage(Message messageToAdd ) {
+        if ( !hasMessages()) { messages = new ArrayList<Message>(); }
+
+        messages.add(messageToAdd);
+   }
 }
