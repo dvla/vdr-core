@@ -2,8 +2,6 @@ package uk.gov.dvla.domain;
 
 import java.util.Date;
 import java.util.List;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.google.code.morphia.annotations.Embedded;
 
 @Embedded
@@ -17,7 +15,6 @@ public class Entitlement {
     private Boolean isPriorTo = null;
     private Boolean isStated = null;
     private List<EntitlementRestriction> restrictions;
-    private TestPassStatus testPassStatus;
 
     public Date getDatePassed() {
         return datePassed;
@@ -81,29 +78,5 @@ public class Entitlement {
 
     public void setRestrictions(List<EntitlementRestriction> restrictions) {
         this.restrictions = restrictions;
-    }
-
-    public TestPassStatus getTestPassStatus() {
-        return this.testPassStatus;
-    }
-
-    public void setTestPassStatus(TestPassStatus testPassStatus) {
-        this.testPassStatus = testPassStatus;
-    }
-
-    // Calculated field used to simplify data sent to the MIB
-    @JsonProperty("entitlementType")
-    public EntitlementType getEntitlementType() {
-        EntitlementType entitlementType = EntitlementType.Full;
-
-        if (isProvisional) {
-            if (testPassStatus == TestPassStatus.Unclaimed) {
-                entitlementType = EntitlementType.UnclaimedTestPass;
-            }else {
-                entitlementType = EntitlementType.Provisional;
-            }
-        }
-
-        return entitlementType;
     }
 }

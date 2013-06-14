@@ -5,105 +5,63 @@ import uk.gov.dvla.domain.*;
 
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 public class MibResponse {
 
+    private UUID requestId;
     private MibDriver driver;
     private List<Message> messages;
-    private String ruleApplied;
 
     public MibResponse(){};
 
-    public MibResponse(Driver driver) {
-        this.driver = new MibDriver(driver);
+    public MibResponse(UUID requestId, List<Message> messages)
+    {
+        this.requestId = requestId;
+        this.messages = messages;
     }
+
+    public MibDriver getDriver() {
+        return driver;
+    }
+
+    public void setDriver(MibDriver driver) {
+        this.driver = driver;
+    }
+
+    public List<Message> getMessages() {
+        return messages;
+    }
+
+    public void setMessages(List<Message> messages) {
+        this.messages = messages;
+    }
+//
+//    public MibResponse(Driver driver) {
+//        this.driver = new MibDriver(driver);
+//    }
 
     public class MibDriver {
 
         private MibLicence licence;
-        private List<Integer> stopMarker;
-        private List<Integer> restrictionKey;
-        private List<String> caseType;
-        private List<String> errorCode;
-        private String statusCode = null;
-
-        public MibDriver(){};
-
-        public MibDriver(Driver driver) {
-            licence = new MibLicence(driver.getLicence().get(0));
-            stopMarker = driver.getStopMarker();
-            restrictionKey = driver.getRestrictionKey();
-            caseType = driver.getCaseType();
-            errorCode = driver.getErrorCode();
-        }
 
         public MibLicence getLicence() {
             return this.licence;
         }
 
-        public List<Integer> getStopMarker() {
-            return stopMarker;
-        }
-
-        public void setStopMarker(List<Integer> markers) {
-            this.stopMarker = markers;
-        }
-
-        public List<Integer> getRestrictionKey() {
-            return restrictionKey;
-        }
-
-        public void setRestrictionKey(List<Integer> keys) {
-            this.restrictionKey = keys;
-        }
-
-        public List<String> getCaseType() {
-            return this.caseType;
-        }
-
-        public void setCaseType(List<String> caseTypes) {
-            this.caseType = caseTypes;
-        }
-
-        public List<String> getErrorCode() {
-            return this.errorCode;
-        }
-
-        public void setErrorCode(List<String> errorCodes) {
-            this.errorCode = errorCodes;
-        }
-
-        public String getStatusCode() {
-            return statusCode;
-        }
-
-        public void setStatusCode(String statusCode) {
-            this.statusCode = statusCode;
+        public void setLicence(MibLicence licence) {
+            this.licence = licence;
         }
     }
 
     public class MibLicence {
 
-        public Date validFrom;
-        public Date validTo;
-        public String status;
-        public Integer directiveStatus;
-        private List<Entitlement> entitlements;
-        private List<Endorsement> endorsements;
-
-        public MibLicence(){};
-
-        public MibLicence(Licence licence) {
-//            this.driver = new MibDriver(driver);
-        }
-
-        public void setDirectiveStatus(Integer directiveStatus) {
-            this.directiveStatus = directiveStatus;
-        }
-
-        public Integer getDirectiveStatus() {
-            return directiveStatus;
-        }
+        private Date validFrom;
+        private Date validTo;
+        private String status;
+        private Integer directiveStatus;
+        private List<MibEntitlement> entitlements;
+        private List<MibEndorsement> endorsements;
 
         public Date getValidFrom() {
             return validFrom;
@@ -129,21 +87,45 @@ public class MibResponse {
             this.status = status;
         }
 
-        public List<Entitlement> getEntitlements() {
+        public Integer getDirectiveStatus() {
+            return directiveStatus;
+        }
+
+        public void setDirectiveStatus(Integer directiveStatus) {
+            this.directiveStatus = directiveStatus;
+        }
+
+        public List<MibEntitlement> getEntitlements() {
             return entitlements;
         }
 
-        public void setEntitlements(List<Entitlement> entitlements) {
+        public void setEntitlements(List<MibEntitlement> entitlements) {
             this.entitlements = entitlements;
         }
 
-        public List<Endorsement> getEndorsements() {
+        public List<MibEndorsement> getEndorsements() {
             return endorsements;
         }
 
-        public void setEndorsements(List<Endorsement> endorsements) {
+        public void setEndorsements(List<MibEndorsement> endorsements) {
             this.endorsements = endorsements;
         }
+//
+//        public MibLicence(){};
+//
+//        public MibLicence(Licence licence) {
+//            validFrom = licence.getValidFrom();
+//            validTo = licence.getValidTo();
+//            status = null;  // TODO - US166
+//            directiveStatus = licence.getDirectiveStatus();
+//            entitlements = licence.getEntitlements()
+//        }
+//
+//        private void setEntitlements(List<Entitlement> entitlements) {
+//            for (Endorsement ent : entitlements) {
+//                this.entitlements.add(new MibEntitlement(ent));
+//            }
+//        }
     }
 
     public class MibEntitlement {
@@ -151,7 +133,7 @@ public class MibResponse {
         private String code;
         private Date validFrom;
         private Date validTo;
-        private Boolean isProvisional = null;
+        private Boolean isProvisional;
         private List<EntitlementRestriction> restrictions;
         private TestPassStatus testPassStatus;
         private Date datePassed;
@@ -180,12 +162,12 @@ public class MibResponse {
             this.validTo = validTo;
         }
 
-        public Boolean getIsProvisional() {
+        public Boolean getProvisional() {
             return isProvisional;
         }
 
-        public void setIsProvisional(Boolean provisional) {
-            this.isProvisional = provisional;
+        public void setProvisional(Boolean provisional) {
+            isProvisional = provisional;
         }
 
         public List<EntitlementRestriction> getRestrictions() {
@@ -195,6 +177,32 @@ public class MibResponse {
         public void setRestrictions(List<EntitlementRestriction> restrictions) {
             this.restrictions = restrictions;
         }
+
+        public TestPassStatus getTestPassStatus() {
+            return testPassStatus;
+        }
+
+        public void setTestPassStatus(TestPassStatus testPassStatus) {
+            this.testPassStatus = testPassStatus;
+        }
+
+        public Date getDatePassed() {
+            return datePassed;
+        }
+
+        public void setDatePassed(Date datePassed) {
+            this.datePassed = datePassed;
+        }
+//
+//        public MibEntitlement(){};
+//
+//        public MibLicence(Licence licence) {
+//            validFrom = licence.getValidFrom();
+//            validTo = licence.getValidTo();
+//            status = null;  // TODO - US166
+//            directiveStatus = licence.getDirectiveStatus();
+//            entitlements = licence.getEntitlements()
+//        }
 
         // Calculated field used to simplify data sent to the MIB
         @JsonProperty("entitlementType")
@@ -215,18 +223,14 @@ public class MibResponse {
 
     public class MibEndorsement {
 
-        public Boolean isDisqualification;
-        public String offenceCode;
-        public Date offenceDate;
-
-        //Disqualification Only
-        public Date convictionDate;
-        public Date sentencingDate;
-        public String period;
-        public double fine;
-
-        //Penalty Points Only
-        public Integer numberOfPoints;
+        private Boolean isDisqualification;
+        private String offenceCode;
+        private Date offenceDate;
+        private Date convictionDate;
+        private Date sentencingDate;
+        private String period;
+        private double fine;
+        private Integer numberOfPoints;
 
         public Boolean getDisqualification() {
             return isDisqualification;
@@ -276,7 +280,7 @@ public class MibResponse {
             this.period = period;
         }
 
-        public Number getFine() {
+        public double getFine() {
             return fine;
         }
 
