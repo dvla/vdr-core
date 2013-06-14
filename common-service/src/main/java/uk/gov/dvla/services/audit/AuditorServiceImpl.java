@@ -83,7 +83,7 @@ public class AuditorServiceImpl implements AuditorService {
     public void auditDVLADlnSuppression(ServiceResult<Driver> result, String dln, DateTime requestSent,
                                         String contactChannel, String enquiryReason, HttpServletRequest request) {
         if (isDriverFullySuppressed(result)) {
-            this.serviceBus.send(new DVLADlnSuppressed(dln, requestSent, new DateTime(),
+            this.serviceBus.send(new DvlaDlnSuppressed(dln, requestSent, new DateTime(),
                     result.getRuleApplied(), contactChannel, enquiryReason, httpHelperService.getIpAddress(request)));
         }
     }
@@ -94,7 +94,7 @@ public class AuditorServiceImpl implements AuditorService {
                                             String enquiryReason, HttpServletRequest request) throws ParseException {
         if (isDriverFullySuppressed(result)) {
             Date parsedDob = ServiceDateFormat.DEFAULT.parse(dob);
-            this.serviceBus.send(new DVLAPersonalDetailsSuppressed(dln, forenames, surname, new DateTime(parsedDob),
+            this.serviceBus.send(new DvlaPersonalDetailsSuppressed(dln, forenames, surname, new DateTime(parsedDob),
                     gender, postcode, requestSent, new DateTime(), result.getRuleApplied(),
                    contactChannel, enquiryReason, httpHelperService.getIpAddress(request)));
         }
