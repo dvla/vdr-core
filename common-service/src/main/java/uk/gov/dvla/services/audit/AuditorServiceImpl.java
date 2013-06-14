@@ -7,6 +7,7 @@ import uk.gov.dvla.domain.MessageType;
 import uk.gov.dvla.domain.ServiceResult;
 import uk.gov.dvla.messages.*;
 import uk.gov.dvla.services.common.HttpHelperService;
+import uk.gov.dvla.services.common.PostcodeHelper;
 import uk.gov.dvla.services.common.ServiceDateFormat;
 import uk.gov.dvla.servicebus.core.Bus;
 
@@ -41,26 +42,16 @@ public class AuditorServiceImpl implements AuditorService {
     public void auditPostcodeMismatch(Driver driver, String dln, String searchedPostcode, HttpServletRequest request,
                                         DateTime requestTime) {
 
-        Pattern p = Pattern.compile("[^a-zA-Z0-9]");
-        searchedPostcode = searchedPostcode.replace(" ", "");
-        String actualPostcode = driver.getAddress().getPostCode().replace(" ", "");
-        boolean hasSpecialChar = p.matcher(actualPostcode).find();
-
-        if (hasSpecialChar) {
+        if (PostcodeHelper.hasSpecialChars(driver.getAddress().getPostCode())) {
             this.serviceBus.send(new CustomerPostcodeContainsSpecialCharacter(dln, searchedPostcode, requestTime,
-                    new DateTime(), httpHelperService.getIpAddress(request)));
+                                        new DateTime(), httpHelperService.getIpAddress(request)));
         }
         else {
-            if (searchedPostcode != null && !searchedPostcode.equals("")) {
-                if (!dummyPostcodes.contains(actualPostcode)) {
-                    // Valid searchedPostcode - make sure it matches what is stored in the db
-                    if (!searchedPostcode.equalsIgnoreCase(actualPostcode)) {
-                        this.serviceBus.send(new CustomerPostcodeNotMatched(dln, searchedPostcode, requestTime, new DateTime(),
-                                httpHelperService.getIpAddress(request)));
+            if (PostcodeHelper.postcodeMismatch(driver.getAddress().getPostCode(),searchedPostcode,dummyPostcodes)) {
+                this.serviceBus.send(new CustomerPostcodeNotMatched(dln, searchedPostcode, requestTime, new DateTime(),
+                        httpHelperService.getIpAddress(request)));
 
-                        throw new WebApplicationException(Response.Status.NOT_FOUND);
-                    }
-                }
+                throw new WebApplicationException(Response.Status.NOT_FOUND);
             }
         }
     }
