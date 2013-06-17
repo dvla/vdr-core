@@ -1,4 +1,4 @@
-package uk.gov.dvla.domain;
+package uk.gov.dvla.domain.mib;
 
 import com.google.code.morphia.annotations.Embedded;
 

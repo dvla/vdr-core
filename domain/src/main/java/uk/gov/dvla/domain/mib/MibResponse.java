@@ -1,7 +1,10 @@
 package uk.gov.dvla.domain.mib;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import uk.gov.dvla.domain.*;
+
+import uk.gov.dvla.domain.EntitlementRestriction;
+import uk.gov.dvla.domain.EntitlementType;
+import uk.gov.dvla.domain.Message;
 
 import java.util.Date;
 import java.util.List;
@@ -9,17 +12,17 @@ import java.util.UUID;
 
 public class MibResponse {
 
-    private UUID requestId;
+//    private UUID requestId;
     private MibDriver driver;
-    private List<Message> messages;
+//    private List<Message> messages;
 
     public MibResponse(){};
 
-    public MibResponse(UUID requestId, List<Message> messages)
-    {
-        this.requestId = requestId;
-        this.messages = messages;
-    }
+//    public MibResponse(UUID requestId, List<Message> messages)
+//    {
+//        this.requestId = requestId;
+//        this.messages = messages;
+//    }
 
     public MibDriver getDriver() {
         return driver;
@@ -28,14 +31,14 @@ public class MibResponse {
     public void setDriver(MibDriver driver) {
         this.driver = driver;
     }
-
-    public List<Message> getMessages() {
-        return messages;
-    }
-
-    public void setMessages(List<Message> messages) {
-        this.messages = messages;
-    }
+//
+//    public List<Message> getMessages() {
+//        return messages;
+//    }
+//
+//    public void setMessages(List<Message> messages) {
+//        this.messages = messages;
+//    }
 //
 //    public MibResponse(Driver driver) {
 //        this.driver = new MibDriver(driver);
@@ -134,7 +137,7 @@ public class MibResponse {
         private Date validFrom;
         private Date validTo;
         private Boolean isProvisional;
-        private List<EntitlementRestriction> restrictions;
+        private List<MibRestriction> restrictions;
         private TestPassStatus testPassStatus;
         private Date datePassed;
 
@@ -162,19 +165,19 @@ public class MibResponse {
             this.validTo = validTo;
         }
 
-        public Boolean getProvisional() {
+        public Boolean getIsProvisional() {
             return isProvisional;
         }
 
-        public void setProvisional(Boolean provisional) {
-            isProvisional = provisional;
+        public void setIsProvisional(Boolean isProvisional) {
+            this.isProvisional = isProvisional;
         }
 
-        public List<EntitlementRestriction> getRestrictions() {
+        public List<MibRestriction> getRestrictions() {
             return restrictions;
         }
 
-        public void setRestrictions(List<EntitlementRestriction> restrictions) {
+        public void setRestrictions(List<MibRestriction> restrictions) {
             this.restrictions = restrictions;
         }
 
@@ -205,20 +208,20 @@ public class MibResponse {
 //        }
 
         // Calculated field used to simplify data sent to the MIB
-        @JsonProperty("entitlementType")
-        public EntitlementType getEntitlementType() {
-            EntitlementType entitlementType = EntitlementType.Full;
-
-            if (isProvisional) {
-                if (testPassStatus == TestPassStatus.Unclaimed) {
-                    entitlementType = EntitlementType.UnclaimedTestPass;
-                }else {
-                    entitlementType = EntitlementType.Provisional;
-                }
-            }
-
-            return entitlementType;
-        }
+//        @JsonProperty("entitlementType")
+//        public EntitlementType getEntitlementType() {
+//            EntitlementType entitlementType = EntitlementType.Full;
+//
+//            if (isProvisional) {
+//                if (testPassStatus == TestPassStatus.Unclaimed) {
+//                    entitlementType = EntitlementType.UnclaimedTestPass;
+//                }else {
+//                    entitlementType = EntitlementType.Provisional;
+//                }
+//            }
+//
+//            return entitlementType;
+//        }
     }
 
     public class MibEndorsement {
@@ -294,6 +297,28 @@ public class MibResponse {
 
         public void setNumberOfPoints(Integer numberOfPoints) {
             this.numberOfPoints = numberOfPoints;
+        }
+    }
+
+    public class MibRestriction {
+
+        private String type;
+        private String info;
+
+        public String getType() {
+            return type;
+        }
+
+        public void setType(String type) {
+            this.type = type;
+        }
+
+        public String getInfo() {
+            return info;
+        }
+
+        public void setInfo(String info) {
+            this.info = info;
         }
     }
 }
