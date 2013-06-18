@@ -7,6 +7,7 @@ public class Country {
 
 	private String name;
 	private String code;
+    private String internalName;
 	private String internalCode;
 	public String getName() {
 		return name;
@@ -25,5 +26,13 @@ public class Country {
 	}
 	public void setInternalCode(String internalCode) {
 		this.internalCode = internalCode;
-	}	
+	}
+
+    public String getInternalName() {
+        return internalName;
+    }
+
+    public void setInternalName(String internalName) {
+        this.internalName = internalName;
+    }
 }

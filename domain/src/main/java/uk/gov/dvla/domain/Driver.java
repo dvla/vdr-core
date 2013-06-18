@@ -11,29 +11,31 @@ import com.google.code.morphia.annotations.Property;
 @Entity(value = "drivers", noClassnameStored = true)
 public class Driver extends Person {
 
-    private List<DriverNumber> dlnHistory;
+    private List<DriverNumber> driverNumberHistory;
     private List<DriverFlag> flag;
-    private List<Licence> licence;
+    private Licence licence;
     private List<Integer> stopMarker;
     private List<Integer> restrictionKey;
     private List<String> caseType;
     private List<String> errorCode;
     private Boolean endorsementAmountExcess;
-    private Boolean carHireEnqPmt = null;
-    private String statusCode = null;
+    private DriverStatus status;
     private Date photoExpiryDate;
     private List<String> disqualificationStatusCodes;
     private boolean nslInCorruptedRange;
+    private DriverStatedFlags driverStatedFlags;
     @Property("dln")
     @Indexed(unique = true)
     private String currentDriverNumber = null;
-
-    public void addLicence(Licence lic) {
-        if (null == licence) {
-            licence = new ArrayList<Licence>();
-        }
-        licence.add(lic);
-    }
+    private Date firstProvisionalDate;
+    private Date disqualifiedUntilDate;
+    private String HROType;
+    private List<ConductCase> conductCases;
+    private List<Disqualification> disqualifications;
+    private List<TachoCard> tachoCards;
+    private List<CertificateOfProfessionalCompetence> CPCs;
+    private List<DriverQualificationCard> DQCs;
+    private List<TestPass> testPasses;
 
     public void addStopMarker(Integer marker) {
         if (null == stopMarker) {
@@ -63,11 +65,11 @@ public class Driver extends Person {
         errorCode.add(code);
     }
 
-    public void setLicence(List<Licence> lics) {
-        licence = lics;
+    public void setLicence(Licence licence) {
+        this.licence = licence;
     }
 
-    public List<Licence> getLicence() {
+    public Licence getLicence() {
         return this.licence;
     }
 
@@ -112,11 +114,11 @@ public class Driver extends Person {
     }
 
     public List<DriverNumber> getDriverNumberHistory() {
-        return dlnHistory;
+        return driverNumberHistory;
     }
 
     public void setDriverNumberHistory(List<DriverNumber> driverNumber) {
-        this.dlnHistory = driverNumber;
+        this.driverNumberHistory = driverNumber;
     }
 
     public List<DriverFlag> getFlag() {
@@ -127,20 +129,20 @@ public class Driver extends Person {
         this.flag = flag;
     }
 
-    public Boolean getCarHireEnqPmt() {
-        return carHireEnqPmt;
+    public DriverStatus getStatus() {
+        return status;
     }
 
-    public void setCarHireEnqPmt(Boolean carHireEnqPmt) {
-        this.carHireEnqPmt = carHireEnqPmt;
+    public void setStatus(DriverStatus status) {
+        this.status = status;
     }
 
-    public String getStatusCode() {
-        return statusCode;
+    public boolean isNslInCorruptedRange() {
+        return nslInCorruptedRange;
     }
 
-    public void setStatusCode(String statusCode) {
-        this.statusCode = statusCode;
+    public void setNslInCorruptedRange(boolean nslInCorruptedRange) {
+        this.nslInCorruptedRange = nslInCorruptedRange;
     }
 
     public Date getPhotoExpiryDate() {
@@ -173,5 +175,77 @@ public class Driver extends Person {
 
     public void setEndorsementAmountExcess(Boolean endorsmentAmountExcess) {
         this.endorsementAmountExcess = endorsmentAmountExcess;
+    }
+
+    public DriverStatedFlags getDriverStatedFlags() {
+        return driverStatedFlags;
+    }
+
+    public void setDriverStatedFlags(DriverStatedFlags driverStatedFlags) {
+        this.driverStatedFlags = driverStatedFlags;
+    }
+
+    public Date getFirstProvisionalDate() {
+        return firstProvisionalDate;
+    }
+
+    public void setFirstProvisionalDate(Date firstProvisionalDate) {
+        this.firstProvisionalDate = firstProvisionalDate;
+    }
+
+    public Date getDisqualifiedUntilDate() {
+        return disqualifiedUntilDate;
+    }
+
+    public void setDisqualifiedUntilDate(Date disqualifiedUntilDate) {
+        this.disqualifiedUntilDate = disqualifiedUntilDate;
+    }
+
+    public String getHROType() {
+        return HROType;
+    }
+
+    public void setHROType(String HROType) {
+        this.HROType = HROType;
+    }
+
+    public List<ConductCase> getConductCases() {
+        return conductCases;
+    }
+
+    public void setConductCases(List<ConductCase> conductCases) {
+        this.conductCases = conductCases;
+    }
+
+    public List<Disqualification> getDisqualifications() {
+        return disqualifications;
+    }
+
+    public void setDisqualifications(List<Disqualification> disqualifications) {
+        this.disqualifications = disqualifications;
+    }
+
+    public List<TachoCard> getTachoCards() {
+        return tachoCards;
+    }
+
+    public void setTachoCards(List<TachoCard> tachoCards) {
+        this.tachoCards = tachoCards;
+    }
+
+    public List<CertificateOfProfessionalCompetence> getCPCs() {
+        return CPCs;
+    }
+
+    public void setCPCs(List<CertificateOfProfessionalCompetence> CPCs) {
+        this.CPCs = CPCs;
+    }
+
+    public List<DriverQualificationCard> getDQCs() {
+        return DQCs;
+    }
+
+    public void setDQCs(List<DriverQualificationCard> DQCs) {
+        this.DQCs = DQCs;
     }
 }

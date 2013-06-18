@@ -1,16 +1,12 @@
 package uk.gov.dvla.domain;
 
-import java.util.Date;
-import java.util.List;
-
 import com.google.code.morphia.annotations.Embedded;
 
 @Embedded
-public class OtherSentence {
+public class DriverStatus {
 
     private String code;
     private String name;
-    private String duration;
 
     public String getCode() {
         return code;
@@ -26,13 +22,5 @@ public class OtherSentence {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public String getDuration() {
-        return duration;
-    }
-
-    public void setDuration(String duration) {
-        this.duration = duration;
     }
 }

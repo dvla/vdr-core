@@ -14,8 +14,8 @@ public enum UnclaimedTestPass {
         return value;
     }
 
-    private int value;
-    private String valueName;
+private int value;
+private String valueName;
 
     private UnclaimedTestPass(int value, String valueName) {
         this.value = value;

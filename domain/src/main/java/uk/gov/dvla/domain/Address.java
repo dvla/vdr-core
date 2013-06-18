@@ -1,5 +1,6 @@
 package uk.gov.dvla.domain;
 
+import java.util.Date;
 import java.util.List;
 
 import com.google.code.morphia.annotations.Embedded;
@@ -12,6 +13,7 @@ public class Address {
 	private String langCode;
 	private String pafKey;
 	private String orgName;
+    private String buildingNumber;
 	private String buildingName;
 	private String subBuildingName;
 	private String tfare;
@@ -23,6 +25,16 @@ public class Address {
 	private String county;
 	private String postCode;
 	private String poBox;
+    private String mBarracks;
+    private String mBFPONumber;
+    private String mRank;
+    private String mRegiment;
+    private String mServiceNumber;
+    private String mUnit;
+    private AddressType type;
+    private Date validFrom;
+    private Date validTo;
+    private String vanityInfo;
 	
 	private List<String> uLine;
 	private String uPostCode;
@@ -134,4 +146,92 @@ public class Address {
 	public void setuPostCode(String uPostCode) {
 		this.uPostCode = uPostCode;
 	}
+
+    public String getBuildingNumber() {
+        return buildingNumber;
+    }
+
+    public void setBuildingNumber(String buildingNumber) {
+        this.buildingNumber = buildingNumber;
+    }
+
+    public String getmBarracks() {
+        return mBarracks;
+    }
+
+    public void setmBarracks(String mBarracks) {
+        this.mBarracks = mBarracks;
+    }
+
+    public String getmBFPONumber() {
+        return mBFPONumber;
+    }
+
+    public void setmBFPONumber(String mBFPONumber) {
+        this.mBFPONumber = mBFPONumber;
+    }
+
+    public String getmRank() {
+        return mRank;
+    }
+
+    public void setmRank(String mRank) {
+        this.mRank = mRank;
+    }
+
+    public String getmRegiment() {
+        return mRegiment;
+    }
+
+    public void setmRegiment(String mRegiment) {
+        this.mRegiment = mRegiment;
+    }
+
+    public String getmServiceNumber() {
+        return mServiceNumber;
+    }
+
+    public void setmServiceNumber(String mServiceNumber) {
+        this.mServiceNumber = mServiceNumber;
+    }
+
+    public String getmUnit() {
+        return mUnit;
+    }
+
+    public void setmUnit(String mUnit) {
+        this.mUnit = mUnit;
+    }
+
+    public AddressType getType() {
+        return type;
+    }
+
+    public void setType(AddressType type) {
+        this.type = type;
+    }
+
+    public Date getValidFrom() {
+        return validFrom;
+    }
+
+    public void setValidFrom(Date validFrom) {
+        this.validFrom = validFrom;
+    }
+
+    public Date getValidTo() {
+        return validTo;
+    }
+
+    public void setValidTo(Date validTo) {
+        this.validTo = validTo;
+    }
+
+    public String getVanityInfo() {
+        return vanityInfo;
+    }
+
+    public void setVanityInfo(String vanityInfo) {
+        this.vanityInfo = vanityInfo;
+    }
 }

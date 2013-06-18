@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.List;
 
 import com.google.code.morphia.annotations.Embedded;
+import com.google.code.morphia.annotations.Property;
 
 @Embedded
 public class Licence {
@@ -13,9 +14,15 @@ public class Licence {
     public Date validTo;
     public String type;
     public Integer directiveStatus;
-    public String issueNumber;
     private List<Entitlement> entitlements;
     private List<Endorsement> endorsements;
+    private @Property("avpStartDate") Date administrativeValidityPeriodStartDate;
+    private Date cardExpiryDate;
+    private Integer numEndorsements;
+    private Date originalPhotoExpiryDate;
+    private Date photoExpiryDate;
+    private String regimeType;
+    private List<LicenceInformation> information;
 
     public void addEntitlement(String code) {
         if (null == entitlements) {
@@ -33,14 +40,6 @@ public class Licence {
             endorsements = new ArrayList<Endorsement>();
         }
         endorsements.add(end);
-    }
-
-    public void setIssueNumber(String issueNumber) {
-        this.issueNumber = issueNumber;
-    }
-
-    public String getIssueNumber() {
-        return issueNumber;
     }
 
     public void setDirectiveStatus(Integer directiveStatus) {
@@ -89,5 +88,61 @@ public class Licence {
 
     public void setEndorsements(List<Endorsement> endorsements) {
         this.endorsements = endorsements;
+    }
+
+    public Date getAdministrativeValidityPeriodStartDate() {
+        return administrativeValidityPeriodStartDate;
+    }
+
+    public void setAdministrativeValidityPeriodStartDate(Date administrativeValidityPeriodStartDate) {
+        this.administrativeValidityPeriodStartDate = administrativeValidityPeriodStartDate;
+    }
+
+    public Date getCardExpiryDate() {
+        return cardExpiryDate;
+    }
+
+    public void setCardExpiryDate(Date cardExpiryDate) {
+        this.cardExpiryDate = cardExpiryDate;
+    }
+
+    public Integer getNumEndorsements() {
+        return numEndorsements;
+    }
+
+    public void setNumEndorsements(Integer numEndorsements) {
+        this.numEndorsements = numEndorsements;
+    }
+
+    public Date getOriginalPhotoExpiryDate() {
+        return originalPhotoExpiryDate;
+    }
+
+    public void setOriginalPhotoExpiryDate(Date originalPhotoExpiryDate) {
+        this.originalPhotoExpiryDate = originalPhotoExpiryDate;
+    }
+
+    public Date getPhotoExpiryDate() {
+        return photoExpiryDate;
+    }
+
+    public void setPhotoExpiryDate(Date photoExpiryDate) {
+        this.photoExpiryDate = photoExpiryDate;
+    }
+
+    public String getRegimeType() {
+        return regimeType;
+    }
+
+    public void setRegimeType(String regimeType) {
+        this.regimeType = regimeType;
+    }
+
+    public List<LicenceInformation> getInformation() {
+        return information;
+    }
+
+    public void setInformation(List<LicenceInformation> information) {
+        this.information = information;
     }
 }

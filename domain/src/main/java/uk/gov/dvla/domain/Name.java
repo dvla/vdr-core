@@ -13,6 +13,8 @@ public class Name {
 	private String familyName = null;
 	private String requestedName = null;
 	private String initials = null;
+    private Boolean isTitleAddress = false;
+
 	public String getTitle() {
 		return title;
 	}
@@ -43,11 +45,21 @@ public class Name {
 	public void setInitials(String initials) {
 		this.initials = initials;
 	}
-	
-	public void addGivenName(String gn){
+
+    public Boolean getTitleAddress() {
+        return isTitleAddress;
+    }
+
+    public void setTitleAddress(Boolean titleAddress) {
+        isTitleAddress = titleAddress;
+    }
+
+    public void addGivenName(String gn){
 		if ( null == givenName ){
 			givenName = new ArrayList<String>();
 		}
 		givenName.add(gn);
 	}
+
+
 }

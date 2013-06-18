@@ -17,6 +17,8 @@ public class Entitlement {
     private Boolean stated = null;
     private List<EntitlementRestriction> restrictions;
     private Integer unclaimedTestPass = 0;
+    private Boolean vocational;
+    private List<EntitlementStatus> statuses;
 
     public Date getDatePassed() {
         return datePassed;
@@ -88,5 +90,21 @@ public class Entitlement {
 
     public void setUnclaimedTestPass(Integer unclaimedTestPass) {
         this.unclaimedTestPass = unclaimedTestPass;
+    }
+
+    public Boolean getVocational() {
+        return vocational;
+    }
+
+    public void setVocational(Boolean vocational) {
+        this.vocational = vocational;
+    }
+
+    public List<EntitlementStatus> getStatuses() {
+        return statuses;
+    }
+
+    public void setStatuses(List<EntitlementStatus> statuses) {
+        this.statuses = statuses;
     }
 }
