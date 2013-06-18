@@ -27,6 +27,13 @@ public class Message
         this.error = error;
     }
 
+    public Message(String description, MessageType type, boolean error)
+    {
+        this.description = description;
+        this.type = type.getMessageType();
+        this.error = error;
+    }
+
     public String getKey()
     {
         return key;
