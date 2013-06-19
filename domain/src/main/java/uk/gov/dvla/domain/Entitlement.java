@@ -11,22 +11,11 @@ public class Entitlement {
     private String code;
     private Date validFrom;
     private Date validTo;
-    private Date datePassed;
     private Boolean provisional = null;
     private Boolean priorTo = null;
-    private Boolean stated = null;
     private List<EntitlementRestriction> restrictions;
-    private Integer unclaimedTestPass = 0;
     private Boolean vocational;
     private List<EntitlementStatus> statuses;
-
-    public Date getDatePassed() {
-        return datePassed;
-    }
-
-    public void setDatePassed(Date datePassed) {
-        this.datePassed = datePassed;
-    }
 
     public String getCode() {
         return code;
@@ -68,28 +57,12 @@ public class Entitlement {
         this.priorTo = priorTo;
     }
 
-    public Boolean getStated() {
-        return stated;
-    }
-
-    public void setStated(Boolean stated) {
-        this.stated = stated;
-    }
-
     public List<EntitlementRestriction> getRestrictions() {
         return restrictions;
     }
 
     public void setRestrictions(List<EntitlementRestriction> restrictions) {
         this.restrictions = restrictions;
-    }
-
-    public Integer getUnclaimedTestPass() {
-        return unclaimedTestPass;
-    }
-
-    public void setUnclaimedTestPass(Integer unclaimedTestPass) {
-        this.unclaimedTestPass = unclaimedTestPass;
     }
 
     public Boolean getVocational() {

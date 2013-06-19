@@ -51,8 +51,6 @@ public class Endorsement {
     @Property("disqualSusPA")
     public Date disqualificationSuspendedPendingAppeal;
 
-    public List<LicenceInformation> information = null;
-
     public Number getId() {
         return id;
     }
@@ -235,14 +233,6 @@ public class Endorsement {
 
     public void setDisqualificationSuspendedPendingAppeal(Date disqualificationSuspendedPendingAppeal) {
         this.disqualificationSuspendedPendingAppeal = disqualificationSuspendedPendingAppeal;
-    }
-
-    public List<LicenceInformation> getInformation() {
-        return information;
-    }
-
-    public void setInformation(List<LicenceInformation> information) {
-        this.information = information;
     }
 }
 

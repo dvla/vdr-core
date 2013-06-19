@@ -11,8 +11,6 @@ public class Name {
 	private String title = null;
 	private List<String> givenName = null;
 	private String familyName = null;
-	private String requestedName = null;
-	private String initials = null;
     private Boolean isTitleAddress = false;
 
 	public String getTitle() {
@@ -32,18 +30,6 @@ public class Name {
 	}
 	public void setFamilyName(String familyName) {
 		this.familyName = familyName;
-	}
-	public String getRequestedName() {
-		return requestedName;
-	}
-	public void setRequestedName(String requestedName) {
-		this.requestedName = requestedName;
-	}
-	public String getInitials() {
-		return initials;
-	}
-	public void setInitials(String initials) {
-		this.initials = initials;
 	}
 
     public Boolean getTitleAddress() {

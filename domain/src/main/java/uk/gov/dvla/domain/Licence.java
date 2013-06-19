@@ -12,7 +12,6 @@ public class Licence {
 
     public Date validFrom;
     public Date validTo;
-    public String type;
     public Integer directiveStatus;
     private List<Entitlement> entitlements;
     private List<Endorsement> endorsements;
@@ -23,6 +22,15 @@ public class Licence {
     private Date photoExpiryDate;
     private String regimeType;
     private List<LicenceInformation> information;
+    private List<LicenceToken> tokens;
+
+    public List<LicenceToken> getTokens() {
+        return tokens;
+    }
+
+    public void setTokens(List<LicenceToken> tokens) {
+        this.tokens = tokens;
+    }
 
     public void addEntitlement(String code) {
         if (null == entitlements) {
@@ -64,14 +72,6 @@ public class Licence {
 
     public void setValidTo(Date validTo) {
         this.validTo = validTo;
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
     }
 
     public List<Entitlement> getEntitlements() {
