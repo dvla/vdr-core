@@ -11,7 +11,6 @@ public class Licence {
 
     public Date validFrom;
     public Date validTo;
-    public EntitlementType type;
     public Integer directiveStatus;
     public String issueNumber;
     private List<Entitlement> entitlements;
@@ -65,14 +64,6 @@ public class Licence {
 
     public void setValidTo(Date validTo) {
         this.validTo = validTo;
-    }
-
-    public EntitlementType getType() {
-        return type;
-    }
-
-    public void setType(EntitlementType type) {
-        this.type = type;
     }
 
     public List<Entitlement> getEntitlements() {

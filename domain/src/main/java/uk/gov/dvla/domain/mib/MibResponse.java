@@ -1,28 +1,16 @@
 package uk.gov.dvla.domain.mib;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
-import uk.gov.dvla.domain.EntitlementRestriction;
-import uk.gov.dvla.domain.EntitlementType;
-import uk.gov.dvla.domain.Message;
+import org.joda.time.DateTime;
 
 import java.util.Date;
 import java.util.List;
-import java.util.UUID;
 
 public class MibResponse {
 
-//    private UUID requestId;
     private MibDriver driver;
-//    private List<Message> messages;
 
     public MibResponse(){};
 
-//    public MibResponse(UUID requestId, List<Message> messages)
-//    {
-//        this.requestId = requestId;
-//        this.messages = messages;
-//    }
 
     public MibDriver getDriver() {
         return driver;
@@ -31,18 +19,6 @@ public class MibResponse {
     public void setDriver(MibDriver driver) {
         this.driver = driver;
     }
-//
-//    public List<Message> getMessages() {
-//        return messages;
-//    }
-//
-//    public void setMessages(List<Message> messages) {
-//        this.messages = messages;
-//    }
-//
-//    public MibResponse(Driver driver) {
-//        this.driver = new MibDriver(driver);
-//    }
 
     public class MibDriver {
 
@@ -61,10 +37,11 @@ public class MibResponse {
 
         private Date validFrom;
         private Date validTo;
-        private String status;
         private Integer directiveStatus;
         private List<MibEntitlement> entitlements;
         private List<MibEndorsement> endorsements;
+
+        public MibLicence(){};
 
         public Date getValidFrom() {
             return validFrom;
@@ -80,14 +57,6 @@ public class MibResponse {
 
         public void setValidTo(Date validTo) {
             this.validTo = validTo;
-        }
-
-        public String getStatus() {
-            return status;
-        }
-
-        public void setStatus(String status) {
-            this.status = status;
         }
 
         public Integer getDirectiveStatus() {
@@ -113,33 +82,15 @@ public class MibResponse {
         public void setEndorsements(List<MibEndorsement> endorsements) {
             this.endorsements = endorsements;
         }
-//
-//        public MibLicence(){};
-//
-//        public MibLicence(Licence licence) {
-//            validFrom = licence.getValidFrom();
-//            validTo = licence.getValidTo();
-//            status = null;  // TODO - US166
-//            directiveStatus = licence.getDirectiveStatus();
-//            entitlements = licence.getEntitlements()
-//        }
-//
-//        private void setEntitlements(List<Entitlement> entitlements) {
-//            for (Endorsement ent : entitlements) {
-//                this.entitlements.add(new MibEntitlement(ent));
-//            }
-//        }
     }
 
     public class MibEntitlement {
 
         private String code;
-        private Date validFrom;
-        private Date validTo;
+        private DateTime validFrom;
+        private DateTime validTo;
         private Boolean isProvisional;
-        private List<MibRestriction> restrictions;
-        private TestPassStatus testPassStatus;
-        private Date datePassed;
+        private EntitlementType entitlementType;
 
         public String getCode() {
             return code;
@@ -149,19 +100,19 @@ public class MibResponse {
             this.code = code;
         }
 
-        public Date getValidFrom() {
+        public DateTime getValidFrom() {
             return validFrom;
         }
 
-        public void setValidFrom(Date validFrom) {
+        public void setValidFrom(DateTime validFrom) {
             this.validFrom = validFrom;
         }
 
-        public Date getValidTo() {
+        public DateTime getValidTo() {
             return validTo;
         }
 
-        public void setValidTo(Date validTo) {
+        public void setValidTo(DateTime validTo) {
             this.validTo = validTo;
         }
 
@@ -173,64 +124,22 @@ public class MibResponse {
             this.isProvisional = isProvisional;
         }
 
-        public List<MibRestriction> getRestrictions() {
-            return restrictions;
+        public EntitlementType getEntitlementType() {
+            return entitlementType;
         }
 
-        public void setRestrictions(List<MibRestriction> restrictions) {
-            this.restrictions = restrictions;
+        public void setEntitlementType(EntitlementType entitlementType) {
+            this.entitlementType = entitlementType;
         }
-
-        public TestPassStatus getTestPassStatus() {
-            return testPassStatus;
-        }
-
-        public void setTestPassStatus(TestPassStatus testPassStatus) {
-            this.testPassStatus = testPassStatus;
-        }
-
-        public Date getDatePassed() {
-            return datePassed;
-        }
-
-        public void setDatePassed(Date datePassed) {
-            this.datePassed = datePassed;
-        }
-//
-//        public MibEntitlement(){};
-//
-//        public MibLicence(Licence licence) {
-//            validFrom = licence.getValidFrom();
-//            validTo = licence.getValidTo();
-//            status = null;  // TODO - US166
-//            directiveStatus = licence.getDirectiveStatus();
-//            entitlements = licence.getEntitlements()
-//        }
-
-        // Calculated field used to simplify data sent to the MIB
-//        @JsonProperty("entitlementType")
-//        public EntitlementType getEntitlementType() {
-//            EntitlementType entitlementType = EntitlementType.Full;
-//
-//            if (isProvisional) {
-//                if (testPassStatus == TestPassStatus.Unclaimed) {
-//                    entitlementType = EntitlementType.UnclaimedTestPass;
-//                }else {
-//                    entitlementType = EntitlementType.Provisional;
-//                }
-//            }
-//
-//            return entitlementType;
-//        }
     }
 
     public class MibEndorsement {
 
         private Boolean isDisqualification;
         private String offenceCode;
-        private Date offenceDate;
-        private Date convictionDate;
-        private Date sentencingDate;
+        private DateTime offenceDate;
+        private DateTime convictionDate;
+        private DateTime sentencingDate;
         private String period;
         private double fine;
         private Integer numberOfPoints;
@@ -251,27 +160,27 @@ public class MibResponse {
             this.offenceCode = offenceCode;
         }
 
-        public Date getOffenceDate() {
+        public DateTime getOffenceDate() {
             return offenceDate;
         }
 
-        public void setOffenceDate(Date offenceDate) {
+        public void setOffenceDate(DateTime offenceDate) {
             this.offenceDate = offenceDate;
         }
 
-        public Date getConvictionDate() {
+        public DateTime getConvictionDate() {
             return convictionDate;
         }
 
-        public void setConvictionDate(Date convictionDate) {
+        public void setConvictionDate(DateTime convictionDate) {
             this.convictionDate = convictionDate;
         }
 
-        public Date getSentencingDate() {
+        public DateTime getSentencingDate() {
             return sentencingDate;
         }
 
-        public void setSentencingDate(Date sentencingDate) {
+        public void setSentencingDate(DateTime sentencingDate) {
             this.sentencingDate = sentencingDate;
         }
 
@@ -297,28 +206,6 @@ public class MibResponse {
 
         public void setNumberOfPoints(Integer numberOfPoints) {
             this.numberOfPoints = numberOfPoints;
-        }
-    }
-
-    public class MibRestriction {
-
-        private String type;
-        private String info;
-
-        public String getType() {
-            return type;
-        }
-
-        public void setType(String type) {
-            this.type = type;
-        }
-
-        public String getInfo() {
-            return info;
-        }
-
-        public void setInfo(String info) {
-            this.info = info;
         }
     }
 }

@@ -1,8 +1,5 @@
 package uk.gov.dvla.domain.mib;
 
-import com.google.code.morphia.annotations.Embedded;
-
-@Embedded
 public enum TestPassStatus {
     Claimed(0, "Claimed"),
     Unclaimed(1, "Unclaimed"),

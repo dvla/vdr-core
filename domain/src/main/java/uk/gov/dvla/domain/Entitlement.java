@@ -3,6 +3,7 @@ package uk.gov.dvla.domain;
 import java.util.Date;
 import java.util.List;
 import com.google.code.morphia.annotations.Embedded;
+import com.google.code.morphia.annotations.Property;
 
 @Embedded
 public class Entitlement {
@@ -11,10 +12,14 @@ public class Entitlement {
     private Date validFrom;
     private Date validTo;
     private Date datePassed;
+
+    @Property("provisional")
     private Boolean isProvisional = null;
     private Boolean isPriorTo = null;
     private Boolean isStated = null;
     private List<EntitlementRestriction> restrictions;
+
+    // TODO - This should be removed when the TestPass class has been created
     private Integer unclaimedTestPass = 0;
 
     public Date getDatePassed() {
