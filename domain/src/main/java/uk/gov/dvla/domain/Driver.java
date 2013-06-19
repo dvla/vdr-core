@@ -12,13 +12,10 @@ import com.google.code.morphia.annotations.Property;
 public class Driver extends Person {
 
     private List<DriverNumber> driverNumberHistory;
-    private List<DriverFlag> flag;
+    private List<DriverFlag> flags;
     private Licence licence;
-    private List<Integer> stopMarker;
-    private List<Integer> restrictionKey;
-    private List<String> caseType;
-    private List<String> errorCode;
-    private Boolean endorsementAmountExcess;
+    private List<Integer> restrictionKeys;
+    private List<String> errorCodes;
     private DriverStatus status;
     private Date photoExpiryDate;
     private List<String> disqualificationStatusCodes;
@@ -37,32 +34,18 @@ public class Driver extends Person {
     private List<DriverQualificationCard> DQCs;
     private List<TestPass> testPasses;
 
-    public void addStopMarker(Integer marker) {
-        if (null == stopMarker) {
-            stopMarker = new ArrayList<Integer>();
-        }
-        stopMarker.add(marker);
-    }
-
     public void addRestrictionKey(Integer key) {
-        if (null == restrictionKey) {
-            restrictionKey = new ArrayList<Integer>();
+        if (null == restrictionKeys) {
+            restrictionKeys = new ArrayList<Integer>();
         }
-        restrictionKey.add(key);
-    }
-
-    public void addCaseType(String key) {
-        if (null == caseType) {
-            caseType = new ArrayList<String>();
-        }
-        caseType.add(key);
+        restrictionKeys.add(key);
     }
 
     public void addErrorCode(String code) {
-        if (null == errorCode) {
-            errorCode = new ArrayList<String>();
+        if (null == errorCodes) {
+            errorCodes = new ArrayList<String>();
         }
-        errorCode.add(code);
+        errorCodes.add(code);
     }
 
     public void setLicence(Licence licence) {
@@ -73,36 +56,20 @@ public class Driver extends Person {
         return this.licence;
     }
 
-    public List<Integer> getStopMarker() {
-        return stopMarker;
+    public List<Integer> getRestrictionKeys() {
+        return restrictionKeys;
     }
 
-    public void setStopMarker(List<Integer> markers) {
-        this.stopMarker = markers;
+    public void setRestrictionKeys(List<Integer> keys) {
+        this.restrictionKeys = keys;
     }
 
-    public List<Integer> getRestrictionKey() {
-        return restrictionKey;
+    public List<String> getErrorCodes() {
+        return this.errorCodes;
     }
 
-    public void setRestrictionKey(List<Integer> keys) {
-        this.restrictionKey = keys;
-    }
-
-    public List<String> getCaseType() {
-        return this.caseType;
-    }
-
-    public void setCaseType(List<String> caseTypes) {
-        this.caseType = caseTypes;
-    }
-
-    public List<String> getErrorCode() {
-        return this.errorCode;
-    }
-
-    public void setErrorCode(List<String> errorCodes) {
-        this.errorCode = errorCodes;
+    public void setErrorCodes(List<String> errorCodes) {
+        this.errorCodes = errorCodes;
     }
 
     public void setCurrentDriverNumber(String dln) {
@@ -121,12 +88,12 @@ public class Driver extends Person {
         this.driverNumberHistory = driverNumber;
     }
 
-    public List<DriverFlag> getFlag() {
-        return flag;
+    public List<DriverFlag> getFlags() {
+        return flags;
     }
 
-    public void setFlag(List<DriverFlag> flag) {
-        this.flag = flag;
+    public void setFlags(List<DriverFlag> flags) {
+        this.flags = flags;
     }
 
     public DriverStatus getStatus() {
@@ -169,12 +136,12 @@ public class Driver extends Person {
         this.nslInCorruptedRange = nslInCorruptedRange;
     }
 
-    public Boolean getEndorsementAmountExcess() {
-        return endorsementAmountExcess;
+    public List<TestPass> getTestPasses() {
+        return testPasses;
     }
 
-    public void setEndorsementAmountExcess(Boolean endorsmentAmountExcess) {
-        this.endorsementAmountExcess = endorsmentAmountExcess;
+    public void setTestPasses(List<TestPass> testPasses) {
+        this.testPasses = testPasses;
     }
 
     public DriverStatedFlags getDriverStatedFlags() {
