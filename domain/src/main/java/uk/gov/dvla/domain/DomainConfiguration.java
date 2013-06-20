@@ -9,9 +9,9 @@ public class DomainConfiguration {
     private static Config config;
 
     private DomainConfiguration() {
-        // Loads application.conf, application.json, application.properties and reference.conf by default from class path
-        // http://blog.ometer.com/2011/12/09/configuring-the-typesafe-stack/
-        config = ConfigFactory.load();
+        // Name the config rather than going with default as there are conflicts if we have more than one application.conf on our class path
+        // For more info, see: http://blog.ometer.com/2011/12/09/configuring-the-typesafe-stack/
+        config = ConfigFactory.load("domain");
     }
 
     public static synchronized DomainConfiguration getInstance() {

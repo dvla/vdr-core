@@ -1,7 +1,5 @@
 package uk.gov.dvla.domain.mib;
 
-import org.joda.time.DateTime;
-
 import java.util.Date;
 import java.util.List;
 
@@ -10,7 +8,6 @@ public class MibResponse {
     private MibDriver driver;
 
     public MibResponse(){};
-
 
     public MibDriver getDriver() {
         return driver;
@@ -87,8 +84,8 @@ public class MibResponse {
     public class MibEntitlement {
 
         private String code;
-        private DateTime validFrom;
-        private DateTime validTo;
+        private Date validFrom;
+        private Date validTo;
         private Boolean isProvisional;
         private EntitlementType entitlementType;
 
@@ -100,19 +97,19 @@ public class MibResponse {
             this.code = code;
         }
 
-        public DateTime getValidFrom() {
+        public Date getValidFrom() {
             return validFrom;
         }
 
-        public void setValidFrom(DateTime validFrom) {
+        public void setValidFrom(Date validFrom) {
             this.validFrom = validFrom;
         }
 
-        public DateTime getValidTo() {
+        public Date getValidTo() {
             return validTo;
         }
 
-        public void setValidTo(DateTime validTo) {
+        public void setValidTo(Date validTo) {
             this.validTo = validTo;
         }
 
@@ -137,11 +134,11 @@ public class MibResponse {
 
         private Boolean isDisqualification;
         private String offenceCode;
-        private DateTime offenceDate;
-        private DateTime convictionDate;
-        private DateTime sentencingDate;
+        private Date offenceDate;
+        private Date convictionDate;
+        private Date sentencingDate;
         private String period;
-        private double fine;
+        private Number fine;
         private Integer numberOfPoints;
 
         public Boolean getDisqualification() {
@@ -160,27 +157,27 @@ public class MibResponse {
             this.offenceCode = offenceCode;
         }
 
-        public DateTime getOffenceDate() {
+        public Date getOffenceDate() {
             return offenceDate;
         }
 
-        public void setOffenceDate(DateTime offenceDate) {
+        public void setOffenceDate(Date offenceDate) {
             this.offenceDate = offenceDate;
         }
 
-        public DateTime getConvictionDate() {
+        public Date getConvictionDate() {
             return convictionDate;
         }
 
-        public void setConvictionDate(DateTime convictionDate) {
+        public void setConvictionDate(Date convictionDate) {
             this.convictionDate = convictionDate;
         }
 
-        public DateTime getSentencingDate() {
+        public Date getSentencingDate() {
             return sentencingDate;
         }
 
-        public void setSentencingDate(DateTime sentencingDate) {
+        public void setSentencingDate(Date sentencingDate) {
             this.sentencingDate = sentencingDate;
         }
 
@@ -192,11 +189,11 @@ public class MibResponse {
             this.period = period;
         }
 
-        public double getFine() {
+        public Number getFine() {
             return fine;
         }
 
-        public void setFine(double fine) {
+        public void setFine(Number fine) {
             this.fine = fine;
         }
 
