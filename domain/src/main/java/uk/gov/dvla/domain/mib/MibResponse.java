@@ -17,7 +17,7 @@ public class MibResponse {
         this.driver = driver;
     }
 
-    public class MibDriver {
+    public static class MibDriver {
 
         private MibLicence licence;
 
@@ -30,15 +30,13 @@ public class MibResponse {
         }
     }
 
-    public class MibLicence {
+    public static class MibLicence {
 
         private Date validFrom;
         private Date validTo;
         private Integer directiveStatus;
         private List<MibEntitlement> entitlements;
         private List<MibEndorsement> endorsements;
-
-        public MibLicence(){};
 
         public Date getValidFrom() {
             return validFrom;
@@ -81,7 +79,7 @@ public class MibResponse {
         }
     }
 
-    public class MibEntitlement {
+    public static class MibEntitlement {
 
         private String code;
         private Date validFrom;
@@ -121,7 +119,7 @@ public class MibResponse {
         }
     }
 
-    public class MibEndorsement {
+    public static class MibEndorsement {
 
         private String code;
         private Date offenceDate;
@@ -137,7 +135,7 @@ public class MibResponse {
         }
 
         public void setIsDisqual(Boolean isDisqual) {
-            isDisqual = isDisqual;
+            this.isDisqual = isDisqual;
         }
 
         public String getCode() {
