@@ -6,10 +6,10 @@ import uk.gov.dvla.domain.Message;
 import uk.gov.dvla.domain.MessageType;
 import uk.gov.dvla.domain.ServiceResult;
 import uk.gov.dvla.messages.*;
+import uk.gov.dvla.servicebus.core.Bus;
 import uk.gov.dvla.services.common.HttpHelperService;
 import uk.gov.dvla.services.common.PostcodeHelper;
 import uk.gov.dvla.services.common.ServiceDateFormat;
-import uk.gov.dvla.servicebus.core.Bus;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.WebApplicationException;
@@ -17,7 +17,6 @@ import javax.ws.rs.core.Response;
 import java.text.ParseException;
 import java.util.Date;
 import java.util.List;
-import java.util.regex.Pattern;
 
 public class AuditorServiceImpl implements AuditorService {
 
