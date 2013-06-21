@@ -1,9 +1,12 @@
 package uk.gov.dvla.domain;
 
-import java.util.Date;
-import java.util.List;
 import com.google.code.morphia.annotations.Embedded;
 import com.google.code.morphia.annotations.Property;
+import uk.gov.dvla.domain.mib.TestPassStatus;
+
+import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
 
 @Embedded
 public class Entitlement {
@@ -20,7 +23,8 @@ public class Entitlement {
     private List<EntitlementRestriction> restrictions;
 
     // TODO - This should be removed when the TestPass class has been created
-    private Integer unclaimedTestPass = 0;
+    @Property("unclaimedTestPass")
+    private Integer unclaimedTestPassStatus = 0;
 
     public Date getDatePassed() {
         return datePassed;
@@ -86,11 +90,34 @@ public class Entitlement {
         this.restrictions = restrictions;
     }
 
-    public Integer getUnclaimedTestPass() {
-        return unclaimedTestPass;
+    public Integer getUnclaimedTestPassStatus() {
+        return unclaimedTestPassStatus;
     }
 
-    public void setUnclaimedTestPass(Integer unclaimedTestPass) {
-        this.unclaimedTestPass = unclaimedTestPass;
+    public void setUnclaimedTestPassStatus(Integer unclaimedTestPassStatus) {
+        this.unclaimedTestPassStatus = unclaimedTestPassStatus;
+    }
+
+    public boolean isUnclaimedTestPass() {
+        TestPassStatus testPassStatus = TestPassStatus.values()[getUnclaimedTestPassStatus()];
+
+        return testPassStatus == TestPassStatus.Unclaimed;
+    }
+
+    public Date getUnclaimedTestPassExpiryDate() {
+
+        Date expiryDate = null;
+
+        if (getIsProvisional() && isUnclaimedTestPass()) {
+            Integer unclaimedTestPassValidityInMonths = DomainConfiguration.getInstance().getUnclaimedTestPassValidity();
+
+            Calendar c = Calendar.getInstance();
+            c.setTime(getDatePassed());
+            c.add(Calendar.MONTH, unclaimedTestPassValidityInMonths);
+
+            expiryDate = c.getTime();
+        }
+
+        return expiryDate;
     }
 }

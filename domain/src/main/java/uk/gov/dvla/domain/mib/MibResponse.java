@@ -86,8 +86,7 @@ public class MibResponse {
         private String code;
         private Date validFrom;
         private Date validTo;
-        private Boolean isProvisional;
-        private EntitlementType entitlementType;
+        private EntitlementType type;
 
         public String getCode() {
             return code;
@@ -113,48 +112,40 @@ public class MibResponse {
             this.validTo = validTo;
         }
 
-        public Boolean getIsProvisional() {
-            return isProvisional;
+        public EntitlementType getType() {
+            return type;
         }
 
-        public void setIsProvisional(Boolean isProvisional) {
-            this.isProvisional = isProvisional;
-        }
-
-        public EntitlementType getEntitlementType() {
-            return entitlementType;
-        }
-
-        public void setEntitlementType(EntitlementType entitlementType) {
-            this.entitlementType = entitlementType;
+        public void setType(EntitlementType entitlementType) {
+            this.type = entitlementType;
         }
     }
 
     public class MibEndorsement {
 
-        private Boolean isDisqualification;
-        private String offenceCode;
+        private String code;
         private Date offenceDate;
         private Date convictionDate;
         private Date sentencingDate;
-        private String period;
         private Number fine;
-        private Integer numberOfPoints;
+        private Integer noOfPoints;
+        private Boolean isDisqual;
+        private String disqualPeriod;
 
-        public Boolean getDisqualification() {
-            return isDisqualification;
+        public Boolean getIsDisqual() {
+            return isDisqual;
         }
 
-        public void setDisqualification(Boolean disqualification) {
-            isDisqualification = disqualification;
+        public void setIsDisqual(Boolean isDisqual) {
+            isDisqual = isDisqual;
         }
 
-        public String getOffenceCode() {
-            return offenceCode;
+        public String getCode() {
+            return code;
         }
 
-        public void setOffenceCode(String offenceCode) {
-            this.offenceCode = offenceCode;
+        public void setCode(String code) {
+            this.code = code;
         }
 
         public Date getOffenceDate() {
@@ -181,12 +172,12 @@ public class MibResponse {
             this.sentencingDate = sentencingDate;
         }
 
-        public String getPeriod() {
-            return period;
+        public String getDisqualPeriod() {
+            return disqualPeriod;
         }
 
-        public void setPeriod(String period) {
-            this.period = period;
+        public void setDisqualPeriod(String disqualPeriod) {
+            this.disqualPeriod = disqualPeriod;
         }
 
         public Number getFine() {
@@ -197,12 +188,12 @@ public class MibResponse {
             this.fine = fine;
         }
 
-        public Integer getNumberOfPoints() {
-            return numberOfPoints;
+        public Integer getNoOfPoints() {
+            return noOfPoints;
         }
 
-        public void setNumberOfPoints(Integer numberOfPoints) {
-            this.numberOfPoints = numberOfPoints;
+        public void setNoOfPoints(Integer noOfPoints) {
+            this.noOfPoints = noOfPoints;
         }
     }
 }
