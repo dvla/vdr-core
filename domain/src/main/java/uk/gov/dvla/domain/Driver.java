@@ -1,12 +1,11 @@
 package uk.gov.dvla.domain;
 
+import com.google.code.morphia.annotations.Entity;
+import com.google.code.morphia.annotations.Indexed;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
-import com.google.code.morphia.annotations.Entity;
-import com.google.code.morphia.annotations.Indexed;
-import com.google.code.morphia.annotations.Property;
 
 @Entity(value = "drivers", noClassnameStored = true)
 public class Driver extends Person {
@@ -24,9 +23,8 @@ public class Driver extends Person {
     private Date photoExpiryDate;
     private List<String> disqualificationStatusCodes;
     private boolean nslInCorruptedRange;
-    @Property("dln")
     @Indexed(unique = true)
-    private String currentDriverNumber = null;
+    private String dln = null;
 
     public void addLicence(Licence lic) {
         if (null == licence) {
@@ -103,12 +101,12 @@ public class Driver extends Person {
         this.errorCode = errorCodes;
     }
 
-    public void setCurrentDriverNumber(String dln) {
-        this.currentDriverNumber = dln;
+    public void setDln(String dln) {
+        this.dln = dln;
     }
 
-    public String getCurrentDriverNumber() {
-        return this.currentDriverNumber;
+    public String getDln() {
+        return this.dln;
     }
 
     public List<DriverNumber> getDriverNumberHistory() {
