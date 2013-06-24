@@ -2,9 +2,9 @@ package uk.gov.dvla.domain;
 
 import com.google.code.morphia.annotations.Embedded;
 import com.google.code.morphia.annotations.Property;
+import org.joda.time.DateTime;
 import uk.gov.dvla.domain.mib.TestPassStatus;
 
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -110,12 +110,7 @@ public class Entitlement {
 
         if (getIsProvisional() && isUnclaimedTestPass()) {
             Integer unclaimedTestPassValidityInMonths = DomainConfiguration.getInstance().getUnclaimedTestPassValidity();
-
-            Calendar c = Calendar.getInstance();
-            c.setTime(getDatePassed());
-            c.add(Calendar.MONTH, unclaimedTestPassValidityInMonths);
-
-            expiryDate = c.getTime();
+            expiryDate = new DateTime(getDatePassed()).plusMonths(unclaimedTestPassValidityInMonths).toDate();
         }
 
         return expiryDate;
