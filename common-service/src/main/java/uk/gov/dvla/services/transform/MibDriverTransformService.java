@@ -39,6 +39,7 @@ public class MibDriverTransformService implements TransformService<ServiceResult
 
     private List<MibDTO.Entitlement> getEntitlements(Licence licence) {
         List<MibDTO.Entitlement> entitlements = new ArrayList<MibDTO.Entitlement>();
+        if (licence.getEntitlements() == null) return entitlements;
 
         for (Entitlement ent : licence.getEntitlements()) {
             MibDTO.Entitlement mibEntitlement = new MibDTO.Entitlement();
@@ -54,7 +55,8 @@ public class MibDriverTransformService implements TransformService<ServiceResult
     }
 
     private List<MibDTO.Endorsement> getEndorsements(Licence licence) {
-        List<MibDTO.Endorsement> entitlements = new ArrayList<MibDTO.Endorsement>();
+        List<MibDTO.Endorsement> endorsements = new ArrayList<MibDTO.Endorsement>();
+        if (licence.getEndorsements() == null) return endorsements;
 
         for (Endorsement end : licence.getEndorsements()) {
             MibDTO.Endorsement mibEndorsement = new MibDTO.Endorsement();
@@ -67,10 +69,10 @@ public class MibDriverTransformService implements TransformService<ServiceResult
             mibEndorsement.setIsDisqual(end.getDisqualification());
             mibEndorsement.setDisqualPeriod(end.getPeriod());
 
-            entitlements.add(mibEndorsement);
+            endorsements.add(mibEndorsement);
         }
 
-        return entitlements;
+        return endorsements;
     }
 
     private EntitlementType getEntitlementType(Entitlement ent) {
