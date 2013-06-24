@@ -11,4 +11,8 @@ public interface DriverDatastore extends Datastore, ManagedService
 	
 	public List<Driver> findByPersonalDetails(List<String> forenames, String surname, Date dob, int gender, String postCode);
 
+    public void add(Driver driver);
+
+    public void delete(Driver driver);
+
 }
