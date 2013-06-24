@@ -3,40 +3,40 @@ package uk.gov.dvla.domain.mib;
 import java.util.Date;
 import java.util.List;
 
-public class MibResponse {
+public class MibDTO {
 
-    private MibDriver driver;
+    private Driver driver;
 
-    public MibResponse(){};
+    public MibDTO(){};
 
-    public MibDriver getDriver() {
+    public Driver getDriver() {
         return driver;
     }
 
-    public void setDriver(MibDriver driver) {
+    public void setDriver(Driver driver) {
         this.driver = driver;
     }
 
-    public static class MibDriver {
+    public static class Driver {
 
-        private MibLicence licence;
+        private Licence licence;
 
-        public MibLicence getLicence() {
+        public Licence getLicence() {
             return this.licence;
         }
 
-        public void setLicence(MibLicence licence) {
+        public void setLicence(Licence licence) {
             this.licence = licence;
         }
     }
 
-    public static class MibLicence {
+    public static class Licence {
 
         private Date validFrom;
         private Date validTo;
         private Integer directiveStatus;
-        private List<MibEntitlement> entitlements;
-        private List<MibEndorsement> endorsements;
+        private List<Entitlement> entitlements;
+        private List<Endorsement> endorsements;
 
         public Date getValidFrom() {
             return validFrom;
@@ -62,24 +62,24 @@ public class MibResponse {
             this.directiveStatus = directiveStatus;
         }
 
-        public List<MibEntitlement> getEntitlements() {
+        public List<Entitlement> getEntitlements() {
             return entitlements;
         }
 
-        public void setEntitlements(List<MibEntitlement> entitlements) {
+        public void setEntitlements(List<Entitlement> entitlements) {
             this.entitlements = entitlements;
         }
 
-        public List<MibEndorsement> getEndorsements() {
+        public List<Endorsement> getEndorsements() {
             return endorsements;
         }
 
-        public void setEndorsements(List<MibEndorsement> endorsements) {
+        public void setEndorsements(List<Endorsement> endorsements) {
             this.endorsements = endorsements;
         }
     }
 
-    public static class MibEntitlement {
+    public static class Entitlement {
 
         private String code;
         private Date validFrom;
@@ -119,7 +119,7 @@ public class MibResponse {
         }
     }
 
-    public static class MibEndorsement {
+    public static class Endorsement {
 
         private String code;
         private Date offenceDate;
