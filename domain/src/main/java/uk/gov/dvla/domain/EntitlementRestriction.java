@@ -1,9 +1,7 @@
 package uk.gov.dvla.domain;
 
 import com.google.code.morphia.annotations.Embedded;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 @Embedded
 public class EntitlementRestriction {
