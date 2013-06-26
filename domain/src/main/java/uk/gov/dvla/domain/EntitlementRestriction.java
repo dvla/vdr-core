@@ -12,22 +12,18 @@ public class EntitlementRestriction {
     private String text;
     private Date validFrom;
     private Date validTo;
-    private List<String> categoryCodes;
+    private String categoryCodes;
 
     public EntitlementRestriction() {
     }
 
-    public EntitlementRestriction(String restrictionType, List<String> categoryCodes) {
+    public EntitlementRestriction(String restrictionType, String categoryCodes) {
         if (restrictionType == null) {
             throw new RuntimeException("restrictionType must be specified");
         }
         
         this.restrictionType = restrictionType;
-        if (categoryCodes == null) {
-            this.categoryCodes = new ArrayList();
-        } else {
-            this.categoryCodes = categoryCodes;
-        }
+        this.categoryCodes = categoryCodes;
 
     }
 
@@ -63,11 +59,11 @@ public class EntitlementRestriction {
         this.validTo = validTo;
     }
 
-    public List<String> getCategoryCodes() {
+    public String getCategoryCodes() {
         return categoryCodes;
     }
 
-    public void setCategoryCodes(List<String> categoryCodes) {
+    public void setCategoryCodes(String categoryCodes) {
         this.categoryCodes = categoryCodes;
     }
 }
