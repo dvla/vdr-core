@@ -21,7 +21,6 @@ public class Driver extends Person {
     private List<String> disqualificationStatusCodes;
     private boolean nslInCorruptedRange;
     private DriverStatedFlags driverStatedFlags;
-    @Property("dln")
     @Indexed(unique = true)
     private String currentDriverNumber = null;
     private Date firstProvisionalDate;
