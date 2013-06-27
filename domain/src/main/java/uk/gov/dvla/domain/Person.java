@@ -6,14 +6,13 @@ import org.bson.types.ObjectId;
 
 import com.google.code.morphia.annotations.Entity;
 import com.google.code.morphia.annotations.Id;
-import com.google.code.morphia.annotations.Property;
 
 @Entity
 public class Person {
 	
 	private @Id ObjectId id;
-	private @Property("nino") String nationalInsuranceNumber = null;
-	private @Property("pass_no") String passportNumber = null;
+	private String nino = null;
+	private String passNo = null;
 	private Date dob;
 	private Country countryOfBirth;
 
@@ -41,17 +40,17 @@ public class Person {
 	public void setId(ObjectId id) {
 		this.id = id;
 	}
-	public String getNationalInsuranceNumber() {
-		return nationalInsuranceNumber;
+	public String getNino() {
+		return nino;
 	}
-	public void setNationalInsuranceNumber(String nationalInsuranceNumber) {
-		this.nationalInsuranceNumber = nationalInsuranceNumber;
+	public void setNino(String nino) {
+		this.nino = nino;
 	}
-	public String getPassportNumber() {
-		return passportNumber;
+	public String getPassNo() {
+		return passNo;
 	}
-	public void setPassportNumber(String passportNumber) {
-		this.passportNumber = passportNumber;
+	public void setPassNo(String passNo) {
+		this.passNo = passNo;
 	}
 	public Date getDob() {
 		return dob;
