@@ -73,13 +73,13 @@ public class TestMibDriverTransformService {
         assertEquals("Directive Status returned", directiveStatus2, driverResult.getLicence().getDirectiveStatus());
 
         List<MibDTO.Entitlement> entResult = driverResult.getLicence().getEntitlements();
-        assertEquals("3 Entitlements returned", 3, driverResult.getLicence().getEntitlements().size());
+        assertEquals("3 Entitlements returned", 3, entResult.size());
         AssertExpectedEntitlementFieldsReturned(entResult.get(0), "abc", datePassed, unclaimedTestPassEntitlement.getUnclaimedTestPassExpiryDate(), EntitlementType.UnclaimedTestPass);
         AssertExpectedEntitlementFieldsReturned(entResult.get(1), "def", validFrom, validTo, EntitlementType.Full);
         AssertExpectedEntitlementFieldsReturned(entResult.get(2), "ghi", validFrom, validTo, EntitlementType.Provisional);
 
         List<MibDTO.Endorsement> endResult = driverResult.getLicence().getEndorsements();
-        assertEquals("2 Endorsements returned", 3, driverResult.getLicence().getEntitlements().size());
+        assertEquals("2 Endorsements returned", 2, endResult.size());
         AssertExpectedEndorsementFieldsReturned(endResult.get(0), "CU20");
         AssertExpectedEndorsementFieldsReturned(endResult.get(1), "CU21");
     }

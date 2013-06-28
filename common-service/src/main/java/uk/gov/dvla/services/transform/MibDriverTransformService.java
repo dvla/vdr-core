@@ -13,11 +13,11 @@ public class MibDriverTransformService implements TransformService<ServiceResult
     @Override
     public ServiceResult<MibDTO> transform(ServiceResult<Driver> objectToTransform) {
         MibDTO mibDTO = new MibDTO();
-        mibDTO.setDriver(new MibDTO.Driver());
+        MibDTO.Driver mibDriver = new MibDTO.Driver();
+        mibDTO.setDriver(mibDriver);
+
         Driver driver = objectToTransform.getResult();
         Licence licence = driver.getLicence().get(0);
-
-        MibDTO.Driver mibDriver = mibDTO.getDriver();
 
         mibDriver.setLicence(getLicence(licence));
         MibDTO.Licence mibLicence = mibDriver.getLicence();
