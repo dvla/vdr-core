@@ -14,7 +14,8 @@ public class Licence {
 
     public Date validFrom;
     public Date validTo;
-    public Integer directiveStatus;
+    public int directiveStatus;
+    public String issueNumber;
     private List<Entitlement> entitlements;
     private List<Endorsement> endorsements;
     private @Property("avpStartDate") Date administrativeValidityPeriodStartDate;
@@ -51,6 +52,14 @@ public class Licence {
             endorsements = new ArrayList<Endorsement>();
         }
         endorsements.add(end);
+    }
+
+    public void setIssueNumber(String issueNumber) {
+        this.issueNumber = issueNumber;
+    }
+
+    public String getIssueNumber() {
+        return issueNumber;
     }
 
     public void setDirectiveStatus(Integer directiveStatus) {

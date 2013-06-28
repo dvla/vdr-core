@@ -1,5 +1,10 @@
 package uk.gov.dvla.domain;
 
+import com.google.code.morphia.annotations.Embedded;
+import com.google.code.morphia.annotations.Property;
+import org.joda.time.DateTime;
+import uk.gov.dvla.domain.mib.TestPassStatus;
+
 import java.util.Date;
 import java.util.List;
 
@@ -16,6 +21,14 @@ public class Entitlement {
     private List<EntitlementRestriction> restrictions;
     private Boolean vocational;
     private List<EntitlementStatus> statuses;
+
+    public Date getDatePassed() {
+        return datePassed;
+    }
+
+    public void setDatePassed(Date datePassed) {
+        this.datePassed = datePassed;
+    }
 
     public String getCode() {
         return code;
@@ -80,4 +93,5 @@ public class Entitlement {
     public void setStatuses(List<EntitlementStatus> statuses) {
         this.statuses = statuses;
     }
+
 }

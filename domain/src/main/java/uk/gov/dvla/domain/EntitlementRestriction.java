@@ -1,9 +1,7 @@
 package uk.gov.dvla.domain;
 
 import com.google.code.morphia.annotations.Embedded;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 @Embedded
 public class EntitlementRestriction {
@@ -12,22 +10,18 @@ public class EntitlementRestriction {
     private String text;
     private Date validFrom;
     private Date validTo;
-    private List<String> categoryCodes;
+    private String categoryCode;
 
     public EntitlementRestriction() {
     }
 
-    public EntitlementRestriction(String code, List<String> categoryCodes) {
+    public EntitlementRestriction(String code, String categoryCode) {
         if (code == null) {
             throw new RuntimeException("code must be specified");
         }
         
         this.code = code;
-        if (categoryCodes == null) {
-            this.categoryCodes = new ArrayList();
-        } else {
-            this.categoryCodes = categoryCodes;
-        }
+        this.categoryCodes = categoryCodes;
 
     }
 
@@ -63,11 +57,11 @@ public class EntitlementRestriction {
         this.validTo = validTo;
     }
 
-    public List<String> getCategoryCodes() {
-        return categoryCodes;
+    public String getCategoryCode() {
+        return categoryCode;
     }
 
-    public void setCategoryCodes(List<String> categoryCodes) {
-        this.categoryCodes = categoryCodes;
+    public void setCategoryCode(String categoryCode) {
+        this.categoryCode = categoryCode;
     }
 }
