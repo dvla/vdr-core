@@ -1,5 +1,7 @@
 package uk.gov.dvla.domain;
 
+import java.lang.Integer;
+import java.lang.String;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -23,6 +25,7 @@ public class Licence {
     private String regimeType;
     private List<LicenceInformation> information;
     private List<LicenceToken> tokens;
+    private Integer currentIssueNum;
 
     public List<LicenceToken> getTokens() {
         return tokens;
@@ -114,6 +117,18 @@ public class Licence {
         this.numEndorsements = numEndorsements;
     }
 
+    public void setRegimeType(String regimeType) {
+        this.regimeType = regimeType;
+    }
+
+    public Integer getCurrentIssueNum() {
+        return currentIssueNum;
+    }
+
+    public void setCurrentIssueNum(Integer currentIssueNum) {
+        this.currentIssueNum = currentIssueNum;
+    }
+
     public Date getOriginalPhotoExpiryDate() {
         return originalPhotoExpiryDate;
     }
@@ -145,4 +160,10 @@ public class Licence {
     public void setInformation(List<LicenceInformation> information) {
         this.information = information;
     }
+
+    public void setDirectiveStatus(Integer directiveStatus) {
+        this.directiveStatus = directiveStatus;
+    }
+
+
 }

@@ -8,7 +8,7 @@ import java.util.List;
 @Embedded
 public class EntitlementRestriction {
 
-    private String restrictionType;
+    private String code;
     private String text;
     private Date validFrom;
     private Date validTo;
@@ -17,12 +17,12 @@ public class EntitlementRestriction {
     public EntitlementRestriction() {
     }
 
-    public EntitlementRestriction(String restrictionType, List<String> categoryCodes) {
-        if (restrictionType == null) {
-            throw new RuntimeException("restrictionType must be specified");
+    public EntitlementRestriction(String code, List<String> categoryCodes) {
+        if (code == null) {
+            throw new RuntimeException("code must be specified");
         }
         
-        this.restrictionType = restrictionType;
+        this.code = code;
         if (categoryCodes == null) {
             this.categoryCodes = new ArrayList();
         } else {
@@ -31,12 +31,12 @@ public class EntitlementRestriction {
 
     }
 
-    public String getRestrictionType() {
-        return restrictionType;
+    public String getCode() {
+        return code;
     }
 
-    public void setRestrictionType(String restrictionType) {
-        this.restrictionType = restrictionType;
+    public void setCode(String code) {
+        this.code = code;
     }
 
     public String getText() {

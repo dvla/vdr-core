@@ -8,7 +8,6 @@ public enum AddressType {
     Military(1, "M"),
     UKStructured(2, "UK"),
     Unstructured(3,"UN"),
-    POBox(4, "PO");
 
 
     public int getAddressType()
