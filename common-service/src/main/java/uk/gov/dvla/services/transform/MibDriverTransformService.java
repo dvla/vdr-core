@@ -60,13 +60,13 @@ public class MibDriverTransformService implements TransformService<ServiceResult
 
         for (Endorsement end : licence.getEndorsements()) {
             MibDTO.Endorsement mibEndorsement = new MibDTO.Endorsement();
-            mibEndorsement.setCode(end.getCode());
-            mibEndorsement.setOffenceDate(end.getOffDate());
-            mibEndorsement.setConvictionDate(end.getConviction());
-            mibEndorsement.setSentencingDate(end.getSentencing());
+            mibEndorsement.setCode(end.getOffenceCode());
+            mibEndorsement.setOffenceDate(end.getOffenceDate());
+            mibEndorsement.setConvictionDate(end.getConvictionDate());
+            mibEndorsement.setSentencingDate(end.getSentencingDate());
             mibEndorsement.setFine(end.getFine());
-            mibEndorsement.setNoOfPoints(end.getNoPoints());
-            mibEndorsement.setIsDisqual(end.getDisqual());
+            mibEndorsement.setNoOfPoints(end.getNumberOfPoints());
+            mibEndorsement.setIsDisqual(end.getDisqualification());
             mibEndorsement.setDisqualPeriod(end.getPeriod());
 
             endorsements.add(mibEndorsement);

@@ -116,11 +116,11 @@ public class TestMibDriverTransformService {
 
     private Endorsement createSampleDisqualificationEndorsement(String offenceCode) throws ParseException {
         Endorsement sample = new Endorsement();
-        sample.setCode(offenceCode);
-        sample.setOffDate(defaultOffenceDate);
-        sample.setDisqual(true);
-        sample.setConviction(defaultConvictionDate);
-        sample.setSentencing(defaultSentencingDate);
+        sample.setOffenceCode(offenceCode);
+        sample.setOffenceDate(defaultOffenceDate);
+        sample.setDisqualification(true);
+        sample.setConvictionDate(defaultConvictionDate);
+        sample.setSentencingDate(defaultSentencingDate);
         sample.setPeriod(defaultPeriod);
         sample.setFine(defaultFine);
 
