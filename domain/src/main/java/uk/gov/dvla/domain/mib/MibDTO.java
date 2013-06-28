@@ -211,13 +211,8 @@ public class MibDTO {
         }
 
         public EntitlementRestriction(String type, String info) {
-            if (type == null) {
-                throw new RuntimeException("restrictionType must be specified");
-            }
-
             this.type = type;
             this.info = info;
-
         }
 
         public String getType() {
