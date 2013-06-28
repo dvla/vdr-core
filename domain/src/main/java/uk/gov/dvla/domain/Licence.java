@@ -11,7 +11,7 @@ public class Licence {
 
     public Date validFrom;
     public Date validTo;
-    public Integer directiveStatus;
+    public int directiveStatus;
     public String issueNumber;
     private List<Entitlement> entitlements;
     private List<Endorsement> endorsements;

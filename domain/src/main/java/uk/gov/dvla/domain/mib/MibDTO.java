@@ -7,8 +7,6 @@ public class MibDTO {
 
     private Driver driver;
 
-    public MibDTO(){};
-
     public Driver getDriver() {
         return driver;
     }
