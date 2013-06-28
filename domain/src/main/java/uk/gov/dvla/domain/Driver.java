@@ -1,11 +1,11 @@
 package uk.gov.dvla.domain;
 
-import com.google.code.morphia.annotations.Entity;
-import com.google.code.morphia.annotations.Indexed;
-
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
+import com.google.code.morphia.annotations.Entity;
+import com.google.code.morphia.annotations.Indexed;
 
 @Entity(value = "drivers", noClassnameStored = true)
 public class Driver extends Person {
