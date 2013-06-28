@@ -6,84 +6,84 @@ import com.google.code.morphia.annotations.Embedded;
 @Embedded
 public class Endorsement {
 
-    public Boolean disqual;
+    public Boolean isDisqualification;
     //Both Penalty Points AND Disqualifications
-    public String code; // offenceCode
-    public String court; //convictingCourtCode
-    public Date offDate; //offenceDate
-    public Date expDate; //expiryDate
-    public Date removed; //removedFromLicence
+    public String offenceCode; // offenceCode
+    public String convictingCourtCode; //convictingCourtCode
+    public Date offenceDate; //offenceDate
+    public Date expiryDate; //expiryDate
+    public Date removedFromLicence; //removedFromLicence
     //Disqualification Only
-    public Date conviction; // convictionDate
-    public Date sentencing; // sentencingDate
+    public Date convictionDate; // convictionDate
+    public Date sentencingDate; // sentencingDate
     public String period;
     public double fine;
     //Penalty Points Only
-    public Integer noPoints; //numberOfPoints
+    public Integer numberOfPoints; //numberOfPoints
     public OtherSentence otherSentence;
 
-    public Boolean getDisqual() {
-        return disqual;
+    public Boolean getDisqualification() {
+        return isDisqualification;
     }
 
-    public void setDisqual(Boolean disqual) {
-        this.disqual = disqual;
+    public void setDisqualification(Boolean disqualification) {
+        this.isDisqualification = disqualification;
     }
 
-    public String getCode() {
-        return code;
+    public String getOffenceCode() {
+        return offenceCode;
     }
 
-    public void setCode(String code) {
-        this.code = code;
+    public void setOffenceCode(String offenceCode) {
+        this.offenceCode = offenceCode;
     }
 
-    public String getCourt() {
-        return court;
+    public String getConvictingCourtCode() {
+        return convictingCourtCode;
     }
 
-    public void setCourt(String court) {
-        this.court = court;
+    public void setConvictingCourtCode(String convictingCourtCode) {
+        this.convictingCourtCode = convictingCourtCode;
     }
 
-    public Date getOffDate() {
-        return offDate;
+    public Date getOffenceDate() {
+        return offenceDate;
     }
 
-    public void setOffDate(Date offDate) {
-        this.offDate = offDate;
+    public void setOffenceDate(Date offenceDate) {
+        this.offenceDate = offenceDate;
     }
 
-    public Date getExpDate() {
-        return expDate;
+    public Date getExpiryDate() {
+        return expiryDate;
     }
 
-    public void setExpDate(Date expDate) {
-        this.expDate = expDate;
+    public void setExpiryDate(Date expiryDate) {
+        this.expiryDate = expiryDate;
     }
 
-    public Date getRemoved() {
-        return removed;
+    public Date getRemovedFromLicence() {
+        return removedFromLicence;
     }
 
-    public void setRemoved(Date removed) {
-        this.removed = removed;
+    public void setRemovedFromLicence(Date removedFromLicence) {
+        this.removedFromLicence = removedFromLicence;
     }
 
-    public Date getConviction() {
-        return conviction;
+    public Date getConvictionDate() {
+        return convictionDate;
     }
 
-    public void setConviction(Date conviction) {
-        this.conviction = conviction;
+    public void setConvictionDate(Date convictionDate) {
+        this.convictionDate = convictionDate;
     }
 
-    public Date getSentencing() {
-        return sentencing;
+    public Date getSentencingDate() {
+        return sentencingDate;
     }
 
-    public void setSentencing(Date sentencing) {
-        this.sentencing = sentencing;
+    public void setSentencingDate(Date sentencingDate) {
+        this.sentencingDate = sentencingDate;
     }
 
     public String getPeriod() {
@@ -102,12 +102,12 @@ public class Endorsement {
         this.fine = fine;
     }
 
-    public Integer getNoPoints() {
-        return noPoints;
+    public Integer getNumberOfPoints() {
+        return numberOfPoints;
     }
 
-    public void setNoPoints(Integer noPoints) {
-        this.noPoints = noPoints;
+    public void setNumberOfPoints(Integer numberOfPoints) {
+        this.numberOfPoints = numberOfPoints;
     }
 
     public OtherSentence getOtherSentence() {
