@@ -47,6 +47,7 @@ public class MibDriverTransformService implements TransformService<ServiceResult
             mibEntitlement.setValidFrom(getValidFrom(ent));
             mibEntitlement.setValidTo(getValidTo(ent));
             mibEntitlement.setType(getEntitlementType(ent));
+            mibEntitlement.setRestrictions(getEntitlementRestrictions(ent));
 
             entitlements.add(mibEntitlement);
         }
@@ -87,6 +88,19 @@ public class MibDriverTransformService implements TransformService<ServiceResult
         }
 
         return entitlementType;
+    }
+
+    private List<MibDTO.EntitlementRestriction> getEntitlementRestrictions(Entitlement ent) {
+
+        List<MibDTO.EntitlementRestriction> restrictions = new ArrayList<MibDTO.EntitlementRestriction>();
+
+        if (ent.getRestrictions() != null) {
+            for (EntitlementRestriction er : ent.getRestrictions()) {
+                restrictions.add(new MibDTO.EntitlementRestriction(er.getRestrictionType(), er.getCategoryCodes()));
+            }
+        }
+
+        return restrictions;
     }
 
     private Date getValidFrom(Entitlement entitlement) {
