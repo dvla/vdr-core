@@ -108,9 +108,12 @@ public class Entitlement {
 
         Date expiryDate = null;
 
-        if (getIsProvisional() && isUnclaimedTestPass()) {
-            Integer unclaimedTestPassValidityInMonths = DomainConfiguration.getInstance().getUnclaimedTestPassValidity();
-            expiryDate = new DateTime(getDatePassed()).plusMonths(unclaimedTestPassValidityInMonths).toDate();
+        if (getUnclaimedTestPassStatus() != null && getIsProvisional() != null && getDatePassed() != null) {
+            if (getIsProvisional() && isUnclaimedTestPass()) {
+                Integer unclaimedTestPassValidityInMonths = DomainConfiguration.getInstance().getUnclaimedTestPassValidity();
+                if (getDatePassed()!= null)
+                    expiryDate = new DateTime(getDatePassed()).plusMonths(unclaimedTestPassValidityInMonths).toDate();
+            }
         }
 
         return expiryDate;
