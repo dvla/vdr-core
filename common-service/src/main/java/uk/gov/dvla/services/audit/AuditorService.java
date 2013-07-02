@@ -6,6 +6,7 @@ import uk.gov.dvla.domain.ServiceResult;
 
 import javax.servlet.http.HttpServletRequest;
 import java.text.ParseException;
+import java.util.UUID;
 
 public interface AuditorService {
 
@@ -23,4 +24,7 @@ public interface AuditorService {
                                             String surname, String dob, Integer gender, String postcode,
                                             DateTime requestSent, String contactChannel,
                                             String enquiryReason, HttpServletRequest request) throws ParseException;
+
+    public void auditMibInvalidDetails(UUID enquiryId, String dln, String postcode, DateTime requestSent,
+                                       HttpServletRequest request);
 }

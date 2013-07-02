@@ -17,6 +17,7 @@ import javax.ws.rs.core.Response;
 import java.text.ParseException;
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 public class AuditorServiceImpl implements AuditorService {
 
@@ -99,6 +100,15 @@ public class AuditorServiceImpl implements AuditorService {
         }
 
     }
+
+    @Override
+    public void auditMibInvalidDetails(UUID enquiryId, String dln, String postcode, DateTime requestSent,
+                                       HttpServletRequest request) {
+        // TODO
+
+    }
+
+
 
     private boolean isDriverFullySuppressed(ServiceResult<Driver> driverResult) {
         boolean isFullySuppressed = false;
