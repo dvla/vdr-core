@@ -13,7 +13,7 @@ public interface DriverEnquiry extends ManagedService
     public static final String CUSTOMER_PORTAL = "customer.portal";
     public static final String MIB = "mib";
 
-    public static final String DLN_PARAM = "dln";
+    public static final String DLN_PARAM = "currentDriverNumber";
     public static final String ENQUIRY_ID_PARAM = "id";
 
     public static final String FORENAME_PARAM = "fn";
