@@ -2,6 +2,7 @@ package uk.gov.dvla.messages
 
 import uk.gov.dvla.servicebus.core.Message
 import org.joda.time.DateTime
+import java.util.UUID
 
 object Status extends Enumeration {
   val RecordFound,
@@ -208,4 +209,32 @@ case class DvlaUnauthorisedAccess(userId: String, requestSent: DateTime, respons
   val result = Result.Failure
   val status = Status.UnauthorisedAccess
   val serviceType = ServiceType.DvlaPortal
+}
+
+case class MibMissingMandatoryFields(enquiryId: UUID, dln: String, postcode: String, requestSent: DateTime,
+                                     responseSent: DateTime, ipAddress: String) extends Message {
+  val result = Result.Failure
+  val status = Status.NotValid
+  val serviceType = ServiceType.ExternalInterface
+}
+
+case class MibDlnNotFound(enquiryId: UUID, dln: String, postcode: String, requestSent: DateTime,
+                           responseSent: DateTime, ipAddress: String) extends Message {
+  val result = Result.Failure
+  val status = Status.NotFound
+  val serviceType = ServiceType.ExternalInterface
+}
+
+case class MibDlnNotValid(enquiryId: UUID, dln: String, postcode: String, requestSent: DateTime,
+                           responseSent: DateTime, ipAddress: String) extends Message {
+  val result = Result.Failure
+  val status = Status.NotValid
+  val serviceType = ServiceType.ExternalInterface
+}
+
+case class MibServerError(enquiryId: UUID, dln: String, postcode: String, requestSent: DateTime,
+                           responseSent: DateTime, ipAddress: String) extends Message {
+  val result = Result.Failure
+  val status = Status.ServerError
+  val serviceType = ServiceType.ExternalInterface
 }
