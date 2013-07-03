@@ -14,27 +14,19 @@ public class Licence {
 
     public Date validFrom;
     public Date validTo;
-    public int directiveStatus;
-    public String issueNumber;
-    private List<Entitlement> entitlements;
-    private List<Endorsement> endorsements;
+    public Integer directiveStatus;
     private @Property("avpStartDate") Date administrativeValidityPeriodStartDate;
     private Date cardExpiryDate;
+    public String issueNumber;
     private Integer numEndorsements;
     private Date originalPhotoExpiryDate;
     private Date photoExpiryDate;
     private String regimeType;
+    private String currentIssueNum;
+    private List<Entitlement> entitlements;
+    private List<Endorsement> endorsements;
     private List<LicenceInformation> information;
     private List<LicenceToken> tokens;
-    private Integer currentIssueNum;
-
-    public List<LicenceToken> getTokens() {
-        return tokens;
-    }
-
-    public void setTokens(List<LicenceToken> tokens) {
-        this.tokens = tokens;
-    }
 
     public void addEntitlement(String code) {
         if (null == entitlements) {
@@ -54,22 +46,6 @@ public class Licence {
         endorsements.add(end);
     }
 
-    public void setIssueNumber(String issueNumber) {
-        this.issueNumber = issueNumber;
-    }
-
-    public String getIssueNumber() {
-        return issueNumber;
-    }
-
-    public void setDirectiveStatus(Integer directiveStatus) {
-        this.directiveStatus = directiveStatus;
-    }
-
-    public Integer getDirectiveStatus() {
-        return directiveStatus;
-    }
-
     public Date getValidFrom() {
         return validFrom;
     }
@@ -86,20 +62,12 @@ public class Licence {
         this.validTo = validTo;
     }
 
-    public List<Entitlement> getEntitlements() {
-        return entitlements;
+    public Integer getDirectiveStatus() {
+        return directiveStatus;
     }
 
-    public void setEntitlements(List<Entitlement> entitlements) {
-        this.entitlements = entitlements;
-    }
-
-    public List<Endorsement> getEndorsements() {
-        return endorsements;
-    }
-
-    public void setEndorsements(List<Endorsement> endorsements) {
-        this.endorsements = endorsements;
+    public void setDirectiveStatus(Integer directiveStatus) {
+        this.directiveStatus = directiveStatus;
     }
 
     public Date getAdministrativeValidityPeriodStartDate() {
@@ -118,24 +86,20 @@ public class Licence {
         this.cardExpiryDate = cardExpiryDate;
     }
 
+    public String getIssueNumber() {
+        return issueNumber;
+    }
+
+    public void setIssueNumber(String issueNumber) {
+        this.issueNumber = issueNumber;
+    }
+
     public Integer getNumEndorsements() {
         return numEndorsements;
     }
 
     public void setNumEndorsements(Integer numEndorsements) {
         this.numEndorsements = numEndorsements;
-    }
-
-    public void setRegimeType(String regimeType) {
-        this.regimeType = regimeType;
-    }
-
-    public Integer getCurrentIssueNum() {
-        return currentIssueNum;
-    }
-
-    public void setCurrentIssueNum(Integer currentIssueNum) {
-        this.currentIssueNum = currentIssueNum;
     }
 
     public Date getOriginalPhotoExpiryDate() {
@@ -162,6 +126,30 @@ public class Licence {
         this.regimeType = regimeType;
     }
 
+    public String getCurrentIssueNum() {
+        return currentIssueNum;
+    }
+
+    public void setCurrentIssueNum(String currentIssueNum) {
+        this.currentIssueNum = currentIssueNum;
+    }
+
+    public List<Entitlement> getEntitlements() {
+        return entitlements;
+    }
+
+    public void setEntitlements(List<Entitlement> entitlements) {
+        this.entitlements = entitlements;
+    }
+
+    public List<Endorsement> getEndorsements() {
+        return endorsements;
+    }
+
+    public void setEndorsements(List<Endorsement> endorsements) {
+        this.endorsements = endorsements;
+    }
+
     public List<LicenceInformation> getInformation() {
         return information;
     }
@@ -170,9 +158,11 @@ public class Licence {
         this.information = information;
     }
 
-    public void setDirectiveStatus(Integer directiveStatus) {
-        this.directiveStatus = directiveStatus;
+    public List<LicenceToken> getTokens() {
+        return tokens;
     }
 
-
+    public void setTokens(List<LicenceToken> tokens) {
+        this.tokens = tokens;
+    }
 }

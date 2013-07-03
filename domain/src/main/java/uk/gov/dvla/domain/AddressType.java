@@ -4,21 +4,21 @@ import com.google.code.morphia.annotations.Embedded;
 
 @Embedded
 public enum AddressType {
-    CountryOnly(0, "CO"),
-    Military(1, "M"),
-    UKStructured(2, "UK"),
-    Unstructured(3,"UN"),
+    CountryOnly("CO", "CO"),
+    Military("M", "M"),
+    UKStructured("UK", "UK"),
+    Unstructured("UN","UN");
 
 
-    public int getAddressType()
+    public String getAddressType()
     {
         return value;
     }
 
-    private int value;
+    private String value;
     private String valueName;
 
-    private AddressType(int value, String valueName) {
+    private AddressType(String value, String valueName) {
         this.value = value;
         this.valueName = valueName;
     }

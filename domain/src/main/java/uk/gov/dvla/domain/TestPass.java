@@ -1,11 +1,14 @@
 package uk.gov.dvla.domain;
 
 import com.google.code.morphia.annotations.Embedded;
+import org.joda.time.DateTime;
 
+import java.lang.Boolean;
+import java.lang.String;
 import java.util.Date;
 
 @Embedded
-public class TestPass {
+public class TestPass implements Comparable<TestPass> {
     private String entitlementType;
     private String statusType;
     private Date testPassDate;
@@ -13,6 +16,25 @@ public class TestPass {
     private Boolean harmonised;
     private Boolean automatic;
     private Boolean lessThanEqual25kw;
+
+    public Date getExpiryDate()
+    {
+        Integer unclaimedTestPassValidityInMonths = DomainConfiguration.getInstance().getUnclaimedTestPassValidity();
+        if(getTestPassDate() != null)
+        {
+            return new DateTime(getTestPassDate()).plusMonths(unclaimedTestPassValidityInMonths).toDate();
+        }
+        else
+        {
+            return null;
+        }
+
+    }
+
+    public int compareTo(TestPass other)
+    {
+        return this.getTestPassDate().compareTo(other.getTestPassDate());
+    }
 
     public String getEntitlementType() {
         return entitlementType;

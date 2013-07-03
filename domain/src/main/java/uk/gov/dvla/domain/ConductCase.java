@@ -2,6 +2,8 @@ package uk.gov.dvla.domain;
 
 import com.google.code.morphia.annotations.Embedded;
 
+import java.lang.Integer;
+import java.lang.String;
 import java.util.Date;
 import java.util.List;
 
@@ -22,7 +24,7 @@ public class ConductCase {
     private String publicEnquiryStatusType;
     private Date startDate;
     private String statusType;
-    private Number TAOPartyID;
+    private Integer TAOPartyID;
     private List<ConductCaseEvent> events;
 
     public Date getDecisionDate() {
@@ -137,11 +139,11 @@ public class ConductCase {
         this.statusType = statusType;
     }
 
-    public Number getTAOPartyID() {
+    public Integer getTAOPartyID() {
         return TAOPartyID;
     }
 
-    public void setTAOPartyID(Number TAOPartyID) {
+    public void setTAOPartyID(Integer TAOPartyID) {
         this.TAOPartyID = TAOPartyID;
     }
 

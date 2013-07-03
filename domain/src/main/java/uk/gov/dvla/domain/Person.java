@@ -1,5 +1,7 @@
 package uk.gov.dvla.domain;
 
+import java.lang.Boolean;
+import java.lang.String;
 import java.util.Date;
 import java.util.List;
 
@@ -14,7 +16,7 @@ public class Person {
 	
 	private @Id String partyID;
 	private @Property("nino") String nationalInsuranceNumber = null;
-	private @Property("passport") Passport passport = null;
+	private Passport passport = null;
 	private BirthDetails birthDetails;
     private DeathDetails deathDetails;
 
@@ -41,36 +43,37 @@ public class Person {
     private @Property("vlIdentityCode") String verificationLevelIdentityCode;
     private @Property("vlIdentityName") String verificationLevelIdentityName;
 
-    public void setAddress(Address address1){
-        this.address = address1;
+    public String getPartyID() {
+        return partyID;
     }
-    public Address getAddress(){
-        return address;
+
+    public void setPartyID(String partyID) {
+        this.partyID = partyID;
     }
-	public String getPartyID() {
-		return partyID;
-	}
-	public void setPartyID(String partyID) {
-		this.partyID = partyID;
-	}
-	public String getNationalInsuranceNumber() {
-		return nationalInsuranceNumber;
-	}
-	public void setNationalInsuranceNumber(String nationalInsuranceNumber) {
-		this.nationalInsuranceNumber = nationalInsuranceNumber;
-	}
-	public Passport getPassport() {
-		return passport;
-	}
-	public void setPassport(Passport passport) {
-		this.passport = passport;
-	}
-	public BirthDetails getBirthDetails() {
-		return birthDetails;
-	}
-	public void setBirthDetails(BirthDetails countryOfBirth) {
-		this.birthDetails = birthDetails;
-	}
+
+    public String getNationalInsuranceNumber() {
+        return nationalInsuranceNumber;
+    }
+
+    public void setNationalInsuranceNumber(String nationalInsuranceNumber) {
+        this.nationalInsuranceNumber = nationalInsuranceNumber;
+    }
+
+    public Passport getPassport() {
+        return passport;
+    }
+
+    public void setPassport(Passport passport) {
+        this.passport = passport;
+    }
+
+    public BirthDetails getBirthDetails() {
+        return birthDetails;
+    }
+
+    public void setBirthDetails(BirthDetails birthDetails) {
+        this.birthDetails = birthDetails;
+    }
 
     public DeathDetails getDeathDetails() {
         return deathDetails;
@@ -80,48 +83,69 @@ public class Person {
         this.deathDetails = deathDetails;
     }
 
+    public Address getAddress() {
+        return address;
+    }
+
+    public void setAddress(Address address) {
+        this.address = address;
+    }
+
     public Name getName() {
-		return name;
-	}
-	public void setName(Name name) {
-		this.name = name;
-	}
-	public int getGender() {
-		return gender;
-	}
-	public void setGender(int gender) {
-		this.gender = gender;
-	}
-	public Date getValidFrom() {
-		return validFrom;
-	}
-	public void setValidFrom(Date validFrom) {
-		this.validFrom = validFrom;
-	}
-	public Date getValidTo() {
-		return validTo;
-	}
-	public void setValidTo(Date validTo) {
-		this.validTo = validTo;
-	}
-	public Boolean getAdi() {
-		return adi;
-	}
-	public void setAdi(Boolean adi) {
-		this.adi = adi;
-	}
-	public Boolean getMilitary() {
-		return military;
-	}
-	public void setMilitary(Boolean military) {
-		this.military = military;
-	}
-	public Boolean getForeignLicenceOffender() {
-		return foreignLicenceOffender;
-	}
-	public void setForeignLicenceOffender(Boolean foreignLicenceOffender) {
-		this.foreignLicenceOffender = foreignLicenceOffender;
-	}
+        return name;
+    }
+
+    public void setName(Name name) {
+        this.name = name;
+    }
+
+    public int getGender() {
+        return gender;
+    }
+
+    public void setGender(int gender) {
+        this.gender = gender;
+    }
+
+    public Date getValidFrom() {
+        return validFrom;
+    }
+
+    public void setValidFrom(Date validFrom) {
+        this.validFrom = validFrom;
+    }
+
+    public Date getValidTo() {
+        return validTo;
+    }
+
+    public void setValidTo(Date validTo) {
+        this.validTo = validTo;
+    }
+
+    public Boolean getAdi() {
+        return adi;
+    }
+
+    public void setAdi(Boolean adi) {
+        this.adi = adi;
+    }
+
+    public Boolean getMilitary() {
+        return military;
+    }
+
+    public void setMilitary(Boolean military) {
+        this.military = military;
+    }
+
+    public Boolean getForeignLicenceOffender() {
+        return foreignLicenceOffender;
+    }
+
+    public void setForeignLicenceOffender(Boolean foreignLicenceOffender) {
+        this.foreignLicenceOffender = foreignLicenceOffender;
+    }
 
     public String getAgencyNotifiedEmigrationCountry() {
         return agencyNotifiedEmigrationCountry;

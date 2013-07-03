@@ -2,20 +2,22 @@ package uk.gov.dvla.domain;
 
 import com.google.code.morphia.annotations.Embedded;
 
+import java.lang.Integer;
+import java.lang.String;
 import java.util.List;
 
 @Embedded
 public class TachoCard {
     private List<String> dispatchAddressLines;
     private String dispatchPostCode;
-    private Number foreignDrivingLicenceID;
+    private Integer foreignDrivingLicenceID;
     private String MSCode;
     private String MSTachoNumber;
     private String number;
-    private Number postalAddressID;
+    private Integer postalAddressID;
     private String cardType;
-    private Number VOSAPartyID;
-    private Number workshopID;
+    private Integer VOSAPartyID;
+    private Integer workshopID;
     private String workshopNameOnCard;
 
     public List<String> getDispatchAddressLines() {
@@ -34,11 +36,11 @@ public class TachoCard {
         this.dispatchPostCode = dispatchPostCode;
     }
 
-    public Number getForeignDrivingLicenceID() {
+    public Integer getForeignDrivingLicenceID() {
         return foreignDrivingLicenceID;
     }
 
-    public void setForeignDrivingLicenceID(Number foreignDrivingLicenceID) {
+    public void setForeignDrivingLicenceID(Integer foreignDrivingLicenceID) {
         this.foreignDrivingLicenceID = foreignDrivingLicenceID;
     }
 
@@ -66,11 +68,11 @@ public class TachoCard {
         this.number = number;
     }
 
-    public Number getPostalAddressID() {
+    public Integer getPostalAddressID() {
         return postalAddressID;
     }
 
-    public void setPostalAddressID(Number postalAddressID) {
+    public void setPostalAddressID(Integer postalAddressID) {
         this.postalAddressID = postalAddressID;
     }
 
@@ -82,19 +84,19 @@ public class TachoCard {
         this.cardType = cardType;
     }
 
-    public Number getVOSAPartyID() {
+    public Integer getVOSAPartyID() {
         return VOSAPartyID;
     }
 
-    public void setVOSAPartyID(Number VOSAPartyID) {
+    public void setVOSAPartyID(Integer VOSAPartyID) {
         this.VOSAPartyID = VOSAPartyID;
     }
 
-    public Number getWorkshopID() {
+    public Integer getWorkshopID() {
         return workshopID;
     }
 
-    public void setWorkshopID(Number workshopID) {
+    public void setWorkshopID(Integer workshopID) {
         this.workshopID = workshopID;
     }
 

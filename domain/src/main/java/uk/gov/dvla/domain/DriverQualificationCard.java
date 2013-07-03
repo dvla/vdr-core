@@ -1,6 +1,10 @@
 package uk.gov.dvla.domain;
 
 import com.google.code.morphia.annotations.Embedded;
+
+import java.lang.Integer;
+import java.lang.Number;
+import java.lang.String;
 import java.util.Date;
 
 @Embedded
@@ -10,7 +14,7 @@ public class DriverQualificationCard {
     private Integer photoImageID;
     private String reasonRequested;
     private Integer signatureImageID;
-    private Number driverNumber;
+    private Integer driverNumber;
     private String firstName;
     private String surname;
     private Date dob;
@@ -56,11 +60,11 @@ public class DriverQualificationCard {
         this.signatureImageID = signatureImageID;
     }
 
-    public Number getDriverNumber() {
+    public Integer getDriverNumber() {
         return driverNumber;
     }
 
-    public void setDriverNumber(Number driverNumber) {
+    public void setDriverNumber(Integer driverNumber) {
         this.driverNumber = driverNumber;
     }
 

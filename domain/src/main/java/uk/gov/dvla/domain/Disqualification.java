@@ -2,6 +2,9 @@ package uk.gov.dvla.domain;
 
 import com.google.code.morphia.annotations.Embedded;
 
+import java.lang.Boolean;
+import java.lang.Integer;
+import java.lang.String;
 import java.util.Date;
 
 @Embedded
@@ -11,7 +14,7 @@ public class Disqualification {
     private Date disqFromDate;
     private Date disqToDate;
     private Boolean forLife;
-    private Number endorsementID;
+    private Integer endorsementID;
     private Boolean concurrent;
     private String type;
     private Date validFrom;
@@ -49,11 +52,11 @@ public class Disqualification {
         this.forLife = forLife;
     }
 
-    public Number getEndorsementID() {
+    public Integer getEndorsementID() {
         return endorsementID;
     }
 
-    public void setEndorsementID(Number endorsementID) {
+    public void setEndorsementID(Integer endorsementID) {
         this.endorsementID = endorsementID;
     }
 

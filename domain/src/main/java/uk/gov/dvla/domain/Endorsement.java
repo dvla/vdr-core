@@ -1,5 +1,9 @@
 package uk.gov.dvla.domain;
 
+import java.lang.Boolean;
+import java.lang.Integer;
+import java.lang.Number;
+import java.lang.String;
 import java.util.Date;
 import java.util.List;
 
@@ -9,150 +13,116 @@ import com.google.code.morphia.annotations.Property;
 @Embedded
 public class Endorsement {
 
-    public Number id;
-    @Property("disqual")
-    public Boolean isDisqualification;
-    //Both Penalty Points AND Disqualifications
-    @Property("code")
-    public String offenceCode;
-    @Property("court")
-    public String convictingCourtCode;
-    @Property("offDate")
-    public Date offenceDate;
-    @Property("expDate")
-    public Date expiryDate;
-    @Property("removed")
-    public Date removedFromLicence;
-    //Disqualification Only
-    @Property("conviction")
-    public Date convictionDate;
-    @Property("sentencing")
-    public Date sentencingDate;
-    public String disqualificationDuration;
-    public Number fine;
+    public Integer id;
+    public Boolean disqual;
+    public String code;
+    public String convictingCourt;
+    public Date offence;
+    public Date expires;
+    public Date removed;
+    public Date conviction;
+    public Date sentencing;
+    public String duration;
+    public double fine;
     public String fineCurrency;
     public String rehabilitated;
-    //Penalty Points Only
-    @Property("noPoints")
-    public Integer numberOfPoints;
+    public Integer noPoints;
     public OtherSentence otherSentence;
-
     public String alcoholLevel;
     public String alcoholTestType;
-    public String appealCourtCode;
-    public String sentencingCourtCode;
-    @Property("susPrisonSentenceDur")
-    public String suspendedPrisonSentenceDuration;
+    public String appealCourt;
+    public Date disqualReimp;
+    public Date disqualRemov;
+    public Date disqualSusPA;
+    public String sentencingCourt;
+    public String susPrisonSentenceDur;
 
-    @Property("disqualReimp")
-    public Date disqualificationReimposed;
-    @Property("disqualRemov")
-    public Date disqualificationRemoved;
-    @Property("disqualSusPA")
-    public Date disqualificationSuspendedPendingAppeal;
-
-    public Number getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Number id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
-    public Boolean getDisqualification() {
-        return isDisqualification;
+    public Boolean getDisqual() {
+        return disqual;
     }
 
-    public void setDisqualification(Boolean disqualification) {
-        isDisqualification = disqualification;
+    public void setDisqual(Boolean disqual) {
+        this.disqual = disqual;
     }
 
-    public String getOffenceCode() {
-        return offenceCode;
+    public String getCode() {
+        return code;
     }
 
-    public void setOffenceCode(String offenceCode) {
-        this.offenceCode = offenceCode;
+    public void setCode(String code) {
+        this.code = code;
     }
 
-    public String getConvictingCourtCode() {
-        return convictingCourtCode;
+    public String getConvictingCourt() {
+        return convictingCourt;
     }
 
-    public void setConvictingCourtCode(String convictingCourtCode) {
-        this.convictingCourtCode = convictingCourtCode;
+    public void setConvictingCourt(String convictingCourt) {
+        this.convictingCourt = convictingCourt;
     }
 
-    public Date getOffenceDate() {
-        return offenceDate;
+    public Date getOffence() {
+        return offence;
     }
 
-    public void setOffenceDate(Date offenceDate) {
-        this.offenceDate = offenceDate;
+    public void setOffence(Date offence) {
+        this.offence = offence;
     }
 
-    public Date getExpiryDate() {
-        return expiryDate;
+    public Date getExpires() {
+        return expires;
     }
 
-    public void setExpiryDate(Date expiryDate) {
-        this.expiryDate = expiryDate;
+    public void setExpires(Date expires) {
+        this.expires = expires;
     }
 
-    public Date getRemovedFromLicence() {
-        return removedFromLicence;
+    public Date getRemoved() {
+        return removed;
     }
 
-    public void setRemovedFromLicence(Date removedFromLicence) {
-        this.removedFromLicence = removedFromLicence;
+    public void setRemoved(Date removed) {
+        this.removed = removed;
     }
 
-    public Date getConvictionDate() {
-        return convictionDate;
+    public Date getConviction() {
+        return conviction;
     }
 
-    public void setConvictionDate(Date convictionDate) {
-        this.convictionDate = convictionDate;
+    public void setConviction(Date conviction) {
+        this.conviction = conviction;
     }
 
-    public Date getSentencingDate() {
-        return sentencingDate;
+    public Date getSentencing() {
+        return sentencing;
     }
 
-    public void setSentencingDate(Date sentencingDate) {
-        this.sentencingDate = sentencingDate;
+    public void setSentencing(Date sentencing) {
+        this.sentencing = sentencing;
     }
 
-    public String getDisqualificationDuration() {
-        return disqualificationDuration;
+    public String getDuration() {
+        return duration;
     }
 
-    public void setDisqualificationDuration(String disqualificationDuration) {
-        this.disqualificationDuration = disqualificationDuration;
+    public void setDuration(String duration) {
+        this.duration = duration;
     }
 
-    public Number getFine() {
+    public double getFine() {
         return fine;
     }
 
     public void setFine(double fine) {
         this.fine = fine;
-    }
-
-    public Integer getNumberOfPoints() {
-        return numberOfPoints;
-    }
-
-    public void setNumberOfPoints(Integer numberOfPoints) {
-        this.numberOfPoints = numberOfPoints;
-    }
-
-    public OtherSentence getOtherSentence() {
-        return otherSentence;
-    }
-
-    public void setOtherSentence(OtherSentence otherSentence){
-        this.otherSentence = otherSentence;
     }
 
     public String getFineCurrency() {
@@ -171,6 +141,22 @@ public class Endorsement {
         this.rehabilitated = rehabilitated;
     }
 
+    public Integer getNoPoints() {
+        return noPoints;
+    }
+
+    public void setNoPoints(Integer noPoints) {
+        this.noPoints = noPoints;
+    }
+
+    public OtherSentence getOtherSentence() {
+        return otherSentence;
+    }
+
+    public void setOtherSentence(OtherSentence otherSentence) {
+        this.otherSentence = otherSentence;
+    }
+
     public String getAlcoholLevel() {
         return alcoholLevel;
     }
@@ -187,52 +173,52 @@ public class Endorsement {
         this.alcoholTestType = alcoholTestType;
     }
 
-    public String getAppealCourtCode() {
-        return appealCourtCode;
+    public String getAppealCourt() {
+        return appealCourt;
     }
 
-    public void setAppealCourtCode(String appealCourtCode) {
-        this.appealCourtCode = appealCourtCode;
+    public void setAppealCourt(String appealCourt) {
+        this.appealCourt = appealCourt;
     }
 
-    public String getSentencingCourtCode() {
-        return sentencingCourtCode;
+    public Date getDisqualReimp() {
+        return disqualReimp;
     }
 
-    public void setSentencingCourtCode(String sentencingCourtCode) {
-        this.sentencingCourtCode = sentencingCourtCode;
+    public void setDisqualReimp(Date disqualReimp) {
+        this.disqualReimp = disqualReimp;
     }
 
-    public String getSuspendedPrisonSentenceDuration() {
-        return suspendedPrisonSentenceDuration;
+    public Date getDisqualRemov() {
+        return disqualRemov;
     }
 
-    public void setSuspendedPrisonSentenceDuration(String suspendedPrisonSentenceDuration) {
-        this.suspendedPrisonSentenceDuration = suspendedPrisonSentenceDuration;
+    public void setDisqualRemov(Date disqualRemov) {
+        this.disqualRemov = disqualRemov;
     }
 
-    public Date getDisqualificationReimposed() {
-        return disqualificationReimposed;
+    public Date getDisqualSusPA() {
+        return disqualSusPA;
     }
 
-    public void setDisqualificationReimposed(Date disqualificationReimposed) {
-        this.disqualificationReimposed = disqualificationReimposed;
+    public void setDisqualSusPA(Date disqualSusPA) {
+        this.disqualSusPA = disqualSusPA;
     }
 
-    public Date getDisqualificationRemoved() {
-        return disqualificationRemoved;
+    public String getSentencingCourt() {
+        return sentencingCourt;
     }
 
-    public void setDisqualificationRemoved(Date disqualificationRemoved) {
-        this.disqualificationRemoved = disqualificationRemoved;
+    public void setSentencingCourt(String sentencingCourt) {
+        this.sentencingCourt = sentencingCourt;
     }
 
-    public Date getDisqualificationSuspendedPendingAppeal() {
-        return disqualificationSuspendedPendingAppeal;
+    public String getSusPrisonSentenceDur() {
+        return susPrisonSentenceDur;
     }
 
-    public void setDisqualificationSuspendedPendingAppeal(Date disqualificationSuspendedPendingAppeal) {
-        this.disqualificationSuspendedPendingAppeal = disqualificationSuspendedPendingAppeal;
+    public void setSusPrisonSentenceDur(String susPrisonSentenceDur) {
+        this.susPrisonSentenceDur = susPrisonSentenceDur;
     }
 }
 

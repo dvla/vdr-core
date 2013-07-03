@@ -3,6 +3,7 @@ package uk.gov.dvla.domain;
 import com.google.code.morphia.annotations.Embedded;
 import com.google.code.morphia.annotations.Property;
 
+import java.lang.String;
 import java.util.Date;
 
 @Embedded
