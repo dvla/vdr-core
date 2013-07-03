@@ -20,10 +20,11 @@ public class TestMibDriverTransformService {
     private final Date validFrom = new DateTime().minusMonths(13).toDate();
     private final Date validTo = new DateTime().minusMonths(13).plusYears(10).toDate();
     private final Date datePassed = new DateTime().minusMonths(6).toDate();
+    private final Date dateUnclaimedExpires = new DateTime().minusMonths(6).plusYears(2).toDate();
     private final Date defaultOffenceDate = new DateTime().minusMonths(8).toDate();
     private final Date defaultSentencingDate = new DateTime().minusMonths(7).toDate();
     private final Date defaultConvictionDate = new DateTime().minusMonths(7).toDate();
-    private final String defaultPeriod = "12 months";
+    private final String defaultPeriod = "P12M";
     private final Double defaultFine = 123.99;
 
     @Test
@@ -43,15 +44,25 @@ public class TestMibDriverTransformService {
         lic.setValidTo(validTo);
         lic.setDirectiveStatus(directiveStatus2);
 
-        Entitlement unclaimedTestPassEntitlement = createSampleEntitlement("abc", true, TestPassStatus.Unclaimed);
-        Entitlement claimedTestPassEntitlement = createSampleEntitlement("def", false, TestPassStatus.Claimed);
-        Entitlement cancelledTestPassEntitlement = createSampleEntitlement("ghi", true, TestPassStatus.Cancelled);
+        Entitlement unclaimedTestPassEntitlement = createSampleEntitlement("abc", true);
+        Entitlement claimedTestPassEntitlement = createSampleEntitlement("def", false);
+        Entitlement cancelledTestPassEntitlement = createSampleEntitlement("ghi", true);
 
         List<Entitlement> entitlements = new ArrayList<Entitlement>();
         entitlements.add(unclaimedTestPassEntitlement);
         entitlements.add(claimedTestPassEntitlement);
         entitlements.add(cancelledTestPassEntitlement);
         lic.setEntitlements(entitlements);
+
+        TestPass unclaimedTestPass = createSampleTestPass("abc", datePassed, uk.gov.dvla.domain.TestPassStatus.NotYetClaimed);
+        TestPass claimedTestPass = createSampleTestPass("def", datePassed, uk.gov.dvla.domain.TestPassStatus.OnLicence);
+        TestPass cancelledTestPass = createSampleTestPass("ghi", datePassed, uk.gov.dvla.domain.TestPassStatus.Cancelled);
+
+        List<TestPass> testPasses = new ArrayList<TestPass>();
+        testPasses.add(unclaimedTestPass);
+        testPasses.add(claimedTestPass);
+        testPasses.add(cancelledTestPass);
+        driver.setTestPasses(testPasses);
 
         Endorsement endorsement1 = createSampleDisqualificationEndorsement("CU20");
         Endorsement endorsement2 = createSampleDisqualificationEndorsement("CU21");
@@ -60,21 +71,19 @@ public class TestMibDriverTransformService {
         endorsements.add(endorsement2);
         lic.setEndorsements(endorsements);
 
-        List<Licence> licences = new ArrayList<Licence>();
-        licences.add(lic);
-        driver.setLicence(licences);
+        driver.setLicence(lic);
 
         MibDriverTransformService transformService = new MibDriverTransformService();
         ServiceResult<MibDTO> result = transformService.transform(new ServiceResult<Driver>(enquiryId, driver, messages));
         MibDTO.Driver driverResult = result.getResult().getDriver();
 
         assertEquals("Licence Valid From returned", validFrom, driverResult.getLicence().getValidFrom());
-        assertEquals("Licence To From returned", validTo, driverResult.getLicence().getValidTo());
+        assertEquals("Licence Valid To returned", validTo, driverResult.getLicence().getValidTo());
         assertEquals("Directive Status returned", directiveStatus2, driverResult.getLicence().getDirectiveStatus());
 
         List<MibDTO.Entitlement> entResult = driverResult.getLicence().getEntitlements();
         assertEquals("3 Entitlements returned", 3, entResult.size());
-        AssertExpectedEntitlementFieldsReturned(entResult.get(0), "abc", datePassed, unclaimedTestPassEntitlement.getUnclaimedTestPassExpiryDate(), EntitlementType.UnclaimedTestPass);
+        AssertExpectedEntitlementFieldsReturned(entResult.get(0), "abc", datePassed, dateUnclaimedExpires, EntitlementType.UnclaimedTestPass);
         AssertExpectedEntitlementFieldsReturned(entResult.get(1), "def", validFrom, validTo, EntitlementType.Full);
         AssertExpectedEntitlementFieldsReturned(entResult.get(2), "ghi", validFrom, validTo, EntitlementType.Provisional);
 
@@ -101,29 +110,37 @@ public class TestMibDriverTransformService {
         assertEquals("Endorsement Fine returned", defaultFine, endorsement.getFine());
     }
 
-    private Entitlement createSampleEntitlement(String code, Boolean isProvisional, TestPassStatus testPassStatus) throws ParseException {
+    private Entitlement createSampleEntitlement(String code, Boolean isProvisional) throws ParseException {
 
         Entitlement sample = new Entitlement();
         sample.setCode(code);
         sample.setValidFrom(validFrom);
         sample.setValidTo(validTo);
-        sample.setDatePassed(datePassed);
-        sample.setIsProvisional(isProvisional);
-        sample.setUnclaimedTestPassStatus(testPassStatus.getTestPassStatus());
+        sample.setProvisional(isProvisional);
 
         return sample;
     }
 
     private Endorsement createSampleDisqualificationEndorsement(String offenceCode) throws ParseException {
         Endorsement sample = new Endorsement();
-        sample.setOffenceCode(offenceCode);
-        sample.setOffenceDate(defaultOffenceDate);
-        sample.setDisqualification(true);
-        sample.setConvictionDate(defaultConvictionDate);
-        sample.setSentencingDate(defaultSentencingDate);
-        sample.setPeriod(defaultPeriod);
+        sample.setCode(offenceCode);
+        sample.setOffence(defaultOffenceDate);
+        sample.setDisqual(true);
+        sample.setConviction(defaultConvictionDate);
+        sample.setSentencing(defaultSentencingDate);
+        sample.setDuration(defaultPeriod);
         sample.setFine(defaultFine);
 
         return sample;
     }
+
+    private TestPass createSampleTestPass(String entitlementType, Date datePassed, uk.gov.dvla.domain.TestPassStatus status)
+    {
+        TestPass testPass = new TestPass();
+        testPass.setEntitlementType(entitlementType);
+        testPass.setTestPassDate(datePassed);
+        testPass.setStatusType(status.getTestPassStatus());
+        return testPass;
+    }
+
 }
