@@ -15,7 +15,7 @@ import com.google.code.morphia.annotations.Property;
 public class Person {
 	
 	private @Id String partyID;
-	private @Property("nino") String nationalInsuranceNumber = null;
+	private String nino = null;
 	private Passport passport = null;
 	private BirthDetails birthDetails;
     private DeathDetails deathDetails;
@@ -51,12 +51,12 @@ public class Person {
         this.partyID = partyID;
     }
 
-    public String getNationalInsuranceNumber() {
-        return nationalInsuranceNumber;
+    public String getNino() {
+        return nino;
     }
 
-    public void setNationalInsuranceNumber(String nationalInsuranceNumber) {
-        this.nationalInsuranceNumber = nationalInsuranceNumber;
+    public void setNino(String nino) {
+        this.nino = nino;
     }
 
     public Passport getPassport() {

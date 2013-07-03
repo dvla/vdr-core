@@ -10,7 +10,6 @@ import java.util.List;
 import com.google.code.morphia.annotations.Entity;
 import com.google.code.morphia.annotations.Indexed;
 import com.google.code.morphia.annotations.Property;
-import org.joda.time.DateTime;
 
 @Entity(value = "drivers", noClassnameStored = true)
 public class Driver extends Person {
@@ -249,5 +248,4 @@ public class Driver extends Person {
             return possibleTestPasses.get(0);
         }
     }
-
 }

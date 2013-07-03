@@ -8,7 +8,6 @@ import java.util.Date;
 import java.util.List;
 
 import com.google.code.morphia.annotations.Embedded;
-import com.google.code.morphia.annotations.Property;
 
 @Embedded
 public class Endorsement {
