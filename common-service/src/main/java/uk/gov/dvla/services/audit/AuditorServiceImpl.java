@@ -104,8 +104,29 @@ public class AuditorServiceImpl implements AuditorService {
     @Override
     public void auditMibInvalidDetails(UUID enquiryId, String dln, String postcode, DateTime requestSent,
                                        HttpServletRequest request) {
-        // TODO
+        this.serviceBus.send(new MibMissingMandatoryFields(enquiryId, dln, postcode, requestSent,
+                new DateTime(), httpHelperService.getIpAddress(request)));
+    }
 
+    @Override
+    public void auditMibDlnNotFound(UUID enquiryId, String dln, String postcode, DateTime requestSent,
+                                    HttpServletRequest request) {
+        this.serviceBus.send(new MibDlnNotFound(enquiryId, dln, postcode, requestSent, new DateTime(),
+                httpHelperService.getIpAddress(request)));
+    }
+
+    @Override
+    public void auditMibInvalidDln(UUID enquiryId, String dln, String postcode, DateTime requestSent,
+                                   HttpServletRequest request) {
+        this.serviceBus.send(new MibDlnNotValid(enquiryId, dln, postcode, requestSent, new DateTime(),
+                httpHelperService.getIpAddress(request)));
+    }
+
+    @Override
+    public void auditMibServerError(UUID enquiryId, String dln, String postcode, DateTime requestSent,
+                                    HttpServletRequest request) {
+        this.serviceBus.send(new MibServerError(enquiryId, dln, postcode, requestSent, new DateTime(),
+                httpHelperService.getIpAddress(request)));
     }
 
 

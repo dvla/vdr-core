@@ -27,4 +27,13 @@ public interface AuditorService {
 
     public void auditMibInvalidDetails(UUID enquiryId, String dln, String postcode, DateTime requestSent,
                                        HttpServletRequest request);
+
+    public void auditMibDlnNotFound(UUID enquiryId, String dln, String postcode, DateTime requestSent,
+                                    HttpServletRequest request);
+
+    public void auditMibInvalidDln(UUID enquiryId, String dln, String postcode, DateTime requestSent,
+                                   HttpServletRequest request);
+
+    public void auditMibServerError(UUID enquiryId, String dln, String postcode, DateTime requestSent,
+                                    HttpServletRequest request);
 }
