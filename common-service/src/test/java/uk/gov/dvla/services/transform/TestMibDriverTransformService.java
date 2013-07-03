@@ -99,6 +99,11 @@ public class TestMibDriverTransformService {
         assertEquals("Entitlement Valid From Date returned", validFrom, entitlement.getValidFrom());
         assertEquals("Entitlement Valid To Date returned", validTo, entitlement.getValidTo());
         assertEquals("Entitlement Type returned", type, entitlement.getType());
+        assertEquals("2 Entitlement Restrictions returned", 2, entitlement.getRestrictions().size());
+        assertEquals("1st Entitlement Restriction type returned", "79", entitlement.getRestrictions().get(0).getType());
+        assertEquals("1st Entitlement Restriction info returned", "(tri)", entitlement.getRestrictions().get(0).getInfo());
+        assertEquals("2nd Entitlement Restriction type returned", "45", entitlement.getRestrictions().get(1).getType());
+        assertEquals("2nd Entitlement Restriction info returned", "", entitlement.getRestrictions().get(1).getInfo());
     }
 
     private void AssertExpectedEndorsementFieldsReturned(MibDTO.Endorsement endorsement, String code) throws ParseException {
@@ -117,6 +122,11 @@ public class TestMibDriverTransformService {
         sample.setValidFrom(validFrom);
         sample.setValidTo(validTo);
         sample.setProvisional(isProvisional);
+
+        List<EntitlementRestriction> restrictions = new ArrayList<EntitlementRestriction>();
+        restrictions.add(new EntitlementRestriction("79", "(tri)"));
+        restrictions.add(new EntitlementRestriction("45", ""));
+        sample.setRestrictions(restrictions);
 
         return sample;
     }

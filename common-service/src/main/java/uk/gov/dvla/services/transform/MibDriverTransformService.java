@@ -1,6 +1,5 @@
 package uk.gov.dvla.services.transform;
 
-import org.joda.time.DateTime;
 import uk.gov.dvla.domain.*;
 import uk.gov.dvla.domain.mib.EntitlementType;
 import uk.gov.dvla.domain.mib.MibDTO;
@@ -32,7 +31,6 @@ public class MibDriverTransformService implements TransformService<ServiceResult
     private MibDTO.Licence getLicence(Licence licence) {
 
         MibDTO.Licence mibLicence = new MibDTO.Licence();
-
         mibLicence.setValidFrom(licence.getValidFrom());
         mibLicence.setValidTo(licence.getValidTo());
         mibLicence.setDirectiveStatus(licence.getDirectiveStatus());
@@ -47,14 +45,14 @@ public class MibDriverTransformService implements TransformService<ServiceResult
         if (licence.getEntitlements() == null) return entitlements;
 
         for (Entitlement ent : licence.getEntitlements()) {
-
             MibDTO.Entitlement mibEntitlement = new MibDTO.Entitlement();
             TestPass testPass = driver.getTestPassForEntitlement(ent);
             mibEntitlement.setCode(ent.getCode());
             mibEntitlement.setValidFrom(getValidFrom(ent, testPass));
             mibEntitlement.setValidTo(getValidTo(ent, testPass));
             mibEntitlement.setType(getEntitlementType(ent, testPass));
-
+            mibEntitlement.setRestrictions(getEntitlementRestrictions(ent));
+            
             entitlements.add(mibEntitlement);
         }
 
@@ -97,6 +95,19 @@ public class MibDriverTransformService implements TransformService<ServiceResult
         return entitlementType;
     }
 
+    private List<MibDTO.EntitlementRestriction> getEntitlementRestrictions(Entitlement ent) {
+
+        List<MibDTO.EntitlementRestriction> restrictions = new ArrayList<MibDTO.EntitlementRestriction>();
+
+        if (ent.getRestrictions() != null) {
+            for (EntitlementRestriction er : ent.getRestrictions()) {
+                restrictions.add(new MibDTO.EntitlementRestriction(er.getCode(), er.getCategoryCode()));
+            }
+        }
+
+        return restrictions;
+    }
+
     private Date getValidFrom(Entitlement entitlement, TestPass testPass) {
         Date validFrom = entitlement.getValidFrom();
 
@@ -121,5 +132,4 @@ public class MibDriverTransformService implements TransformService<ServiceResult
 
         return (expiryDate == null) ? validTo : expiryDate;
     }
-
 }
