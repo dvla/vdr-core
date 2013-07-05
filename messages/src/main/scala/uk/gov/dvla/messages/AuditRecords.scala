@@ -238,3 +238,17 @@ case class MibServerError(enquiryId: UUID, dln: String, postcode: String, reques
   val status = Status.ServerError
   val serviceType = ServiceType.ExternalInterface
 }
+
+case class MibRecordSuppression(enquiryId: UUID, dln: String, postcode: String, requestSent: DateTime,
+                                 responseSent: DateTime, ipAddress: String) extends Message {
+  val result = Result.Failure
+  val status = Status.Suppressed
+  val serviceType = ServiceType.ExternalInterface
+}
+
+case class MibEnquirySuccessful(enquiryId: UUID, dln: String, postcode: String, requestSent: DateTime,
+                          responseSent: DateTime, ipAddress: String) extends Message {
+  val result = Result.Success
+  val status = Status.RecordFound
+  val serviceType = ServiceType.ExternalInterface
+}
