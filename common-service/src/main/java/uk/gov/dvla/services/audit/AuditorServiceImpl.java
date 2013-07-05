@@ -129,6 +129,22 @@ public class AuditorServiceImpl implements AuditorService {
                 httpHelperService.getIpAddress(request)));
     }
 
+    @Override
+    public void auditMibRecordSuppression(UUID enquiryId, String dln, String postcode, DateTime requestSent,
+                                          HttpServletRequest request) {
+        this.serviceBus.send(new MibRecordSuppression(enquiryId, dln, postcode, requestSent, new DateTime(),
+                httpHelperService.getIpAddress(request)));
+    }
+
+    @Override
+    public void auditMibEnquirySuccessful(UUID enquiryId, String dln, String postcode, DateTime requestSent,
+                                          HttpServletRequest request) {
+        this.serviceBus.send(new MibEnquirySuccessful(enquiryId, dln, postcode, requestSent, new DateTime(),
+                httpHelperService.getIpAddress(request)));
+    }
+
+
+
 
 
     private boolean isDriverFullySuppressed(ServiceResult<Driver> driverResult) {

@@ -36,4 +36,10 @@ public interface AuditorService {
 
     public void auditMibServerError(UUID enquiryId, String dln, String postcode, DateTime requestSent,
                                     HttpServletRequest request);
+
+    public void auditMibRecordSuppression(UUID enquiryId, String dln, String postcode, DateTime requestSent,
+                                          HttpServletRequest request);
+
+    public void auditMibEnquirySuccessful(UUID enquiryId, String dln, String postcode, DateTime requestSent,
+                                          HttpServletRequest request);
 }
