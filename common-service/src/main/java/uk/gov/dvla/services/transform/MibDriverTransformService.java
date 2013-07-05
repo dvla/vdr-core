@@ -4,9 +4,7 @@ import uk.gov.dvla.domain.*;
 import uk.gov.dvla.domain.mib.EntitlementType;
 import uk.gov.dvla.domain.mib.MibDTO;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 public class MibDriverTransformService implements TransformService<ServiceResult<Driver>, ServiceResult<MibDTO>> {
 
@@ -17,12 +15,15 @@ public class MibDriverTransformService implements TransformService<ServiceResult
         mibDTO.setDriver(mibDriver);
 
         Driver driver = objectToTransform.getResult();
-        Licence licence = driver.getLicence().get(0);
+        Licence licence = driver.getLicence();
 
-        mibDriver.setLicence(getLicence(licence));
-        MibDTO.Licence mibLicence = mibDriver.getLicence();
-        mibLicence.setEntitlements(getEntitlements(licence));
-        mibLicence.setEndorsements(getEndorsements(licence));
+        if(null != licence)
+        {
+            mibDriver.setLicence(getLicence(licence));
+            MibDTO.Licence mibLicence = mibDriver.getLicence();
+            mibLicence.setEntitlements(getEntitlements(driver));
+            mibLicence.setEndorsements(getEndorsements(licence));
+        }
 
         return new ServiceResult<MibDTO>(objectToTransform.getEnquiryId(), mibDTO, objectToTransform.getMessages());
     }
@@ -37,18 +38,21 @@ public class MibDriverTransformService implements TransformService<ServiceResult
         return mibLicence;
     }
 
-    private List<MibDTO.Entitlement> getEntitlements(Licence licence) {
+    private List<MibDTO.Entitlement> getEntitlements(Driver driver) {
+        Licence licence = driver.getLicence();
+        List<TestPass> testPasses = driver.getTestPasses();
         List<MibDTO.Entitlement> entitlements = new ArrayList<MibDTO.Entitlement>();
         if (licence.getEntitlements() == null) return entitlements;
 
         for (Entitlement ent : licence.getEntitlements()) {
             MibDTO.Entitlement mibEntitlement = new MibDTO.Entitlement();
+            TestPass testPass = driver.getTestPassForEntitlement(ent);
             mibEntitlement.setCode(ent.getCode());
-            mibEntitlement.setValidFrom(getValidFrom(ent));
-            mibEntitlement.setValidTo(getValidTo(ent));
-            mibEntitlement.setType(getEntitlementType(ent));
+            mibEntitlement.setValidFrom(getValidFrom(ent, testPass));
+            mibEntitlement.setValidTo(getValidTo(ent, testPass));
+            mibEntitlement.setType(getEntitlementType(ent, testPass));
             mibEntitlement.setRestrictions(getEntitlementRestrictions(ent));
-
+            
             entitlements.add(mibEntitlement);
         }
 
@@ -61,14 +65,14 @@ public class MibDriverTransformService implements TransformService<ServiceResult
 
         for (Endorsement end : licence.getEndorsements()) {
             MibDTO.Endorsement mibEndorsement = new MibDTO.Endorsement();
-            mibEndorsement.setCode(end.getOffenceCode());
-            mibEndorsement.setOffenceDate(end.getOffenceDate());
-            mibEndorsement.setConvictionDate(end.getConvictionDate());
-            mibEndorsement.setSentencingDate(end.getSentencingDate());
+            mibEndorsement.setCode(end.getCode());
+            mibEndorsement.setOffenceDate(end.getOffence());
+            mibEndorsement.setConvictionDate(end.getConviction());
+            mibEndorsement.setSentencingDate(end.getSentencing());
             mibEndorsement.setFine(end.getFine());
-            mibEndorsement.setNoOfPoints(end.getNumberOfPoints());
-            mibEndorsement.setIsDisqual(end.getDisqualification());
-            mibEndorsement.setDisqualPeriod(end.getPeriod());
+            mibEndorsement.setNoOfPoints(end.getNoPoints());
+            mibEndorsement.setIsDisqual(end.getDisqual());
+            mibEndorsement.setDisqualPeriod(end.getDuration());
 
             endorsements.add(mibEndorsement);
         }
@@ -76,17 +80,18 @@ public class MibDriverTransformService implements TransformService<ServiceResult
         return endorsements;
     }
 
-    private EntitlementType getEntitlementType(Entitlement ent) {
+    private EntitlementType getEntitlementType(Entitlement ent, TestPass testPass) {
         EntitlementType entitlementType = EntitlementType.Full;
-
-        if (ent.getIsProvisional()) {
-            if (ent.isUnclaimedTestPass()) {
+        if(ent.getProvisional())
+        {
+            entitlementType = EntitlementType.Provisional;
+            if(testPass != null
+                    && testPass.getStatusType().equals(TestPassStatus.NotYetClaimed.getTestPassStatus())
+                    && testPass.getExpiryDate().after(new Date()))
+            {
                 entitlementType = EntitlementType.UnclaimedTestPass;
-            }else {
-                entitlementType = EntitlementType.Provisional;
             }
         }
-
         return entitlementType;
     }
 
@@ -96,26 +101,34 @@ public class MibDriverTransformService implements TransformService<ServiceResult
 
         if (ent.getRestrictions() != null) {
             for (EntitlementRestriction er : ent.getRestrictions()) {
-                restrictions.add(new MibDTO.EntitlementRestriction(er.getRestrictionType(), er.getCategoryCodes()));
+                restrictions.add(new MibDTO.EntitlementRestriction(er.getCode(), er.getCategoryCode()));
             }
         }
 
         return restrictions;
     }
 
-    private Date getValidFrom(Entitlement entitlement) {
+    private Date getValidFrom(Entitlement entitlement, TestPass testPass) {
         Date validFrom = entitlement.getValidFrom();
 
-        if (entitlement.getIsProvisional() && entitlement.isUnclaimedTestPass()) {
-            validFrom = entitlement.getDatePassed();
+        if (entitlement.getProvisional() && testPass != null
+                && testPass.getStatusType().equals(TestPassStatus.NotYetClaimed.getTestPassStatus())
+                && testPass.getExpiryDate().after(new Date())) {
+            validFrom = testPass.getTestPassDate();
         }
 
         return validFrom;
     }
 
-    private Date getValidTo(Entitlement entitlement) {
+    private Date getValidTo(Entitlement entitlement, TestPass testPass) {
         Date validTo = entitlement.getValidTo();
-        Date expiryDate = entitlement.getUnclaimedTestPassExpiryDate();
+        Date expiryDate = null;
+        if(testPass != null
+                && testPass.getStatusType().equals(TestPassStatus.NotYetClaimed.getTestPassStatus())
+                && testPass.getExpiryDate().after(new Date()))
+        {
+            expiryDate = testPass.getExpiryDate();
+        }
 
         return (expiryDate == null) ? validTo : expiryDate;
     }
