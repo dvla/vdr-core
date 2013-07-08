@@ -27,6 +27,9 @@ public class PostcodeHelper {
         String cleanSearchPostcode = cleanPostcode(searchedPostcode);
         String cleanActualPostcode = cleanPostcode(actualPostcode);
 
+        if (cleanActualPostcode.equals(null) || cleanActualPostcode.isEmpty()) {
+            return false;//Ignore postcode match if blank
+        }
         if (PostcodeHelper.hasSpecialChars(cleanActualPostcode)) {
             return false; //Ignore postcode match if it contains non postcode chars
         }
