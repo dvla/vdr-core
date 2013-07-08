@@ -8,11 +8,13 @@ object Status extends Enumeration {
   val RecordFound,
   NotFound,
   NotValid,
+  NotAvailable,
   Suppressed,
   ServerError,
   MultipleRecordsFound,
   PostcodeContainsSpecialCharacter,
-  UnauthorisedAccess = Value
+  UnauthorisedAccess,
+  MessageReturned = Value
 }
 
 object Result extends Enumeration {
@@ -250,5 +252,19 @@ case class MibEnquirySuccessful(enquiryId: UUID, dln: String, postcode: String, 
                           responseSent: DateTime, ipAddress: String) extends Message {
   val result = Result.Success
   val status = Status.RecordFound
+  val serviceType = ServiceType.ExternalInterface
+}
+
+case class MibNoEntitlements(enquiryId: UUID, dln: String, postcode: String, requestSent: DateTime,
+                              responseSent: DateTime, ipAddress: String) extends Message {
+  val result = Result.Failure
+  val status = Status.NotAvailable
+  val serviceType = ServiceType.ExternalInterface
+}
+
+case class MibEnquiryMessageReturned(enquiryId: UUID, dln: String, postcode: String, requestSent: DateTime,
+                                      responseSent: DateTime, ipAddress: String, message: String) extends Message {
+  val result = Result.Success
+  val status = Status.MessageReturned
   val serviceType = ServiceType.ExternalInterface
 }
