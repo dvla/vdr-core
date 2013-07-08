@@ -26,17 +26,18 @@
         <!--SBT publishes to servicebus/servicebus_${scala.version}, which is slightly different to where Maven expects
 it to be, so we do the below so that Maven picks up the service bus, messages and rabbitmq jars correctly-->
         <dependency>
-            <groupId>${project.groupId}.servicebus</groupId>
+            <groupId>${project.groupId}</groupId>
             <artifactId>servicebus_${scala.version}</artifactId>
             <version>${project.version}</version>
         </dependency>
+
         <dependency>
-            <groupId>${project.groupId}.messages</groupId>
+            <groupId>${project.groupId}</groupId>
             <artifactId>messages_${scala.version}</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
-            <groupId>${project.groupId}.rabbitmq-transport</groupId>
+            <groupId>${project.groupId}</groupId>
             <artifactId>rabbitmq-transport_${scala.version}</artifactId>
             <version>${project.version}</version>
         </dependency>
