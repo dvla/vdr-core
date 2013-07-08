@@ -42,4 +42,10 @@ public interface AuditorService {
 
     public void auditMibEnquirySuccessful(UUID enquiryId, String dln, String postcode, DateTime requestSent,
                                           HttpServletRequest request);
+
+    public void auditMibNoEntitlements(UUID enquiryId, String dln, String postcode, DateTime requestSent,
+                                       HttpServletRequest request);
+
+    public void auditMibEnquiryMessageReturned(UUID enquiryId, String dln, String postcode, DateTime requestSent,
+                                               String message, HttpServletRequest request);
 }

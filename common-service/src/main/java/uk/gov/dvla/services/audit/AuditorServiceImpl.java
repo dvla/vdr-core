@@ -143,7 +143,19 @@ public class AuditorServiceImpl implements AuditorService {
                 httpHelperService.getIpAddress(request)));
     }
 
+    @Override
+    public void auditMibNoEntitlements(UUID enquiryId, String dln, String postcode, DateTime requestSent,
+                                       HttpServletRequest request) {
+        this.serviceBus.send(new MibNoEntitlements(enquiryId, dln, postcode, requestSent, new DateTime(),
+                httpHelperService.getIpAddress(request)));
+    }
 
+    @Override
+    public void auditMibEnquiryMessageReturned(UUID enquiryId, String dln, String postcode, DateTime requestSent,
+                                               String message, HttpServletRequest request) {
+        this.serviceBus.send(new MibEnquiryMessageReturned(enquiryId, dln, postcode, requestSent, new DateTime(),
+                httpHelperService.getIpAddress(request), message));
+    }
 
 
 
