@@ -11,6 +11,7 @@ object Status extends Enumeration {
   ServerError,
   MultipleRecordsFound,
   PostcodeContainsSpecialCharacter,
+  PostcodeIsBlank,
   UnauthorisedAccess = Value
 }
 
@@ -109,6 +110,13 @@ case class CustomerPostcodeContainsSpecialCharacter(dln : String, postcode : Str
                                                     responseSent : DateTime, ipAddress : String) extends Message {
   val result = Result.Success
   val status = Status.PostcodeContainsSpecialCharacter
+  val serviceType = ServiceType.CustomerPortal
+}
+
+case class CustomerPostcodeIsBlank(dln : String, postcode : String, requestSent : DateTime,
+                                                    responseSent : DateTime, ipAddress : String) extends Message {
+  val result = Result.Success
+  val status = Status.PostcodeIsBlank
   val serviceType = ServiceType.CustomerPortal
 }
 
