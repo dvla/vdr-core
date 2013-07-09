@@ -22,7 +22,7 @@ object Result extends Enumeration {
 }
 
 object ServiceType extends Enumeration {
-  val CustomerPortal, DvlaPortal, ExternalInterface = Value
+  val CustomerPortal, DvlaPortal, MibRealTime, MibBatch = Value
 }
 
 object AttributeType extends Enumeration {
@@ -213,58 +213,58 @@ case class DvlaUnauthorisedAccess(userId: String, requestSent: DateTime, respons
   val serviceType = ServiceType.DvlaPortal
 }
 
-case class MibMissingMandatoryFields(enquiryId: UUID, dln: String, postcode: String, requestSent: DateTime,
+case class MibRealTimeMissingMandatoryFields(enquiryId: UUID, dln: String, postcode: String, requestSent: DateTime,
                                      responseSent: DateTime, ipAddress: String) extends Message {
   val result = Result.Failure
   val status = Status.NotValid
-  val serviceType = ServiceType.ExternalInterface
+  val serviceType = ServiceType.MibRealTime
 }
 
-case class MibDlnNotFound(enquiryId: UUID, dln: String, postcode: String, requestSent: DateTime,
+case class MibRealTimeDlnNotFound(enquiryId: UUID, dln: String, postcode: String, requestSent: DateTime,
                            responseSent: DateTime, ipAddress: String) extends Message {
   val result = Result.Failure
   val status = Status.NotFound
-  val serviceType = ServiceType.ExternalInterface
+  val serviceType = ServiceType.MibRealTime
 }
 
-case class MibDlnNotValid(enquiryId: UUID, dln: String, postcode: String, requestSent: DateTime,
+case class MibRealTimeDlnNotValid(enquiryId: UUID, dln: String, postcode: String, requestSent: DateTime,
                            responseSent: DateTime, ipAddress: String) extends Message {
   val result = Result.Failure
   val status = Status.NotValid
-  val serviceType = ServiceType.ExternalInterface
+  val serviceType = ServiceType.MibRealTime
 }
 
-case class MibServerError(enquiryId: UUID, dln: String, postcode: String, requestSent: DateTime,
+case class MibRealTimeServerError(enquiryId: UUID, dln: String, postcode: String, requestSent: DateTime,
                            responseSent: DateTime, ipAddress: String) extends Message {
   val result = Result.Failure
   val status = Status.ServerError
-  val serviceType = ServiceType.ExternalInterface
+  val serviceType = ServiceType.MibRealTime
 }
 
-case class MibRecordSuppression(enquiryId: UUID, dln: String, postcode: String, requestSent: DateTime,
-                                 responseSent: DateTime, ipAddress: String) extends Message {
+case class MibRealTimeRecordSuppression(enquiryId: UUID, dln: String, postcode: String, requestSent: DateTime,
+                                 responseSent: DateTime, ruleApplied: String, ipAddress: String) extends Message {
   val result = Result.Failure
   val status = Status.Suppressed
-  val serviceType = ServiceType.ExternalInterface
+  val serviceType = ServiceType.MibRealTime
 }
 
-case class MibEnquirySuccessful(enquiryId: UUID, dln: String, postcode: String, requestSent: DateTime,
+case class MibRealTimeEnquirySuccessful(enquiryId: UUID, dln: String, postcode: String, requestSent: DateTime,
                           responseSent: DateTime, ipAddress: String) extends Message {
   val result = Result.Success
   val status = Status.RecordFound
-  val serviceType = ServiceType.ExternalInterface
+  val serviceType = ServiceType.MibRealTime
 }
 
-case class MibNoEntitlements(enquiryId: UUID, dln: String, postcode: String, requestSent: DateTime,
+case class MibRealTimeNoEntitlements(enquiryId: UUID, dln: String, postcode: String, requestSent: DateTime,
                               responseSent: DateTime, ipAddress: String) extends Message {
   val result = Result.Failure
   val status = Status.NotAvailable
-  val serviceType = ServiceType.ExternalInterface
+  val serviceType = ServiceType.MibRealTime
 }
 
-case class MibEnquiryMessageReturned(enquiryId: UUID, dln: String, postcode: String, requestSent: DateTime,
+case class MibRealTimeEnquiryMessageReturned(enquiryId: UUID, dln: String, postcode: String, requestSent: DateTime,
                                       responseSent: DateTime, ipAddress: String, message: String) extends Message {
   val result = Result.Success
   val status = Status.MessageReturned
-  val serviceType = ServiceType.ExternalInterface
+  val serviceType = ServiceType.MibRealTime
 }
