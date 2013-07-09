@@ -10,12 +10,15 @@ import java.util.UUID;
 
 public interface AuditorService {
 
-    public void auditPostcodeMismatch(Driver driver, String dln, String postcode, HttpServletRequest request, DateTime requestSent);
+    public void auditPostcodeMismatch(Driver driver, String dln, String postcode, HttpServletRequest request,
+                                      DateTime requestSent);
 
-    public void auditDlnSuppression(ServiceResult<Driver> driver, String dln, HttpServletRequest request, DateTime requestSent);
+    public void auditDlnSuppression(ServiceResult<Driver> driver, String dln, HttpServletRequest request,
+                                    DateTime requestSent);
 
     public void auditDetailsSuppression(ServiceResult<Driver> result, String forenames, String surname, String dob,
-                                        Integer gender, String postcode, HttpServletRequest request, DateTime requestSent) throws ParseException;
+                                        Integer gender, String postcode, HttpServletRequest request,
+                                        DateTime requestSent) throws ParseException;
 
     public void auditDVLADlnSuppression(ServiceResult<Driver> driver, String dln, DateTime requestSent, String
             contactChannel, String enquiryReason, HttpServletRequest request);
@@ -25,27 +28,28 @@ public interface AuditorService {
                                             DateTime requestSent, String contactChannel,
                                             String enquiryReason, HttpServletRequest request) throws ParseException;
 
-    public void auditMibInvalidDetails(UUID enquiryId, String dln, String postcode, DateTime requestSent,
+    public void auditMibRealTimeInvalidDetails(UUID enquiryId, String dln, String postcode, DateTime requestSent,
                                        HttpServletRequest request);
 
-    public void auditMibDlnNotFound(UUID enquiryId, String dln, String postcode, DateTime requestSent,
+    public void auditMibRealTimeDlnNotFound(UUID enquiryId, String dln, String postcode, DateTime requestSent,
                                     HttpServletRequest request);
 
-    public void auditMibInvalidDln(UUID enquiryId, String dln, String postcode, DateTime requestSent,
+    public void auditMibRealTimeInvalidDln(UUID enquiryId, String dln, String postcode, DateTime requestSent,
                                    HttpServletRequest request);
 
-    public void auditMibServerError(UUID enquiryId, String dln, String postcode, DateTime requestSent,
+    public void auditMibRealTimeServerError(UUID enquiryId, String dln, String postcode, DateTime requestSent,
                                     HttpServletRequest request);
 
-    public void auditMibRecordSuppression(UUID enquiryId, String dln, String postcode, DateTime requestSent,
+    public void auditMibRealTimeRecordSuppression(UUID enquiryId, String dln, String postcode, DateTime requestSent,
+                                          String ruleApplied, HttpServletRequest request);
+
+    public void auditMibRealTimeEnquirySuccessful(UUID enquiryId, String dln, String postcode, DateTime requestSent,
                                           HttpServletRequest request);
 
-    public void auditMibEnquirySuccessful(UUID enquiryId, String dln, String postcode, DateTime requestSent,
-                                          HttpServletRequest request);
-
-    public void auditMibNoEntitlements(UUID enquiryId, String dln, String postcode, DateTime requestSent,
+    public void auditMibRealTimeNoEntitlements(UUID enquiryId, String dln, String postcode, DateTime requestSent,
                                        HttpServletRequest request);
 
-    public void auditMibEnquiryMessageReturned(UUID enquiryId, String dln, String postcode, DateTime requestSent,
-                                               String message, HttpServletRequest request);
+    public void auditMibRealTimeEnquiryMessageReturned(UUID enquiryId, String dln, String postcode,
+                                                       DateTime requestSent, String message,
+                                                       HttpServletRequest request);
 }

@@ -74,8 +74,9 @@ public class AuditorServiceImpl implements AuditorService {
         if (isDriverFullySuppressed(result)) {
             Date parsedDob = ServiceDateFormat.DEFAULT.parse(dob);
 
-            this.serviceBus.send(new CustomerPersonalDetailsSuppressed(forenames, surname, new DateTime(parsedDob), gender,
-                    postcode, requestSent, new DateTime(), httpHelperService.getIpAddress(request), result.getRuleApplied()));
+            this.serviceBus.send(new CustomerPersonalDetailsSuppressed(forenames, surname, new DateTime(parsedDob),
+                    gender, postcode, requestSent, new DateTime(), httpHelperService.getIpAddress(request),
+                    result.getRuleApplied()));
         }
     }
 
@@ -89,9 +90,10 @@ public class AuditorServiceImpl implements AuditorService {
     }
 
     @Override
-    public void auditDVLADetailsSuppression(ServiceResult<Driver> result, String dln, String forenames, String surname, String dob,
-                                            Integer gender, String postcode, DateTime requestSent, String contactChannel,
-                                            String enquiryReason, HttpServletRequest request) throws ParseException {
+    public void auditDVLADetailsSuppression(ServiceResult<Driver> result, String dln, String forenames, String surname,
+                                            String dob, Integer gender, String postcode, DateTime requestSent,
+                                            String contactChannel, String enquiryReason,
+                                            HttpServletRequest request) throws ParseException {
         if (isDriverFullySuppressed(result)) {
             Date parsedDob = ServiceDateFormat.DEFAULT.parse(dob);
             this.serviceBus.send(new DvlaPersonalDetailsSuppressed(dln, forenames, surname, new DateTime(parsedDob),
@@ -102,59 +104,60 @@ public class AuditorServiceImpl implements AuditorService {
     }
 
     @Override
-    public void auditMibInvalidDetails(UUID enquiryId, String dln, String postcode, DateTime requestSent,
+    public void auditMibRealTimeInvalidDetails(UUID enquiryId, String dln, String postcode, DateTime requestSent,
                                        HttpServletRequest request) {
-        this.serviceBus.send(new MibMissingMandatoryFields(enquiryId, dln, postcode, requestSent,
+        this.serviceBus.send(new MibRealTimeMissingMandatoryFields(enquiryId, dln, postcode, requestSent,
                 new DateTime(), httpHelperService.getIpAddress(request)));
     }
 
     @Override
-    public void auditMibDlnNotFound(UUID enquiryId, String dln, String postcode, DateTime requestSent,
+    public void auditMibRealTimeDlnNotFound(UUID enquiryId, String dln, String postcode, DateTime requestSent,
                                     HttpServletRequest request) {
-        this.serviceBus.send(new MibDlnNotFound(enquiryId, dln, postcode, requestSent, new DateTime(),
+        this.serviceBus.send(new MibRealTimeDlnNotFound(enquiryId, dln, postcode, requestSent, new DateTime(),
                 httpHelperService.getIpAddress(request)));
     }
 
     @Override
-    public void auditMibInvalidDln(UUID enquiryId, String dln, String postcode, DateTime requestSent,
+    public void auditMibRealTimeInvalidDln(UUID enquiryId, String dln, String postcode, DateTime requestSent,
                                    HttpServletRequest request) {
-        this.serviceBus.send(new MibDlnNotValid(enquiryId, dln, postcode, requestSent, new DateTime(),
+        this.serviceBus.send(new MibRealTimeDlnNotValid(enquiryId, dln, postcode, requestSent, new DateTime(),
                 httpHelperService.getIpAddress(request)));
     }
 
     @Override
-    public void auditMibServerError(UUID enquiryId, String dln, String postcode, DateTime requestSent,
+    public void auditMibRealTimeServerError(UUID enquiryId, String dln, String postcode, DateTime requestSent,
                                     HttpServletRequest request) {
-        this.serviceBus.send(new MibServerError(enquiryId, dln, postcode, requestSent, new DateTime(),
+        this.serviceBus.send(new MibRealTimeServerError(enquiryId, dln, postcode, requestSent, new DateTime(),
                 httpHelperService.getIpAddress(request)));
     }
 
     @Override
-    public void auditMibRecordSuppression(UUID enquiryId, String dln, String postcode, DateTime requestSent,
+    public void auditMibRealTimeRecordSuppression(UUID enquiryId, String dln, String postcode, DateTime requestSent,
+                                          String ruleApplied, HttpServletRequest request) {
+        this.serviceBus.send(new MibRealTimeRecordSuppression(enquiryId, dln, postcode, requestSent, new DateTime(),
+                ruleApplied, httpHelperService.getIpAddress(request)));
+    }
+
+    @Override
+    public void auditMibRealTimeEnquirySuccessful(UUID enquiryId, String dln, String postcode, DateTime requestSent,
                                           HttpServletRequest request) {
-        this.serviceBus.send(new MibRecordSuppression(enquiryId, dln, postcode, requestSent, new DateTime(),
+        this.serviceBus.send(new MibRealTimeEnquirySuccessful(enquiryId, dln, postcode, requestSent, new DateTime(),
                 httpHelperService.getIpAddress(request)));
     }
 
     @Override
-    public void auditMibEnquirySuccessful(UUID enquiryId, String dln, String postcode, DateTime requestSent,
-                                          HttpServletRequest request) {
-        this.serviceBus.send(new MibEnquirySuccessful(enquiryId, dln, postcode, requestSent, new DateTime(),
-                httpHelperService.getIpAddress(request)));
-    }
-
-    @Override
-    public void auditMibNoEntitlements(UUID enquiryId, String dln, String postcode, DateTime requestSent,
+    public void auditMibRealTimeNoEntitlements(UUID enquiryId, String dln, String postcode, DateTime requestSent,
                                        HttpServletRequest request) {
-        this.serviceBus.send(new MibNoEntitlements(enquiryId, dln, postcode, requestSent, new DateTime(),
+        this.serviceBus.send(new MibRealTimeNoEntitlements(enquiryId, dln, postcode, requestSent, new DateTime(),
                 httpHelperService.getIpAddress(request)));
     }
 
     @Override
-    public void auditMibEnquiryMessageReturned(UUID enquiryId, String dln, String postcode, DateTime requestSent,
-                                               String message, HttpServletRequest request) {
-        this.serviceBus.send(new MibEnquiryMessageReturned(enquiryId, dln, postcode, requestSent, new DateTime(),
-                httpHelperService.getIpAddress(request), message));
+    public void auditMibRealTimeEnquiryMessageReturned(UUID enquiryId, String dln, String postcode,
+                                                       DateTime requestSent, String message,
+                                                       HttpServletRequest request) {
+        this.serviceBus.send(new MibRealTimeEnquiryMessageReturned(enquiryId, dln, postcode, requestSent,
+                new DateTime(), httpHelperService.getIpAddress(request), message));
     }
 
 
