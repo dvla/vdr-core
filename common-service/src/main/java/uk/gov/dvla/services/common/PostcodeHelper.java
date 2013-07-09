@@ -16,8 +16,8 @@ public class PostcodeHelper {
         return p.matcher(cleanPostcode(postcodeToCheck)).find();
     }
 
-    public static boolean isBlank(String postcodeToCheck) {
-        return (postcodeToCheck.equals(null) || postcodeToCheck.isEmpty());
+    public static boolean postcodeIsBlank(String postcodeToCheck) {
+        return (postcodeToCheck.isEmpty() || postcodeToCheck.equals(null));
     }
 
     /**
@@ -33,7 +33,7 @@ public class PostcodeHelper {
         String cleanSearchPostcode = cleanPostcode(searchedPostcode);
         String cleanActualPostcode = cleanPostcode(actualPostcode);
 
-        if (PostcodeHelper.isBlank(cleanActualPostcode)) {
+        if (PostcodeHelper.postcodeIsBlank(cleanActualPostcode)) {
             return false;
         }
 
