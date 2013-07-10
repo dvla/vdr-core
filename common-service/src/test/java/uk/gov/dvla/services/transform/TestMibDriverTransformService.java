@@ -10,6 +10,7 @@ import uk.gov.dvla.domain.mib.TestPassStatus;
 import static org.junit.Assert.*;
 
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -97,7 +98,7 @@ public class TestMibDriverTransformService {
                                                            Date validTo, EntitlementType type) throws ParseException {
         assertEquals("Entitlement Code returned", code, entitlement.getCode());
         assertEquals("Entitlement Valid From Date returned", validFrom, entitlement.getValidFrom());
-        assertEquals("Entitlement Valid To Date returned", validTo, entitlement.getValidTo());
+        assertEquals("Entitlement Valid To Date returned", new SimpleDateFormat("dd MMM yyyy HH:mm:ss").format(validTo), new SimpleDateFormat("dd MMM yyyy HH:mm:ss").format(entitlement.getValidTo()));
         assertEquals("Entitlement Type returned", type, entitlement.getType());
         assertEquals("2 Entitlement Restrictions returned", 2, entitlement.getRestrictions().size());
         assertEquals("1st Entitlement Restriction type returned", "79", entitlement.getRestrictions().get(0).getType());
