@@ -17,6 +17,7 @@ import javax.ws.rs.core.Response;
 import java.text.ParseException;
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 public class AuditorServiceImpl implements AuditorService {
 
@@ -73,8 +74,9 @@ public class AuditorServiceImpl implements AuditorService {
         if (isDriverFullySuppressed(result)) {
             Date parsedDob = ServiceDateFormat.DEFAULT.parse(dob);
 
-            this.serviceBus.send(new CustomerPersonalDetailsSuppressed(forenames, surname, new DateTime(parsedDob), gender,
-                    postcode, requestSent, new DateTime(), httpHelperService.getIpAddress(request), result.getRuleApplied()));
+            this.serviceBus.send(new CustomerPersonalDetailsSuppressed(forenames, surname, new DateTime(parsedDob),
+                    gender, postcode, requestSent, new DateTime(), httpHelperService.getIpAddress(request),
+                    result.getRuleApplied()));
         }
     }
 
@@ -88,9 +90,10 @@ public class AuditorServiceImpl implements AuditorService {
     }
 
     @Override
-    public void auditDVLADetailsSuppression(ServiceResult<Driver> result, String dln, String forenames, String surname, String dob,
-                                            Integer gender, String postcode, DateTime requestSent, String contactChannel,
-                                            String enquiryReason, HttpServletRequest request) throws ParseException {
+    public void auditDVLADetailsSuppression(ServiceResult<Driver> result, String dln, String forenames, String surname,
+                                            String dob, Integer gender, String postcode, DateTime requestSent,
+                                            String contactChannel, String enquiryReason,
+                                            HttpServletRequest request) throws ParseException {
         if (isDriverFullySuppressed(result)) {
             Date parsedDob = ServiceDateFormat.DEFAULT.parse(dob);
             this.serviceBus.send(new DvlaPersonalDetailsSuppressed(dln, forenames, surname, new DateTime(parsedDob),
@@ -99,6 +102,65 @@ public class AuditorServiceImpl implements AuditorService {
         }
 
     }
+
+    @Override
+    public void auditMibRealTimeInvalidDetails(UUID enquiryId, String dln, String postcode, DateTime requestSent,
+                                       HttpServletRequest request) {
+        this.serviceBus.send(new MibRealTimeMissingMandatoryFields(enquiryId, dln, postcode, requestSent,
+                new DateTime(), httpHelperService.getIpAddress(request)));
+    }
+
+    @Override
+    public void auditMibRealTimeDlnNotFound(UUID enquiryId, String dln, String postcode, DateTime requestSent,
+                                    HttpServletRequest request) {
+        this.serviceBus.send(new MibRealTimeDlnNotFound(enquiryId, dln, postcode, requestSent, new DateTime(),
+                httpHelperService.getIpAddress(request)));
+    }
+
+    @Override
+    public void auditMibRealTimeInvalidDln(UUID enquiryId, String dln, String postcode, DateTime requestSent,
+                                   HttpServletRequest request) {
+        this.serviceBus.send(new MibRealTimeDlnNotValid(enquiryId, dln, postcode, requestSent, new DateTime(),
+                httpHelperService.getIpAddress(request)));
+    }
+
+    @Override
+    public void auditMibRealTimeServerError(UUID enquiryId, String dln, String postcode, DateTime requestSent,
+                                    HttpServletRequest request) {
+        this.serviceBus.send(new MibRealTimeServerError(enquiryId, dln, postcode, requestSent, new DateTime(),
+                httpHelperService.getIpAddress(request)));
+    }
+
+    @Override
+    public void auditMibRealTimeRecordSuppression(UUID enquiryId, String dln, String postcode, DateTime requestSent,
+                                          String ruleApplied, HttpServletRequest request) {
+        this.serviceBus.send(new MibRealTimeRecordSuppression(enquiryId, dln, postcode, requestSent, new DateTime(),
+                ruleApplied, httpHelperService.getIpAddress(request)));
+    }
+
+    @Override
+    public void auditMibRealTimeEnquirySuccessful(UUID enquiryId, String dln, String postcode, DateTime requestSent,
+                                          HttpServletRequest request) {
+        this.serviceBus.send(new MibRealTimeEnquirySuccessful(enquiryId, dln, postcode, requestSent, new DateTime(),
+                httpHelperService.getIpAddress(request)));
+    }
+
+    @Override
+    public void auditMibRealTimeNoEntitlements(UUID enquiryId, String dln, String postcode, DateTime requestSent,
+                                       HttpServletRequest request) {
+        this.serviceBus.send(new MibRealTimeNoEntitlements(enquiryId, dln, postcode, requestSent, new DateTime(),
+                httpHelperService.getIpAddress(request)));
+    }
+
+    @Override
+    public void auditMibRealTimeEnquiryMessageReturned(UUID enquiryId, String dln, String postcode,
+                                                       DateTime requestSent, String message,
+                                                       HttpServletRequest request) {
+        this.serviceBus.send(new MibRealTimeEnquiryMessageReturned(enquiryId, dln, postcode, requestSent,
+                new DateTime(), httpHelperService.getIpAddress(request), message));
+    }
+
+
 
     private boolean isDriverFullySuppressed(ServiceResult<Driver> driverResult) {
         boolean isFullySuppressed = false;
