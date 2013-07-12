@@ -1,5 +1,6 @@
 package uk.gov.dvla.domain;
 
+import java.lang.Boolean;
 import java.lang.String;
 import java.util.Date;
 import java.util.List;
@@ -9,7 +10,7 @@ import com.google.code.morphia.annotations.Embedded;
 @Embedded
 public class Address {
 
-	private boolean insecure;
+	private Boolean insecure;
 	private Country country;
 	private String langCode;
 	private String pafKey;
@@ -40,11 +41,11 @@ public class Address {
 	private List<String> uLine;
 	private String uPostCode;
 
-    public boolean isInsecure() {
+    public Boolean isInsecure() {
         return insecure;
     }
 
-    public void setInsecure(boolean insecure) {
+    public void setInsecure(Boolean insecure) {
         this.insecure = insecure;
     }
 
