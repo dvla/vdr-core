@@ -2,17 +2,20 @@ package uk.gov.dvla.messages
 
 import uk.gov.dvla.servicebus.core.Message
 import org.joda.time.DateTime
+import java.util.UUID
 
 object Status extends Enumeration {
   val RecordFound,
   NotFound,
   NotValid,
+  NotAvailable,
   Suppressed,
   ServerError,
   MultipleRecordsFound,
   PostcodeContainsSpecialCharacter,
   PostcodeIsBlank,
-  UnauthorisedAccess = Value
+  UnauthorisedAccess,
+  MessageReturned = Value
 }
 
 object Result extends Enumeration {
@@ -20,7 +23,7 @@ object Result extends Enumeration {
 }
 
 object ServiceType extends Enumeration {
-  val CustomerPortal, DvlaPortal, ExternalInterface = Value
+  val CustomerPortal, DvlaPortal, MibRealTime, MibBatch = Value
 }
 
 object AttributeType extends Enumeration {
@@ -216,4 +219,60 @@ case class DvlaUnauthorisedAccess(userId: String, requestSent: DateTime, respons
   val result = Result.Failure
   val status = Status.UnauthorisedAccess
   val serviceType = ServiceType.DvlaPortal
+}
+
+case class MibRealTimeMissingMandatoryFields(enquiryId: UUID, dln: String, postcode: String, requestSent: DateTime,
+                                     responseSent: DateTime, ipAddress: String) extends Message {
+  val result = Result.Failure
+  val status = Status.NotValid
+  val serviceType = ServiceType.MibRealTime
+}
+
+case class MibRealTimeDlnNotFound(enquiryId: UUID, dln: String, postcode: String, requestSent: DateTime,
+                           responseSent: DateTime, ipAddress: String) extends Message {
+  val result = Result.Failure
+  val status = Status.NotFound
+  val serviceType = ServiceType.MibRealTime
+}
+
+case class MibRealTimeDlnNotValid(enquiryId: UUID, dln: String, postcode: String, requestSent: DateTime,
+                           responseSent: DateTime, ipAddress: String) extends Message {
+  val result = Result.Failure
+  val status = Status.NotValid
+  val serviceType = ServiceType.MibRealTime
+}
+
+case class MibRealTimeServerError(enquiryId: UUID, dln: String, postcode: String, requestSent: DateTime,
+                           responseSent: DateTime, ipAddress: String) extends Message {
+  val result = Result.Failure
+  val status = Status.ServerError
+  val serviceType = ServiceType.MibRealTime
+}
+
+case class MibRealTimeRecordSuppression(enquiryId: UUID, dln: String, postcode: String, requestSent: DateTime,
+                                 responseSent: DateTime, ruleApplied: String, ipAddress: String) extends Message {
+  val result = Result.Failure
+  val status = Status.Suppressed
+  val serviceType = ServiceType.MibRealTime
+}
+
+case class MibRealTimeEnquirySuccessful(enquiryId: UUID, dln: String, postcode: String, requestSent: DateTime,
+                          responseSent: DateTime, ipAddress: String) extends Message {
+  val result = Result.Success
+  val status = Status.RecordFound
+  val serviceType = ServiceType.MibRealTime
+}
+
+case class MibRealTimeNoEntitlements(enquiryId: UUID, dln: String, postcode: String, requestSent: DateTime,
+                              responseSent: DateTime, ipAddress: String) extends Message {
+  val result = Result.Failure
+  val status = Status.NotAvailable
+  val serviceType = ServiceType.MibRealTime
+}
+
+case class MibRealTimeEnquiryMessageReturned(enquiryId: UUID, dln: String, postcode: String, requestSent: DateTime,
+                                      responseSent: DateTime, ipAddress: String, message: String) extends Message {
+  val result = Result.Success
+  val status = Status.MessageReturned
+  val serviceType = ServiceType.MibRealTime
 }
