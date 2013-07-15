@@ -17,7 +17,7 @@ public class PostcodeHelper {
     }
 
     public static boolean postcodeIsBlank(String postcodeToCheck) {
-        return (postcodeToCheck.isEmpty() || postcodeToCheck.equals(null));
+        return (postcodeToCheck == (null) || postcodeToCheck.isEmpty());
     }
 
     /**

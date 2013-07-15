@@ -97,9 +97,8 @@ public class TestMibDriverTransformService {
     private void AssertExpectedEntitlementFieldsReturned(MibDTO.Entitlement entitlement, String code, Date validFrom,
                                                            Date validTo, EntitlementType type) throws ParseException {
         assertEquals("Entitlement Code returned", code, entitlement.getCode());
-        assertEquals("Entitlement Valid From Date returned", validFrom, entitlement.getValidFrom());
-
-        assertEquals("Entitlement Valid To Date returned", new SimpleDateFormat("dd MM yyyy HH:mm:ss").format(validTo), new SimpleDateFormat("dd MM yyyy HH:mm:ss").format(entitlement.getValidTo()));
+        assertEqualDates("Entitlement Valid From Date returned", validFrom, entitlement.getValidFrom());
+        assertEqualDates("Entitlement Valid To Date returned", validTo, entitlement.getValidTo());
         assertEquals("Entitlement Type returned", type, entitlement.getType());
         assertEquals("2 Entitlement Restrictions returned", 2, entitlement.getRestrictions().size());
         assertEquals("1st Entitlement Restriction type returned", "79", entitlement.getRestrictions().get(0).getType());
@@ -154,5 +153,10 @@ public class TestMibDriverTransformService {
         testPass.setStatusType(status.getTestPassStatus());
         return testPass;
     }
+
+    private void assertEqualDates(String message, Date expectedDate, Date actualDate ){
+        assertEquals(message, new SimpleDateFormat("dd MM yyyy HH:mm:ss").format(expectedDate), new SimpleDateFormat("dd MM yyyy HH:mm:ss").format(actualDate));
+    }
+
 
 }
