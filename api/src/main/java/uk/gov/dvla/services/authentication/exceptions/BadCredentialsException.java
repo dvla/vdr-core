@@ -1,5 +1,7 @@
-package uk.gov.dvla.services.authentication;
+package uk.gov.dvla.services.authentication.exceptions;
 
+
+import uk.gov.dvla.services.authentication.exceptions.AuthenticationException;
 
 public class BadCredentialsException extends AuthenticationException {
 

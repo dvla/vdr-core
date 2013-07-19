@@ -1,4 +1,4 @@
-package uk.gov.dvla.services.authentication;
+package uk.gov.dvla.services.authentication.exceptions;
 
 
 public abstract class AuthenticationException extends RuntimeException {
