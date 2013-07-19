@@ -1,152 +1,208 @@
 package uk.gov.dvla.domain;
 
+import java.lang.Integer;
+import java.lang.String;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
 import com.google.code.morphia.annotations.Entity;
 import com.google.code.morphia.annotations.Indexed;
+import com.google.code.morphia.annotations.Property;
 
 @Entity(value = "drivers", noClassnameStored = true)
 public class Driver extends Person {
 
-    private List<DriverNumber> dlnHistory;
-    private List<DriverFlag> flag;
-    private List<Licence> licence;
-    private List<Integer> stopMarker;
-    private List<Integer> restrictionKey;
-    private List<String> caseType;
-    private List<String> errorCode;
-    private Boolean endorsementAmountExcess;
-    private Boolean carHireEnqPmt = null;
-    private String statusCode = null;
-    private Date photoExpiryDate;
+    @Indexed(unique = true)
+    private String currentDriverNumber = null;
+    private List<DriverNumber> driverNumberHistory;
+    private List<DriverFlag> flags;
+    private Licence licence;
+    private DriverStatus status;
+    private DriverStatedFlags driverStatedFlags;
+    private Date firstProvisionalDate;
+    private Date disqualifiedUntilDate;
+    private String HROType;
+    private List<ConductCase> conductCases;
+    private List<Disqualification> disqualifications;
+
+    private List<TachoCard> tachoCards;
+    private List<CertificateOfProfessionalCompetence> CPCs;
+    private List<DriverQualificationCard> DQCs;
+    private List<TestPass> testPasses;
+    private List<Integer> restrictionKeys;
+    private List<String> errorCodes;
     private List<String> disqualificationStatusCodes;
     private boolean nslInCorruptedRange;
-    @Indexed(unique = true)
-    private String dln = null;
 
-    public void addLicence(Licence lic) {
-        if (null == licence) {
-            licence = new ArrayList<Licence>();
-        }
-        licence.add(lic);
-    }
-
-    public void addStopMarker(Integer marker) {
-        if (null == stopMarker) {
-            stopMarker = new ArrayList<Integer>();
-        }
-        stopMarker.add(marker);
-    }
 
     public void addRestrictionKey(Integer key) {
-        if (null == restrictionKey) {
-            restrictionKey = new ArrayList<Integer>();
+        if (null == restrictionKeys) {
+            restrictionKeys = new ArrayList<Integer>();
         }
-        restrictionKey.add(key);
-    }
-
-    public void addCaseType(String key) {
-        if (null == caseType) {
-            caseType = new ArrayList<String>();
-        }
-        caseType.add(key);
+        restrictionKeys.add(key);
     }
 
     public void addErrorCode(String code) {
-        if (null == errorCode) {
-            errorCode = new ArrayList<String>();
+        if (null == errorCodes) {
+            errorCodes = new ArrayList<String>();
         }
-        errorCode.add(code);
+        errorCodes.add(code);
     }
 
-    public void setLicence(List<Licence> lics) {
-        licence = lics;
+    public void addDriverFlag(DriverFlag flag)
+    {
+        if(null == flags)
+        {
+            flags = new ArrayList<DriverFlag>();
+        }
+        flags.add(flag);
     }
 
-    public List<Licence> getLicence() {
-        return this.licence;
+    public void addTestPass(TestPass testPass)
+    {
+        if(null == testPasses)
+        {
+            testPasses = new ArrayList<TestPass>();
+        }
+        testPasses.add(testPass);
     }
 
-    public List<Integer> getStopMarker() {
-        return stopMarker;
+    public String getCurrentDriverNumber() {
+        return currentDriverNumber;
     }
 
-    public void setStopMarker(List<Integer> markers) {
-        this.stopMarker = markers;
-    }
-
-    public List<Integer> getRestrictionKey() {
-        return restrictionKey;
-    }
-
-    public void setRestrictionKey(List<Integer> keys) {
-        this.restrictionKey = keys;
-    }
-
-    public List<String> getCaseType() {
-        return this.caseType;
-    }
-
-    public void setCaseType(List<String> caseTypes) {
-        this.caseType = caseTypes;
-    }
-
-    public List<String> getErrorCode() {
-        return this.errorCode;
-    }
-
-    public void setErrorCode(List<String> errorCodes) {
-        this.errorCode = errorCodes;
-    }
-
-    public void setDln(String dln) {
-        this.dln = dln;
-    }
-
-    public String getDln() {
-        return this.dln;
+    public void setCurrentDriverNumber(String currentDriverNumber) {
+        this.currentDriverNumber = currentDriverNumber;
     }
 
     public List<DriverNumber> getDriverNumberHistory() {
-        return dlnHistory;
+        return driverNumberHistory;
     }
 
-    public void setDriverNumberHistory(List<DriverNumber> driverNumber) {
-        this.dlnHistory = driverNumber;
+    public void setDriverNumberHistory(List<DriverNumber> driverNumberHistory) {
+        this.driverNumberHistory = driverNumberHistory;
     }
 
-    public List<DriverFlag> getFlag() {
-        return flag;
+    public List<DriverFlag> getFlags() {
+        return flags;
     }
 
-    public void setFlag(List<DriverFlag> flag) {
-        this.flag = flag;
+    public void setFlags(List<DriverFlag> flags) {
+        this.flags = flags;
     }
 
-    public Boolean getCarHireEnqPmt() {
-        return carHireEnqPmt;
+    public Licence getLicence() {
+        return licence;
     }
 
-    public void setCarHireEnqPmt(Boolean carHireEnqPmt) {
-        this.carHireEnqPmt = carHireEnqPmt;
+    public void setLicence(Licence licence) {
+        this.licence = licence;
     }
 
-    public String getStatusCode() {
-        return statusCode;
+    public DriverStatus getStatus() {
+        return status;
     }
 
-    public void setStatusCode(String statusCode) {
-        this.statusCode = statusCode;
+    public void setStatus(DriverStatus status) {
+        this.status = status;
     }
 
-    public Date getPhotoExpiryDate() {
-        return photoExpiryDate;
+    public DriverStatedFlags getDriverStatedFlags() {
+        return driverStatedFlags;
     }
 
-    public void setPhotoExpiryDate(Date photoExpiryDate) {
-        this.photoExpiryDate = photoExpiryDate;
+    public void setDriverStatedFlags(DriverStatedFlags driverStatedFlags) {
+        this.driverStatedFlags = driverStatedFlags;
+    }
+
+    public Date getFirstProvisionalDate() {
+        return firstProvisionalDate;
+    }
+
+    public void setFirstProvisionalDate(Date firstProvisionalDate) {
+        this.firstProvisionalDate = firstProvisionalDate;
+    }
+
+    public Date getDisqualifiedUntilDate() {
+        return disqualifiedUntilDate;
+    }
+
+    public void setDisqualifiedUntilDate(Date disqualifiedUntilDate) {
+        this.disqualifiedUntilDate = disqualifiedUntilDate;
+    }
+
+    public String getHROType() {
+        return HROType;
+    }
+
+    public void setHROType(String HROType) {
+        this.HROType = HROType;
+    }
+
+    public List<ConductCase> getConductCases() {
+        return conductCases;
+    }
+
+    public void setConductCases(List<ConductCase> conductCases) {
+        this.conductCases = conductCases;
+    }
+
+    public List<Disqualification> getDisqualifications() {
+        return disqualifications;
+    }
+
+    public void setDisqualifications(List<Disqualification> disqualifications) {
+        this.disqualifications = disqualifications;
+    }
+
+    public List<TachoCard> getTachoCards() {
+        return tachoCards;
+    }
+
+    public void setTachoCards(List<TachoCard> tachoCards) {
+        this.tachoCards = tachoCards;
+    }
+
+    public List<CertificateOfProfessionalCompetence> getCPCs() {
+        return CPCs;
+    }
+
+    public void setCPCs(List<CertificateOfProfessionalCompetence> CPCs) {
+        this.CPCs = CPCs;
+    }
+
+    public List<DriverQualificationCard> getDQCs() {
+        return DQCs;
+    }
+
+    public void setDQCs(List<DriverQualificationCard> DQCs) {
+        this.DQCs = DQCs;
+    }
+
+    public List<TestPass> getTestPasses() {
+        return testPasses;
+    }
+
+    public void setTestPasses(List<TestPass> testPasses) {
+        this.testPasses = testPasses;
+    }
+
+    public List<Integer> getRestrictionKeys() {
+        return restrictionKeys;
+    }
+
+    public void setRestrictionKeys(List<Integer> restrictionKeys) {
+        this.restrictionKeys = restrictionKeys;
+    }
+
+    public List<String> getErrorCodes() {
+        return errorCodes;
+    }
+
+    public void setErrorCodes(List<String> errorCodes) {
+        this.errorCodes = errorCodes;
     }
 
     public List<String> getDisqualificationStatusCodes() {
@@ -157,19 +213,39 @@ public class Driver extends Person {
         this.disqualificationStatusCodes = disqualificationStatusCodes;
     }
 
-    public Boolean getNslInCorruptedRange() {
+    public boolean isNslInCorruptedRange() {
         return nslInCorruptedRange;
     }
 
-    public void setNslInCorruptedRange(Boolean nslInCorruptedRange) {
+    public void setNslInCorruptedRange(boolean nslInCorruptedRange) {
         this.nslInCorruptedRange = nslInCorruptedRange;
     }
 
-    public Boolean getEndorsementAmountExcess() {
-        return endorsementAmountExcess;
-    }
+    public TestPass getTestPassForEntitlement(Entitlement ent)
+    {
+        ArrayList<TestPass> possibleTestPasses = new ArrayList<TestPass>();
 
-    public void setEndorsementAmountExcess(Boolean endorsmentAmountExcess) {
-        this.endorsementAmountExcess = endorsmentAmountExcess;
+        if(testPasses == null)
+        {
+            return null;
+        }
+        for(TestPass testPass : testPasses)
+        {
+            if(testPass.getEntitlementType().equals(ent.getCode()))
+            {
+                possibleTestPasses.add(testPass);
+            }
+        }
+
+        if(possibleTestPasses.size() == 0)
+        {
+            return null;
+        }
+        else
+        {
+            //Ensure the most recent is returned
+            Collections.reverse(possibleTestPasses);
+            return possibleTestPasses.get(0);
+        }
     }
 }

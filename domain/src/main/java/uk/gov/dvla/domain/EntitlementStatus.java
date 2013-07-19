@@ -2,30 +2,18 @@ package uk.gov.dvla.domain;
 
 import com.google.code.morphia.annotations.Embedded;
 
+import java.lang.Boolean;
 import java.lang.String;
 import java.util.Date;
 
 @Embedded
-public class EntitlementRestriction {
+public class EntitlementStatus {
 
     private String code;
-    private String text;
+    private String name;
     private Date validFrom;
     private Date validTo;
-    private String categoryCode;
-
-    public EntitlementRestriction() {
-    }
-
-    public EntitlementRestriction(String code, String categoryCode) {
-        if (code == null) {
-            throw new RuntimeException("code must be specified");
-        }
-        
-        this.code = code;
-        this.categoryCode = categoryCode;
-
-    }
+    private Boolean priorTo;
 
     public String getCode() {
         return code;
@@ -35,12 +23,12 @@ public class EntitlementRestriction {
         this.code = code;
     }
 
-    public String getText() {
-        return text;
+    public String getName() {
+        return name;
     }
 
-    public void setText(String text) {
-        this.text = text;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public Date getValidFrom() {
@@ -59,11 +47,11 @@ public class EntitlementRestriction {
         this.validTo = validTo;
     }
 
-    public String getCategoryCode() {
-        return categoryCode;
+    public Boolean getPriorTo() {
+        return priorTo;
     }
 
-    public void setCategoryCode(String categoryCode) {
-        this.categoryCode = categoryCode;
+    public void setPriorTo(Boolean priorTo) {
+        this.priorTo = priorTo;
     }
 }

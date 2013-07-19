@@ -2,11 +2,14 @@ package uk.gov.dvla.domain;
 
 import com.google.code.morphia.annotations.Embedded;
 import com.google.code.morphia.annotations.Property;
-import org.joda.time.DateTime;
 import uk.gov.dvla.domain.mib.TestPassStatus;
 
+import java.lang.Boolean;
+import java.lang.String;
 import java.util.Date;
 import java.util.List;
+
+import com.google.code.morphia.annotations.Embedded;
 
 @Embedded
 public class Entitlement {
@@ -14,25 +17,11 @@ public class Entitlement {
     private String code;
     private Date validFrom;
     private Date validTo;
-    private Date datePassed;
-
-    @Property("provisional")
-    private Boolean isProvisional = null;
-    private Boolean isPriorTo = null;
-    private Boolean isStated = null;
+    private Boolean provisional = null;
+    private Boolean priorTo = null;
     private List<EntitlementRestriction> restrictions;
-
-    // TODO - This should be removed when the TestPass class has been created
-    @Property("unclaimedTestPass")
-    private Integer unclaimedTestPassStatus = 0;
-
-    public Date getDatePassed() {
-        return datePassed;
-    }
-
-    public void setDatePassed(Date datePassed) {
-        this.datePassed = datePassed;
-    }
+    private Boolean vocational;
+    private List<EntitlementStatus> statuses;
 
     public String getCode() {
         return code;
@@ -58,28 +47,20 @@ public class Entitlement {
         this.validTo = validTo;
     }
 
-    public Boolean getIsProvisional() {
-        return isProvisional;
+    public Boolean getProvisional() {
+        return provisional;
     }
 
-    public void setIsProvisional(Boolean provisional) {
-        this.isProvisional = provisional;
+    public void setProvisional(Boolean provisional) {
+        this.provisional = provisional;
     }
 
-    public Boolean getIsPriorTo() {
-        return isPriorTo;
+    public Boolean getPriorTo() {
+        return priorTo;
     }
 
-    public void setIsPriorTo(Boolean priorTo) {
-        this.isPriorTo = priorTo;
-    }
-
-    public Boolean getIsStated() {
-        return isStated;
-    }
-
-    public void setIsStated(Boolean isStated) {
-        this.isStated = isStated;
+    public void setPriorTo(Boolean priorTo) {
+        this.priorTo = priorTo;
     }
 
     public List<EntitlementRestriction> getRestrictions() {
@@ -90,32 +71,19 @@ public class Entitlement {
         this.restrictions = restrictions;
     }
 
-    public Integer getUnclaimedTestPassStatus() {
-        return unclaimedTestPassStatus;
+    public Boolean getVocational() {
+        return vocational;
     }
 
-    public void setUnclaimedTestPassStatus(Integer unclaimedTestPassStatus) {
-        this.unclaimedTestPassStatus = unclaimedTestPassStatus;
+    public void setVocational(Boolean vocational) {
+        this.vocational = vocational;
     }
 
-    public boolean isUnclaimedTestPass() {
-        TestPassStatus testPassStatus = TestPassStatus.values()[getUnclaimedTestPassStatus()];
-
-        return testPassStatus == TestPassStatus.Unclaimed;
+    public List<EntitlementStatus> getStatuses() {
+        return statuses;
     }
 
-    public Date getUnclaimedTestPassExpiryDate() {
-
-        Date expiryDate = null;
-
-        if (getUnclaimedTestPassStatus() != null && getIsProvisional() != null && getDatePassed() != null) {
-            if (getIsProvisional() && isUnclaimedTestPass()) {
-                Integer unclaimedTestPassValidityInMonths = DomainConfiguration.getInstance().getUnclaimedTestPassValidity();
-                if (getDatePassed()!= null)
-                    expiryDate = new DateTime(getDatePassed()).plusMonths(unclaimedTestPassValidityInMonths).toDate();
-            }
-        }
-
-        return expiryDate;
+    public void setStatuses(List<EntitlementStatus> statuses) {
+        this.statuses = statuses;
     }
 }

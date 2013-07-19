@@ -1,20 +1,32 @@
 package uk.gov.dvla.domain;
 
+import java.lang.Integer;
+import java.lang.String;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 import com.google.code.morphia.annotations.Embedded;
+import com.google.code.morphia.annotations.Property;
 
 @Embedded
 public class Licence {
 
     public Date validFrom;
     public Date validTo;
-    public int directiveStatus;
+    public Integer directiveStatus;
+    private @Property("avpStartDate") Date administrativeValidityPeriodStartDate;
+    private Date cardExpiryDate;
     public String issueNumber;
+    private Integer numEndorsements;
+    private Date originalPhotoExpiryDate;
+    private Date photoExpiryDate;
+    private String regimeType;
+    private String currentIssueNum;
     private List<Entitlement> entitlements;
     private List<Endorsement> endorsements;
+    private List<LicenceInformation> information;
+    private List<LicenceToken> tokens;
 
     public void addEntitlement(String code) {
         if (null == entitlements) {
@@ -34,22 +46,6 @@ public class Licence {
         endorsements.add(end);
     }
 
-    public void setIssueNumber(String issueNumber) {
-        this.issueNumber = issueNumber;
-    }
-
-    public String getIssueNumber() {
-        return issueNumber;
-    }
-
-    public void setDirectiveStatus(Integer directiveStatus) {
-        this.directiveStatus = directiveStatus;
-    }
-
-    public Integer getDirectiveStatus() {
-        return directiveStatus;
-    }
-
     public Date getValidFrom() {
         return validFrom;
     }
@@ -66,6 +62,78 @@ public class Licence {
         this.validTo = validTo;
     }
 
+    public Integer getDirectiveStatus() {
+        return directiveStatus;
+    }
+
+    public void setDirectiveStatus(Integer directiveStatus) {
+        this.directiveStatus = directiveStatus;
+    }
+
+    public Date getAdministrativeValidityPeriodStartDate() {
+        return administrativeValidityPeriodStartDate;
+    }
+
+    public void setAdministrativeValidityPeriodStartDate(Date administrativeValidityPeriodStartDate) {
+        this.administrativeValidityPeriodStartDate = administrativeValidityPeriodStartDate;
+    }
+
+    public Date getCardExpiryDate() {
+        return cardExpiryDate;
+    }
+
+    public void setCardExpiryDate(Date cardExpiryDate) {
+        this.cardExpiryDate = cardExpiryDate;
+    }
+
+    public String getIssueNumber() {
+        return issueNumber;
+    }
+
+    public void setIssueNumber(String issueNumber) {
+        this.issueNumber = issueNumber;
+    }
+
+    public Integer getNumEndorsements() {
+        return numEndorsements;
+    }
+
+    public void setNumEndorsements(Integer numEndorsements) {
+        this.numEndorsements = numEndorsements;
+    }
+
+    public Date getOriginalPhotoExpiryDate() {
+        return originalPhotoExpiryDate;
+    }
+
+    public void setOriginalPhotoExpiryDate(Date originalPhotoExpiryDate) {
+        this.originalPhotoExpiryDate = originalPhotoExpiryDate;
+    }
+
+    public Date getPhotoExpiryDate() {
+        return photoExpiryDate;
+    }
+
+    public void setPhotoExpiryDate(Date photoExpiryDate) {
+        this.photoExpiryDate = photoExpiryDate;
+    }
+
+    public String getRegimeType() {
+        return regimeType;
+    }
+
+    public void setRegimeType(String regimeType) {
+        this.regimeType = regimeType;
+    }
+
+    public String getCurrentIssueNum() {
+        return currentIssueNum;
+    }
+
+    public void setCurrentIssueNum(String currentIssueNum) {
+        this.currentIssueNum = currentIssueNum;
+    }
+
     public List<Entitlement> getEntitlements() {
         return entitlements;
     }
@@ -80,5 +148,21 @@ public class Licence {
 
     public void setEndorsements(List<Endorsement> endorsements) {
         this.endorsements = endorsements;
+    }
+
+    public List<LicenceInformation> getInformation() {
+        return information;
+    }
+
+    public void setInformation(List<LicenceInformation> information) {
+        this.information = information;
+    }
+
+    public List<LicenceToken> getTokens() {
+        return tokens;
+    }
+
+    public void setTokens(List<LicenceToken> tokens) {
+        this.tokens = tokens;
     }
 }
