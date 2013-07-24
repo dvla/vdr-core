@@ -1,7 +1,5 @@
 package uk.gov.dvla.domain;
 
-import java.lang.Boolean;
-import java.lang.String;
 import java.util.Date;
 import java.util.List;
 
