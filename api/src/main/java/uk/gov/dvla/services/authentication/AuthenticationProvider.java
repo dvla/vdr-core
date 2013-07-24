@@ -10,9 +10,8 @@ import java.util.List;
 public interface AuthenticationProvider<A extends AuthenticationToken> extends ManagedService
 {
     public static final String AUTHENTICATION_URI = "/auth/";
-    public static final String DLN_SEARCH = "dln/search";
-    public static final String PERSONAL_DETAILS_SEARCH = "details/search";
-
+    public static final String DLN_SEARCH = "/dln/";
+    public static final String DETAILS_SEARCH = "/details/";
     public static final String DLN_PARAM = "dln";
     public static final String SURNAME_PARAM = "sn";
     public static final String DOB_PARAM = "d";
