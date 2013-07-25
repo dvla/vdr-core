@@ -33,6 +33,8 @@ public class Driver extends Person {
     private List<TestPass> testPasses;
     private List<Integer> restrictionKeys;
     private List<String> errorCodes;
+    // TODO after discussing with Neil, this field is very much the same as the disqualifications type
+    // We need to lighten up the model.
     private List<String> disqualificationStatusCodes;
     private boolean nslInCorruptedRange;
 
