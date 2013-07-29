@@ -22,7 +22,7 @@ public class Endorsement {
     public Date conviction;
     public Date sentencing;
     public String duration;
-    public double fine;
+    public Double fine;
     public String fineCurrency;
     public String rehabilitated;
     public Integer noPoints;
@@ -116,11 +116,11 @@ public class Endorsement {
         this.duration = duration;
     }
 
-    public double getFine() {
+    public Double getFine() {
         return fine;
     }
 
-    public void setFine(double fine) {
+    public void setFine(Double fine) {
         this.fine = fine;
     }
 

@@ -40,6 +40,7 @@ public class Person {
     private Country nationality;
     private @Property("perNotEmigCountry") String personNotifiedEmigrationCountry;
     private List<Telephone> telephones;
+    private String preferredLanguage;
     private @Property("vlIdentityCode") String verificationLevelIdentityCode;
     private @Property("vlIdentityName") String verificationLevelIdentityName;
 
@@ -201,6 +202,14 @@ public class Person {
 
     public void setPersonNotifiedEmigrationCountry(String personNotifiedEmigrationCountry) {
         this.personNotifiedEmigrationCountry = personNotifiedEmigrationCountry;
+    }
+
+    public String getPreferredLanguage() {
+        return preferredLanguage;
+    }
+
+    public void setPreferredLanguage(String preferredLanguage) {
+        this.preferredLanguage = preferredLanguage;
     }
 
     public List<Telephone> getTelephones() {
