@@ -5,7 +5,7 @@ import com.google.code.morphia.annotations.Embedded;
 @Embedded
 public class Telephone {
     private String number;
-    private ContactType contactType;
+    private Integer contactType;
 
     public String getNumber() {
         return number;
@@ -15,11 +15,11 @@ public class Telephone {
         this.number = number;
     }
 
-    public ContactType getContactType() {
+    public Integer getContactType() {
         return contactType;
     }
 
-    public void setContactType(ContactType contactType) {
+    public void setContactType(Integer contactType) {
         this.contactType = contactType;
     }
 }

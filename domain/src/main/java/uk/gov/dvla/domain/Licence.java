@@ -17,7 +17,6 @@ public class Licence {
     public Integer directiveStatus;
     private @Property("avpStartDate") Date administrativeValidityPeriodStartDate;
     private Date cardExpiryDate;
-    public String issueNumber;
     private Integer numEndorsements;
     private Date originalPhotoExpiryDate;
     private Date photoExpiryDate;
@@ -84,14 +83,6 @@ public class Licence {
 
     public void setCardExpiryDate(Date cardExpiryDate) {
         this.cardExpiryDate = cardExpiryDate;
-    }
-
-    public String getIssueNumber() {
-        return issueNumber;
-    }
-
-    public void setIssueNumber(String issueNumber) {
-        this.issueNumber = issueNumber;
     }
 
     public Integer getNumEndorsements() {
