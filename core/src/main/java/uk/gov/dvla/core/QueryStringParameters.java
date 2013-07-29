@@ -14,6 +14,6 @@ public class QueryStringParameters {
     public static final String ENQUIRY_REASON_PARAM = "er";
     public static final String ENQUIRY_ID_PARAM = "id";
 
-    public static final String DLN_SEARCH_PATH = "/dln/";
-    public static final String PERSONAL_DETAILS_SEARCH_PATH = "/details/";
+    public static final String DLN_SEARCH_PATH = "dln/";
+    public static final String PERSONAL_DETAILS_SEARCH_PATH = "details/";
 }
