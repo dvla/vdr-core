@@ -33,9 +33,6 @@ public class Driver extends Person {
     private List<TestPass> testPasses;
     private List<Integer> restrictionKeys;
     private List<String> errorCodes;
-    // TODO after discussing with Neil, this field is very much the same as the disqualifications type
-    // We need to lighten up the model.
-    private List<String> disqualificationStatusCodes;
     private boolean nslInCorruptedRange;
 
 
@@ -205,14 +202,6 @@ public class Driver extends Person {
 
     public void setErrorCodes(List<String> errorCodes) {
         this.errorCodes = errorCodes;
-    }
-
-    public List<String> getDisqualificationStatusCodes() {
-        return disqualificationStatusCodes;
-    }
-
-    public void setDisqualificationStatusCodes(List<String> disqualificationStatusCodes) {
-        this.disqualificationStatusCodes = disqualificationStatusCodes;
     }
 
     public boolean isNslInCorruptedRange() {
