@@ -10,8 +10,12 @@ import java.util.UUID;
 
 public interface AuditorService {
 
-    public void auditPostcodeMismatch(Driver driver, String dln, String postcode, HttpServletRequest request,
-                                      DateTime requestSent);
+    public void auditPostcodeBlank(String dln, String postcode, HttpServletRequest request, DateTime requestSent);
+
+    public void auditPostcodeContainsSpecialCharacter(String dln, String postcode, HttpServletRequest request,
+                                                      DateTime requestSent);
+
+    public void auditPostcodeMismatch(String dln, String postcode, HttpServletRequest request, DateTime requestSent);
 
     public void auditDlnSuppression(ServiceResult<Driver> driver, String dln, HttpServletRequest request,
                                     DateTime requestSent);
