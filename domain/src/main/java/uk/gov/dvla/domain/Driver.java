@@ -34,6 +34,7 @@ public class Driver extends Person {
     private List<Integer> restrictionKeys;
     private List<String> errorCodes;
     private boolean nslInCorruptedRange;
+    private List<LicenceToken> licenceTokens;
 
 
     public void addRestrictionKey(Integer key) {
@@ -238,5 +239,13 @@ public class Driver extends Person {
             Collections.reverse(possibleTestPasses);
             return possibleTestPasses.get(0);
         }
+    }
+
+    public List<LicenceToken> getLicenceTokens() {
+        return licenceTokens;
+    }
+
+    public void setLicenceTokens(List<LicenceToken> licenceTokens) {
+        this.licenceTokens = licenceTokens;
     }
 }

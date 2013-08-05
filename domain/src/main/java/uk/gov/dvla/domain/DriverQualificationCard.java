@@ -14,7 +14,7 @@ public class DriverQualificationCard {
     private Integer photoImageID;
     private String reasonRequested;
     private Integer signatureImageID;
-    private Integer driverNumber;
+    private String driverNumber;
     private String firstName;
     private String surname;
     private Date dob;
@@ -28,7 +28,7 @@ public class DriverQualificationCard {
         this.communityCode = communityCode;
     }
 
-    public Number getDispatchedToAddressID() {
+    public Number getDispatchedToAddressID() { //TODO: Why is this a number, not an Integer?
         return dispatchedToAddressID;
     }
 
@@ -60,11 +60,11 @@ public class DriverQualificationCard {
         this.signatureImageID = signatureImageID;
     }
 
-    public Integer getDriverNumber() {
+    public String getDriverNumber() {
         return driverNumber;
     }
 
-    public void setDriverNumber(Integer driverNumber) {
+    public void setDriverNumber(String driverNumber) {
         this.driverNumber = driverNumber;
     }
 
