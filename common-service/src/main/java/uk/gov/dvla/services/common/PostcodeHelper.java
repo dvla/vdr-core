@@ -47,6 +47,22 @@ public class PostcodeHelper {
                 if (!cleanSearchPostcode.equalsIgnoreCase(cleanActualPostcode)) {
                     postcodeMismatch = true;
                 }
+
+                if (postcodeMismatch) {
+                    /*
+                     Check if the postcode is 6 chars in length and if so add a 0 after the
+                     first two characters
+                      */
+                    if (cleanSearchPostcode.length() == 6) {
+
+                        cleanSearchPostcode = new StringBuilder(cleanSearchPostcode).insert(
+                                cleanSearchPostcode.length()-4, "0").toString();
+
+                        if (cleanSearchPostcode.equalsIgnoreCase(cleanActualPostcode)) {
+                            postcodeMismatch = false;
+                        }
+                    }
+                }
             }
         }
         return postcodeMismatch;
