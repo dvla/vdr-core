@@ -9,7 +9,7 @@ import java.util.Arrays;
 public class TestPostcodeHelper {
 
     @Test
-    public void testPostcodeWithSpace() {
+    public void testPostcodeWithMissingZero() {
         String postcode = "SA1 7NW";
 
         boolean postcodeMismatch = PostcodeHelper.postcodeMismatch(
