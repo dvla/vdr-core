@@ -184,7 +184,7 @@ case class DvlaPersonalDetailsNotValid(forename: String, surname: String, dob: D
                                         requestSent: DateTime, responseSent: DateTime, contactChannel: String,
                                         enquiryReason: String, userId: String, ipAddress: String) extends Message {
   val result = Result.Failure
-  val status = Status.NotFound
+  val status = Status.NotValid
   val serviceType = ServiceType.DvlaPortal
 }
 
