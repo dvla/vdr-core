@@ -52,6 +52,14 @@ public class PostcodeHelper {
         return postcodeMismatch;
     }
 
+    public static boolean isIgnoredPostcode(String postcode, List<String> dummyPostcodes) {
+        String cleanPostcode = cleanPostcode(postcode);
+
+        return PostcodeHelper.postcodeIsBlank(cleanPostcode) ||
+                PostcodeHelper.hasSpecialChars(cleanPostcode) ||
+                dummyPostcodes.contains(cleanPostcode);
+    }
+
     private static String cleanPostcode(String originalPostcode) {
         return originalPostcode.replace(" ", "");
     }
