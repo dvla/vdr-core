@@ -8,7 +8,8 @@ public enum MessageType {
     SuppressLicenceValidTo(4, "Suppress Licence Valid To Date"),
     LicenceExpired(5,"Driving Licence Expired"),
     PostcodeMismatch(6,"Postcode Mismatch"),
-    NoData(7, "No Data to provide");
+    NoData(7, "No Data to provide"),
+    LicenceStatusModified(8, "Licence status text modified");
 
     public int getMessageType()
     {
