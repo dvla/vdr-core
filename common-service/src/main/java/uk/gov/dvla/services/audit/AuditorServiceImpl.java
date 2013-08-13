@@ -23,14 +23,6 @@ public class AuditorServiceImpl implements AuditorService {
 
     private Bus serviceBus;
     private HttpHelperService httpHelperService;
-    private List<String> dummyPostcodes;
-
-    public AuditorServiceImpl(Bus serviceBus, HttpHelperService httpHelperService, List<String> dummyPostcodes) {
-
-        this.serviceBus = serviceBus;
-        this.httpHelperService = httpHelperService;
-        this.dummyPostcodes = dummyPostcodes;
-    }
 
     public AuditorServiceImpl(Bus serviceBus, HttpHelperService httpHelperService) {
 
@@ -39,24 +31,24 @@ public class AuditorServiceImpl implements AuditorService {
     }
 
     @Override
-    public void auditPostcodeMismatch(Driver driver, String dln, String searchedPostcode, HttpServletRequest request,
-                                      DateTime requestTime) {
-        if (PostcodeHelper.postcodeIsBlank(driver.getAddress().getPostCode())) {
-            this.serviceBus.send(new CustomerPostcodeIsBlank(dln, searchedPostcode, requestTime,
-                    new DateTime(), httpHelperService.getIpAddress(request)));
-        } else {
-            if (PostcodeHelper.hasSpecialChars(driver.getAddress().getPostCode())) {
-                this.serviceBus.send(new CustomerPostcodeContainsSpecialCharacter(dln, searchedPostcode, requestTime,
-                        new DateTime(), httpHelperService.getIpAddress(request)));
-            } else {
-                if (PostcodeHelper.postcodeMismatch(driver.getAddress().getPostCode(), searchedPostcode, dummyPostcodes)) {
-                    this.serviceBus.send(new CustomerPostcodeNotMatched(dln, searchedPostcode, requestTime, new DateTime(),
-                            httpHelperService.getIpAddress(request)));
+    public void auditPostcodeBlank(String dln, String searchedPostcode, HttpServletRequest request,
+                                   DateTime requestTime) {
+        this.serviceBus.send(new CustomerPostcodeIsBlank(dln, searchedPostcode, requestTime,
+                new DateTime(), httpHelperService.getIpAddress(request)));
+    }
 
-                    throw new WebApplicationException(Response.Status.NOT_FOUND);
-                }
-            }
-        }
+    @Override
+    public void auditPostcodeContainsSpecialCharacter(String dln, String searchedPostcode,
+                                                      HttpServletRequest request, DateTime requestTime) {
+        this.serviceBus.send(new CustomerPostcodeContainsSpecialCharacter(dln, searchedPostcode, requestTime,
+                new DateTime(), httpHelperService.getIpAddress(request)));
+    }
+
+    @Override
+    public void auditPostcodeMismatch(String dln, String searchedPostcode, HttpServletRequest request,
+                                      DateTime requestTime) {
+        this.serviceBus.send(new CustomerPostcodeNotMatched(dln, searchedPostcode, requestTime, new DateTime(),
+                httpHelperService.getIpAddress(request)));
     }
 
     @Override
