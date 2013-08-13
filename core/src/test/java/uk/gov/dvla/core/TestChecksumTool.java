@@ -17,7 +17,6 @@ public class TestChecksumTool {
         String aTextFilePath = this.getClass().getClassLoader().getResource("a.txt").getFile();
         String aTextShaFilePath = this.getClass().getClassLoader().getResource("a.txt.sha").getFile();
         String generatedChecksum = ChecksumTool.generateSha256Checksum(aTextFilePath);
-
         Assert.assertEquals("Checksum does not match expected", readFileContents(aTextShaFilePath), generatedChecksum);
     }
 
@@ -38,6 +37,7 @@ public class TestChecksumTool {
         while ((thisLine = myInput.readLine()) != null) {
             sb.append(thisLine);
         }
+
         return sb.toString();
     }
 }

@@ -1,9 +1,7 @@
 package uk.gov.dvla.core;
 
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.InputStream;
+import java.io.*;
 import java.security.MessageDigest;
 
 /**
@@ -58,4 +56,17 @@ public class ChecksumTool {
         fileInputStream.close();
         return complete.digest();
     }
+
+    public static String readShaChecksumFile(String filePath) throws Exception {
+        FileInputStream fin = new FileInputStream(filePath);
+        BufferedReader myInput = new BufferedReader(new InputStreamReader(fin));
+        StringBuilder sb = new StringBuilder();
+        String thisLine = null;
+        while ((thisLine = myInput.readLine()) != null) {
+            sb.append(thisLine);
+        }
+
+        return sb.toString();
+    }
+
 }
