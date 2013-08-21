@@ -13,6 +13,6 @@ public interface DriverDatastore extends Datastore, ManagedService
 
     public void add(Driver driver);
 
-    public void delete(Driver driver) throws Exception;
+    public void delete(Driver driver);
 
 }
