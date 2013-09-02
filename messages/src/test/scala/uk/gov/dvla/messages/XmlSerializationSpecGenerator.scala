@@ -113,5 +113,6 @@ object XmlSerializationSpecGenerator {
       |    ${messageUnits map unitTemplate mkString "\n"}
       |  }
       |}
+      |
     """.stripMargin
 }
