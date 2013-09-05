@@ -1,5 +1,7 @@
 package uk.gov.dvla.domain.portal;
 
+import org.joda.time.DateTime;
+import uk.gov.dvla.domain.DomainConfiguration;
 import uk.gov.dvla.domain.mib.EntitlementType;
 
 import java.util.ArrayList;
@@ -20,10 +22,19 @@ public class portalDTO {
 
     public static class Driver {
         private String currentDriverNumber;
+        private BirthDetails birthDetails;
         private Name name;
         private Licence licence;
         private Integer gender;
-        private BirthDetails birthDetails;
+
+
+        public String getCurrentDriverNumber() {
+            return currentDriverNumber;
+        }
+
+        public void setCurrentDriverNumber(String currentDriverNumber) {
+            this.currentDriverNumber = currentDriverNumber;
+        }
 
         public Licence getLicence() {
             return this.licence;
@@ -37,6 +48,15 @@ public class portalDTO {
     public static class Person {
         private Name name;
         private Address address;
+        private int gender;
+
+        public int getGender() {
+            return gender;
+        }
+
+        public void setGender(int gender) {
+            this.gender = gender;
+        }
     }
 
     public static class Name {
@@ -160,7 +180,7 @@ public class portalDTO {
 
         private Date validFrom;
         private Date validTo;
-        private Integer directiveStatus;
+        private int directiveStatus;
         private List<Entitlement> entitlements;
         private List<Endorsement> endorsements;
         private Date photoExpiryDate;
@@ -411,6 +431,7 @@ public class portalDTO {
             this.otherSentence = otherSentence;
         }
     }
+
     public static class OtherSentence {
         private String code;
         private String name;
@@ -441,17 +462,191 @@ public class portalDTO {
         }
     }
 
-    public static class EntitlementRestriction {
+    public class EntitlementRestriction {
 
-        private String type;
-        private String info;
+        private String code;
+        private String categoryCode;
+        private Date validTo;
 
         public EntitlementRestriction() {
         }
 
-        public EntitlementRestriction(String type, String info) {
-            this.type = type;
-            this.info = info;
+        public EntitlementRestriction(String code, String categoryCode) {
+            if (code == null) {
+                throw new RuntimeException("code must be specified");
+            }
+
+            this.code = code;
+            this.categoryCode = categoryCode;
+
+        }
+
+        public String getCode() {
+            return code;
+        }
+
+        public void setCode(String code) {
+            this.code = code;
+        }
+
+        public String getCategoryCode() {
+            return categoryCode;
+        }
+
+        public void setCategoryCode(String categoryCode) {
+            this.categoryCode = categoryCode;
+        }
+
+        public Date getValidTo() {
+            return validTo;
+        }
+
+        public void setValidTo(Date validTo) {
+            this.validTo = validTo;
+        }
+    }
+
+    public class TestPass implements Comparable<TestPass> {
+        private String entitlementType;
+        private String statusType;
+        private Date testPassDate;
+        private Boolean extended;
+        private Boolean harmonised;
+        private Boolean automatic;
+        private Boolean lessThanEqual25kw;
+
+        public Date getExpiryDate()
+        {
+            Integer unclaimedTestPassValidityInMonths = DomainConfiguration.getInstance().getUnclaimedTestPassValidity();
+            if(getTestPassDate() != null)
+            {
+                return new DateTime(getTestPassDate()).plusMonths(unclaimedTestPassValidityInMonths).toDate();
+            }
+            else
+            {
+                return null;
+            }
+
+        }
+
+        public int compareTo(TestPass other)
+        {
+            return this.getTestPassDate().compareTo(other.getTestPassDate());
+        }
+
+        public String getEntitlementType() {
+            return entitlementType;
+        }
+
+        public void setEntitlementType(String entitlementType) {
+            this.entitlementType = entitlementType;
+        }
+
+        public String getStatusType() {
+            return statusType;
+        }
+
+        public void setStatusType(String statusType) {
+            this.statusType = statusType;
+        }
+
+        public Date getTestPassDate() {
+            return testPassDate;
+        }
+
+        public void setTestPassDate(Date testPassDate) {
+            this.testPassDate = testPassDate;
+        }
+
+        public Boolean getExtended() {
+            return extended;
+        }
+
+        public void setExtended(Boolean extended) {
+            this.extended = extended;
+        }
+
+        public Boolean getHarmonised() {
+            return harmonised;
+        }
+
+        public void setHarmonised(Boolean harmonised) {
+            this.harmonised = harmonised;
+        }
+
+        public Boolean getAutomatic() {
+            return automatic;
+        }
+
+        public void setAutomatic(Boolean automatic) {
+            this.automatic = automatic;
+        }
+
+        public Boolean getLessThanEqual25kw() {
+            return lessThanEqual25kw;
+        }
+
+        public void setLessThanEqual25kw(Boolean lessThanEqual25kw) {
+            this.lessThanEqual25kw = lessThanEqual25kw;
+        }
+    }
+
+    public class DriverStatedFlags {
+
+        private Boolean excessEndorsements;
+
+        public Boolean getExcessEndorsements() {
+            return excessEndorsements;
+        }
+
+        public void setExcessEndorsements(Boolean excessEndorsements) {
+            this.excessEndorsements = excessEndorsements;
+        }
+    }
+
+    public class DriverStatus {
+
+        private String code;
+
+        public String getCode() {
+            return code;
+        }
+
+        public void setCode(String code) {
+            this.code = code;
+        }
+    }
+
+    public class Disqualification {
+
+        private Date disqFromDate;
+        private Date disqToDate;
+        private Integer endorsementID;
+        private String type;
+
+
+        public Date getDisqFromDate() {
+            return disqFromDate;
+        }
+
+        public void setDisqFromDate(Date disqFromDate) {
+            this.disqFromDate = disqFromDate;
+        }
+
+        public Date getDisqToDate() {
+            return disqToDate;
+        }
+
+        public void setDisqToDate(Date disqToDate) {
+            this.disqToDate = disqToDate;
+        }
+
+        public Integer getEndorsementID() {
+            return endorsementID;
+        }
+
+        public void setEndorsementID(Integer endorsementID) {
+            this.endorsementID = endorsementID;
         }
 
         public String getType() {
@@ -461,14 +656,7 @@ public class portalDTO {
         public void setType(String type) {
             this.type = type;
         }
-
-        public String getInfo() {
-            return info;
-        }
-
-        public void setInfo(String info) {
-            this.info = info;
-        }
     }
+
 }
 
