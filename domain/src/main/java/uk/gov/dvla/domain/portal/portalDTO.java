@@ -23,6 +23,7 @@ public class portalDTO {
         private Name name;
         private Licence licence;
         private Integer gender;
+        private BirthDetails birthDetails;
 
         public Licence getLicence() {
             return this.licence;
@@ -162,6 +163,8 @@ public class portalDTO {
         private Integer directiveStatus;
         private List<Entitlement> entitlements;
         private List<Endorsement> endorsements;
+        private Date photoExpiryDate;
+
 
         public Date getValidFrom() {
             return validFrom;
@@ -202,6 +205,14 @@ public class portalDTO {
         public void setEndorsements(List<Endorsement> endorsements) {
             this.endorsements = endorsements;
         }
+
+        public Date getPhotoExpiryDate() {
+            return photoExpiryDate;
+        }
+
+        public void setPhotoExpiryDate(Date photoExpiryDate) {
+            this.photoExpiryDate = photoExpiryDate;
+        }
     }
 
     public static class Entitlement {
@@ -209,8 +220,11 @@ public class portalDTO {
         private String code;
         private Date validFrom;
         private Date validTo;
+        private Boolean provisional;
+        private Boolean priorTo;
         private EntitlementType type;
         private List<EntitlementRestriction> restrictions;
+        private Boolean vocational;
 
         public String getCode() {
             return code;
@@ -236,6 +250,22 @@ public class portalDTO {
             this.validTo = validTo;
         }
 
+        public Boolean getProvisional() {
+            return provisional;
+        }
+
+        public void setProvisional(Boolean provisional) {
+            this.provisional = provisional;
+        }
+
+        public Boolean getPriorTo() {
+            return priorTo;
+        }
+
+        public void setPriorTo(Boolean priorTo) {
+            this.priorTo = priorTo;
+        }
+
         public EntitlementType getType() {
             return type;
         }
@@ -251,25 +281,46 @@ public class portalDTO {
         public void setRestrictions(List<EntitlementRestriction> restrictions) {
             this.restrictions = restrictions;
         }
-    }
 
-    public static class Endorsement {
-
-        private String code;
-        private Date offenceDate;
-        private Date convictionDate;
-        private Date sentencingDate;
-        private Number fine;
-        private Integer noOfPoints;
-        private Boolean isDisqual;
-        private String disqualPeriod;
-
-        public Boolean getIsDisqual() {
-            return isDisqual;
+        public Boolean getVocational() {
+            return vocational;
         }
 
-        public void setIsDisqual(Boolean isDisqual) {
-            this.isDisqual = isDisqual;
+        public void setVocational(Boolean vocational) {
+            this.vocational = vocational;
+        }
+    }
+
+    public class Endorsement {
+
+        public Integer id;
+        public Boolean disqual;
+        public String code;
+        public String convictingCourt;
+        public Date offence;
+        public Date expires;
+        public Date removed;
+        public Date conviction;
+        public Date sentencing;
+        public String duration;
+        public Double fine;
+        public Integer noPoints;
+        public OtherSentence otherSentence;
+
+        public Integer getId() {
+            return id;
+        }
+
+        public void setId(Integer id) {
+            this.id = id;
+        }
+
+        public Boolean getDisqual() {
+            return disqual;
+        }
+
+        public void setDisqual(Boolean disqual) {
+            this.disqual = disqual;
         }
 
         public String getCode() {
@@ -280,52 +331,113 @@ public class portalDTO {
             this.code = code;
         }
 
-        public Date getOffenceDate() {
-            return offenceDate;
+        public String getConvictingCourt() {
+            return convictingCourt;
         }
 
-        public void setOffenceDate(Date offenceDate) {
-            this.offenceDate = offenceDate;
+        public void setConvictingCourt(String convictingCourt) {
+            this.convictingCourt = convictingCourt;
         }
 
-        public Date getConvictionDate() {
-            return convictionDate;
+        public Date getOffence() {
+            return offence;
         }
 
-        public void setConvictionDate(Date convictionDate) {
-            this.convictionDate = convictionDate;
+        public void setOffence(Date offence) {
+            this.offence = offence;
         }
 
-        public Date getSentencingDate() {
-            return sentencingDate;
+        public Date getExpires() {
+            return expires;
         }
 
-        public void setSentencingDate(Date sentencingDate) {
-            this.sentencingDate = sentencingDate;
+        public void setExpires(Date expires) {
+            this.expires = expires;
         }
 
-        public String getDisqualPeriod() {
-            return disqualPeriod;
+        public Date getRemoved() {
+            return removed;
         }
 
-        public void setDisqualPeriod(String disqualPeriod) {
-            this.disqualPeriod = disqualPeriod;
+        public void setRemoved(Date removed) {
+            this.removed = removed;
         }
 
-        public Number getFine() {
+        public Date getConviction() {
+            return conviction;
+        }
+
+        public void setConviction(Date conviction) {
+            this.conviction = conviction;
+        }
+
+        public Date getSentencing() {
+            return sentencing;
+        }
+
+        public void setSentencing(Date sentencing) {
+            this.sentencing = sentencing;
+        }
+
+        public String getDuration() {
+            return duration;
+        }
+
+        public void setDuration(String duration) {
+            this.duration = duration;
+        }
+
+        public Double getFine() {
             return fine;
         }
 
-        public void setFine(Number fine) {
+        public void setFine(Double fine) {
             this.fine = fine;
         }
 
-        public Integer getNoOfPoints() {
-            return noOfPoints;
+        public Integer getNoPoints() {
+            return noPoints;
         }
 
-        public void setNoOfPoints(Integer noOfPoints) {
-            this.noOfPoints = noOfPoints;
+        public void setNoPoints(Integer noPoints) {
+            this.noPoints = noPoints;
+        }
+
+        public OtherSentence getOtherSentence() {
+            return otherSentence;
+        }
+
+        public void setOtherSentence(OtherSentence otherSentence) {
+            this.otherSentence = otherSentence;
+        }
+    }
+    public static class OtherSentence {
+        private String code;
+        private String name;
+        private String duration;
+
+        public String getCode() {
+            return code;
+        }
+
+        public void setCode(String code) {
+            this.code = code;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public void setName(String name) {
+            this.name = name;
+        }
+
+        public String getDuration() {
+            return duration;
+        }
+
+        public void setDuration(String duration) {
+            this.duration = duration;
         }
     }
 
