@@ -31,18 +31,10 @@ public class Driver extends Person {
     private List<CertificateOfProfessionalCompetence> CPCs;
     private List<DriverQualificationCard> DQCs;
     private List<TestPass> testPasses;
-    private List<Integer> restrictionKeys;
     private List<String> errorCodes;
     private boolean nslInCorruptedRange;
     private List<LicenceToken> licenceTokens;
 
-
-    public void addRestrictionKey(Integer key) {
-        if (null == restrictionKeys) {
-            restrictionKeys = new ArrayList<Integer>();
-        }
-        restrictionKeys.add(key);
-    }
 
     public void addErrorCode(String code) {
         if (null == errorCodes) {
@@ -187,14 +179,6 @@ public class Driver extends Person {
 
     public void setTestPasses(List<TestPass> testPasses) {
         this.testPasses = testPasses;
-    }
-
-    public List<Integer> getRestrictionKeys() {
-        return restrictionKeys;
-    }
-
-    public void setRestrictionKeys(List<Integer> restrictionKeys) {
-        this.restrictionKeys = restrictionKeys;
     }
 
     public List<String> getErrorCodes() {
