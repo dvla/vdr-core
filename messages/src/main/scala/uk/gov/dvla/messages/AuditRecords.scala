@@ -104,7 +104,7 @@ case class CustomerPersonalDetailsServerError(forename : String, surname : Strin
   val serviceType = ServiceType.CustomerPortal
 }
 
-case class CustomerDlnSuppressed(dln : String, requestSent : DateTime, responseSent : DateTime, ipAddress : String, suppressionReason : String) extends Message {
+case class CustomerDlnSuppressed(dln : String, requestSent : DateTime, responseSent : DateTime, ipAddress : String, suppressionReason : String) extends AuditMessage {
   val result = Result.Failure
   val status = Status.Suppressed
   val serviceType = ServiceType.CustomerPortal
