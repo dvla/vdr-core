@@ -5,6 +5,7 @@ import uk.gov.dvla.domain.DomainConfiguration;
 import uk.gov.dvla.domain.mib.EntitlementType;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -26,6 +27,14 @@ public class portalDTO {
         private Name name;
         private Licence licence;
         private Integer gender;
+        private Address address;
+        private DriverStatus status;
+        private List<DriverFlag> flags;
+        private List<TestPass> testPasses;
+        private List<Integer> restrictionKeys;
+        private Date disqualifiedUntilDate;
+        private DriverStatedFlags driverStatedFlags;
+        private List<Disqualification> disqualifications;
 
 
         public String getCurrentDriverNumber() {
@@ -36,12 +45,142 @@ public class portalDTO {
             this.currentDriverNumber = currentDriverNumber;
         }
 
+        public BirthDetails getBirthDetails() {
+            return birthDetails;
+        }
+
+        public void setBirthDetails(BirthDetails birthDetails) {
+            this.birthDetails = birthDetails;
+        }
+
+        public Name getName() {
+            return name;
+        }
+
+        public void setName(Name name) {
+            this.name = name;
+        }
+
         public Licence getLicence() {
             return this.licence;
         }
 
         public void setLicence(Licence licence) {
             this.licence = licence;
+        }
+
+        public int getGender() {
+            return gender;
+        }
+
+        public void setGender(int gender) {
+            this.gender = gender;
+        }
+
+        public Address getAddress() {
+            return address;
+        }
+
+        public void setAddress(Address address) {
+            this.address = address;
+        }
+
+        public DriverStatus getStatus() {
+            return status;
+        }
+
+        public void setStatus(DriverStatus status) {
+            this.status = status;
+        }
+
+        public void addDriverFlag(DriverFlag flag) {
+            if (null == flags) {
+                flags = new ArrayList<DriverFlag>();
+            }
+            flags.add(flag);
+        }
+
+        public List<DriverFlag> getFlags() {
+            return flags;
+        }
+
+        public void setFlags(List<DriverFlag> flags) {
+            this.flags = flags;
+        }
+
+        public void addTestPass(TestPass testPass) {
+            if (null == testPasses) {
+                testPasses = new ArrayList<TestPass>();
+            }
+            testPasses.add(testPass);
+        }
+
+        public List<TestPass> getTestPasses() {
+            return testPasses;
+        }
+
+        public void setTestPasses(List<TestPass> testPasses) {
+            this.testPasses = testPasses;
+        }
+
+        public TestPass getTestPassForEntitlement(uk.gov.dvla.domain.Entitlement ent) {
+            ArrayList<TestPass> possibleTestPasses = new ArrayList<TestPass>();
+
+            if (testPasses == null) {
+                return null;
+            }
+            for (TestPass testPass : testPasses) {
+                if (testPass.getEntitlementType().equals(ent.getCode())) {
+                    possibleTestPasses.add(testPass);
+                }
+            }
+
+            if (possibleTestPasses.size() == 0) {
+                return null;
+            } else {
+                //Ensure the most recent is returned
+                Collections.reverse(possibleTestPasses);
+                return possibleTestPasses.get(0);
+            }
+        }
+
+        public void addRestrictionKey(Integer key) {
+            if (null == restrictionKeys) {
+                restrictionKeys = new ArrayList<Integer>();
+            }
+            restrictionKeys.add(key);
+        }
+
+        public List<Integer> getRestrictionKeys() {
+            return restrictionKeys;
+        }
+
+        public void setRestrictionKeys(List<Integer> restrictionKeys) {
+            this.restrictionKeys = restrictionKeys;
+        }
+
+        public Date getDisqualifiedUntilDate() {
+            return disqualifiedUntilDate;
+        }
+
+        public void setDisqualifiedUntilDate(Date disqualifiedUntilDate) {
+            this.disqualifiedUntilDate = disqualifiedUntilDate;
+        }
+
+        public DriverStatedFlags getDriverStatedFlags() {
+            return driverStatedFlags;
+        }
+
+        public void setDriverStatedFlags(DriverStatedFlags driverStatedFlags) {
+            this.driverStatedFlags = driverStatedFlags;
+        }
+
+        public List<Disqualification> getDisqualifications() {
+            return disqualifications;
+        }
+
+        public void setDisqualifications(List<Disqualification> disqualifications) {
+            this.disqualifications = disqualifications;
         }
     }
 
@@ -515,22 +654,17 @@ public class portalDTO {
         private Boolean automatic;
         private Boolean lessThanEqual25kw;
 
-        public Date getExpiryDate()
-        {
+        public Date getExpiryDate() {
             Integer unclaimedTestPassValidityInMonths = DomainConfiguration.getInstance().getUnclaimedTestPassValidity();
-            if(getTestPassDate() != null)
-            {
+            if (getTestPassDate() != null) {
                 return new DateTime(getTestPassDate()).plusMonths(unclaimedTestPassValidityInMonths).toDate();
-            }
-            else
-            {
+            } else {
                 return null;
             }
 
         }
 
-        public int compareTo(TestPass other)
-        {
+        public int compareTo(TestPass other) {
             return this.getTestPassDate().compareTo(other.getTestPassDate());
         }
 
@@ -655,6 +789,37 @@ public class portalDTO {
 
         public void setType(String type) {
             this.type = type;
+        }
+    }
+
+    public class DriverFlag {
+
+        private String flag;
+        private boolean manual;
+        private boolean caseType;
+
+        public String getFlag() {
+            return flag;
+        }
+
+        public void setFlag(String flag) {
+            this.flag = flag;
+        }
+
+        public boolean isManual() {
+            return manual;
+        }
+
+        public void setManual(boolean manual) {
+            this.manual = manual;
+        }
+
+        public boolean isCaseType() {
+            return caseType;
+        }
+
+        public void setCaseType(boolean caseType) {
+            this.caseType = caseType;
         }
     }
 
