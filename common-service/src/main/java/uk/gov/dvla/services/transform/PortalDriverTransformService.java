@@ -4,9 +4,7 @@ import uk.gov.dvla.domain.*;
 import uk.gov.dvla.domain.mib.EntitlementType;
 import uk.gov.dvla.domain.portal.PortalDTO;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 public class PortalDriverTransformService implements TransformService<ServiceResult<Driver>, ServiceResult<PortalDTO>> {
 
@@ -20,6 +18,8 @@ public class PortalDriverTransformService implements TransformService<ServiceRes
 
         Licence licence = driver.getLicence();
 
+        portalDriver.setName(getName(driver.getName()));
+
         if (null != licence) {
             portalDriver.setLicence(getLicence(licence));
             PortalDTO.Licence portalLicence = portalDriver.getLicence();
@@ -28,6 +28,16 @@ public class PortalDriverTransformService implements TransformService<ServiceRes
         }
 
         return new ServiceResult<PortalDTO>(objectToTransform.getEnquiryId(), portalDTO, objectToTransform.getMessages());
+    }
+
+    private PortalDTO.Name getName(Name name) {
+
+        PortalDTO.Name portalName = new PortalDTO.Name();
+        portalName.setTitle(name.getTitle());
+
+
+
+        return portalName;
     }
 
     private PortalDTO.Licence getLicence(Licence licence) {
@@ -67,7 +77,7 @@ public class PortalDriverTransformService implements TransformService<ServiceRes
         List<PortalDTO.Endorsement> endorsements = new ArrayList<PortalDTO.Endorsement>();
         if (licence.getEndorsements() == null) return endorsements;
 
-        for (PortalDTO.Endorsement end : licence.getEndorsements()) {
+        for (Endorsement end : licence.getEndorsements()) {
             PortalDTO.Endorsement portalEndorsement = new PortalDTO.Endorsement();
             portalEndorsement.setId(end.getId());
             portalEndorsement.setDisqual(end.getDisqual());
@@ -80,7 +90,8 @@ public class PortalDriverTransformService implements TransformService<ServiceRes
             portalEndorsement.setDuration(end.getDuration());
             portalEndorsement.setFine(end.getFine());
             portalEndorsement.setNoPoints(end.getNoPoints());
-            portalEndorsement.setOtherSentence(end.getOtherSentence());
+            //TODO fix this
+            //portalEndorsement.setOtherSentence(end.getOtherSentence());
             endorsements.add(portalEndorsement);
         }
 
