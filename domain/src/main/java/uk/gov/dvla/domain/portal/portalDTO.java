@@ -184,20 +184,6 @@ public class PortalDTO {
         }
     }
 
-    public static class Person {
-        private Name name;
-        private Address address;
-        private int gender;
-
-        public int getGender() {
-            return gender;
-        }
-
-        public void setGender(int gender) {
-            this.gender = gender;
-        }
-    }
-
     public static class Name {
         private String title = null;
         private List<String> givenName = null;
@@ -649,6 +635,7 @@ public class PortalDTO {
         private String entitlementType;
         private String statusType;
         private Date testPassDate;
+        private Date expiryDate;
 
         public Date getExpiryDate() {
             Integer unclaimedTestPassValidityInMonths = DomainConfiguration.getInstance().getUnclaimedTestPassValidity();
