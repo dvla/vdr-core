@@ -315,7 +315,7 @@ public class PortalDTO {
 
     }
 
-    public static class     Licence {
+    public static class Licence {
 
         private String currentIssueNum;
         private Date validFrom;
@@ -601,7 +601,7 @@ public class PortalDTO {
         }
     }
 
-    public class EntitlementRestriction {
+    public static class EntitlementRestriction {
 
         private String code;
         private String categoryCode;
@@ -645,7 +645,7 @@ public class PortalDTO {
         }
     }
 
-    public class TestPass implements Comparable<TestPass> {
+    public static class TestPass implements Comparable<TestPass> {
         private String entitlementType;
         private String statusType;
         private Date testPassDate;
@@ -689,7 +689,7 @@ public class PortalDTO {
         }
     }
 
-    public class DriverStatedFlags {
+    public static class DriverStatedFlags {
 
         private Boolean excessEndorsements;
 
@@ -702,7 +702,7 @@ public class PortalDTO {
         }
     }
 
-    public class DriverStatus {
+    public static class DriverStatus {
 
         private String code;
 
@@ -715,7 +715,7 @@ public class PortalDTO {
         }
     }
 
-    public class Disqualification {
+    public static class Disqualification {
 
         private Date disqFromDate;
         private Date disqToDate;
@@ -756,7 +756,7 @@ public class PortalDTO {
         }
     }
 
-    public class DriverFlag {
+    public  static class DriverFlag {
 
         private String flag;
         private boolean manual;
@@ -788,4 +788,3 @@ public class PortalDTO {
     }
 
 }
-
