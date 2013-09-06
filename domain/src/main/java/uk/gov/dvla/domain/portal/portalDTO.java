@@ -9,7 +9,7 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
-public class portalDTO {
+public class PortalDTO {
 
     private Driver driver;
 
@@ -317,6 +317,7 @@ public class portalDTO {
 
     public static class Licence {
 
+        private String currentIssueNum;
         private Date validFrom;
         private Date validTo;
         private int directiveStatus;
@@ -371,6 +372,14 @@ public class portalDTO {
 
         public void setPhotoExpiryDate(Date photoExpiryDate) {
             this.photoExpiryDate = photoExpiryDate;
+        }
+
+        public String getCurrentIssueNum() {
+            return currentIssueNum;
+        }
+
+        public void setCurrentIssueNum(String currentIssueNum) {
+            this.currentIssueNum = currentIssueNum;
         }
     }
 
@@ -450,21 +459,21 @@ public class portalDTO {
         }
     }
 
-    public class Endorsement {
+    public static class Endorsement {
 
-        public Integer id;
-        public Boolean disqual;
-        public String code;
-        public String convictingCourt;
-        public Date offence;
-        public Date expires;
-        public Date removed;
-        public Date conviction;
-        public Date sentencing;
-        public String duration;
-        public Double fine;
-        public Integer noPoints;
-        public OtherSentence otherSentence;
+        private Integer id;
+        private Boolean disqual;
+        private String code;
+        private String convictingCourt;
+        private Date offence;
+        private Date expires;
+        private Date removed;
+        private Date conviction;
+        private Date sentencing;
+        private String duration;
+        private Double fine;
+        private Integer noPoints;
+        private OtherSentence otherSentence;
 
         public Integer getId() {
             return id;
