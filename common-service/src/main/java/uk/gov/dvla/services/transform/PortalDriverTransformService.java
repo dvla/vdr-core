@@ -1,90 +1,87 @@
 package uk.gov.dvla.services.transform;
 
-
-import uk.gov.dvla.domain.Driver;
-import uk.gov.dvla.domain.Endorsement;
-import uk.gov.dvla.domain.Entitlement;
-import uk.gov.dvla.domain.EntitlementRestriction;
-import uk.gov.dvla.domain.Licence;
-import uk.gov.dvla.domain.ServiceResult;
-import uk.gov.dvla.domain.TestPass;
-import uk.gov.dvla.domain.TestPassStatus;
+import uk.gov.dvla.domain.*;
 import uk.gov.dvla.domain.mib.EntitlementType;
-import uk.gov.dvla.domain.mib.MibDTO;
+import uk.gov.dvla.domain.portal.PortalDTO;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class PortalDriverTransformService implements TransformService<ServiceResult<Driver>, ServiceResult<MibDTO>> {
+public class PortalDriverTransformService implements TransformService<ServiceResult<Driver>, ServiceResult<PortalDTO>> {
 
     @Override
-    public ServiceResult<MibDTO> transform(ServiceResult<Driver> objectToTransform) {
-        MibDTO mibDTO = new MibDTO();
-        MibDTO.Driver mibDriver = new MibDTO.Driver();
-        mibDTO.setDriver(mibDriver);
+    public ServiceResult<PortalDTO> transform(ServiceResult<Driver> objectToTransform) {
+        PortalDTO portalDTO = new PortalDTO();
+        PortalDTO.Driver portalDriver = new PortalDTO.Driver();
+        portalDTO.setDriver(portalDriver);
 
         Driver driver = objectToTransform.getResult();
 
         Licence licence = driver.getLicence();
 
         if (null != licence) {
-            mibDriver.setLicence(getLicence(licence));
-            MibDTO.Licence mibLicence = mibDriver.getLicence();
-            mibLicence.setEntitlements(getEntitlements(driver));
-            mibLicence.setEndorsements(getEndorsements(licence));
+            portalDriver.setLicence(getLicence(licence));
+            PortalDTO.Licence portalLicence = portalDriver.getLicence();
+            portalLicence.setEntitlements(getEntitlements(driver));
+            portalLicence.setEndorsements(getEndorsements(licence));
         }
 
-        return new ServiceResult<MibDTO>(objectToTransform.getEnquiryId(), mibDTO, objectToTransform.getMessages());
+        return new ServiceResult<PortalDTO>(objectToTransform.getEnquiryId(), portalDTO, objectToTransform.getMessages());
     }
 
-    private MibDTO.Licence getLicence(Licence licence) {
+    private PortalDTO.Licence getLicence(Licence licence) {
 
-        MibDTO.Licence mibLicence = new MibDTO.Licence();
-        mibLicence.setValidFrom(licence.getValidFrom());
-        mibLicence.setValidTo(licence.getValidTo());
-        mibLicence.setDirectiveStatus(licence.getDirectiveStatus());
-
-        return mibLicence;
+        PortalDTO.Licence portalLicence = new PortalDTO.Licence();
+        portalLicence.setCurrentIssueNum(licence.getCurrentIssueNum());
+        portalLicence.setValidFrom(licence.getValidFrom());
+        portalLicence.setValidTo(licence.getValidTo());
+        portalLicence.setDirectiveStatus(licence.getDirectiveStatus());
+        portalLicence.setPhotoExpiryDate(licence.getPhotoExpiryDate());
+        return portalLicence;
     }
 
-    private List<MibDTO.Entitlement> getEntitlements(Driver driver) {
+    private List<PortalDTO.Entitlement> getEntitlements(Driver driver) {
         Licence licence = driver.getLicence();
         List<TestPass> testPasses = driver.getTestPasses();
-        List<MibDTO.Entitlement> entitlements = new ArrayList<MibDTO.Entitlement>();
+        List<PortalDTO.Entitlement> entitlements = new ArrayList<PortalDTO.Entitlement>();
         if (licence.getEntitlements() == null) return entitlements;
 
         for (Entitlement ent : licence.getEntitlements()) {
-            MibDTO.Entitlement mibEntitlement = new MibDTO.Entitlement();
+            PortalDTO.Entitlement portalEntitlement = new PortalDTO.Entitlement();
             TestPass testPass = driver.getTestPassForEntitlement(ent);
-            mibEntitlement.setCode(ent.getCode());
-            mibEntitlement.setValidFrom(getValidFrom(ent, testPass));
-            mibEntitlement.setValidTo(getValidTo(ent, testPass));
-            mibEntitlement.setType(getEntitlementType(ent, testPass));
-            mibEntitlement.setRestrictions(getEntitlementRestrictions(ent));
-
-            entitlements.add(mibEntitlement);
+            portalEntitlement.setCode(ent.getCode());
+            portalEntitlement.setValidFrom(getValidFrom(ent, testPass));
+            portalEntitlement.setValidTo(getValidTo(ent, testPass));
+            portalEntitlement.setProvisional(ent.getProvisional());
+            portalEntitlement.setPriorTo(ent.getPriorTo());
+            portalEntitlement.setRestrictions(getEntitlementRestrictions(ent));
+            portalEntitlement.setVocational(ent.getVocational());
+            entitlements.add(portalEntitlement);
         }
 
         return entitlements;
     }
 
-    private List<MibDTO.Endorsement> getEndorsements(Licence licence) {
-        List<MibDTO.Endorsement> endorsements = new ArrayList<MibDTO.Endorsement>();
+    private List<PortalDTO.Endorsement> getEndorsements(Licence licence) {
+        List<PortalDTO.Endorsement> endorsements = new ArrayList<PortalDTO.Endorsement>();
         if (licence.getEndorsements() == null) return endorsements;
 
-        for (Endorsement end : licence.getEndorsements()) {
-            MibDTO.Endorsement mibEndorsement = new MibDTO.Endorsement();
-            mibEndorsement.setCode(end.getCode());
-            mibEndorsement.setOffenceDate(end.getOffence());
-            mibEndorsement.setConvictionDate(end.getConviction());
-            mibEndorsement.setSentencingDate(end.getSentencing());
-            mibEndorsement.setFine(end.getFine());
-            mibEndorsement.setNoOfPoints(end.getNoPoints());
-            mibEndorsement.setIsDisqual(end.getDisqual());
-            mibEndorsement.setDisqualPeriod(end.getDuration());
-
-            endorsements.add(mibEndorsement);
+        for (PortalDTO.Endorsement end : licence.getEndorsements()) {
+            PortalDTO.Endorsement portalEndorsement = new PortalDTO.Endorsement();
+            portalEndorsement.setId(end.getId());
+            portalEndorsement.setDisqual(end.getDisqual());
+            portalEndorsement.setCode(end.getCode());
+            portalEndorsement.setOffence(end.getOffence());
+            portalEndorsement.setExpires(end.getExpires());
+            portalEndorsement.setRemoved(end.getRemoved());
+            portalEndorsement.setConviction(end.getConviction());
+            portalEndorsement.setSentencing(end.getSentencing());
+            portalEndorsement.setDuration(end.getDuration());
+            portalEndorsement.setFine(end.getFine());
+            portalEndorsement.setNoPoints(end.getNoPoints());
+            portalEndorsement.setOtherSentence(end.getOtherSentence());
+            endorsements.add(portalEndorsement);
         }
 
         return endorsements;
@@ -103,13 +100,13 @@ public class PortalDriverTransformService implements TransformService<ServiceRes
         return entitlementType;
     }
 
-    private List<MibDTO.EntitlementRestriction> getEntitlementRestrictions(Entitlement ent) {
+    private List<PortalDTO.EntitlementRestriction> getEntitlementRestrictions(Entitlement ent) {
 
-        List<MibDTO.EntitlementRestriction> restrictions = new ArrayList<MibDTO.EntitlementRestriction>();
+        List<PortalDTO.EntitlementRestriction> restrictions = new ArrayList<PortalDTO.EntitlementRestriction>();
 
         if (ent.getRestrictions() != null) {
             for (EntitlementRestriction er : ent.getRestrictions()) {
-                restrictions.add(new MibDTO.EntitlementRestriction(er.getCode(), er.getCategoryCode()));
+                restrictions.add(new PortalDTO.EntitlementRestriction(er.getCode(), er.getCategoryCode()));
             }
         }
 
