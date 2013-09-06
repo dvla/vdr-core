@@ -22,7 +22,7 @@ public class PortalDriverTransformService implements TransformService<ServiceRes
         portalDriver.setAddress(getAddress(driver.getAddress()));
         portalDriver.setBirthDetails(getBirthDetails(driver.getBirthDetails()));
         portalDriver.setStatus(getStatus(driver.getStatus()));
-        portalDriver.setDriverStatedFlags(getDriverStatedFlags(driver.getDriverStatedFlags()));
+        portalDriver.setDriverStatedFlags(getDriverStatedFlags(driver));
         portalDriver.setFlags(getFlags(driver));
         portalDriver.setCurrentDriverNumber(driver.getCurrentDriverNumber());
         portalDriver.setGender(driver.getGender());
@@ -44,6 +44,8 @@ public class PortalDriverTransformService implements TransformService<ServiceRes
     private PortalDTO.Name getName(Name name) {
 
         PortalDTO.Name portalName = new PortalDTO.Name();
+        if (name == null) return portalName;
+
         portalName.setTitle(name.getTitle());
         portalName.setGivenName(name.getGivenName());
         portalName.setFamilyName(name.getFamilyName());
@@ -53,7 +55,7 @@ public class PortalDriverTransformService implements TransformService<ServiceRes
     private PortalDTO.Address getAddress(Address address) {
 
         PortalDTO.Address portalAddress = new PortalDTO.Address();
-
+        if (address == null) return portalAddress;
         portalAddress.setBuildingName(address.getBuildingName());
         portalAddress.setDdtfare(address.getDdtfare());
         portalAddress.setPostTown(address.getPostTown());
@@ -67,6 +69,7 @@ public class PortalDriverTransformService implements TransformService<ServiceRes
     private PortalDTO.BirthDetails getBirthDetails(BirthDetails birthDetails) {
 
         PortalDTO.BirthDetails portalBirthDetails = new PortalDTO.BirthDetails();
+        if (birthDetails == null) return  portalBirthDetails;
         portalBirthDetails.setDate(birthDetails.getDate());
         return portalBirthDetails;
     }
@@ -74,14 +77,17 @@ public class PortalDriverTransformService implements TransformService<ServiceRes
     private PortalDTO.DriverStatus getStatus(DriverStatus driverStatus) {
 
         PortalDTO.DriverStatus portalDriverStatus = new PortalDTO.DriverStatus();
+        if (driverStatus == null) return portalDriverStatus;
         portalDriverStatus.setCode(driverStatus.getCode());
         return portalDriverStatus;
     }
 
-    private PortalDTO.DriverStatedFlags getDriverStatedFlags(DriverStatedFlags driverStatedFlags) {
-
+    private PortalDTO.DriverStatedFlags getDriverStatedFlags(Driver driver) {
         PortalDTO.DriverStatedFlags portalDriverStatedFlags = new PortalDTO.DriverStatedFlags();
-        portalDriverStatedFlags.setExcessEndorsements(driverStatedFlags.getExcessEndorsements());
+
+        if (driver.getDriverStatedFlags() == null) return  portalDriverStatedFlags;
+
+        portalDriverStatedFlags.setExcessEndorsements(driver.getDriverStatedFlags().getExcessEndorsements());
         return portalDriverStatedFlags;
     }
 
@@ -102,6 +108,7 @@ public class PortalDriverTransformService implements TransformService<ServiceRes
     private PortalDTO.Licence getLicence(Licence licence) {
 
         PortalDTO.Licence portalLicence = new PortalDTO.Licence();
+        if (licence == null) return portalLicence;
         portalLicence.setCurrentIssueNum(licence.getCurrentIssueNum());
         portalLicence.setValidFrom(licence.getValidFrom());
         portalLicence.setValidTo(licence.getValidTo());
