@@ -2,8 +2,9 @@ package uk.gov.dvla.domain.portal;
 
 import org.joda.time.DateTime;
 import uk.gov.dvla.domain.DomainConfiguration;
-import uk.gov.dvla.domain.mib.EntitlementType;
-
+import uk.gov.dvla.domain.OtherSentence;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
@@ -376,7 +377,6 @@ public class PortalDTO {
         private Date validTo;
         private Boolean provisional;
         private Boolean priorTo;
-        private EntitlementType type;
         private List<EntitlementRestriction> restrictions;
         private Boolean vocational;
 
@@ -418,14 +418,6 @@ public class PortalDTO {
 
         public void setPriorTo(Boolean priorTo) {
             this.priorTo = priorTo;
-        }
-
-        public EntitlementType getType() {
-            return type;
-        }
-
-        public void setType(EntitlementType entitlementType) {
-            this.type = entitlementType;
         }
 
         public List<EntitlementRestriction> getRestrictions() {
@@ -561,8 +553,12 @@ public class PortalDTO {
             return otherSentence;
         }
 
-        public void setOtherSentence(OtherSentence otherSentence) {
-            this.otherSentence = otherSentence;
+        public void setOtherSentence(uk.gov.dvla.domain.OtherSentence otherSentence) {
+            OtherSentence DTOotherSentence = new OtherSentence();
+            DTOotherSentence.code = otherSentence.getCode();
+            DTOotherSentence.duration = otherSentence.getDuration();
+            this.otherSentence = DTOotherSentence;
+
         }
     }
 
@@ -592,18 +588,19 @@ public class PortalDTO {
         private String code;
         private String categoryCode;
         private Date validTo;
+        private static final Logger logger = LoggerFactory.getLogger(PortalDTO.class.getName());
 
         public EntitlementRestriction() {
         }
 
         public EntitlementRestriction(String code, String categoryCode) {
             if (code == null) {
+                logger.debug("code must be specified");
                 throw new RuntimeException("code must be specified");
             }
 
             this.code = code;
             this.categoryCode = categoryCode;
-
         }
 
         public String getCode() {
@@ -644,7 +641,6 @@ public class PortalDTO {
             } else {
                 return null;
             }
-
         }
 
         public int compareTo(TestPass other) {
@@ -709,7 +705,6 @@ public class PortalDTO {
         private Integer endorsementID;
         private String type;
 
-
         public Date getDisqFromDate() {
             return disqFromDate;
         }
@@ -743,7 +738,7 @@ public class PortalDTO {
         }
     }
 
-    public  static class DriverFlag {
+    public static class DriverFlag {
 
         private String flag;
         private boolean manual;
@@ -773,5 +768,4 @@ public class PortalDTO {
             this.caseType = caseType;
         }
     }
-
 }
