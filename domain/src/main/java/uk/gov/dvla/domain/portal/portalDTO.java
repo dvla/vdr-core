@@ -2,7 +2,6 @@ package uk.gov.dvla.domain.portal;
 
 import org.joda.time.DateTime;
 import uk.gov.dvla.domain.DomainConfiguration;
-import uk.gov.dvla.domain.OtherSentence;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import java.util.ArrayList;
@@ -11,6 +10,7 @@ import java.util.Date;
 import java.util.List;
 
 public class PortalDTO {
+    private static final Logger logger = LoggerFactory.getLogger(PortalDTO.class.getName());
 
     private Driver driver;
 
@@ -588,7 +588,6 @@ public class PortalDTO {
         private String code;
         private String categoryCode;
         private Date validTo;
-        private static final Logger logger = LoggerFactory.getLogger(PortalDTO.class.getName());
 
         public EntitlementRestriction() {
         }
