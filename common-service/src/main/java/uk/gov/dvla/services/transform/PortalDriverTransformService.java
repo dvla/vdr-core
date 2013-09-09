@@ -27,7 +27,6 @@ public class PortalDriverTransformService implements TransformService<ServiceRes
         portalDriver.setCurrentDriverNumber(driver.getCurrentDriverNumber());
         portalDriver.setGender(driver.getGender());
         portalDriver.setDisqualifiedUntilDate(driver.getDisqualifiedUntilDate());
-        portalDriver.setRestrictionKeys(driver.getRestrictionKeys());
         portalDriver.setTestPasses(getTestPasses(driver));
         portalDriver.setDisqualifications(getDisqualifications(driver));
 
