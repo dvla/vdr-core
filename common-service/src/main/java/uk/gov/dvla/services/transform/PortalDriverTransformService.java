@@ -157,8 +157,7 @@ public class PortalDriverTransformService implements TransformService<ServiceRes
             portalEndorsement.setDuration(end.getDuration());
             portalEndorsement.setFine(end.getFine());
             portalEndorsement.setNoPoints(end.getNoPoints());
-            //TODO fix this
-            //portalEndorsement.setOtherSentence(end.getOtherSentence());
+            portalEndorsement.setOtherSentence(end.getOtherSentence());
             endorsements.add(portalEndorsement);
         }
 
