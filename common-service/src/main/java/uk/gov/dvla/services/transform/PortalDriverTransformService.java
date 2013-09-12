@@ -11,13 +11,11 @@ public class PortalDriverTransformService implements TransformService<ServiceRes
     @Override
     public ServiceResult<PortalDTO> transform(ServiceResult<Driver> objectToTransform) {
         PortalDTO portalDTO = new PortalDTO();
-        PortalDTO.Driver portalDriver = new PortalDTO.Driver();
-        portalDTO.setDriver(portalDriver);
-
         Driver driver = objectToTransform.getResult();
-        if (null != driver) {
-            Licence licence = driver.getLicence();
 
+        if (null != driver) {
+            PortalDTO.Driver portalDriver = new PortalDTO.Driver();
+            Licence licence = driver.getLicence();
             portalDriver.setName(getName(driver.getName()));
             portalDriver.setAddress(getAddress(driver.getAddress()));
             portalDriver.setBirthDetails(getBirthDetails(driver.getBirthDetails()));
@@ -36,6 +34,7 @@ public class PortalDriverTransformService implements TransformService<ServiceRes
                 portalLicence.setEntitlements(getEntitlements(driver));
                 portalLicence.setEndorsements(getEndorsements(licence));
             }
+            portalDTO.setDriver(portalDriver);
         }
         return new ServiceResult<PortalDTO>(objectToTransform.getEnquiryId(), portalDTO, objectToTransform.getMessages());
     }
