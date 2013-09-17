@@ -30,11 +30,20 @@ public class MibDTO {
 
     public static class Licence {
 
+        private String status;
         private Date validFrom;
         private Date validTo;
         private Integer directiveStatus;
         private List<Entitlement> entitlements;
         private List<Endorsement> endorsements;
+
+        public String getStatus() {
+            return status;
+        }
+
+        public void setStatus(String status) {
+            this.status = status;
+        }
 
         public Date getValidFrom() {
             return validFrom;
@@ -82,6 +91,7 @@ public class MibDTO {
         private String code;
         private Date validFrom;
         private Date validTo;
+        private Boolean priorTo;
         private EntitlementType type;
         private List<EntitlementRestriction> restrictions;
 
@@ -107,6 +117,14 @@ public class MibDTO {
 
         public void setValidTo(Date validTo) {
             this.validTo = validTo;
+        }
+
+        public Boolean getPriorTo() {
+            return priorTo;
+        }
+
+        public void setPriorTo(Boolean priorTo) {
+            this.priorTo = priorTo;
         }
 
         public EntitlementType getType() {
