@@ -6,7 +6,7 @@ import uk.gov.dvla.services.ManagedService;
 
 public interface DriverEnquiry extends ManagedService
 {
-    public static final String EXTERNAL_DRIVER_URI = "/external/driver/";
+    public static final String EXTERNAL_DRIVER_URI = "/iiadd/api/v1/driver/";
     public static final String DRIVER_URI = "/driver/";
     public static final String DLN_SEARCH = "dlnSearch";
     public static final String PERSONAL_DETAILS_SEARCH = "personalDetailsSearch";
@@ -14,13 +14,15 @@ public interface DriverEnquiry extends ManagedService
     public static final String MIB = "mib";
 
     public static final String DLN_PARAM = "dln";
-    public static final String ENQUIRY_ID_PARAM = "id";
+    public static final String ENQUIRY_ID_PARAM = "guid";
 
     public static final String FORENAME_PARAM = "fn";
     public static final String SURNAME_PARAM = "sn";
     public static final String DOB_PARAM = "d";
     public static final String GENDER_PARAM = "g";
-    public static final String POSTCODE_PARAM = "p";
+    public static final String POSTCODE_PARAM = "pc";
+
+    public static final String VEHICLE_REGISTRATION_MARK_PARAM = "vrm";
 
     public static final String SERVICE_TYPE_PARAM = "type";
 
