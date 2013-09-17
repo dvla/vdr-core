@@ -161,12 +161,23 @@ public class AuditorServiceImpl implements AuditorService {
         boolean isFullySuppressed = false;
 
         if (driverResult.hasMessages()){
-            for (Message message : driverResult.getMessages()){
-                if (message.getType() == MessageType.SuppressFullRecord.getMessageType()) {
+            if (isSuppressedMessage(driverResult.getMessages())) {
                     isFullySuppressed = true;
-                }
             }
         }
         return isFullySuppressed;
+    }
+
+    private boolean isSuppressedMessage(List<String> messages) {
+        for (String s : messages) {
+            if (s.equalsIgnoreCase(Message.SUPPRESS_RECORD_ANOTHER_DESIGNATED_LICENCE_AUTHORITY)
+                    || s.equalsIgnoreCase(Message.SUPPRESS_RECORD_PHONE_DVLA)
+                    || s.equalsIgnoreCase(Message.SUPPRESS_RECORD_PHONE_TWO_NUMBER)
+                    || s.equalsIgnoreCase(Message.SUPPRESS_RECORD_TRY_AGAIN_LATER)
+                    || s.equalsIgnoreCase(Message.SUPPRESS_RECORD_WRITE_TO_CCG)) {
+                return true;
+            }
+        }
+        return false;
     }
 }

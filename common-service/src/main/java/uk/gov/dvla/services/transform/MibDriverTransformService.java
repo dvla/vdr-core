@@ -6,26 +6,26 @@ import uk.gov.dvla.domain.mib.MibDTO;
 
 import java.util.*;
 
-public class MibDriverTransformService implements TransformService<ServiceResult<Driver>, ServiceResult<MibDTO>> {
+public class MibDriverTransformService implements TransformService<ServiceResult<Driver>, MibDTO> {
 
     @Override
-    public ServiceResult<MibDTO> transform(ServiceResult<Driver> objectToTransform) {
+    public MibDTO transform(ServiceResult<Driver> result) {
         MibDTO mibDTO = new MibDTO();
         MibDTO.Driver mibDriver = new MibDTO.Driver();
         mibDTO.setDriver(mibDriver);
 
-        Driver driver = objectToTransform.getResult();
+        Driver driver = result.getResult();
         Licence licence = driver.getLicence();
 
         if(null != licence)
         {
             mibDriver.setLicence(getLicence(licence));
             MibDTO.Licence mibLicence = mibDriver.getLicence();
+            mibLicence.setStatus(getStatus(driver, result.getMessages()));
             mibLicence.setEntitlements(getEntitlements(driver));
             mibLicence.setEndorsements(getEndorsements(licence));
         }
-
-        return new ServiceResult<MibDTO>(objectToTransform.getEnquiryId(), mibDTO, objectToTransform.getMessages());
+        return mibDTO;
     }
 
     private MibDTO.Licence getLicence(Licence licence) {
@@ -40,7 +40,6 @@ public class MibDriverTransformService implements TransformService<ServiceResult
 
     private List<MibDTO.Entitlement> getEntitlements(Driver driver) {
         Licence licence = driver.getLicence();
-        List<TestPass> testPasses = driver.getTestPasses();
         List<MibDTO.Entitlement> entitlements = new ArrayList<MibDTO.Entitlement>();
         if (licence.getEntitlements() == null) return entitlements;
 
@@ -50,12 +49,12 @@ public class MibDriverTransformService implements TransformService<ServiceResult
             mibEntitlement.setCode(ent.getCode());
             mibEntitlement.setValidFrom(getValidFrom(ent, testPass));
             mibEntitlement.setValidTo(getValidTo(ent, testPass));
+            mibEntitlement.setPriorTo(ent.getPriorTo());
             mibEntitlement.setType(getEntitlementType(ent, testPass));
             mibEntitlement.setRestrictions(getEntitlementRestrictions(ent));
             
             entitlements.add(mibEntitlement);
         }
-
         return entitlements;
     }
 
@@ -68,11 +67,13 @@ public class MibDriverTransformService implements TransformService<ServiceResult
             mibEndorsement.setCode(end.getCode());
             mibEndorsement.setOffenceDate(end.getOffence());
             mibEndorsement.setConvictionDate(end.getConviction());
-            mibEndorsement.setSentencingDate(end.getSentencing());
             mibEndorsement.setFine(end.getFine());
             mibEndorsement.setNoOfPoints(end.getNoPoints());
             mibEndorsement.setIsDisqual(end.getDisqual());
             mibEndorsement.setDisqualPeriod(end.getDuration());
+            // TODO: Disqual start date
+            // TODO: Disqual end date
+            // TODO: rehab spent date
 
             endorsements.add(mibEndorsement);
         }
@@ -82,7 +83,7 @@ public class MibDriverTransformService implements TransformService<ServiceResult
 
     private EntitlementType getEntitlementType(Entitlement ent, TestPass testPass) {
         EntitlementType entitlementType = EntitlementType.Full;
-        if(ent.getProvisional())
+        if(ent.getProvisional() != null && ent.getProvisional())
         {
             entitlementType = EntitlementType.Provisional;
             if(testPass != null
@@ -110,8 +111,7 @@ public class MibDriverTransformService implements TransformService<ServiceResult
 
     private Date getValidFrom(Entitlement entitlement, TestPass testPass) {
         Date validFrom = entitlement.getValidFrom();
-
-        if (entitlement.getProvisional() && testPass != null
+        if (entitlement.getProvisional() != null && entitlement.getProvisional() && testPass != null
                 && testPass.getStatusType().equals(TestPassStatus.NotYetClaimed.getTestPassStatus())
                 && testPass.getExpiryDate().after(new Date())) {
             validFrom = testPass.getTestPassDate();
@@ -131,5 +131,78 @@ public class MibDriverTransformService implements TransformService<ServiceResult
         }
 
         return (expiryDate == null) ? validTo : expiryDate;
+    }
+
+    private String getStatus(Driver driver, List<String> messages) {
+        String mibLicenceStatusCode = null;
+        if (driver.getStatus() != null && driver.getStatus().getCode() != null) {
+            String code = driver.getStatus().getCode();
+
+            if (code.equalsIgnoreCase("A")) {
+                mibLicenceStatusCode = "PC";
+            }
+            else if (code.equalsIgnoreCase("B")) {
+                mibLicenceStatusCode = "PE";
+            }
+            else if (code.equalsIgnoreCase("E")) {
+                mibLicenceStatusCode = "DQ";
+            }
+            else if (code.equalsIgnoreCase("F")) {
+                mibLicenceStatusCode = "FC";
+            }
+            else if (code.equalsIgnoreCase("G")) {
+                mibLicenceStatusCode = "FE";
+            }
+            else if (code.equalsIgnoreCase("M")) {
+                // TODO: find out what status should be returned to the MIB
+                mibLicenceStatusCode = "M";
+            }
+            else if (code.equalsIgnoreCase("O")) {
+                // TODO: find out what status should be returned to the MIB
+                mibLicenceStatusCode = "O";
+            }
+            else if (code.equalsIgnoreCase("Q")) {
+                // TODO: find out what status should be returned to the MIB
+                mibLicenceStatusCode = "Q";
+            }
+            else if (code.equalsIgnoreCase("S")) {
+                // TODO: find out what status should be returned to the MIB
+                mibLicenceStatusCode = "S";
+            }
+            // Now check if there are any messages returned from the rules
+            String disqualificationStatus = checkDisqualifications(messages);
+            if (disqualificationStatus != null) {
+                mibLicenceStatusCode = disqualificationStatus;
+            }
+        }
+        return mibLicenceStatusCode;
+    }
+
+    private String checkDisqualifications(List<String> messages) {
+        if (messages != null) {
+            for (String m : messages) {
+                if (m.equalsIgnoreCase(Message.DISQUALIFIED_FOR_LIFE)) {
+                    return "DX";
+                }
+                else if (m.equalsIgnoreCase(Message.DISQUALIFIED_REAPPLY_WITH_DATE)
+                        || m.equalsIgnoreCase(Message.NOT_DISQUALIFIED_UNTIL_DATE)) {
+                    return "DP";
+                }
+                else if (m.equalsIgnoreCase(Message.DISQUALIFIED_UNTIL_DATE)) {
+                    return "DD";
+                }
+                else if (m.equalsIgnoreCase(Message.REVOKED_REAPPLY_FOR_LICENCE)
+                        || m.equalsIgnoreCase(Message.LICENCE_REVOKED)) {
+                    return "RV";
+                }
+                else if (m.equalsIgnoreCase(Message.DISQUALIFIED_UNTIL_SENTENCING)) {
+                    return "DS";
+                }
+                else if (m.equals(Message.DISQUALIFIED)) {
+                    return "DQ";
+                }
+            }
+        }
+        return null;
     }
 }

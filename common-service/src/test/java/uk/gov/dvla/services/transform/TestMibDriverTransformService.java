@@ -35,11 +35,9 @@ public class TestMibDriverTransformService {
         final Integer directiveStatus2 = 2;
         final UUID enquiryId = UUID.randomUUID();
 
-        List<Message> messages = new ArrayList<Message>();
-        Message message1 = new Message("Message Description1", false);
-        Message message2 = new Message("Message Description2", true);
-        messages.add(message1);
-        messages.add(message2);
+        List<String> messages = new ArrayList<String>();
+        messages.add("Message Description1");
+        messages.add("Message Description2");
 
         lic.setValidFrom(validFrom);
         lic.setValidTo(validTo);
@@ -75,8 +73,8 @@ public class TestMibDriverTransformService {
         driver.setLicence(lic);
 
         MibDriverTransformService transformService = new MibDriverTransformService();
-        ServiceResult<MibDTO> result = transformService.transform(new ServiceResult<Driver>(enquiryId, driver, messages));
-        MibDTO.Driver driverResult = result.getResult().getDriver();
+        MibDTO result = transformService.transform(new ServiceResult<Driver>(driver));
+        MibDTO.Driver driverResult = result.getDriver();
 
         assertEquals("Licence Valid From returned", validFrom, driverResult.getLicence().getValidFrom());
         assertEquals("Licence Valid To returned", validTo, driverResult.getLicence().getValidTo());
@@ -111,7 +109,6 @@ public class TestMibDriverTransformService {
         assertEquals("Endorsement Code returned", code, endorsement.getCode());
         assertEquals("Endorsement Offence Date returned", defaultOffenceDate, endorsement.getOffenceDate());
         assertEquals("Endorsement Conviction Date returned", defaultConvictionDate, endorsement.getConvictionDate());
-        assertEquals("Endorsement Sentencing Date returned", defaultSentencingDate, endorsement.getSentencingDate());
         assertEquals("Endorsement Period returned", defaultPeriod, endorsement.getDisqualPeriod());
         assertEquals("Endorsement Fine returned", defaultFine, endorsement.getFine());
     }
