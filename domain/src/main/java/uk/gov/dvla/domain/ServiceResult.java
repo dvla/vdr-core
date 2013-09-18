@@ -7,7 +7,7 @@ import java.util.UUID;
 
 public class ServiceResult<T>
 {
-    private UUID guid;
+    private String guid;
     private String version;
     private DateTime date;
     private T result;
@@ -32,17 +32,17 @@ public class ServiceResult<T>
         this(null, null, null, result, messages, ruleApplied);
     }
 
-    public ServiceResult(UUID enquiryId, String version, DateTime date, T result)
+    public ServiceResult(String enquiryId, String version, DateTime date, T result)
     {
         this(enquiryId, version, date, result, null, null);
     }
 
-    public ServiceResult(UUID enquiryId, String version, DateTime date, T result, List<String> messages)
+    public ServiceResult(String enquiryId, String version, DateTime date, T result, List<String> messages)
     {
         this(enquiryId, version, date, result, messages, null);
     }
 
-    public ServiceResult(UUID guid, String version, DateTime date, T result, List<String> messages, String ruleApplied)
+    public ServiceResult(String guid, String version, DateTime date, T result, List<String> messages, String ruleApplied)
     {
         this.guid = guid;
         this.result = result;
@@ -79,7 +79,7 @@ public class ServiceResult<T>
         this.ruleApplied = ruleApplied;
     }
 
-    public UUID getGuid() {
+    public String getGuid() {
         return guid;
     }
 
