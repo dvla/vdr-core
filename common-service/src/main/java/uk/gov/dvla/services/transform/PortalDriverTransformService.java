@@ -42,7 +42,9 @@ public class PortalDriverTransformService implements TransformService<ServiceRes
     private PortalDTO.Name getName(Name name) {
 
         PortalDTO.Name portalName = new PortalDTO.Name();
-        if (name == null) return portalName;
+        if (name == null) {
+            return portalName;
+        }
 
         portalName.setTitle(name.getTitle());
         portalName.setGivenName(name.getGivenName());
@@ -125,8 +127,8 @@ public class PortalDriverTransformService implements TransformService<ServiceRes
             PortalDTO.Entitlement portalEntitlement = new PortalDTO.Entitlement();
             TestPass testPass = driver.getTestPassForEntitlement(ent);
             portalEntitlement.setCode(ent.getCode());
-            portalEntitlement.setValidFrom(getValidFrom(ent, testPass));
-            portalEntitlement.setValidTo(getValidTo(ent, testPass));
+            portalEntitlement.setValidFrom(ent.getValidFrom());
+            portalEntitlement.setValidTo(ent.getValidTo());
             portalEntitlement.setProvisional(ent.getProvisional());
             portalEntitlement.setPriorTo(ent.getPriorTo());
             portalEntitlement.setRestrictions(getEntitlementRestrictions(ent));
@@ -178,30 +180,6 @@ public class PortalDriverTransformService implements TransformService<ServiceRes
         }
 
         return restrictions;
-    }
-
-    private Date getValidFrom(Entitlement entitlement, TestPass testPass) {
-        Date validFrom = entitlement.getValidFrom();
-
-        if (entitlement.getProvisional() && testPass != null
-                && testPass.getStatusType().equals(TestPassStatus.NotYetClaimed.getTestPassStatus())
-                && testPass.getExpiryDate().after(new Date())) {
-            validFrom = testPass.getTestPassDate();
-        }
-
-        return validFrom;
-    }
-
-    private Date getValidTo(Entitlement entitlement, TestPass testPass) {
-        Date validTo = entitlement.getValidTo();
-        Date expiryDate = null;
-        if (testPass != null
-                && testPass.getStatusType().equals(TestPassStatus.NotYetClaimed.getTestPassStatus())
-                && testPass.getExpiryDate().after(new Date())) {
-            expiryDate = testPass.getExpiryDate();
-        }
-
-        return (expiryDate == null) ? validTo : expiryDate;
     }
 
     private List<PortalDTO.Disqualification> getDisqualifications(Driver driver) {
