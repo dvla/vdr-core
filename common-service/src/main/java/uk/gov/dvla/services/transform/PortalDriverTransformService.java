@@ -167,19 +167,6 @@ public class PortalDriverTransformService implements TransformService<ServiceRes
         return endorsements;
     }
 
-    private EntitlementType getEntitlementType(Entitlement ent, TestPass testPass) {
-        EntitlementType entitlementType = EntitlementType.Full;
-        if (ent.getProvisional()) {
-            entitlementType = EntitlementType.Provisional;
-            if (testPass != null
-                    && testPass.getStatusType().equals(TestPassStatus.NotYetClaimed.getTestPassStatus())
-                    && testPass.getExpiryDate().after(new Date())) {
-                entitlementType = EntitlementType.UnclaimedTestPass;
-            }
-        }
-        return entitlementType;
-    }
-
     private List<PortalDTO.EntitlementRestriction> getEntitlementRestrictions(Entitlement ent) {
 
         List<PortalDTO.EntitlementRestriction> restrictions = new ArrayList<PortalDTO.EntitlementRestriction>();
