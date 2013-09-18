@@ -627,24 +627,10 @@ public class PortalDTO {
         }
     }
 
-    public static class TestPass implements Comparable<TestPass> {
+    public static class TestPass {
         private String entitlementType;
         private String statusType;
         private Date testPassDate;
-        private Date expiryDate;
-
-        public Date getExpiryDate() {
-            Integer unclaimedTestPassValidityInMonths = DomainConfiguration.getInstance().getUnclaimedTestPassValidity();
-            if (getTestPassDate() != null) {
-                return new DateTime(getTestPassDate()).plusMonths(unclaimedTestPassValidityInMonths).toDate();
-            } else {
-                return null;
-            }
-        }
-
-        public int compareTo(TestPass other) {
-            return this.getTestPassDate().compareTo(other.getTestPassDate());
-        }
 
         public String getEntitlementType() {
             return entitlementType;
@@ -673,13 +659,13 @@ public class PortalDTO {
 
     public static class DriverStatedFlags {
 
-        private Boolean excessEndorsements;
+        private boolean excessEndorsements;
 
-        public Boolean getExcessEndorsements() {
+        public boolean getExcessEndorsements() {
             return excessEndorsements;
         }
 
-        public void setExcessEndorsements(Boolean excessEndorsements) {
+        public void setExcessEndorsements(boolean excessEndorsements) {
             this.excessEndorsements = excessEndorsements;
         }
     }
