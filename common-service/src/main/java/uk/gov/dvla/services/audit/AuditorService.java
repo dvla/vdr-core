@@ -1,9 +1,7 @@
 package uk.gov.dvla.services.audit;
 
 import org.joda.time.DateTime;
-import uk.gov.dvla.domain.Driver;
 import uk.gov.dvla.domain.RulesDriver;
-import uk.gov.dvla.domain.ServiceResult;
 
 import javax.servlet.http.HttpServletRequest;
 import java.text.ParseException;

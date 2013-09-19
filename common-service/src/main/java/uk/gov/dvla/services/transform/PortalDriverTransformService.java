@@ -1,7 +1,6 @@
 package uk.gov.dvla.services.transform;
 
 import uk.gov.dvla.domain.*;
-import uk.gov.dvla.domain.mib.EntitlementType;
 import uk.gov.dvla.domain.portal.PortalDTO;
 
 import java.util.*;
