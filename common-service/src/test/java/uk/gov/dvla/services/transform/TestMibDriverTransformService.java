@@ -72,7 +72,9 @@ public class TestMibDriverTransformService {
         driver.setLicence(lic);
 
         MibDriverTransformService transformService = new MibDriverTransformService();
-        MibDTO result = transformService.transform(new ServiceResult<Driver>(driver));
+        RulesDriver rulesDriver = new RulesDriver();
+        rulesDriver.setDriver(driver);
+        MibDTO result = transformService.transform(rulesDriver);
         MibDTO.Licence licenceResult = result.getLicence();
 
         assertEquals("Licence Valid From returned", validFrom, licenceResult.getValidFrom());

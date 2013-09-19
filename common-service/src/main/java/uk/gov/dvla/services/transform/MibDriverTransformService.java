@@ -6,7 +6,7 @@ import uk.gov.dvla.domain.mib.MibDTO;
 
 import java.util.*;
 
-public class MibDriverTransformService implements TransformService<ServiceResult<Driver>, MibDTO> {
+public class MibDriverTransformService implements TransformService<RulesDriver, MibDTO> {
 
     private static final String MIB_CURRENT_FULL_LICENCE = "FC";
     private static final String MIB_CURRENT_PROV_LICENCE = "PC";
@@ -43,17 +43,17 @@ public class MibDriverTransformService implements TransformService<ServiceResult
 
 
     @Override
-    public MibDTO transform(ServiceResult<Driver> result) {
+    public MibDTO transform(RulesDriver result) {
         MibDTO mibDTO = new MibDTO();
 
-        Driver driver = result.getResult();
+        Driver driver = result.getDriver();
         Licence licence = driver.getLicence();
 
         if(null != licence)
         {
             mibDTO.setLicence(getLicence(licence));
             MibDTO.Licence mibLicence = mibDTO.getLicence();
-            mibLicence.setStatus(getStatus(driver));
+            mibLicence.setStatus(getStatus(result));
             mibLicence.setEntitlements(getEntitlements(driver));
             mibLicence.setEndorsements(getEndorsements(driver));
         }
@@ -171,11 +171,11 @@ public class MibDriverTransformService implements TransformService<ServiceResult
         return (expiryDate == null) ? validTo : expiryDate;
     }
 
-    private String getStatus(Driver driver) {
+    private String getStatus(RulesDriver rulesDriver) {
 
         String mibLicenceStatusCode = null;
-        if (driver.getStatus() != null && driver.getStatus().getCode() != null) {
-            String code = driver.getStatus().getCode();
+        if (rulesDriver.getDriver().getStatus() != null && rulesDriver.getDriver().getStatus().getCode() != null) {
+            String code = rulesDriver.getDriver().getStatus().getCode();
 
             if (code.equalsIgnoreCase(LICENCE_STATUS_A)) {
                 mibLicenceStatusCode = MIB_CURRENT_PROV_LICENCE;
@@ -209,7 +209,7 @@ public class MibDriverTransformService implements TransformService<ServiceResult
                 mibLicenceStatusCode = LICENCE_STATUS_S;
             }
             // Now check if there are any messages returned from the rules
-            String disqualificationStatus = checkDisqualifications(driver.getMessages());
+            String disqualificationStatus = checkDisqualifications(rulesDriver.getMessages());
             if (disqualificationStatus != null) {
                 mibLicenceStatusCode = disqualificationStatus;
             }

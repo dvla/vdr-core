@@ -14,7 +14,7 @@ public class TestMibDriverTransformLicenceStatus {
     public void testFullLicence() {
 
         MibDriverTransformService transformService = new MibDriverTransformService();
-        MibDTO result = transformService.transform(buildServiceResult("F"));
+        MibDTO result = transformService.transform(buildRulesDriver("F"));
         MibDTO.Licence licenceResult = result.getLicence();
 
         // Test correct licence status is returned
@@ -25,7 +25,7 @@ public class TestMibDriverTransformLicenceStatus {
     @Test
     public void testProvLicence() {
         MibDriverTransformService transformService = new MibDriverTransformService();
-        MibDTO result = transformService.transform(buildServiceResult("A"));
+        MibDTO result = transformService.transform(buildRulesDriver("A"));
         MibDTO.Licence licenceResult = result.getLicence();
 
         // Test correct licence status is returned
@@ -36,7 +36,7 @@ public class TestMibDriverTransformLicenceStatus {
     @Test
     public void testExpiredFullLicence() {
         MibDriverTransformService transformService = new MibDriverTransformService();
-        MibDTO result = transformService.transform(buildServiceResult("G"));
+        MibDTO result = transformService.transform(buildRulesDriver("G"));
         MibDTO.Licence licenceResult = result.getLicence();
 
         // Test correct licence status is returned
@@ -47,7 +47,7 @@ public class TestMibDriverTransformLicenceStatus {
     @Test
     public void testExpiredProvLicence() {
         MibDriverTransformService transformService = new MibDriverTransformService();
-        MibDTO result = transformService.transform(buildServiceResult("B"));
+        MibDTO result = transformService.transform(buildRulesDriver("B"));
         MibDTO.Licence licenceResult = result.getLicence();
 
         // Test correct licence status is returned
@@ -58,7 +58,7 @@ public class TestMibDriverTransformLicenceStatus {
     @Test
     public void testDisqualifiedLicence() {
         MibDriverTransformService transformService = new MibDriverTransformService();
-        MibDTO result = transformService.transform(buildServiceResult("E"));
+        MibDTO result = transformService.transform(buildRulesDriver("E"));
         MibDTO.Licence licenceResult = result.getLicence();
 
         // Test correct licence status is returned
@@ -69,7 +69,7 @@ public class TestMibDriverTransformLicenceStatus {
     @Test
     public void testDisqualifiedUntilGivenDate() {
         MibDriverTransformService transformService = new MibDriverTransformService();
-        MibDTO result = transformService.transform(buildServiceResultWithMessage("F", "licence.status.disqualified.until.date"));
+        MibDTO result = transformService.transform(buildRulesDriverWithMessage("F", "licence.status.disqualified.until.date"));
         MibDTO.Licence licenceResult = result.getLicence();
 
         // Test correct licence status is returned
@@ -80,7 +80,7 @@ public class TestMibDriverTransformLicenceStatus {
     @Test
     public void testDisqualifiedForLife() {
         MibDriverTransformService transformService = new MibDriverTransformService();
-        MibDTO result = transformService.transform(buildServiceResultWithMessage("F", "licence.status.disqualified.for.life"));
+        MibDTO result = transformService.transform(buildRulesDriverWithMessage("F", "licence.status.disqualified.for.life"));
         MibDTO.Licence licenceResult = result.getLicence();
 
         // Test correct licence status is returned
@@ -91,7 +91,7 @@ public class TestMibDriverTransformLicenceStatus {
     @Test
     public void testDisqualifiedUntilDateWithTestPassRequired() {
         MibDriverTransformService transformService = new MibDriverTransformService();
-        MibDTO result = transformService.transform(buildServiceResultWithMessage("F", "licence.status.disqualified.reapply.with.date"));
+        MibDTO result = transformService.transform(buildRulesDriverWithMessage("F", "licence.status.disqualified.reapply.with.date"));
         MibDTO.Licence licenceResult = result.getLicence();
 
         // Test correct licence status is returned
@@ -102,7 +102,7 @@ public class TestMibDriverTransformLicenceStatus {
     @Test
     public void testDisqualifiedUntilDateWithTestPassRequired2() {
         MibDriverTransformService transformService = new MibDriverTransformService();
-        MibDTO result = transformService.transform(buildServiceResultWithMessage("F", "licence.status.not.disqualified.reapply.with.date"));
+        MibDTO result = transformService.transform(buildRulesDriverWithMessage("F", "licence.status.not.disqualified.reapply.with.date"));
         MibDTO.Licence licenceResult = result.getLicence();
 
         // Test correct licence status is returned
@@ -113,7 +113,7 @@ public class TestMibDriverTransformLicenceStatus {
     @Test
     public void testLicenceRevoked() {
         MibDriverTransformService transformService = new MibDriverTransformService();
-        MibDTO result = transformService.transform(buildServiceResultWithMessage("F", "licence.status.revoked.reapply"));
+        MibDTO result = transformService.transform(buildRulesDriverWithMessage("F", "licence.status.revoked.reapply"));
         MibDTO.Licence licenceResult = result.getLicence();
 
         // Test correct licence status is returned
@@ -124,7 +124,7 @@ public class TestMibDriverTransformLicenceStatus {
     @Test
     public void testDisqualifiedUntilSentencing() {
         MibDriverTransformService transformService = new MibDriverTransformService();
-        MibDTO result = transformService.transform(buildServiceResultWithMessage("F", "licence.status.disqualified.until.sentencing"));
+        MibDTO result = transformService.transform(buildRulesDriverWithMessage("F", "licence.status.disqualified.until.sentencing"));
         MibDTO.Licence licenceResult = result.getLicence();
 
         // Test correct licence status is returned
@@ -135,7 +135,7 @@ public class TestMibDriverTransformLicenceStatus {
     @Test
     public void testLicenceRevoked2() {
         MibDriverTransformService transformService = new MibDriverTransformService();
-        MibDTO result = transformService.transform(buildServiceResultWithMessage("F", "licence.status.revoked"));
+        MibDTO result = transformService.transform(buildRulesDriverWithMessage("F", "licence.status.revoked"));
         MibDTO.Licence licenceResult = result.getLicence();
 
         // Test correct licence status is returned
@@ -146,7 +146,7 @@ public class TestMibDriverTransformLicenceStatus {
     @Test
     public void testLicenceDisqualified() {
         MibDriverTransformService transformService = new MibDriverTransformService();
-        MibDTO result = transformService.transform(buildServiceResultWithMessage("F", "licence.status.disqualified"));
+        MibDTO result = transformService.transform(buildRulesDriverWithMessage("F", "licence.status.disqualified"));
         MibDTO.Licence licenceResult = result.getLicence();
 
         // Test correct licence status is returned
@@ -157,7 +157,7 @@ public class TestMibDriverTransformLicenceStatus {
     @Test
     public void testLicenceDisqualifiedReapply() {
         MibDriverTransformService transformService = new MibDriverTransformService();
-        MibDTO result = transformService.transform(buildServiceResultWithMessage("F", "licence.status.disqualified.reapply"));
+        MibDTO result = transformService.transform(buildRulesDriverWithMessage("F", "licence.status.disqualified.reapply"));
         MibDTO.Licence licenceResult = result.getLicence();
 
         // Test correct licence status is returned
@@ -176,8 +176,10 @@ public class TestMibDriverTransformLicenceStatus {
         return driver;
     }
 
-    private ServiceResult<Driver> buildServiceResult(String statusCode) {
-        return new ServiceResult<Driver>(buildDriver(statusCode));
+    private RulesDriver buildRulesDriver(String statusCode) {
+        RulesDriver driver = new RulesDriver();
+        driver.setDriver(buildDriver(statusCode));
+        return driver;
     }
 
     private List<Message> buildMessage(String message) {
@@ -186,10 +188,9 @@ public class TestMibDriverTransformLicenceStatus {
         return messages;
     }
 
-    private ServiceResult<Driver> buildServiceResultWithMessage(String statusCode, String message) {
-        Driver driver = buildDriver(statusCode);
-        List<Message> messages = buildMessage(message);
-        driver.setMessages(messages);
-        return new ServiceResult<Driver>(driver);
+    private RulesDriver buildRulesDriverWithMessage(String statusCode, String message) {
+        RulesDriver driver = buildRulesDriver(statusCode);
+        driver.setMessages(buildMessage(message));
+        return driver;
     }
 }
