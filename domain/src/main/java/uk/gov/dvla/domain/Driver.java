@@ -33,17 +33,6 @@ public class Driver extends Person {
     private boolean nslInCorruptedRange;
     private List<LicenceToken> licenceTokens;
 
-    // TODO: Remove once Meirion's code is pushed to master
-    private List<Message> messages;
-
-    public List<Message> getMessages() {
-        return messages;
-    }
-
-    public void setMessages(List<Message> messages) {
-        this.messages = messages;
-    }
-
     public void addErrorCode(String code) {
         if (null == errorCodes) {
             errorCodes = new ArrayList<String>();
