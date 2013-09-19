@@ -5,27 +5,23 @@ import java.util.List;
 
 public class MibDTO {
 
-    private Driver driver;
+    private Licence licence;
+    private List<String> messages;
 
-    public Driver getDriver() {
-        return driver;
+    public Licence getLicence() {
+        return this.licence;
     }
 
-    public void setDriver(Driver driver) {
-        this.driver = driver;
+    public void setLicence(Licence licence) {
+        this.licence = licence;
     }
 
-    public static class Driver {
+    public List<String> getMessages() {
+        return messages;
+    }
 
-        private Licence licence;
-
-        public Licence getLicence() {
-            return this.licence;
-        }
-
-        public void setLicence(Licence licence) {
-            this.licence = licence;
-        }
+    public void setMessages(List<String> messages) {
+        this.messages = messages;
     }
 
     public static class Licence {
@@ -33,7 +29,7 @@ public class MibDTO {
         private String status;
         private Date validFrom;
         private Date validTo;
-        private Integer directiveStatus;
+        private Integer directiveIndicator;
         private List<Entitlement> entitlements;
         private List<Endorsement> endorsements;
 
@@ -61,12 +57,12 @@ public class MibDTO {
             this.validTo = validTo;
         }
 
-        public Integer getDirectiveStatus() {
-            return directiveStatus;
+        public Integer getDirectiveIndicator() {
+            return directiveIndicator;
         }
 
-        public void setDirectiveStatus(Integer directiveStatus) {
-            this.directiveStatus = directiveStatus;
+        public void setDirectiveIndicator(Integer directiveIndicator) {
+            this.directiveIndicator = directiveIndicator;
         }
 
         public List<Entitlement> getEntitlements() {
@@ -154,6 +150,9 @@ public class MibDTO {
         private Integer noOfPoints;
         private Boolean isDisqual;
         private String disqualPeriod;
+        private Date disqualStartDate;
+        private Date disqualEndDate;
+        private Date rehabSpentDate;
 
         public Boolean getIsDisqual() {
             return isDisqual;
@@ -187,14 +186,6 @@ public class MibDTO {
             this.convictionDate = convictionDate;
         }
 
-        public Date getSentencingDate() {
-            return sentencingDate;
-        }
-
-        public void setSentencingDate(Date sentencingDate) {
-            this.sentencingDate = sentencingDate;
-        }
-
         public String getDisqualPeriod() {
             return disqualPeriod;
         }
@@ -217,6 +208,30 @@ public class MibDTO {
 
         public void setNoOfPoints(Integer noOfPoints) {
             this.noOfPoints = noOfPoints;
+        }
+
+        public Date getDisqualStartDate() {
+            return disqualStartDate;
+        }
+
+        public void setDisqualStartDate(Date disqualStartDate) {
+            this.disqualStartDate = disqualStartDate;
+        }
+
+        public Date getDisqualEndDate() {
+            return disqualEndDate;
+        }
+
+        public void setDisqualEndDate(Date disqualEndDate) {
+            this.disqualEndDate = disqualEndDate;
+        }
+
+        public Date getRehabSpentDate() {
+            return rehabSpentDate;
+        }
+
+        public void setRehabSpentDate(Date rehabSpentDate) {
+            this.rehabSpentDate = rehabSpentDate;
         }
     }
 

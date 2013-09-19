@@ -6,10 +6,10 @@ public enum MessageType {
     SuppressLicenceStatus(2, "Suppress Licence Status"),
     SuppressLicenceValidFrom(3, "Suppress Licence Valid From Date"),
     SuppressLicenceValidTo(4, "Suppress Licence Valid To Date"),
+    LicenceExpired(5,"Driving Licence Expired"),
+    PostcodeMismatch(6,"Postcode Mismatch"),
     NoData(7, "No Data to provide"),
-    LicenceStatusModified(8, "Licence status text modified"),
-    PostcodeMismatch(100,"Postcode Mismatch"),
-    LicenceExpired(101,"Driving Licence Expired");
+    LicenceStatusModified(8, "Licence status text modified");
 
     public int getMessageType()
     {
@@ -24,4 +24,3 @@ public enum MessageType {
         this.valueName = valueName;
     }
 }
-
