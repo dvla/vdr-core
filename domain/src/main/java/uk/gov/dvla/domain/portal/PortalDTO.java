@@ -135,7 +135,7 @@ public class PortalDTO {
             this.testPasses = testPasses;
         }
 
-        public TestPass getTestPassForEntitlement(PortalDTO.Entitlement ent) {
+        public TestPass getTestPassForEntitlement(uk.gov.dvla.domain.Entitlement ent) {
             ArrayList<TestPass> possibleTestPasses = new ArrayList<TestPass>();
 
             if (testPasses == null) {
