@@ -8,12 +8,9 @@ import uk.gov.dvla.domain.ServiceResult;
 import uk.gov.dvla.messages.*;
 import uk.gov.dvla.servicebus.core.Bus;
 import uk.gov.dvla.services.common.HttpHelperService;
-import uk.gov.dvla.services.common.PostcodeHelper;
 import uk.gov.dvla.services.common.ServiceDateFormat;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.ws.rs.WebApplicationException;
-import javax.ws.rs.core.Response;
 import java.text.ParseException;
 import java.util.Date;
 import java.util.List;
@@ -155,29 +152,16 @@ public class AuditorServiceImpl implements AuditorService {
                 new DateTime(), httpHelperService.getIpAddress(request), message));
     }
 
-
-
     private boolean isDriverFullySuppressed(ServiceResult<Driver> driverResult) {
         boolean isFullySuppressed = false;
 
-        if (driverResult.hasMessages()){
-            if (isSuppressedMessage(driverResult.getMessages())) {
+        if (driverResult.getResult() != null && driverResult.getResult().getMessages() != null){
+            for (Message message : driverResult.getResult().getMessages()){
+                if (message.getType() == MessageType.SuppressFullRecord.getMessageType()) {
                     isFullySuppressed = true;
+                }
             }
         }
         return isFullySuppressed;
-    }
-
-    private boolean isSuppressedMessage(List<String> messages) {
-        for (String s : messages) {
-            if (s.equalsIgnoreCase(Message.SUPPRESS_RECORD_ANOTHER_DESIGNATED_LICENCE_AUTHORITY)
-                    || s.equalsIgnoreCase(Message.SUPPRESS_RECORD_PHONE_DVLA)
-                    || s.equalsIgnoreCase(Message.SUPPRESS_RECORD_PHONE_TWO_NUMBER)
-                    || s.equalsIgnoreCase(Message.SUPPRESS_RECORD_TRY_AGAIN_LATER)
-                    || s.equalsIgnoreCase(Message.SUPPRESS_RECORD_WRITE_TO_CCG)) {
-                return true;
-            }
-        }
-        return false;
     }
 }

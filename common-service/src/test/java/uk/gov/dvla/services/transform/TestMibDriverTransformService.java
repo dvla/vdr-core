@@ -74,19 +74,19 @@ public class TestMibDriverTransformService {
 
         MibDriverTransformService transformService = new MibDriverTransformService();
         MibDTO result = transformService.transform(new ServiceResult<Driver>(driver));
-        MibDTO.Driver driverResult = result.getDriver();
+        MibDTO.Licence licenceResult = result.getLicence();
 
-        assertEquals("Licence Valid From returned", validFrom, driverResult.getLicence().getValidFrom());
-        assertEquals("Licence Valid To returned", validTo, driverResult.getLicence().getValidTo());
-        assertEquals("Directive Status returned", directiveStatus2, driverResult.getLicence().getDirectiveStatus());
+        assertEquals("Licence Valid From returned", validFrom, licenceResult.getValidFrom());
+        assertEquals("Licence Valid To returned", validTo, licenceResult.getValidTo());
+        assertEquals("Directive Status returned", directiveStatus2, licenceResult.getDirectiveIndicator());
 
-        List<MibDTO.Entitlement> entResult = driverResult.getLicence().getEntitlements();
+        List<MibDTO.Entitlement> entResult = licenceResult.getEntitlements();
         assertEquals("3 Entitlements returned", 3, entResult.size());
         AssertExpectedEntitlementFieldsReturned(entResult.get(0), "abc", datePassed, dateUnclaimedExpires, EntitlementType.UnclaimedTestPass);
         AssertExpectedEntitlementFieldsReturned(entResult.get(1), "def", validFrom, validTo, EntitlementType.Full);
         AssertExpectedEntitlementFieldsReturned(entResult.get(2), "ghi", validFrom, validTo, EntitlementType.Provisional);
 
-        List<MibDTO.Endorsement> endResult = driverResult.getLicence().getEndorsements();
+        List<MibDTO.Endorsement> endResult = licenceResult.getEndorsements();
         assertEquals("2 Endorsements returned", 2, endResult.size());
         AssertExpectedEndorsementFieldsReturned(endResult.get(0), "CU20");
         AssertExpectedEndorsementFieldsReturned(endResult.get(1), "CU21");

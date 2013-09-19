@@ -15,143 +15,143 @@ public class TestMibDriverTransformLicenceStatus {
 
         MibDriverTransformService transformService = new MibDriverTransformService();
         MibDTO result = transformService.transform(buildServiceResult("F"));
-        MibDTO.Driver driverResult = result.getDriver();
+        MibDTO.Licence licenceResult = result.getLicence();
 
         // Test correct licence status is returned
-        Assert.assertNotNull(driverResult);
-        Assert.assertEquals("FC", driverResult.getLicence().getStatus());
+        Assert.assertNotNull(licenceResult);
+        Assert.assertEquals("FC", licenceResult.getStatus());
     }
 
     @Test
     public void testProvLicence() {
         MibDriverTransformService transformService = new MibDriverTransformService();
         MibDTO result = transformService.transform(buildServiceResult("A"));
-        MibDTO.Driver driverResult = result.getDriver();
+        MibDTO.Licence licenceResult = result.getLicence();
 
         // Test correct licence status is returned
-        Assert.assertNotNull(driverResult);
-        Assert.assertEquals("PC", driverResult.getLicence().getStatus());
+        Assert.assertNotNull(licenceResult);
+        Assert.assertEquals("PC", licenceResult.getStatus());
     }
 
     @Test
     public void testExpiredFullLicence() {
         MibDriverTransformService transformService = new MibDriverTransformService();
         MibDTO result = transformService.transform(buildServiceResult("G"));
-        MibDTO.Driver driverResult = result.getDriver();
+        MibDTO.Licence licenceResult = result.getLicence();
 
         // Test correct licence status is returned
-        Assert.assertNotNull(driverResult);
-        Assert.assertEquals("FE", driverResult.getLicence().getStatus());
+        Assert.assertNotNull(licenceResult);
+        Assert.assertEquals("FE", licenceResult.getStatus());
     }
 
     @Test
     public void testExpiredProvLicence() {
         MibDriverTransformService transformService = new MibDriverTransformService();
         MibDTO result = transformService.transform(buildServiceResult("B"));
-        MibDTO.Driver driverResult = result.getDriver();
+        MibDTO.Licence licenceResult = result.getLicence();
 
         // Test correct licence status is returned
-        Assert.assertNotNull(driverResult);
-        Assert.assertEquals("PE", driverResult.getLicence().getStatus());
+        Assert.assertNotNull(licenceResult);
+        Assert.assertEquals("PE", licenceResult.getStatus());
     }
 
     @Test
     public void testDisqualifiedLicence() {
         MibDriverTransformService transformService = new MibDriverTransformService();
         MibDTO result = transformService.transform(buildServiceResult("E"));
-        MibDTO.Driver driverResult = result.getDriver();
+        MibDTO.Licence licenceResult = result.getLicence();
 
         // Test correct licence status is returned
-        Assert.assertNotNull(driverResult);
-        Assert.assertEquals("DQ", driverResult.getLicence().getStatus());
+        Assert.assertNotNull(licenceResult);
+        Assert.assertEquals("DQ", licenceResult.getStatus());
     }
 
     @Test
     public void testDisqualifiedUntilGivenDate() {
         MibDriverTransformService transformService = new MibDriverTransformService();
-        MibDTO result = transformService.transform(buildServiceResultWithMessage(Message.DISQUALIFIED_UNTIL_DATE));
-        MibDTO.Driver driverResult = result.getDriver();
+        MibDTO result = transformService.transform(buildServiceResultWithMessage("F", "licence.status.disqualified.until.date"));
+        MibDTO.Licence licenceResult = result.getLicence();
 
         // Test correct licence status is returned
-        Assert.assertNotNull(driverResult);
-        Assert.assertEquals("DD", driverResult.getLicence().getStatus());
+        Assert.assertNotNull(licenceResult);
+        Assert.assertEquals("DD", licenceResult.getStatus());
     }
 
     @Test
     public void testDisqualifiedForLife() {
         MibDriverTransformService transformService = new MibDriverTransformService();
-        MibDTO result = transformService.transform(buildServiceResultWithMessage(Message.DISQUALIFIED_FOR_LIFE));
-        MibDTO.Driver driverResult = result.getDriver();
+        MibDTO result = transformService.transform(buildServiceResultWithMessage("F", "licence.status.disqualified.for.life"));
+        MibDTO.Licence licenceResult = result.getLicence();
 
         // Test correct licence status is returned
-        Assert.assertNotNull(driverResult);
-        Assert.assertEquals("DX", driverResult.getLicence().getStatus());
+        Assert.assertNotNull(licenceResult);
+        Assert.assertEquals("DX", licenceResult.getStatus());
     }
 
     @Test
     public void testDisqualifiedUntilDateWithTestPassRequired() {
         MibDriverTransformService transformService = new MibDriverTransformService();
-        MibDTO result = transformService.transform(buildServiceResultWithMessage(Message.DISQUALIFIED_REAPPLY_WITH_DATE));
-        MibDTO.Driver driverResult = result.getDriver();
+        MibDTO result = transformService.transform(buildServiceResultWithMessage("F", "licence.status.disqualified.reapply.with.date"));
+        MibDTO.Licence licenceResult = result.getLicence();
 
         // Test correct licence status is returned
-        Assert.assertNotNull(driverResult);
-        Assert.assertEquals("DP", driverResult.getLicence().getStatus());
+        Assert.assertNotNull(licenceResult);
+        Assert.assertEquals("DP", licenceResult.getStatus());
     }
 
     @Test
     public void testDisqualifiedUntilDateWithTestPassRequired2() {
         MibDriverTransformService transformService = new MibDriverTransformService();
-        MibDTO result = transformService.transform(buildServiceResultWithMessage(Message.NOT_DISQUALIFIED_UNTIL_DATE));
-        MibDTO.Driver driverResult = result.getDriver();
+        MibDTO result = transformService.transform(buildServiceResultWithMessage("F", "licence.status.not.disqualified.reapply.with.date"));
+        MibDTO.Licence licenceResult = result.getLicence();
 
         // Test correct licence status is returned
-        Assert.assertNotNull(driverResult);
-        Assert.assertEquals("DP", driverResult.getLicence().getStatus());
+        Assert.assertNotNull(licenceResult);
+        Assert.assertEquals("DP", licenceResult.getStatus());
     }
 
     @Test
     public void testLicenceRevoked() {
         MibDriverTransformService transformService = new MibDriverTransformService();
-        MibDTO result = transformService.transform(buildServiceResultWithMessage(Message.LICENCE_REVOKED));
-        MibDTO.Driver driverResult = result.getDriver();
+        MibDTO result = transformService.transform(buildServiceResultWithMessage("F", "licence.status.revoked.reapply"));
+        MibDTO.Licence licenceResult = result.getLicence();
 
         // Test correct licence status is returned
-        Assert.assertNotNull(driverResult);
-        Assert.assertEquals("RV", driverResult.getLicence().getStatus());
+        Assert.assertNotNull(licenceResult);
+        Assert.assertEquals("RV", licenceResult.getStatus());
     }
 
     @Test
     public void testDisqualifiedUntilSentencing() {
         MibDriverTransformService transformService = new MibDriverTransformService();
-        MibDTO result = transformService.transform(buildServiceResultWithMessage(Message.DISQUALIFIED_UNTIL_SENTENCING));
-        MibDTO.Driver driverResult = result.getDriver();
+        MibDTO result = transformService.transform(buildServiceResultWithMessage("F", "licence.status.disqualified.until.sentencing"));
+        MibDTO.Licence licenceResult = result.getLicence();
 
         // Test correct licence status is returned
-        Assert.assertNotNull(driverResult);
-        Assert.assertEquals("DS", driverResult.getLicence().getStatus());
+        Assert.assertNotNull(licenceResult);
+        Assert.assertEquals("DS", licenceResult.getStatus());
     }
 
     @Test
     public void testLicenceRevoked2() {
         MibDriverTransformService transformService = new MibDriverTransformService();
-        MibDTO result = transformService.transform(buildServiceResultWithMessage(Message.LICENCE_REVOKED));
-        MibDTO.Driver driverResult = result.getDriver();
+        MibDTO result = transformService.transform(buildServiceResultWithMessage("F", "licence.status.revoked"));
+        MibDTO.Licence licenceResult = result.getLicence();
 
         // Test correct licence status is returned
-        Assert.assertNotNull(driverResult);
-        Assert.assertEquals("RV", driverResult.getLicence().getStatus());
+        Assert.assertNotNull(licenceResult);
+        Assert.assertEquals("RV", licenceResult.getStatus());
     }
 
     @Test
     public void testLicenceDisqualified() {
         MibDriverTransformService transformService = new MibDriverTransformService();
-        MibDTO result = transformService.transform(buildServiceResultWithMessage(Message.DISQUALIFIED));
-        MibDTO.Driver driverResult = result.getDriver();
+        MibDTO result = transformService.transform(buildServiceResultWithMessage("F", "licence.status.disqualified"));
+        MibDTO.Licence licenceResult = result.getLicence();
 
         // Test correct licence status is returned
-        Assert.assertNotNull(driverResult);
-        Assert.assertEquals("DQ", driverResult.getLicence().getStatus());
+        Assert.assertNotNull(licenceResult);
+        Assert.assertEquals("DQ", licenceResult.getStatus());
     }
 
     private Driver buildDriver(String statusCode) {
@@ -169,9 +169,16 @@ public class TestMibDriverTransformLicenceStatus {
         return new ServiceResult<Driver>(buildDriver(statusCode));
     }
 
-    private ServiceResult<Driver> buildServiceResultWithMessage(String message) {
-        List<String> messages = new ArrayList<String>();
-        messages.add(message);
-        return new ServiceResult<Driver>(buildDriver("F"), messages);
+    private List<Message> buildMessage(String message) {
+        List<Message> messages = new ArrayList<Message>();
+        messages.add(new Message((message)));
+        return messages;
+    }
+
+    private ServiceResult<Driver> buildServiceResultWithMessage(String statusCode, String message) {
+        Driver driver = buildDriver(statusCode);
+        List<Message> messages = buildMessage(message);
+        driver.setMessages(messages);
+        return new ServiceResult<Driver>(driver);
     }
 }
