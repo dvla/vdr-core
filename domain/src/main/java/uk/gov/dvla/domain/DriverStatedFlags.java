@@ -154,7 +154,7 @@ public class DriverStatedFlags {
         this.vocationalMedicalInvestigationInProgress = vocationalMedicalInvestigationInProgress;
     }
 
-    public Boolean getExcessEndorsements() {
+    public boolean getExcessEndorsements() {
         return excessEndorsements;
     }
 

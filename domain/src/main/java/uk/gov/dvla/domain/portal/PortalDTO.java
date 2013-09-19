@@ -659,13 +659,13 @@ public class PortalDTO {
 
     public static class DriverStatedFlags {
 
-        private boolean excessEndorsements;
+        private Boolean excessEndorsements;
 
-        public boolean getExcessEndorsements() {
+        public Boolean getExcessEndorsements() {
             return excessEndorsements;
         }
 
-        public void setExcessEndorsements(boolean excessEndorsements) {
+        public void setExcessEndorsements(Boolean excessEndorsements) {
             this.excessEndorsements = excessEndorsements;
         }
     }
