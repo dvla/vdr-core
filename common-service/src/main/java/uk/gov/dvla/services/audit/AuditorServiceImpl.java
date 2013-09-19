@@ -13,7 +13,6 @@ import uk.gov.dvla.services.common.ServiceDateFormat;
 import javax.servlet.http.HttpServletRequest;
 import java.text.ParseException;
 import java.util.Date;
-import java.util.List;
 import java.util.UUID;
 
 public class AuditorServiceImpl implements AuditorService {
@@ -156,7 +155,7 @@ public class AuditorServiceImpl implements AuditorService {
         boolean isFullySuppressed = false;
 
         if (driverResult.getResult() != null && driverResult.getResult().getMessages() != null){
-            for (Message message : driverResult.getResult().getMessages()){
+            for (Message message : driverResult.getResult().getMessages()) {
                 if (message.getType() == MessageType.SuppressFullRecord.getMessageType()) {
                     isFullySuppressed = true;
                 }

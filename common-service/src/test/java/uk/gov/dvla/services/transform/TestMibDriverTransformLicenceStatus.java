@@ -154,6 +154,17 @@ public class TestMibDriverTransformLicenceStatus {
         Assert.assertEquals("DQ", licenceResult.getStatus());
     }
 
+    @Test
+    public void testLicenceDisqualifiedReapply() {
+        MibDriverTransformService transformService = new MibDriverTransformService();
+        MibDTO result = transformService.transform(buildServiceResultWithMessage("F", "licence.status.disqualified.reapply"));
+        MibDTO.Licence licenceResult = result.getLicence();
+
+        // Test correct licence status is returned
+        Assert.assertNotNull(licenceResult);
+        Assert.assertEquals("DT", licenceResult.getStatus());
+    }
+
     private Driver buildDriver(String statusCode) {
         Driver driver = new Driver();
         DriverStatus driverStatus = new DriverStatus();
