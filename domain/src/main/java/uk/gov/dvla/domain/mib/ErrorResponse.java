@@ -1,6 +1,5 @@
 package uk.gov.dvla.domain.mib;
 
-import java.util.Date;
 import java.util.List;
 
 public class ErrorResponse {
