@@ -208,11 +208,11 @@ public class MibDriverTransformService implements TransformService<RulesDriver, 
                 // TODO: find out what status should be returned to the MIB
                 mibLicenceStatusCode = LICENCE_STATUS_S;
             }
-            // Now check if there are any messages returned from the rules
-            String disqualificationStatus = checkDisqualifications(rulesDriver.getMessages());
-            if (disqualificationStatus != null) {
-                mibLicenceStatusCode = disqualificationStatus;
-            }
+        }
+        // Now check if there are any messages returned from the rules
+        String disqualificationStatus = checkDisqualifications(rulesDriver.getMessages());
+        if (disqualificationStatus != null) {
+            mibLicenceStatusCode = disqualificationStatus;
         }
         return mibLicenceStatusCode;
     }
