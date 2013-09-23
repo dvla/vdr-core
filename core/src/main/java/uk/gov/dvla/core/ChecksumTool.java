@@ -9,14 +9,7 @@ import java.security.MessageDigest;
  */
 public class ChecksumTool {
 
-    /**
-     *
-     * @param fileInput
-     * @return
-     * @throws Exception
-     */
-    public static String generateSha256Checksum(File fileInput) throws Exception
-    {
+    public static String generateSha256Checksum(File fileInput) throws Exception {
         FileInputStream fis = new FileInputStream(fileInput);
         byte[] b = createChecksum(fis);
         String result = "";
@@ -27,23 +20,19 @@ public class ChecksumTool {
         return result;
     }
 
-    public static String generateSha256Checksum(String filename) throws Exception
-    {
+    public static String generateSha256Checksum(String filename) throws Exception {
         return generateSha256Checksum(new File(filename));
     }
 
-    public static boolean isValidChecksum(File fileInput, String checksum) throws Exception
-    {
+    public static boolean isValidChecksum(File fileInput, String checksum) throws Exception {
         return generateSha256Checksum(fileInput).equalsIgnoreCase(checksum);
     }
 
-    public static boolean isValidChecksum(String filename, String checksum) throws Exception
-    {
+    public static boolean isValidChecksum(String filename, String checksum) throws Exception {
         return isValidChecksum(new File(filename), checksum);
     }
 
-    private static byte[] createChecksum(FileInputStream fileInputStream) throws Exception
-    {
+    private static byte[] createChecksum(FileInputStream fileInputStream) throws Exception {
         byte[] buffer = new byte[1024];
         MessageDigest complete = MessageDigest.getInstance("SHA-256");
         int numRead;
