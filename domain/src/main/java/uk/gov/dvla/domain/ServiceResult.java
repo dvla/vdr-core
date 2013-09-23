@@ -3,39 +3,28 @@ package uk.gov.dvla.domain;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.joda.time.DateTime;
 
-public class ServiceResult<T>
-{
+public class ServiceResult<T> {
     private String guid;
     private String version;
     private DateTime date;
     private T result;
 
-    public ServiceResult(){}
+    public ServiceResult() {
+    }
 
-    public ServiceResult(T result)
-    {
+    public ServiceResult(T result) {
         this(null, null, null, result);
     }
 
-    public ServiceResult(String guid, String version, DateTime date, T result)
-    {
+    public ServiceResult(String guid, String version, DateTime date, T result) {
         this.guid = guid;
         this.result = result;
         this.version = version;
         this.date = date;
     }
 
-    public T getResult()
-    {
+    public T getResult() {
         return result;
-    }
-
-    public String getRuleApplied() {
-        return ruleApplied;
-    }
-
-    public void setRuleApplied(String ruleApplied) {
-        this.ruleApplied = ruleApplied;
     }
 
     public String getGuid() {
