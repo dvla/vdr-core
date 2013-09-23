@@ -145,7 +145,6 @@ public class MibDTO {
         private String code;
         private Date offenceDate;
         private Date convictionDate;
-        private Date sentencingDate;
         private Number fine;
         private Integer noOfPoints;
         private Boolean isDisqual;

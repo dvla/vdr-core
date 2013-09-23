@@ -10,31 +10,17 @@ public class ServiceResult<T>
     private DateTime date;
     private T result;
 
-    @JsonIgnore
-    private String ruleApplied;
-
     public ServiceResult(){}
 
     public ServiceResult(T result)
     {
-        this(null, null, null, result, null);
+        this(null, null, null, result);
     }
 
-    public ServiceResult(T result, String ruleApplied)
-    {
-        this(null, null, null, result, ruleApplied);
-    }
-
-    public ServiceResult(String enquiryId, String version, DateTime date, T result)
-    {
-        this(enquiryId, version, date, result, null);
-    }
-
-    public ServiceResult(String guid, String version, DateTime date, T result, String ruleApplied)
+    public ServiceResult(String guid, String version, DateTime date, T result)
     {
         this.guid = guid;
         this.result = result;
-        this.ruleApplied = ruleApplied;
         this.version = version;
         this.date = date;
     }
