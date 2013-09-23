@@ -4,6 +4,7 @@ import org.joda.time.DateTime;
 import uk.gov.dvla.domain.DomainConfiguration;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
@@ -592,7 +593,7 @@ public class PortalDTO {
         public EntitlementRestriction() {
         }
 
-        public EntitlementRestriction(String code, String categoryCode) {
+        public EntitlementRestriction(String code, String categoryCode, Date validTo) {
             if (code == null) {
                 logger.debug("code must be specified");
                 throw new RuntimeException("code must be specified");
@@ -600,6 +601,7 @@ public class PortalDTO {
 
             this.code = code;
             this.categoryCode = categoryCode;
+            this.validTo = validTo;
         }
 
         public String getCode() {
