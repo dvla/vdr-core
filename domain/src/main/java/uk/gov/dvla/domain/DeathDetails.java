@@ -11,7 +11,6 @@ public class DeathDetails {
 
     private Date date;
     private @Property("vlDeathDateCode") String verificationLevelDeathDateCode;
-    private @Property("vlDeathDateName") String verificationLevelDeathDateName;
 
     public Date getDate() {
         return date;
@@ -27,13 +26,5 @@ public class DeathDetails {
 
     public void setVerificationLevelDeathDateCode(String verificationLevelDeathDateCode) {
         this.verificationLevelDeathDateCode = verificationLevelDeathDateCode;
-    }
-
-    public String getVerificationLevelDeathDateName() {
-        return verificationLevelDeathDateName;
-    }
-
-    public void setVerificationLevelDeathDateName(String verificationLevelDeathDateName) {
-        this.verificationLevelDeathDateName = verificationLevelDeathDateName;
     }
 }

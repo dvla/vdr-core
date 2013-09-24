@@ -7,24 +7,24 @@ import java.util.Date;
 @Embedded
 public class ConductCaseEvent {
 
-    private Date date;
-    private String type;
+    private Date eventDate;
+    private String eventType;
     private String nonEndorseableOffence;
 
-    public Date getDate() {
-        return date;
+    public Date getEventDate() {
+        return eventDate;
     }
 
-    public void setDate(Date date) {
-        this.date = date;
+    public void setEventDate(Date eventDate) {
+        this.eventDate = eventDate;
     }
 
-    public String getType() {
-        return type;
+    public String getEventType() {
+        return eventType;
     }
 
-    public void setType(String type) {
-        this.type = type;
+    public void setEventType(String eventType) {
+        this.eventType = eventType;
     }
 
     public String getNonEndorseableOffence() {

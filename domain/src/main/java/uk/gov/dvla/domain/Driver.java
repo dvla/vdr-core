@@ -1,6 +1,5 @@
 package uk.gov.dvla.domain;
 
-import java.lang.Integer;
 import java.lang.String;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -9,7 +8,6 @@ import java.util.List;
 
 import com.google.code.morphia.annotations.Entity;
 import com.google.code.morphia.annotations.Indexed;
-import com.google.code.morphia.annotations.Property;
 
 @Entity(value = "drivers", noClassnameStored = true)
 public class Driver extends Person {
@@ -31,17 +29,9 @@ public class Driver extends Person {
     private List<CertificateOfProfessionalCompetence> CPCs;
     private List<DriverQualificationCard> DQCs;
     private List<TestPass> testPasses;
-    private List<Integer> restrictionKeys;
     private List<String> errorCodes;
     private boolean nslInCorruptedRange;
-
-
-    public void addRestrictionKey(Integer key) {
-        if (null == restrictionKeys) {
-            restrictionKeys = new ArrayList<Integer>();
-        }
-        restrictionKeys.add(key);
-    }
+    private List<LicenceToken> licenceTokens;
 
     public void addErrorCode(String code) {
         if (null == errorCodes) {
@@ -188,14 +178,6 @@ public class Driver extends Person {
         this.testPasses = testPasses;
     }
 
-    public List<Integer> getRestrictionKeys() {
-        return restrictionKeys;
-    }
-
-    public void setRestrictionKeys(List<Integer> restrictionKeys) {
-        this.restrictionKeys = restrictionKeys;
-    }
-
     public List<String> getErrorCodes() {
         return errorCodes;
     }
@@ -238,5 +220,13 @@ public class Driver extends Person {
             Collections.reverse(possibleTestPasses);
             return possibleTestPasses.get(0);
         }
+    }
+
+    public List<LicenceToken> getLicenceTokens() {
+        return licenceTokens;
+    }
+
+    public void setLicenceTokens(List<LicenceToken> licenceTokens) {
+        this.licenceTokens = licenceTokens;
     }
 }

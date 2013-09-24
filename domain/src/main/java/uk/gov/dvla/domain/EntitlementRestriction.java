@@ -10,9 +10,8 @@ public class EntitlementRestriction {
 
     private String code;
     private String text;
-    private Date validFrom;
-    private Date validTo;
     private String categoryCode;
+    private Date validTo;
 
     public EntitlementRestriction() {
     }
@@ -43,12 +42,12 @@ public class EntitlementRestriction {
         this.text = text;
     }
 
-    public Date getValidFrom() {
-        return validFrom;
+    public String getCategoryCode() {
+        return categoryCode;
     }
 
-    public void setValidFrom(Date validFrom) {
-        this.validFrom = validFrom;
+    public void setCategoryCode(String categoryCode) {
+        this.categoryCode = categoryCode;
     }
 
     public Date getValidTo() {
@@ -57,13 +56,5 @@ public class EntitlementRestriction {
 
     public void setValidTo(Date validTo) {
         this.validTo = validTo;
-    }
-
-    public String getCategoryCode() {
-        return categoryCode;
-    }
-
-    public void setCategoryCode(String categoryCode) {
-        this.categoryCode = categoryCode;
     }
 }

@@ -5,36 +5,41 @@ import java.util.List;
 
 public class MibDTO {
 
-    private Driver driver;
+    private Licence licence;
+    private List<String> messages;
 
-    public Driver getDriver() {
-        return driver;
+    public Licence getLicence() {
+        return this.licence;
     }
 
-    public void setDriver(Driver driver) {
-        this.driver = driver;
+    public void setLicence(Licence licence) {
+        this.licence = licence;
     }
 
-    public static class Driver {
+    public List<String> getMessages() {
+        return messages;
+    }
 
-        private Licence licence;
-
-        public Licence getLicence() {
-            return this.licence;
-        }
-
-        public void setLicence(Licence licence) {
-            this.licence = licence;
-        }
+    public void setMessages(List<String> messages) {
+        this.messages = messages;
     }
 
     public static class Licence {
 
+        private String status;
         private Date validFrom;
         private Date validTo;
-        private Integer directiveStatus;
+        private Integer directiveIndicator;
         private List<Entitlement> entitlements;
         private List<Endorsement> endorsements;
+
+        public String getStatus() {
+            return status;
+        }
+
+        public void setStatus(String status) {
+            this.status = status;
+        }
 
         public Date getValidFrom() {
             return validFrom;
@@ -52,12 +57,12 @@ public class MibDTO {
             this.validTo = validTo;
         }
 
-        public Integer getDirectiveStatus() {
-            return directiveStatus;
+        public Integer getDirectiveIndicator() {
+            return directiveIndicator;
         }
 
-        public void setDirectiveStatus(Integer directiveStatus) {
-            this.directiveStatus = directiveStatus;
+        public void setDirectiveIndicator(Integer directiveIndicator) {
+            this.directiveIndicator = directiveIndicator;
         }
 
         public List<Entitlement> getEntitlements() {
@@ -82,6 +87,7 @@ public class MibDTO {
         private String code;
         private Date validFrom;
         private Date validTo;
+        private Boolean priorTo;
         private EntitlementType type;
         private List<EntitlementRestriction> restrictions;
 
@@ -109,6 +115,14 @@ public class MibDTO {
             this.validTo = validTo;
         }
 
+        public Boolean getPriorTo() {
+            return priorTo;
+        }
+
+        public void setPriorTo(Boolean priorTo) {
+            this.priorTo = priorTo;
+        }
+
         public EntitlementType getType() {
             return type;
         }
@@ -131,11 +145,13 @@ public class MibDTO {
         private String code;
         private Date offenceDate;
         private Date convictionDate;
-        private Date sentencingDate;
         private Number fine;
         private Integer noOfPoints;
         private Boolean isDisqual;
         private String disqualPeriod;
+        private Date disqualStartDate;
+        private Date disqualEndDate;
+        private Date rehabSpentDate;
 
         public Boolean getIsDisqual() {
             return isDisqual;
@@ -169,14 +185,6 @@ public class MibDTO {
             this.convictionDate = convictionDate;
         }
 
-        public Date getSentencingDate() {
-            return sentencingDate;
-        }
-
-        public void setSentencingDate(Date sentencingDate) {
-            this.sentencingDate = sentencingDate;
-        }
-
         public String getDisqualPeriod() {
             return disqualPeriod;
         }
@@ -199,6 +207,30 @@ public class MibDTO {
 
         public void setNoOfPoints(Integer noOfPoints) {
             this.noOfPoints = noOfPoints;
+        }
+
+        public Date getDisqualStartDate() {
+            return disqualStartDate;
+        }
+
+        public void setDisqualStartDate(Date disqualStartDate) {
+            this.disqualStartDate = disqualStartDate;
+        }
+
+        public Date getDisqualEndDate() {
+            return disqualEndDate;
+        }
+
+        public void setDisqualEndDate(Date disqualEndDate) {
+            this.disqualEndDate = disqualEndDate;
+        }
+
+        public Date getRehabSpentDate() {
+            return rehabSpentDate;
+        }
+
+        public void setRehabSpentDate(Date rehabSpentDate) {
+            this.rehabSpentDate = rehabSpentDate;
         }
     }
 

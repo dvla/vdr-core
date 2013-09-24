@@ -24,4 +24,3 @@ public enum MessageType {
         this.valueName = valueName;
     }
 }
-
