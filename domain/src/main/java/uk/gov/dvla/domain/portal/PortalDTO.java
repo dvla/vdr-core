@@ -4,6 +4,7 @@ import org.joda.time.DateTime;
 import uk.gov.dvla.domain.DomainConfiguration;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import uk.gov.dvla.domain.Message;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -14,6 +15,15 @@ public class PortalDTO {
     private static final Logger logger = LoggerFactory.getLogger(PortalDTO.class.getName());
 
     private Driver driver;
+    private List<Message> messages;
+
+    public List<Message> getMessages() {
+        return messages;
+    }
+
+    public void setMessages(List<Message> messages) {
+        this.messages = messages;
+    }
 
     public Driver getDriver() {
         return driver;
@@ -599,9 +609,9 @@ public class PortalDTO {
                 throw new RuntimeException("code must be specified");
             }
 
+            this.validTo = validTo;
             this.code = code;
             this.categoryCode = categoryCode;
-            this.validTo = validTo;
         }
 
         public String getCode() {

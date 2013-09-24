@@ -33,7 +33,6 @@ public class Driver extends Person {
     private boolean nslInCorruptedRange;
     private List<LicenceToken> licenceTokens;
 
-
     public void addErrorCode(String code) {
         if (null == errorCodes) {
             errorCodes = new ArrayList<String>();

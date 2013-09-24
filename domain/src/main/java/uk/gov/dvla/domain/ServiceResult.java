@@ -1,86 +1,41 @@
 package uk.gov.dvla.domain;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.joda.time.DateTime;
 
-public class ServiceResult<T>
-{
-    private UUID enquiryId;
+public class ServiceResult<T> {
+    private String guid;
+    private String version;
+    private DateTime date;
     private T result;
-    private List<Message> messages;
-    private String ruleApplied;
 
-    public ServiceResult(){}
-
-
-    public ServiceResult(T result)
-    {
-        this(UUID.randomUUID(), result, null, null);
+    public ServiceResult() {
     }
 
-    public ServiceResult(T result, List<Message> messages)
-    {
-        this(UUID.randomUUID(), result, messages, null);
+    public ServiceResult(T result) {
+        this(null, null, null, result);
     }
 
-    public ServiceResult(T result, List<Message> messages, String ruleApplied)
-    {
-        this(UUID.randomUUID(), result, messages, ruleApplied);
-    }
-
-    public ServiceResult(UUID enquiryId, T result)
-    {
-        this(enquiryId, result, null, null);
-    }
-
-    public ServiceResult(UUID enquiryId, T result, List<Message> messages)
-    {
-        this(enquiryId, result, messages, null);
-    }
-
-    public ServiceResult(UUID enquiryId, T result, List<Message> messages, String ruleApplied)
-    {
-        this.enquiryId = enquiryId;
+    public ServiceResult(String guid, String version, DateTime date, T result) {
+        this.guid = guid;
         this.result = result;
-        this.messages = messages;
-        this.ruleApplied = ruleApplied;
+        this.version = version;
+        this.date = date;
     }
 
-    public T getResult()
-    {
+    public T getResult() {
         return result;
     }
 
-    public List<Message> getMessages()
-    {
-        return messages;
+    public String getGuid() {
+        return guid;
     }
 
-    public boolean hasMessages()
-    {
-        if ( null != messages && !messages.isEmpty())
-        {
-            return true;
-        }
-        return false;
+    public String getVersion() {
+        return version;
     }
 
-    public String getRuleApplied() {
-        return ruleApplied;
+    public DateTime getDate() {
+        return date;
     }
-
-    public void setRuleApplied(String ruleApplied) {
-        this.ruleApplied = ruleApplied;
-    }
-
-    public UUID getEnquiryId() {
-        return enquiryId;
-    }
-
-    public void addMessage(Message messageToAdd ) {
-        if ( !hasMessages()) { messages = new ArrayList<Message>(); }
-
-        messages.add(messageToAdd);
-   }
 }
