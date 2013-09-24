@@ -1,12 +1,8 @@
 package uk.gov.dvla.services.filter;
 
-import uk.gov.dvla.domain.ServiceResult;
-import java.util.UUID;
+import uk.gov.dvla.domain.RulesDriver;
 
 public interface FilterService<T>
 {
-    public ServiceResult<T> filter(UUID id, T objectToFilter, String Context);
-
-    public ServiceResult<T> filter(T objectToFilter, String Context);
-
+    public RulesDriver filter(T objectToFilter, String Context);
 }
