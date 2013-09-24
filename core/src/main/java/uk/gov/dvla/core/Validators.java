@@ -4,12 +4,35 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public final class Validators {
+    /*
+        The regular expression below supposedly is the GDS official regex for matching DLN.
+        It is not very well written. It unnecessarily uses alternatives and creates redundant capturing groups.
+        Consider:
+            "^(?=\\w{16}$)[A-Za-z]{1,5}9{0,4}[0-9]{6}[A-Za-z][A-Za-z9][A-Za-z2-9][A-Za-z0-9]{2}"
+        which is cleaner, shorter and faster.
+     */
+    private static final String DLN_REGEX =
+            "(^([A-Za-z]{1}[9]{4}|[A-Za-z]{2}[9]{3}|[A-Za-z]{3}[9]{2}|[A-Za-z]{4}[9]{1}|[A-Za-z]{5})([0-9]{6})([A-Za-z]{1}9{1}|[A-Za-z]{2})([A-Za-z2-9]{1})([A-Za-z0-9]{2}))";
+    private static final String POSTCODE_REGEX = new String("(^[A-Za-z0-9\\s]{5,8})");
+    private static final String VRM_REGEX = new String("(^A-Za-z0-9\\s-){1,15}");
 
-    private static final String DLNRegex = new String("(^([A-Za-z]{1}[9]{4}|[A-Za-z]{2}[9]{3}|[A-Za-z]{3}[9]{2}|[A-Za-z]{4}[9]{1}|[A-Za-z]{5})([0-9]{6})([A-Za-z]{1}9{1}|[A-Za-z]{2})([A-Za-z2-9]{1})([A-Za-z0-9]{2}))");
 
-    public static final boolean validateDln(final String hex) {
-        Pattern pattern = Pattern.compile(DLNRegex);
-        Matcher matcher = pattern.matcher(hex);
+    private static final Pattern DLN_PATTERN = Pattern.compile(DLN_REGEX);
+
+    public static boolean validateDln(final String hex) {
+        Matcher matcher = DLN_PATTERN.matcher(hex);
+        return matcher.matches();
+    }
+
+    public static final boolean validatePostcode(String postcode) {
+        Pattern pattern = Pattern.compile(POSTCODE_REGEX);
+        Matcher matcher = pattern.matcher(postcode);
+        return matcher.matches();
+    }
+
+    public static final boolean validateVRM(String vrm) {
+        Pattern pattern = Pattern.compile(VRM_REGEX);
+        Matcher matcher = pattern.matcher(vrm);
         return matcher.matches();
     }
 }
