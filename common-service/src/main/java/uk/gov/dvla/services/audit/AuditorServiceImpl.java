@@ -1,22 +1,15 @@
 package uk.gov.dvla.services.audit;
 
 import org.joda.time.DateTime;
-import uk.gov.dvla.domain.Driver;
-import uk.gov.dvla.domain.Message;
-import uk.gov.dvla.domain.MessageType;
-import uk.gov.dvla.domain.ServiceResult;
+import uk.gov.dvla.domain.*;
 import uk.gov.dvla.messages.*;
 import uk.gov.dvla.servicebus.core.Bus;
 import uk.gov.dvla.services.common.HttpHelperService;
-import uk.gov.dvla.services.common.PostcodeHelper;
 import uk.gov.dvla.services.common.ServiceDateFormat;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.ws.rs.WebApplicationException;
-import javax.ws.rs.core.Response;
 import java.text.ParseException;
 import java.util.Date;
-import java.util.List;
 import java.util.UUID;
 
 public class AuditorServiceImpl implements AuditorService {
@@ -52,7 +45,7 @@ public class AuditorServiceImpl implements AuditorService {
     }
 
     @Override
-    public void auditDlnSuppression(ServiceResult<Driver> result, String dln, HttpServletRequest request,
+    public void auditDlnSuppression(RulesDriver result, String dln, HttpServletRequest request,
                                     DateTime requestSent) {
 
         if (isDriverFullySuppressed(result))  {
@@ -62,7 +55,7 @@ public class AuditorServiceImpl implements AuditorService {
     }
 
     @Override
-    public void auditDetailsSuppression(ServiceResult<Driver> result, String forenames, String surname, String dob,
+    public void auditDetailsSuppression(RulesDriver result, String forenames, String surname, String dob,
                                         Integer gender, String postcode, HttpServletRequest request,
                                         DateTime requestSent) throws ParseException {
 
@@ -76,7 +69,7 @@ public class AuditorServiceImpl implements AuditorService {
     }
 
     @Override
-    public void auditDVLADlnSuppression(ServiceResult<Driver> result, String dln, DateTime requestSent,
+    public void auditDVLADlnSuppression(RulesDriver result, String dln, DateTime requestSent,
                                         String contactChannel, String enquiryReason, HttpServletRequest request) {
         if (isDriverFullySuppressed(result)) {
             this.serviceBus.send(new DvlaDlnSuppressed(dln, requestSent, new DateTime(),
@@ -85,7 +78,7 @@ public class AuditorServiceImpl implements AuditorService {
     }
 
     @Override
-    public void auditDVLADetailsSuppression(ServiceResult<Driver> result, String dln, String forenames, String surname,
+    public void auditDVLADetailsSuppression(RulesDriver result, String dln, String forenames, String surname,
                                             String dob, Integer gender, String postcode, DateTime requestSent,
                                             String contactChannel, String enquiryReason,
                                             HttpServletRequest request) throws ParseException {
@@ -155,13 +148,11 @@ public class AuditorServiceImpl implements AuditorService {
                 new DateTime(), httpHelperService.getIpAddress(request), message));
     }
 
-
-
-    private boolean isDriverFullySuppressed(ServiceResult<Driver> driverResult) {
+    private boolean isDriverFullySuppressed(RulesDriver driverResult) {
         boolean isFullySuppressed = false;
 
-        if (driverResult.hasMessages()){
-            for (Message message : driverResult.getMessages()){
+        if (driverResult != null && driverResult.getMessages() != null){
+            for (Message message : driverResult.getMessages()) {
                 if (message.getType() == MessageType.SuppressFullRecord.getMessageType()) {
                     isFullySuppressed = true;
                 }

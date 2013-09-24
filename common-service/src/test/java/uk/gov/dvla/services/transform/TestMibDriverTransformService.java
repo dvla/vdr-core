@@ -5,7 +5,6 @@ import org.junit.Test;
 import uk.gov.dvla.domain.*;
 import uk.gov.dvla.domain.mib.EntitlementType;
 import uk.gov.dvla.domain.mib.MibDTO;
-import uk.gov.dvla.domain.mib.TestPassStatus;
 
 import static org.junit.Assert.*;
 
@@ -35,11 +34,9 @@ public class TestMibDriverTransformService {
         final Integer directiveStatus2 = 2;
         final UUID enquiryId = UUID.randomUUID();
 
-        List<Message> messages = new ArrayList<Message>();
-        Message message1 = new Message("Message Description1", false);
-        Message message2 = new Message("Message Description2", true);
-        messages.add(message1);
-        messages.add(message2);
+        List<String> messages = new ArrayList<String>();
+        messages.add("Message Description1");
+        messages.add("Message Description2");
 
         lic.setValidFrom(validFrom);
         lic.setValidTo(validTo);
@@ -75,20 +72,22 @@ public class TestMibDriverTransformService {
         driver.setLicence(lic);
 
         MibDriverTransformService transformService = new MibDriverTransformService();
-        ServiceResult<MibDTO> result = transformService.transform(new ServiceResult<Driver>(enquiryId, driver, messages));
-        MibDTO.Driver driverResult = result.getResult().getDriver();
+        RulesDriver rulesDriver = new RulesDriver();
+        rulesDriver.setDriver(driver);
+        MibDTO result = transformService.transform(rulesDriver);
+        MibDTO.Licence licenceResult = result.getLicence();
 
-        assertEquals("Licence Valid From returned", validFrom, driverResult.getLicence().getValidFrom());
-        assertEquals("Licence Valid To returned", validTo, driverResult.getLicence().getValidTo());
-        assertEquals("Directive Status returned", directiveStatus2, driverResult.getLicence().getDirectiveStatus());
+        assertEquals("Licence Valid From returned", validFrom, licenceResult.getValidFrom());
+        assertEquals("Licence Valid To returned", validTo, licenceResult.getValidTo());
+        assertEquals("Directive Status returned", directiveStatus2, licenceResult.getDirectiveIndicator());
 
-        List<MibDTO.Entitlement> entResult = driverResult.getLicence().getEntitlements();
+        List<MibDTO.Entitlement> entResult = licenceResult.getEntitlements();
         assertEquals("3 Entitlements returned", 3, entResult.size());
         AssertExpectedEntitlementFieldsReturned(entResult.get(0), "abc", datePassed, dateUnclaimedExpires, EntitlementType.UnclaimedTestPass);
         AssertExpectedEntitlementFieldsReturned(entResult.get(1), "def", validFrom, validTo, EntitlementType.Full);
         AssertExpectedEntitlementFieldsReturned(entResult.get(2), "ghi", validFrom, validTo, EntitlementType.Provisional);
 
-        List<MibDTO.Endorsement> endResult = driverResult.getLicence().getEndorsements();
+        List<MibDTO.Endorsement> endResult = licenceResult.getEndorsements();
         assertEquals("2 Endorsements returned", 2, endResult.size());
         AssertExpectedEndorsementFieldsReturned(endResult.get(0), "CU20");
         AssertExpectedEndorsementFieldsReturned(endResult.get(1), "CU21");
@@ -111,7 +110,6 @@ public class TestMibDriverTransformService {
         assertEquals("Endorsement Code returned", code, endorsement.getCode());
         assertEquals("Endorsement Offence Date returned", defaultOffenceDate, endorsement.getOffenceDate());
         assertEquals("Endorsement Conviction Date returned", defaultConvictionDate, endorsement.getConvictionDate());
-        assertEquals("Endorsement Sentencing Date returned", defaultSentencingDate, endorsement.getSentencingDate());
         assertEquals("Endorsement Period returned", defaultPeriod, endorsement.getDisqualPeriod());
         assertEquals("Endorsement Fine returned", defaultFine, endorsement.getFine());
     }
