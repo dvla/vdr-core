@@ -1,17 +1,16 @@
 package uk.gov.dvla.services.transform;
 
 import uk.gov.dvla.domain.*;
-import uk.gov.dvla.domain.mib.EntitlementType;
 import uk.gov.dvla.domain.portal.PortalDTO;
 
 import java.util.*;
 
-public class PortalDriverTransformService implements TransformService<ServiceResult<Driver>, ServiceResult<PortalDTO>> {
+public class PortalDriverTransformService implements TransformService<RulesDriver, PortalDTO> {
 
     @Override
-    public ServiceResult<PortalDTO> transform(ServiceResult<Driver> objectToTransform) {
+    public PortalDTO transform(RulesDriver objectToTransform) {
         PortalDTO portalDTO = new PortalDTO();
-        Driver driver = objectToTransform.getResult();
+        Driver driver = objectToTransform.getDriver();
 
         if (null != driver) {
             PortalDTO.Driver portalDriver = new PortalDTO.Driver();
@@ -36,7 +35,7 @@ public class PortalDriverTransformService implements TransformService<ServiceRes
             }
             portalDTO.setDriver(portalDriver);
         }
-        return new ServiceResult<PortalDTO>(objectToTransform.getEnquiryId(), portalDTO, objectToTransform.getMessages());
+        return portalDTO;
     }
 
     private PortalDTO.Name getName(Name name) {
