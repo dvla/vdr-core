@@ -13,6 +13,7 @@ public class QueryStringParameters {
     public static final String CONTACT_CHANNEL_PARAM = "cc";
     public static final String ENQUIRY_REASON_PARAM = "er";
     public static final String ENQUIRY_ID_PARAM = "id";
+    public static final String VEHICLE_REGISTRATION_MARK_PARAM = "vrm";
 
     public static final String DLN_SEARCH_PATH = "dln/";
     public static final String PERSONAL_DETAILS_SEARCH_PATH = "details/";
