@@ -603,12 +603,13 @@ public class PortalDTO {
         public EntitlementRestriction() {
         }
 
-        public EntitlementRestriction(String code, String categoryCode) {
+        public EntitlementRestriction(String code, String categoryCode, Date validTo) {
             if (code == null) {
                 logger.debug("code must be specified");
                 throw new RuntimeException("code must be specified");
             }
 
+            this.validTo = validTo;
             this.code = code;
             this.categoryCode = categoryCode;
         }
