@@ -174,7 +174,7 @@ public class PortalDriverTransformService implements TransformService<RulesDrive
 
         if (ent.getRestrictions() != null) {
             for (EntitlementRestriction er : ent.getRestrictions()) {
-                restrictions.add(new PortalDTO.EntitlementRestriction(er.getCode(), er.getCategoryCode()));
+                restrictions.add(new PortalDTO.EntitlementRestriction(er.getCode(), er.getCategoryCode(), er.getValidTo()));
             }
         }
 
