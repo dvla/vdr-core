@@ -1,38 +1,37 @@
 package uk.gov.dvla.core;
 
-import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public final class Validators {
-    /*
-        The regular expression below supposedly is the GDS official regex for matching DLN.
-        It is not very well written. It unnecessarily uses alternatives and creates redundant capturing groups.
-        Consider:
-            "^(?=\\w{16}$)[A-Za-z]{1,5}9{0,4}[0-9]{6}[A-Za-z][A-Za-z9][A-Za-z2-9][A-Za-z0-9]{2}"
-        which is cleaner, shorter and faster.
-     */
-    private static final String DLN_REGEX =
-            "(^([A-Za-z]{1}[9]{4}|[A-Za-z]{2}[9]{3}|[A-Za-z]{3}[9]{2}|[A-Za-z]{4}[9]{1}|[A-Za-z]{5})([0-9]{6})([A-Za-z]{1}9{1}|[A-Za-z]{2})([A-Za-z2-9]{1})([A-Za-z0-9]{2}))";
-    private static final String POSTCODE_REGEX = new String("(^[A-Za-z0-9\\s]{5,8})");
-    private static final String VRM_REGEX = new String("(^A-Za-z0-9\\s-){1,15}");
+
+    private static final String DLN_REGEX = "^(?=\\w{16}$)[A-Za-z]{1,5}9{0,4}[0-9]{6}[A-Za-z][A-Za-z9][A-Za-z2-9][A-Za-z0-9]{2}";
+    private static final String POSTCODE_REGEX = "^(?:\\s*[a-zA-Z0-9]){5,8}\\s*$";
+    private static final String VRM_REGEX = "^(?:[a-zA-z0-9]){1,15}(?:;(?:[a-zA-z0-9]){1,15})*;?$";
+    private static final String GUID_REGEX = "^[A-Fa-f0-9]{8}-[A-Fa-f0-9]{4}-[A-Fa-f0-9]{4}-[A-Fa-f0-9]{4}-[A-Fa-f0-9]{12}$";
 
 
     private static final Pattern DLN_PATTERN = Pattern.compile(DLN_REGEX);
+    private static final Pattern POSTCODE_PATTERN = Pattern.compile(POSTCODE_REGEX);
+    private static final Pattern VRM_PATTERN = Pattern.compile(VRM_REGEX);
+    private static final Pattern GUID_PATTERN = Pattern.compile(GUID_REGEX);
 
     public static boolean validateDln(final String hex) {
-        Matcher matcher = DLN_PATTERN.matcher(hex);
-        return matcher.matches();
+        return DLN_PATTERN.matcher(hex).matches();
     }
 
-    public static final boolean validatePostcode(String postcode) {
-        Pattern pattern = Pattern.compile(POSTCODE_REGEX);
-        Matcher matcher = pattern.matcher(postcode);
-        return matcher.matches();
+    public static boolean validatePostcode(String postcode) {
+        return POSTCODE_PATTERN.matcher(postcode).matches();
     }
 
-    public static final boolean validateVRM(String vrm) {
-        Pattern pattern = Pattern.compile(VRM_REGEX);
-        Matcher matcher = pattern.matcher(vrm);
-        return matcher.matches();
+    public static boolean validateVrm(String vrm) {
+        return VRM_PATTERN.matcher(vrm).matches();
+    }
+
+    public static boolean validateGuid(String guid) {
+        return GUID_PATTERN.matcher(guid.replaceAll("[\\s-]+", "")).matches();
+    }
+
+    public static boolean validateProposerIndicator(String pi) {
+        return pi.equalsIgnoreCase("P") || pi.equalsIgnoreCase("N");
     }
 }
