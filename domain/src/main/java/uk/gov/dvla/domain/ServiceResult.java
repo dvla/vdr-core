@@ -1,6 +1,5 @@
 package uk.gov.dvla.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.joda.time.DateTime;
 
 public class ServiceResult<T> {
