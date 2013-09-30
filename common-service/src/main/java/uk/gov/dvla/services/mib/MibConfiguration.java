@@ -16,7 +16,7 @@ public class MibConfiguration {
     private MibConfiguration() {
         // Name the config rather than going with default as there are conflicts if we have more than one application.conf on our class path
         // For more info, see: http://blog.ometer.com/2011/12/09/configuring-the-typesafe-stack/
-        config = ConfigFactory.load("mib/MIBMessageCodes");
+        config = ConfigFactory.load("mib/MibMessageCodes");
     }
 
     public static synchronized MibConfiguration getInstance() {
