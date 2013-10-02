@@ -5,7 +5,7 @@ import java.util.regex.Pattern;
 public final class Validators {
 
     private static final String DLN_REGEX = "^(?=\\w{16}$)[A-Za-z]{1,5}9{0,4}[0-9]{6}[A-Za-z][A-Za-z9][A-Za-z2-9][A-Za-z0-9]{2}";
-    private static final String POSTCODE_REGEX = "^(?:\\s*[a-zA-Z0-9]){5,8}\\s*$";
+    private static final String POSTCODE_REGEX = "^[a-zA-Z0-9](?:\\s*[a-zA-Z0-9]){4,7}$";
     private static final String VRM_REGEX = "^(?:[a-zA-z0-9]){1,15}(?:;(?:[a-zA-z0-9]){1,15})*;?$";
     private static final String GUID_REGEX = "^[A-Fa-f0-9]{8}-[A-Fa-f0-9]{4}-[A-Fa-f0-9]{4}-[A-Fa-f0-9]{4}-[A-Fa-f0-9]{12}$";
 
@@ -24,14 +24,14 @@ public final class Validators {
     }
 
     public static boolean validateVrm(String vrm) {
-        return VRM_PATTERN.matcher(vrm).matches();
+        return VRM_PATTERN.matcher(vrm.replaceAll("[\\s-]+", "")).matches();
     }
 
     public static boolean validateGuid(String guid) {
-        return GUID_PATTERN.matcher(guid.replaceAll("[\\s-]+", "")).matches();
+        return GUID_PATTERN.matcher(guid).matches();
     }
 
-    public static boolean validateProposerIndicator(String pi) {
-        return pi.equalsIgnoreCase("P") || pi.equalsIgnoreCase("N");
+    public static boolean validateProposer(String proposer) {
+        return proposer.equalsIgnoreCase("P") || proposer.equalsIgnoreCase("N");
     }
 }
