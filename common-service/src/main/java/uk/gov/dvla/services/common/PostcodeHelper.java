@@ -61,6 +61,10 @@ public class PostcodeHelper {
     }
 
     private static String cleanPostcode(String originalPostcode) {
-        return originalPostcode.replace(" ", "");
+        if (originalPostcode != null) {
+            return originalPostcode.replace(" ", "");
+        }
+        else
+            return "";
     }
 }
