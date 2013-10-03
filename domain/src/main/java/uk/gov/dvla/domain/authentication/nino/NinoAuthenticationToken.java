@@ -1,24 +1,22 @@
 package uk.gov.dvla.domain.authentication.nino;
 
-import uk.gov.dvla.domain.authentication.AuthenticationToken;
+import uk.gov.dvla.domain.authentication.DriverAuthToken;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
-public class NinoAuthenticationToken extends AuthenticationToken
-{
-    private String dln;
-    private String postcode;
+public class NinoAuthenticationToken extends DriverAuthToken {
     private String nino;
-    private Date dob;
-    private String surname;
     private String deceasedIndicator;
     private String coreMatchIndicator;
     private List<String> warningCodes = new ArrayList<String>();
 
-    public NinoAuthenticationToken() {}
+    private static final String yes = "Y";
+    private static final String no = "N";
+
+    public NinoAuthenticationToken() {
+    }
 
     public NinoAuthenticationToken(String dln, String postcode, String nino, Date dob, String surname) {
 
@@ -30,7 +28,7 @@ public class NinoAuthenticationToken extends AuthenticationToken
     }
 
     public NinoAuthenticationToken(String dln, String postcode, String nino, Date dob, String surname,
-                                    String deceasedIndicator, String coreMatchIndicator, List<String> warningCodes) {
+                                   String deceasedIndicator, String coreMatchIndicator, List<String> warningCodes) {
 
         this.dln = dln;
         this.postcode = postcode;
@@ -42,21 +40,10 @@ public class NinoAuthenticationToken extends AuthenticationToken
         this.warningCodes = warningCodes;
     }
 
-    public String getDln() {
-        return dln;
+    public NinoAuthenticationToken(DriverAuthToken driverAuthToken) {
+        this(driverAuthToken.getDln(), driverAuthToken.getPostCode(), null, driverAuthToken.getDob(), driverAuthToken.getSurname());
     }
 
-    public void setDln(String dln) {
-        this.dln = dln;
-    }
-
-    public String getPostcode() {
-        return postcode;
-    }
-
-    public void setPostcode(String postcode) {
-        this.postcode = postcode;
-    }
 
     public String getNino() {
         return nino;
@@ -64,22 +51,6 @@ public class NinoAuthenticationToken extends AuthenticationToken
 
     public void setNino(String nino) {
         this.nino = nino;
-    }
-
-    public Date getDob() {
-        return dob;
-    }
-
-    public void setDob(Date dob) {
-        this.dob = dob;
-    }
-
-    public String getSurname() {
-        return surname;
-    }
-
-    public void setSurname(String surname) {
-        this.surname = surname;
     }
 
     public String getDeceasedIndicator() {
@@ -106,12 +77,17 @@ public class NinoAuthenticationToken extends AuthenticationToken
         this.warningCodes = warningCodes;
     }
 
-    @Override
-    public String toString() {
+    public boolean isNotDeceased() {
+        return getDeceasedIndicator() != null && getDeceasedIndicator().equalsIgnoreCase(no);
+    }
 
-        return String.format("Dln - %s, Postcode - %s, Nino - %s, DOB - %s, Surname - %s, " +
-                                "IsDeceased - %s, IsCoreMatch - %s, Warning Codes - %s",
-                                dln, postcode, nino, dob, surname, deceasedIndicator, coreMatchIndicator,
-                                    warningCodes == null ? null : Arrays.toString(warningCodes.toArray()));
+    public boolean isCoreMatch() {
+        return getCoreMatchIndicator() != null && getCoreMatchIndicator().equalsIgnoreCase(yes);
+    }
+
+    public boolean hasNoWarningCodes() {
+        return getWarningCodes() != null && getWarningCodes().isEmpty();
     }
 }
+
+
