@@ -10,7 +10,11 @@ public class NinoAuthenticationToken extends DriverAuthToken {
     private String nino;
     private String deceasedIndicator;
     private String coreMatchIndicator;
+    private String addressMatchIndicator;
+
+    private String secretMatchIndicator;
     private List<String> warningCodes = new ArrayList<String>();
+
 
     private static final String yes = "Y";
     private static final String no = "N";
@@ -21,7 +25,7 @@ public class NinoAuthenticationToken extends DriverAuthToken {
     public NinoAuthenticationToken(String dln, String postcode, String nino, Date dob, String surname) {
 
         this.dln = dln;
-        this.postcode = postcode;
+        this.postCode = postcode;
         this.nino = nino;
         this.dob = dob;
         this.surname = surname;
@@ -31,7 +35,7 @@ public class NinoAuthenticationToken extends DriverAuthToken {
                                    String deceasedIndicator, String coreMatchIndicator, List<String> warningCodes) {
 
         this.dln = dln;
-        this.postcode = postcode;
+        this.postCode = postcode;
         this.nino = nino;
         this.dob = dob;
         this.surname = surname;
@@ -43,7 +47,6 @@ public class NinoAuthenticationToken extends DriverAuthToken {
     public NinoAuthenticationToken(DriverAuthToken driverAuthToken) {
         this(driverAuthToken.getDln(), driverAuthToken.getPostCode(), null, driverAuthToken.getDob(), driverAuthToken.getSurname());
     }
-
 
     public String getNino() {
         return nino;
@@ -88,6 +91,23 @@ public class NinoAuthenticationToken extends DriverAuthToken {
     public boolean hasNoWarningCodes() {
         return getWarningCodes() != null && getWarningCodes().isEmpty();
     }
+
+    public String getAddressMatchIndicator() {
+        return addressMatchIndicator;
+    }
+
+    public void setAddressMatchIndicator(String addressMatchIndicator) {
+        this.addressMatchIndicator = addressMatchIndicator;
+    }
+
+    public String getSecretMatchIndicator() {
+        return secretMatchIndicator;
+    }
+
+    public void setSecretMatchIndicator(String secretMatchIndicator) {
+        this.secretMatchIndicator = secretMatchIndicator;
+    }
+
 }
 
 
