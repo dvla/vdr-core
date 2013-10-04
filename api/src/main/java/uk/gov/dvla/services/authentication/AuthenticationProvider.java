@@ -11,5 +11,5 @@ public interface AuthenticationProvider<A extends AuthenticationToken> extends M
 {
     public static final String AUTHENTICATION_URI = "/auth/";
 
-    public List<A> authenticate(A authToken) throws AuthenticationException;
+    public A authenticate(A authToken) throws Exception;
 }
