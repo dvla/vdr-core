@@ -63,7 +63,7 @@ public interface AuditorService {
                                              String coreAndAddressMatch,
                                              String deceased,
                                              DateTime requestSent,
-                                             String ipAddress);
+                                             HttpServletRequest request);
 
     public void auditNINOAuthenticateFailure(String dln,
                                              String warningCode,
@@ -72,7 +72,7 @@ public interface AuditorService {
                                              String coreAndAddressMatch,
                                              String deceased,
                                              DateTime requestSent,
-                                             String ipAddress);
+                                             HttpServletRequest request);
 
     public void auditNINOAuthenticateDeceased(String dln,
                                               String warningCode,
@@ -81,5 +81,5 @@ public interface AuditorService {
                                               String coreAndAddressMatch,
                                               String deceased,
                                               DateTime requestSent,
-                                              String ipAddress);
+                                              HttpServletRequest request);
 }

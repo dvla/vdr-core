@@ -152,27 +152,27 @@ public class AuditorServiceImpl implements AuditorService {
     public void auditNINOAuthenticateSuccess(String dln, String warningCode,
                                              String warningMessage, String coreMatch,
                                              String coreAndAddressMatch, String deceased,
-                                             DateTime requestSent, String ipAddress) {
+                                             DateTime requestSent, HttpServletRequest request) {
         this.serviceBus.send(new NINOAuthenticateSuccess(dln, warningCode, warningMessage,
-                coreMatch, coreAndAddressMatch, deceased, requestSent, new DateTime(), ipAddress));
+                coreMatch, coreAndAddressMatch, deceased, requestSent, new DateTime(), httpHelperService.getIpAddress(request)));
     }
 
     @Override
     public void auditNINOAuthenticateFailure(String dln, String warningCode,
                                              String warningMessage, String coreMatch,
                                              String coreAndAddressMatch, String deceased,
-                                             DateTime requestSent, String ipAddress) {
+                                             DateTime requestSent, HttpServletRequest request) {
         this.serviceBus.send(new NINOAuthenticateFailure(dln, warningCode, warningMessage,
-                coreMatch, coreAndAddressMatch, deceased, requestSent, new DateTime(), ipAddress));
+                coreMatch, coreAndAddressMatch, deceased, requestSent, new DateTime(), httpHelperService.getIpAddress(request)));
     }
 
     @Override
     public void auditNINOAuthenticateDeceased(String dln, String warningCode,
                                               String warningMessage, String coreMatch,
                                               String coreAndAddressMatch, String deceased,
-                                              DateTime requestSent, String ipAddress) {
+                                              DateTime requestSent, HttpServletRequest request) {
         this.serviceBus.send(new NINOAuthenticateDeceased(dln, warningCode, warningMessage,
-                coreMatch, coreAndAddressMatch, deceased, requestSent, new DateTime(), ipAddress));
+                coreMatch, coreAndAddressMatch, deceased, requestSent, new DateTime(), httpHelperService.getIpAddress(request)));
     }
 
 
