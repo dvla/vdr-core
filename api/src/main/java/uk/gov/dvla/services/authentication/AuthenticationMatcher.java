@@ -5,5 +5,5 @@ import uk.gov.dvla.services.authentication.exceptions.AuthenticationException;
 
 public interface AuthenticationMatcher<A extends AuthenticationToken>
 {
-    public Boolean match(A authToken) throws AuthenticationException;
+    public boolean match(A authToken) throws AuthenticationException;
 }
