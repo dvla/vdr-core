@@ -1,5 +1,7 @@
 package uk.gov.dvla.domain;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.datatype.joda.ser.DateTimeSerializer;
 import org.joda.time.DateTime;
 
 public class ServiceResult<T> {
@@ -34,6 +36,7 @@ public class ServiceResult<T> {
         return version;
     }
 
+    @JsonSerialize(using = DateTimeSerializer.class)
     public DateTime getDate() {
         return date;
     }
