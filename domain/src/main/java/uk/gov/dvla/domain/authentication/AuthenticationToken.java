@@ -10,7 +10,7 @@ public abstract class AuthenticationToken
         return this.valid_i;
     }
 
-    public void setIsValid(Boolean isValid)
+    public void setIsValid(boolean isValid)
     {
         this.valid_i = isValid;
     }
