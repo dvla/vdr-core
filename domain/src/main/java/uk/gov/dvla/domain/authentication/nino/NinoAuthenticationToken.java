@@ -108,6 +108,7 @@ public class NinoAuthenticationToken extends DriverAuthToken {
         this.secretMatchIndicator = secretMatchIndicator;
     }
 
+
 }
 
 
