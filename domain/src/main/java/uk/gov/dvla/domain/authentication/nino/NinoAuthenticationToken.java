@@ -81,11 +81,15 @@ public class NinoAuthenticationToken extends DriverAuthToken {
     }
 
     public boolean isNotDeceased() {
-        return getDeceasedIndicator() != null && getDeceasedIndicator().equalsIgnoreCase(no);
+        return isNullOrNullLiteral(getDeceasedIndicator()) || getDeceasedIndicator().equalsIgnoreCase(no);
     }
 
     public boolean isCoreMatch() {
-        return getCoreMatchIndicator() != null && getCoreMatchIndicator().equalsIgnoreCase(yes);
+        return isNullOrNullLiteral(getCoreMatchIndicator()) || getCoreMatchIndicator().equalsIgnoreCase(yes);
+    }
+
+    public boolean isAddressMatch(){
+        return isNullOrNullLiteral(getAddressMatchIndicator()) || getAddressMatchIndicator().equalsIgnoreCase(yes);
     }
 
     public boolean hasNoWarningCodes() {
@@ -108,6 +112,9 @@ public class NinoAuthenticationToken extends DriverAuthToken {
         this.secretMatchIndicator = secretMatchIndicator;
     }
 
+    private static boolean isNullOrNullLiteral(String indicator) {
+        return indicator == null || indicator.equalsIgnoreCase("null");
+    }
 
 }
 
