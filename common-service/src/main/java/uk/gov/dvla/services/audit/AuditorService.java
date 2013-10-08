@@ -32,27 +32,54 @@ public interface AuditorService {
                                             String enquiryReason, HttpServletRequest request) throws ParseException;
 
     public void auditMibRealTimeInvalidDetails(UUID enquiryId, String dln, String postcode, DateTime requestSent,
-                                       HttpServletRequest request);
+                                               HttpServletRequest request);
 
     public void auditMibRealTimeDlnNotFound(UUID enquiryId, String dln, String postcode, DateTime requestSent,
-                                    HttpServletRequest request);
+                                            HttpServletRequest request);
 
     public void auditMibRealTimeInvalidDln(UUID enquiryId, String dln, String postcode, DateTime requestSent,
-                                   HttpServletRequest request);
+                                           HttpServletRequest request);
 
     public void auditMibRealTimeServerError(UUID enquiryId, String dln, String postcode, DateTime requestSent,
-                                    HttpServletRequest request);
+                                            HttpServletRequest request);
 
     public void auditMibRealTimeRecordSuppression(UUID enquiryId, String dln, String postcode, DateTime requestSent,
-                                          String ruleApplied, HttpServletRequest request);
+                                                  String ruleApplied, HttpServletRequest request);
 
     public void auditMibRealTimeEnquirySuccessful(UUID enquiryId, String dln, String postcode, DateTime requestSent,
-                                          HttpServletRequest request);
+                                                  HttpServletRequest request);
 
     public void auditMibRealTimeNoEntitlements(UUID enquiryId, String dln, String postcode, DateTime requestSent,
-                                       HttpServletRequest request);
+                                               HttpServletRequest request);
 
     public void auditMibRealTimeEnquiryMessageReturned(UUID enquiryId, String dln, String postcode,
                                                        DateTime requestSent, String message,
                                                        HttpServletRequest request);
+
+    public void auditNINOAuthenticateSuccess(String dln,
+                                             String warningCode,
+                                             String warningMessage,
+                                             String coreMatch,
+                                             String coreAndAddressMatch,
+                                             String deceased,
+                                             DateTime requestSent,
+                                             HttpServletRequest request);
+
+    public void auditNINOAuthenticateFailure(String dln,
+                                             String warningCode,
+                                             String warningMessage,
+                                             String coreMatch,
+                                             String coreAndAddressMatch,
+                                             String deceased,
+                                             DateTime requestSent,
+                                             HttpServletRequest request);
+
+    public void auditNINOAuthenticateDeceased(String dln,
+                                              String warningCode,
+                                              String warningMessage,
+                                              String coreMatch,
+                                              String coreAndAddressMatch,
+                                              String deceased,
+                                              DateTime requestSent,
+                                              HttpServletRequest request);
 }
