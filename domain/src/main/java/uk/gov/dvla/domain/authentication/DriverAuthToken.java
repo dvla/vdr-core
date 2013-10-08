@@ -12,6 +12,16 @@ public class DriverAuthToken extends AuthenticationToken {
     protected String forename1;
     protected String forename2;
     protected int gender;
+    protected String[] address;
+
+
+    public String[] getAddress() {
+        return address;
+    }
+
+    public void setAddress(String[] address) {
+        this.address = address;
+    }
 
     public String getForename1() {
         return forename1;
@@ -79,6 +89,11 @@ public class DriverAuthToken extends AuthenticationToken {
         if (driver.getName().getGivenName().size() > 1) {
             driverAuthToken.setForename1(driver.getName().getGivenName().get(1));
         }
+
+        String[] addressArray = new String[1];
+
+        addressArray[0] = driver.getAddress().getBuildingName() + driver.getAddress().getDdtfare();
+        driverAuthToken.setAddress(addressArray);
 
         driverAuthToken.setGender(driver.getGender());
         return driverAuthToken;
