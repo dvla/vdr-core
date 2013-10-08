@@ -22,13 +22,16 @@ public class NinoAuthenticationToken extends DriverAuthToken {
     public NinoAuthenticationToken() {
     }
 
-    public NinoAuthenticationToken(String dln, String postcode, String nino, Date dob, String surname) {
+    public NinoAuthenticationToken(String dln, String postcode, String nino, Date dob, String surname, String forename1, String forename2) {
 
         this.dln = dln;
         this.postCode = postcode;
         this.nino = nino;
         this.dob = dob;
         this.surname = surname;
+        this.forename1 = forename1;
+        this.forename2 = forename2;
+
     }
 
     public NinoAuthenticationToken(String dln, String postcode, String nino, Date dob, String surname,
@@ -45,7 +48,7 @@ public class NinoAuthenticationToken extends DriverAuthToken {
     }
 
     public NinoAuthenticationToken(DriverAuthToken driverAuthToken) {
-        this(driverAuthToken.getDln(), driverAuthToken.getPostCode(), null, driverAuthToken.getDob(), driverAuthToken.getSurname());
+        this(driverAuthToken.getDln(), driverAuthToken.getPostCode(), null, driverAuthToken.getDob(), driverAuthToken.getSurname(), driverAuthToken.getForename1(), driverAuthToken.getForename2());
     }
 
     public String getNino() {
@@ -88,7 +91,7 @@ public class NinoAuthenticationToken extends DriverAuthToken {
         return isNullOrNullLiteral(getCoreMatchIndicator()) || getCoreMatchIndicator().equalsIgnoreCase(yes);
     }
 
-    public boolean isAddressMatch(){
+    public boolean isAddressMatch() {
         return isNullOrNullLiteral(getAddressMatchIndicator()) || getAddressMatchIndicator().equalsIgnoreCase(yes);
     }
 
