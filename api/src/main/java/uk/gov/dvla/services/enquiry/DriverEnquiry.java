@@ -2,14 +2,12 @@ package uk.gov.dvla.services.enquiry;
 
 import uk.gov.dvla.domain.Driver;
 import uk.gov.dvla.domain.Person;
-import uk.gov.dvla.domain.authentication.DriverAuthToken;
 import uk.gov.dvla.services.ManagedService;
 
 public interface DriverEnquiry extends ManagedService {
     public static final String MIB_SERVICE_ENDPOINT = "/iiadd/api/v1/driver";
     public static final String MIB_SERVICE_VERSION_NUMBER = "1";
     public static final String CUSTOMER_PORTAL_SERVICE_ENDPOINT = "/driver/";
-    public static final String AUTH_PORTAL_SERVICE_ENDPOINT = "/auth/";
     public static final String DLN_SEARCH = "dlnSearch";
     public static final String PERSONAL_DETAILS_SEARCH = "personalDetailsSearch";
     public static final String CUSTOMER_PORTAL = "customer.portal";
@@ -35,13 +33,8 @@ public interface DriverEnquiry extends ManagedService {
 
     public Driver get(String dln);
 
-    public DriverAuthToken authenticate(String dln);
-
     public Driver get(Person person);
 
     public Driver get(String forename, String surname, String dob,
                       String gender, String postCode);
-
-    public DriverAuthToken authenticate(String forename, String surname, String dob,
-                                        String gender, String postCode);
 }
