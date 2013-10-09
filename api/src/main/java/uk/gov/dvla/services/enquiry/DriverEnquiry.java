@@ -8,6 +8,7 @@ public interface DriverEnquiry extends ManagedService {
     public static final String MIB_SERVICE_ENDPOINT = "/iiadd/api/v1/driver";
     public static final String MIB_SERVICE_VERSION_NUMBER = "1";
     public static final String CUSTOMER_PORTAL_SERVICE_ENDPOINT = "/driver/";
+    public static final String HEALTH_CHECK_ENDPOINT = "/healthcheck";
     public static final String DLN_SEARCH = "dlnSearch";
     public static final String PERSONAL_DETAILS_SEARCH = "personalDetailsSearch";
     public static final String CUSTOMER_PORTAL = "customer.portal";
