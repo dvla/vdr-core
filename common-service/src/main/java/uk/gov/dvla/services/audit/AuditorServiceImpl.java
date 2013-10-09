@@ -5,6 +5,7 @@ import uk.gov.dvla.domain.*;
 import uk.gov.dvla.messages.*;
 import uk.gov.dvla.servicebus.core.Bus;
 import uk.gov.dvla.services.common.HttpHelperService;
+import uk.gov.dvla.services.common.HttpHelperServiceImpl;
 import uk.gov.dvla.services.common.ServiceDateFormat;
 
 import javax.servlet.http.HttpServletRequest;
