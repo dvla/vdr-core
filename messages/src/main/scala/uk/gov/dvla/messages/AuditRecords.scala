@@ -152,7 +152,7 @@ case class CustomerPostcodeIsBlank(dln: String, postCode: String, requestSent: D
 }
 
 case class DvlaDlnSuccessful(dln: String, requestSent: DateTime, responseSent: DateTime,
-                             contactChannel: String, enquiryReason: String, userId: String,
+                             contactChannel: String, enquiryReasons: List[String], userId: String,
                              ipAddress: String) extends AuditMessage {
   val result = Result.Success
   val status = Status.RecordFound
@@ -160,7 +160,7 @@ case class DvlaDlnSuccessful(dln: String, requestSent: DateTime, responseSent: D
 }
 
 case class DvlaDlnNotFound(dln: String, requestSent: DateTime, responseSent: DateTime,
-                           contactChannel: String, enquiryReason: String, userId: String,
+                           contactChannel: String, enquiryReasons: List[String], userId: String,
                            ipAddress: String) extends AuditMessage {
   val result = Result.Failure
   val status = Status.NotFound
@@ -168,7 +168,7 @@ case class DvlaDlnNotFound(dln: String, requestSent: DateTime, responseSent: Dat
 }
 
 case class DvlaDlnServerError(dln: String, requestSent: DateTime, responseSent: DateTime,
-                              contactChannel: String, enquiryReason: String, userId: String,
+                              contactChannel: String, enquiryReasons: List[String], userId: String,
                               ipAddress: String) extends AuditMessage {
   val result = Result.Failure
   val status = Status.ServerError
@@ -176,7 +176,7 @@ case class DvlaDlnServerError(dln: String, requestSent: DateTime, responseSent: 
 }
 
 case class DvlaDlnNotValid(dln: String, requestSent: DateTime, responseSent: DateTime,
-                           contactChannel: String, enquiryReason: String, userId: String,
+                           contactChannel: String,enquiryReasons: List[String], userId: String,
                            ipAddress: String) extends AuditMessage {
   val result = Result.Failure
   val status = Status.NotValid
@@ -184,7 +184,7 @@ case class DvlaDlnNotValid(dln: String, requestSent: DateTime, responseSent: Dat
 }
 
 case class DvlaDlnSuppressed(dln: String, requestSent: DateTime, responseSent: DateTime,
-                             suppressionReason: String, contactChannel: String, enquiryReason: String,
+                             suppressionReason: String, contactChannel: String, enquiryReasons: List[String],
                              ipAddress: String) extends AuditMessage {
   val result = Result.Failure
   val status = Status.Suppressed
@@ -193,7 +193,7 @@ case class DvlaDlnSuppressed(dln: String, requestSent: DateTime, responseSent: D
 
 case class DvlaPersonalDetailsSuccessful(dln: String, forename: String, surname: String, dob: DateTime, gender: Int,
                                          postCode: String, requestSent: DateTime, responseSent: DateTime,
-                                         contactChannel: String, enquiryReason: String, userId: String,
+                                         contactChannel: String, enquiryReasons: List[String], userId: String,
                                          ipAddress: String) extends AuditMessage {
   val result = Result.Success
   val status = Status.RecordFound
@@ -202,7 +202,7 @@ case class DvlaPersonalDetailsSuccessful(dln: String, forename: String, surname:
 
 case class DvlaPersonalDetailsNotFound(forename: String, surname: String, dob: DateTime, gender: Int, postCode: String,
                                        requestSent: DateTime, responseSent: DateTime, contactChannel: String,
-                                       enquiryReason: String, userId: String, ipAddress: String) extends AuditMessage {
+                                       enquiryReasons: List[String], userId: String, ipAddress: String) extends AuditMessage {
   val result = Result.Failure
   val status = Status.NotFound
   val serviceType = ServiceType.DvlaPortal
@@ -210,7 +210,7 @@ case class DvlaPersonalDetailsNotFound(forename: String, surname: String, dob: D
 
 case class DvlaPersonalDetailsNotValid(forename: String, surname: String, dob: DateTime, gender: Int, postCode: String,
                                        requestSent: DateTime, responseSent: DateTime, contactChannel: String,
-                                       enquiryReason: String, userId: String, ipAddress: String) extends AuditMessage {
+                                       enquiryReasons: List[String], userId: String, ipAddress: String) extends AuditMessage {
   val result = Result.Failure
   val status = Status.NotFound
   val serviceType = ServiceType.DvlaPortal
@@ -218,7 +218,7 @@ case class DvlaPersonalDetailsNotValid(forename: String, surname: String, dob: D
 
 case class DvlaPersonalDetailsServerError(forename: String, surname: String, dob: DateTime, gender: Int,
                                           postCode: String, requestSent: DateTime, responseSent: DateTime,
-                                          contactChannel: String, enquiryReason: String,
+                                          contactChannel: String, enquiryReasons: List[String],
                                           userId: String, ipAddress: String) extends AuditMessage {
   val result = Result.Failure
   val status = Status.ServerError
@@ -227,7 +227,7 @@ case class DvlaPersonalDetailsServerError(forename: String, surname: String, dob
 
 case class DvlaPersonalDetailsSuppressed(dln: String, forename: String, surname: String, dob: DateTime, gender: Int,
                                          postCode: String, requestSent: DateTime, responseSent: DateTime,
-                                         suppressionReason: String, contactChannel: String, enquiryReason: String,
+                                         suppressionReason: String, contactChannel: String,enquiryReasons: List[String],
                                          ipAddress: String) extends AuditMessage {
   val result = Result.Failure
   val status = Status.Suppressed
@@ -236,7 +236,7 @@ case class DvlaPersonalDetailsSuppressed(dln: String, forename: String, surname:
 
 case class DvlaMultipleFound(forename: String, surname: String, dob: DateTime, gender: Int, postCode: String,
                              requestSent: DateTime, responseSent: DateTime, contactChannel: String,
-                             enquiryReason: String, userId: String, ipAddress: String) extends AuditMessage {
+                             enquiryReasons: List[String], userId: String, ipAddress: String) extends AuditMessage {
   val result = Result.Failure
   val status = Status.MultipleRecordsFound
   val serviceType = ServiceType.DvlaPortal
