@@ -4,6 +4,7 @@ import org.junit.Assert;
 import org.junit.Test;
 import uk.gov.dvla.domain.*;
 import uk.gov.dvla.domain.mib.MibDTO;
+import uk.gov.dvla.services.mib.MibDriverTransformService;
 
 import java.util.ArrayList;
 import java.util.List;
