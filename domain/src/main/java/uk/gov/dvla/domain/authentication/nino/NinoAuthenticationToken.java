@@ -13,7 +13,6 @@ public class NinoAuthenticationToken extends DriverAuthToken {
     private String addressMatchIndicator;
 
     private String secretMatchIndicator;
-    private List<String> warningCodes = new ArrayList<String>();
 
 
     private static final String yes = "Y";
@@ -44,7 +43,7 @@ public class NinoAuthenticationToken extends DriverAuthToken {
         this.surname = surname;
         this.deceasedIndicator = deceasedIndicator;
         this.coreMatchIndicator = coreMatchIndicator;
-        this.warningCodes = warningCodes;
+
     }
 
     public NinoAuthenticationToken(DriverAuthToken driverAuthToken) {
@@ -75,14 +74,6 @@ public class NinoAuthenticationToken extends DriverAuthToken {
         this.coreMatchIndicator = coreMatchIndicator;
     }
 
-    public List<String> getWarningCodes() {
-        return warningCodes;
-    }
-
-    public void setWarningCodes(List<String> warningCodes) {
-        this.warningCodes = warningCodes;
-    }
-
     public boolean isNotDeceased() {
         return isNullOrNullLiteral(getDeceasedIndicator()) || getDeceasedIndicator().equalsIgnoreCase(no);
     }
@@ -93,10 +84,6 @@ public class NinoAuthenticationToken extends DriverAuthToken {
 
     public boolean isAddressMatch() {
         return isNullOrNullLiteral(getAddressMatchIndicator()) || getAddressMatchIndicator().equalsIgnoreCase(yes);
-    }
-
-    public boolean hasNoWarningCodes() {
-        return getWarningCodes() != null && getWarningCodes().isEmpty();
     }
 
     public String getAddressMatchIndicator() {
