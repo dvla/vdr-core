@@ -6,7 +6,7 @@ import java.util.Date;
 import java.util.List;
 
 public interface DriverAuthTokenProvider {
-    DriverAuthToken findDriverAuthTokenByDln(String dln);
+    DriverAuthToken findDriverAuthTokenByDln(String dln, String postcode);
 
     List<DriverAuthToken> findDriverAuthTokenByPersonalDetails(List<String> forenames, String surname, Date dob, int gender, String postCode);
 }
