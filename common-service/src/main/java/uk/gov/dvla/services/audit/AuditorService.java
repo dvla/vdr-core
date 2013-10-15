@@ -57,8 +57,6 @@ public interface AuditorService {
                                                        HttpServletRequest request);
 
     public void auditNINOAuthenticateSuccess(String dln,
-                                             String warningCode,
-                                             String warningMessage,
                                              String coreMatch,
                                              String coreAndAddressMatch,
                                              String deceased,
@@ -66,8 +64,6 @@ public interface AuditorService {
                                              HttpServletRequest request);
 
     public void auditNINOAuthenticateFailure(String dln,
-                                             String warningCode,
-                                             String warningMessage,
                                              String coreMatch,
                                              String coreAndAddressMatch,
                                              String deceased,
@@ -75,8 +71,6 @@ public interface AuditorService {
                                              HttpServletRequest request);
 
     public void auditNINOAuthenticateDeceased(String dln,
-                                              String warningCode,
-                                              String warningMessage,
                                               String coreMatch,
                                               String coreAndAddressMatch,
                                               String deceased,
