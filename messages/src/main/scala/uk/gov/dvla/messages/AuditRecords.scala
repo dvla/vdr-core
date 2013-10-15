@@ -306,8 +306,6 @@ case class MibRealTimeEnquiryMessageReturned(enquiryId: UUID, dln: String, postC
 }
 
 case class NINOAuthenticateSuccess(dln: String,
-                                   warningCode: String,
-                                   warningMessage: String,
                                    coreMatch: String,
                                    coreAndAddressMatch: String,
                                    deceased: String,
@@ -322,8 +320,6 @@ case class NINOAuthenticateSuccess(dln: String,
 }
 
 case class NINOAuthenticateFailure(dln: String,
-                                   warningCode: String,
-                                   warningMessage: String,
                                    coreMatch: String,
                                    coreAndAddressMatch: String,
                                    deceased: String,
@@ -338,8 +334,6 @@ case class NINOAuthenticateFailure(dln: String,
 }
 
 case class NINOAuthenticateDeceased(dln: String,
-                                    warningCode: String,
-                                    warningMessage: String,
                                     coreMatch: String,
                                     coreAndAddressMatch: String,
                                     deceased: String,
