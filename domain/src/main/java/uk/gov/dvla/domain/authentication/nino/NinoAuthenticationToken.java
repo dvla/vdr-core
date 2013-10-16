@@ -82,24 +82,12 @@ public class NinoAuthenticationToken extends DriverAuthToken {
         return isNullOrNullLiteral(getCoreMatchIndicator()) || getCoreMatchIndicator().equalsIgnoreCase(yes);
     }
 
-    public boolean isAddressMatch() {
-        return isNullOrNullLiteral(getAddressMatchIndicator()) || getAddressMatchIndicator().equalsIgnoreCase(yes);
-    }
-
     public String getAddressMatchIndicator() {
         return addressMatchIndicator;
     }
 
     public void setAddressMatchIndicator(String addressMatchIndicator) {
         this.addressMatchIndicator = addressMatchIndicator;
-    }
-
-    public String getSecretMatchIndicator() {
-        return secretMatchIndicator;
-    }
-
-    public void setSecretMatchIndicator(String secretMatchIndicator) {
-        this.secretMatchIndicator = secretMatchIndicator;
     }
 
     private static boolean isNullOrNullLiteral(String indicator) {
