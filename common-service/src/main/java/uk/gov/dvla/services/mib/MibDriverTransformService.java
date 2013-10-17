@@ -1,8 +1,9 @@
-package uk.gov.dvla.services.transform;
+package uk.gov.dvla.services.mib;
 
 import uk.gov.dvla.domain.*;
 import uk.gov.dvla.domain.mib.EntitlementType;
 import uk.gov.dvla.domain.mib.MibDTO;
+import uk.gov.dvla.services.transform.TransformService;
 
 import java.util.*;
 
