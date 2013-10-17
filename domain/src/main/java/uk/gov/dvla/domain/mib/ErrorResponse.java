@@ -3,13 +3,13 @@ package uk.gov.dvla.domain.mib;
 import java.util.List;
 
 public class ErrorResponse {
-    private List<String> errorCodes;
+    private List<String> messages;
 
-    public List<String> getErrorCodes() {
-        return  errorCodes;
+    public List<String> getMessages() {
+        return messages;
     }
 
-    public void setErrorCodes(List<String> errorCodes) {
-        this.errorCodes = errorCodes;
+    public void setMessages(List<String> messages) {
+        this.messages = messages;
     }
 }

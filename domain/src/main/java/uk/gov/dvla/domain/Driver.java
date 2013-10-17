@@ -63,7 +63,11 @@ public class Driver extends Person {
     }
 
     public void setCurrentDriverNumber(String currentDriverNumber) {
-        this.currentDriverNumber = currentDriverNumber;
+        if (currentDriverNumber != null) {
+            this.currentDriverNumber = currentDriverNumber.toUpperCase();
+        } else {
+            this.currentDriverNumber = null;
+        }
     }
 
     public List<DriverNumber> getDriverNumberHistory() {
