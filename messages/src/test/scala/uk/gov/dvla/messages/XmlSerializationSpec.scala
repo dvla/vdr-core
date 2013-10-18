@@ -22,16 +22,16 @@ object XmlSerializationSpec extends Specification {
   "XML serialization of an AuditMessage" should {
 
     "correctly reflect DvlaDlnNotFound instance" in {
-      val message = DvlaDlnNotFound("LEESH702100C99DP", org.joda.time.DateTime.parse("2013-07-13T12:13:14"), org.joda.time.DateTime.parse("2013-07-13T12:13:15"), "pigeon", "curiosity", "123", "77.88.99.101")
+      val message = DvlaDlnNotFound("LEESH702100C99DP", org.joda.time.DateTime.parse("2013-07-13T12:13:14"), org.joda.time.DateTime.parse("2013-07-13T12:13:15"), "pigeon", List("curiosity"), "123", "77.88.99.101")
       message.toXml mustEqual
-          <DvlaDlnNotFound messageId="99713eb8-63db-46c8-b2bf-4d07e824044c" serviceType="DvlaPortal" status="NotFound" result="Failure" ipAddress="77.88.99.101" userId="123" enquiryReason="curiosity" contactChannel="pigeon" responseSent="2013-07-13T12:13:15.000+01:00" requestSent="2013-07-13T12:13:14.000+01:00" dln="LEESH702100C99DP"/>.withMessageId(message.messageId)
+          <DvlaDlnNotFound messageId="99713eb8-63db-46c8-b2bf-4d07e824044c" serviceType="DvlaPortal" status="NotFound" result="Failure" ipAddress="77.88.99.101" userId="123" enquiryReasons="List(curiosity)" contactChannel="pigeon" responseSent="2013-07-13T12:13:15.000+01:00" requestSent="2013-07-13T12:13:14.000+01:00" dln="LEESH702100C99DP"/>.withMessageId(message.messageId)
     }
 
 
     "correctly reflect DvlaDlnSuppressed instance" in {
-      val message = DvlaDlnSuppressed("LEESH702100C99DP", org.joda.time.DateTime.parse("2013-07-13T12:13:14"), org.joda.time.DateTime.parse("2013-07-13T12:13:15"), "headache", "pigeon", "curiosity", "77.88.99.101")
+      val message = DvlaDlnSuppressed("LEESH702100C99DP", org.joda.time.DateTime.parse("2013-07-13T12:13:14"), org.joda.time.DateTime.parse("2013-07-13T12:13:15"), "headache", "pigeon", List("curiosity"), "77.88.99.101")
       message.toXml mustEqual
-          <DvlaDlnSuppressed messageId="5bdaabe6-ceb4-4f86-8968-2b5502f36f4c" serviceType="DvlaPortal" status="Suppressed" result="Failure" ipAddress="77.88.99.101" enquiryReason="curiosity" contactChannel="pigeon" suppressionReason="headache" responseSent="2013-07-13T12:13:15.000+01:00" requestSent="2013-07-13T12:13:14.000+01:00" dln="LEESH702100C99DP"/>.withMessageId(message.messageId)
+          <DvlaDlnSuppressed messageId="5bdaabe6-ceb4-4f86-8968-2b5502f36f4c" serviceType="DvlaPortal" status="Suppressed" result="Failure" ipAddress="77.88.99.101" enquiryReasons="List(curiosity)" contactChannel="pigeon" suppressionReason="headache" responseSent="2013-07-13T12:13:15.000+01:00" requestSent="2013-07-13T12:13:14.000+01:00" dln="LEESH702100C99DP"/>.withMessageId(message.messageId)
     }
 
 
@@ -43,9 +43,9 @@ object XmlSerializationSpec extends Specification {
 
 
     "correctly reflect DvlaDlnSuccessful instance" in {
-      val message = DvlaDlnSuccessful("LEESH702100C99DP", org.joda.time.DateTime.parse("2013-07-13T12:13:14"), org.joda.time.DateTime.parse("2013-07-13T12:13:15"), "pigeon", "curiosity", "123", "77.88.99.101")
+      val message = DvlaDlnSuccessful("LEESH702100C99DP", org.joda.time.DateTime.parse("2013-07-13T12:13:14"), org.joda.time.DateTime.parse("2013-07-13T12:13:15"), "pigeon", List("curiosity"), "123", "77.88.99.101")
       message.toXml mustEqual
-          <DvlaDlnSuccessful messageId="d838aee6-2a64-47ea-a420-4ce7bb06cab6" serviceType="DvlaPortal" status="RecordFound" result="Success" ipAddress="77.88.99.101" userId="123" enquiryReason="curiosity" contactChannel="pigeon" responseSent="2013-07-13T12:13:15.000+01:00" requestSent="2013-07-13T12:13:14.000+01:00" dln="LEESH702100C99DP"/>.withMessageId(message.messageId)
+          <DvlaDlnSuccessful messageId="d838aee6-2a64-47ea-a420-4ce7bb06cab6" serviceType="DvlaPortal" status="RecordFound" result="Success" ipAddress="77.88.99.101" userId="123" enquiryReasons="List(curiosity)" contactChannel="pigeon" responseSent="2013-07-13T12:13:15.000+01:00" requestSent="2013-07-13T12:13:14.000+01:00" dln="LEESH702100C99DP"/>.withMessageId(message.messageId)
     }
 
 
@@ -64,9 +64,9 @@ object XmlSerializationSpec extends Specification {
 
 
     "correctly reflect DvlaPersonalDetailsNotFound instance" in {
-      val message = DvlaPersonalDetailsNotFound("Alice", "Allison", org.joda.time.DateTime.parse("1984-04-13"), 1, "SW11NA", org.joda.time.DateTime.parse("2013-07-13T12:13:14"), org.joda.time.DateTime.parse("2013-07-13T12:13:15"), "pigeon", "curiosity", "123", "77.88.99.101")
+      val message = DvlaPersonalDetailsNotFound("Alice", "Allison", org.joda.time.DateTime.parse("1984-04-13"), 1, "SW11NA", org.joda.time.DateTime.parse("2013-07-13T12:13:14"), org.joda.time.DateTime.parse("2013-07-13T12:13:15"), "pigeon", List("curiosity"), "123", "77.88.99.101")
       message.toXml mustEqual
-          <DvlaPersonalDetailsNotFound messageId="c3c601ec-1925-4ec7-bdb8-9ab6e53beed2" serviceType="DvlaPortal" status="NotFound" result="Failure" ipAddress="77.88.99.101" userId="123" enquiryReason="curiosity" contactChannel="pigeon" responseSent="2013-07-13T12:13:15.000+01:00" requestSent="2013-07-13T12:13:14.000+01:00" postCode="SW11NA" gender="1" dob="1984-04-13T00:00:00.000+01:00" surname="Allison" forename="Alice"/>.withMessageId(message.messageId)
+          <DvlaPersonalDetailsNotFound messageId="c3c601ec-1925-4ec7-bdb8-9ab6e53beed2" serviceType="DvlaPortal" status="NotFound" result="Failure" ipAddress="77.88.99.101" userId="123" enquiryReasons="List(curiosity)" contactChannel="pigeon" responseSent="2013-07-13T12:13:15.000+01:00" requestSent="2013-07-13T12:13:14.000+01:00" postCode="SW11NA" gender="1" dob="1984-04-13T00:00:00.000+01:00" surname="Allison" forename="Alice"/>.withMessageId(message.messageId)
     }
 
 
@@ -85,16 +85,16 @@ object XmlSerializationSpec extends Specification {
 
 
     "correctly reflect DvlaDlnServerError instance" in {
-      val message = DvlaDlnServerError("LEESH702100C99DP", org.joda.time.DateTime.parse("2013-07-13T12:13:14"), org.joda.time.DateTime.parse("2013-07-13T12:13:15"), "pigeon", "curiosity", "123", "77.88.99.101")
+      val message = DvlaDlnServerError("LEESH702100C99DP", org.joda.time.DateTime.parse("2013-07-13T12:13:14"), org.joda.time.DateTime.parse("2013-07-13T12:13:15"), "pigeon", List("curiosity"), "123", "77.88.99.101")
       message.toXml mustEqual
-          <DvlaDlnServerError messageId="544558fb-b9ec-428a-998f-f71c19bee725" serviceType="DvlaPortal" status="ServerError" result="Failure" ipAddress="77.88.99.101" userId="123" enquiryReason="curiosity" contactChannel="pigeon" responseSent="2013-07-13T12:13:15.000+01:00" requestSent="2013-07-13T12:13:14.000+01:00" dln="LEESH702100C99DP"/>.withMessageId(message.messageId)
+          <DvlaDlnServerError messageId="544558fb-b9ec-428a-998f-f71c19bee725" serviceType="DvlaPortal" status="ServerError" result="Failure" ipAddress="77.88.99.101" userId="123" enquiryReasons="List(curiosity)" contactChannel="pigeon" responseSent="2013-07-13T12:13:15.000+01:00" requestSent="2013-07-13T12:13:14.000+01:00" dln="LEESH702100C99DP"/>.withMessageId(message.messageId)
     }
 
 
     "correctly reflect DvlaDlnNotValid instance" in {
-      val message = DvlaDlnNotValid("LEESH702100C99DP", org.joda.time.DateTime.parse("2013-07-13T12:13:14"), org.joda.time.DateTime.parse("2013-07-13T12:13:15"), "pigeon", "curiosity", "123", "77.88.99.101")
+      val message = DvlaDlnNotValid("LEESH702100C99DP", org.joda.time.DateTime.parse("2013-07-13T12:13:14"), org.joda.time.DateTime.parse("2013-07-13T12:13:15"), "pigeon", List("curiosity"), "123", "77.88.99.101")
       message.toXml mustEqual
-          <DvlaDlnNotValid messageId="ad604eef-d5be-4e8d-b725-666b4eb97d0d" serviceType="DvlaPortal" status="NotValid" result="Failure" ipAddress="77.88.99.101" userId="123" enquiryReason="curiosity" contactChannel="pigeon" responseSent="2013-07-13T12:13:15.000+01:00" requestSent="2013-07-13T12:13:14.000+01:00" dln="LEESH702100C99DP"/>.withMessageId(message.messageId)
+          <DvlaDlnNotValid messageId="ad604eef-d5be-4e8d-b725-666b4eb97d0d" serviceType="DvlaPortal" status="NotValid" result="Failure" ipAddress="77.88.99.101" userId="123" enquiryReasons="List(curiosity)" contactChannel="pigeon" responseSent="2013-07-13T12:13:15.000+01:00" requestSent="2013-07-13T12:13:14.000+01:00" dln="LEESH702100C99DP"/>.withMessageId(message.messageId)
     }
 
 
@@ -120,16 +120,16 @@ object XmlSerializationSpec extends Specification {
 
 
     "correctly reflect DvlaPersonalDetailsServerError instance" in {
-      val message = DvlaPersonalDetailsServerError("Alice", "Allison", org.joda.time.DateTime.parse("1984-04-13"), 1, "SW11NA", org.joda.time.DateTime.parse("2013-07-13T12:13:14"), org.joda.time.DateTime.parse("2013-07-13T12:13:15"), "pigeon", "curiosity", "123", "77.88.99.101")
+      val message = DvlaPersonalDetailsServerError("Alice", "Allison", org.joda.time.DateTime.parse("1984-04-13"), 1, "SW11NA", org.joda.time.DateTime.parse("2013-07-13T12:13:14"), org.joda.time.DateTime.parse("2013-07-13T12:13:15"), "pigeon", List("curiosity"), "123", "77.88.99.101")
       message.toXml mustEqual
-          <DvlaPersonalDetailsServerError messageId="d20f5f57-dc70-42bd-a56c-453e8ef773bf" serviceType="DvlaPortal" status="ServerError" result="Failure" ipAddress="77.88.99.101" userId="123" enquiryReason="curiosity" contactChannel="pigeon" responseSent="2013-07-13T12:13:15.000+01:00" requestSent="2013-07-13T12:13:14.000+01:00" postCode="SW11NA" gender="1" dob="1984-04-13T00:00:00.000+01:00" surname="Allison" forename="Alice"/>.withMessageId(message.messageId)
+          <DvlaPersonalDetailsServerError messageId="d20f5f57-dc70-42bd-a56c-453e8ef773bf" serviceType="DvlaPortal" status="ServerError" result="Failure" ipAddress="77.88.99.101" userId="123" enquiryReasons="List(curiosity)" contactChannel="pigeon" responseSent="2013-07-13T12:13:15.000+01:00" requestSent="2013-07-13T12:13:14.000+01:00" postCode="SW11NA" gender="1" dob="1984-04-13T00:00:00.000+01:00" surname="Allison" forename="Alice"/>.withMessageId(message.messageId)
     }
 
 
     "correctly reflect DvlaPersonalDetailsNotValid instance" in {
-      val message = DvlaPersonalDetailsNotValid("Alice", "Allison", org.joda.time.DateTime.parse("1984-04-13"), 1, "SW11NA", org.joda.time.DateTime.parse("2013-07-13T12:13:14"), org.joda.time.DateTime.parse("2013-07-13T12:13:15"), "pigeon", "curiosity", "123", "77.88.99.101")
+      val message = DvlaPersonalDetailsNotValid("Alice", "Allison", org.joda.time.DateTime.parse("1984-04-13"), 1, "SW11NA", org.joda.time.DateTime.parse("2013-07-13T12:13:14"), org.joda.time.DateTime.parse("2013-07-13T12:13:15"), "pigeon", List("curiosity"), "123", "77.88.99.101")
       message.toXml mustEqual
-          <DvlaPersonalDetailsNotValid messageId="71676ef9-4104-4f89-b59f-30a56acb7a0a" serviceType="DvlaPortal" status="NotFound" result="Failure" ipAddress="77.88.99.101" userId="123" enquiryReason="curiosity" contactChannel="pigeon" responseSent="2013-07-13T12:13:15.000+01:00" requestSent="2013-07-13T12:13:14.000+01:00" postCode="SW11NA" gender="1" dob="1984-04-13T00:00:00.000+01:00" surname="Allison" forename="Alice"/>.withMessageId(message.messageId)
+          <DvlaPersonalDetailsNotValid messageId="71676ef9-4104-4f89-b59f-30a56acb7a0a" serviceType="DvlaPortal" status="NotFound" result="Failure" ipAddress="77.88.99.101" userId="123" enquiryReasons="List(curiosity)" contactChannel="pigeon" responseSent="2013-07-13T12:13:15.000+01:00" requestSent="2013-07-13T12:13:14.000+01:00" postCode="SW11NA" gender="1" dob="1984-04-13T00:00:00.000+01:00" surname="Allison" forename="Alice"/>.withMessageId(message.messageId)
     }
 
 
@@ -148,9 +148,9 @@ object XmlSerializationSpec extends Specification {
 
 
     "correctly reflect DvlaMultipleFound instance" in {
-      val message = DvlaMultipleFound("Alice", "Allison", org.joda.time.DateTime.parse("1984-04-13"), 1, "SW11NA", org.joda.time.DateTime.parse("2013-07-13T12:13:14"), org.joda.time.DateTime.parse("2013-07-13T12:13:15"), "pigeon", "curiosity", "123", "77.88.99.101")
+      val message = DvlaMultipleFound("Alice", "Allison", org.joda.time.DateTime.parse("1984-04-13"), 1, "SW11NA", org.joda.time.DateTime.parse("2013-07-13T12:13:14"), org.joda.time.DateTime.parse("2013-07-13T12:13:15"), "pigeon", List("curiosity"), "123", "77.88.99.101")
       message.toXml mustEqual
-          <DvlaMultipleFound messageId="c28ee9b2-7ebc-44ca-b47e-84095910dcc9" serviceType="DvlaPortal" status="MultipleRecordsFound" result="Failure" ipAddress="77.88.99.101" userId="123" enquiryReason="curiosity" contactChannel="pigeon" responseSent="2013-07-13T12:13:15.000+01:00" requestSent="2013-07-13T12:13:14.000+01:00" postCode="SW11NA" gender="1" dob="1984-04-13T00:00:00.000+01:00" surname="Allison" forename="Alice"/>.withMessageId(message.messageId)
+          <DvlaMultipleFound messageId="c28ee9b2-7ebc-44ca-b47e-84095910dcc9" serviceType="DvlaPortal" status="MultipleRecordsFound" result="Failure" ipAddress="77.88.99.101" userId="123" enquiryReasons="List(curiosity)" contactChannel="pigeon" responseSent="2013-07-13T12:13:15.000+01:00" requestSent="2013-07-13T12:13:14.000+01:00" postCode="SW11NA" gender="1" dob="1984-04-13T00:00:00.000+01:00" surname="Allison" forename="Alice"/>.withMessageId(message.messageId)
     }
 
 
@@ -183,9 +183,9 @@ object XmlSerializationSpec extends Specification {
 
 
     "correctly reflect DvlaPersonalDetailsSuppressed instance" in {
-      val message = DvlaPersonalDetailsSuppressed("LEESH702100C99DP", "Alice", "Allison", org.joda.time.DateTime.parse("1984-04-13"), 1, "SW11NA", org.joda.time.DateTime.parse("2013-07-13T12:13:14"), org.joda.time.DateTime.parse("2013-07-13T12:13:15"), "headache", "pigeon", "curiosity", "77.88.99.101")
+      val message = DvlaPersonalDetailsSuppressed("LEESH702100C99DP", "Alice", "Allison", org.joda.time.DateTime.parse("1984-04-13"), 1, "SW11NA", org.joda.time.DateTime.parse("2013-07-13T12:13:14"), org.joda.time.DateTime.parse("2013-07-13T12:13:15"), "headache", "pigeon", List("curiosity"), "77.88.99.101")
       message.toXml mustEqual
-          <DvlaPersonalDetailsSuppressed messageId="e010d990-46ec-4794-801f-2b7bbe8f2ad2" serviceType="DvlaPortal" status="Suppressed" result="Failure" ipAddress="77.88.99.101" enquiryReason="curiosity" contactChannel="pigeon" suppressionReason="headache" responseSent="2013-07-13T12:13:15.000+01:00" requestSent="2013-07-13T12:13:14.000+01:00" postCode="SW11NA" gender="1" dob="1984-04-13T00:00:00.000+01:00" surname="Allison" forename="Alice" dln="LEESH702100C99DP"/>.withMessageId(message.messageId)
+          <DvlaPersonalDetailsSuppressed messageId="e010d990-46ec-4794-801f-2b7bbe8f2ad2" serviceType="DvlaPortal" status="Suppressed" result="Failure" ipAddress="77.88.99.101" enquiryReasons="List(curiosity)" contactChannel="pigeon" suppressionReason="headache" responseSent="2013-07-13T12:13:15.000+01:00" requestSent="2013-07-13T12:13:14.000+01:00" postCode="SW11NA" gender="1" dob="1984-04-13T00:00:00.000+01:00" surname="Allison" forename="Alice" dln="LEESH702100C99DP"/>.withMessageId(message.messageId)
     }
 
 
@@ -225,9 +225,9 @@ object XmlSerializationSpec extends Specification {
 
 
     "correctly reflect DvlaPersonalDetailsSuccessful instance" in {
-      val message = DvlaPersonalDetailsSuccessful("LEESH702100C99DP", "Alice", "Allison", org.joda.time.DateTime.parse("1984-04-13"), 1, "SW11NA", org.joda.time.DateTime.parse("2013-07-13T12:13:14"), org.joda.time.DateTime.parse("2013-07-13T12:13:15"), "pigeon", "curiosity", "123", "77.88.99.101")
+      val message = DvlaPersonalDetailsSuccessful("LEESH702100C99DP", "Alice", "Allison", org.joda.time.DateTime.parse("1984-04-13"), 1, "SW11NA", org.joda.time.DateTime.parse("2013-07-13T12:13:14"), org.joda.time.DateTime.parse("2013-07-13T12:13:15"), "pigeon", List("curiosity"), "123", "77.88.99.101")
       message.toXml mustEqual
-          <DvlaPersonalDetailsSuccessful messageId="f60e29e2-d15f-4cc4-a19d-212bc58cc8a4" serviceType="DvlaPortal" status="RecordFound" result="Success" ipAddress="77.88.99.101" userId="123" enquiryReason="curiosity" contactChannel="pigeon" responseSent="2013-07-13T12:13:15.000+01:00" requestSent="2013-07-13T12:13:14.000+01:00" postCode="SW11NA" gender="1" dob="1984-04-13T00:00:00.000+01:00" surname="Allison" forename="Alice" dln="LEESH702100C99DP"/>.withMessageId(message.messageId)
+          <DvlaPersonalDetailsSuccessful messageId="f60e29e2-d15f-4cc4-a19d-212bc58cc8a4" serviceType="DvlaPortal" status="RecordFound" result="Success" ipAddress="77.88.99.101" userId="123" enquiryReasons="List(curiosity)" contactChannel="pigeon" responseSent="2013-07-13T12:13:15.000+01:00" requestSent="2013-07-13T12:13:14.000+01:00" postCode="SW11NA" gender="1" dob="1984-04-13T00:00:00.000+01:00" surname="Allison" forename="Alice" dln="LEESH702100C99DP"/>.withMessageId(message.messageId)
     }
 
 

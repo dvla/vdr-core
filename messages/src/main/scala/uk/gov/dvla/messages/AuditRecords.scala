@@ -3,7 +3,6 @@ package uk.gov.dvla.messages
 import uk.gov.dvla.servicebus.core.Message
 import org.joda.time.DateTime
 import java.util.UUID
-import scala.collection.JavaConverters._
 
 
 object Status extends Enumeration {
@@ -185,7 +184,7 @@ case class DvlaDlnNotValid(dln: String, requestSent: DateTime, responseSent: Dat
 }
 
 case class DvlaDlnSuppressed(dln: String, requestSent: DateTime, responseSent: DateTime,
-                             suppressionReason: String, contactChannel: String, enquiryReasons: java.util.List[String],
+                             suppressionReason: String, contactChannel: String, enquiryReasons: List[String],
                              ipAddress: String) extends AuditMessage {
   val result = Result.Failure
   val status = Status.Suppressed
@@ -229,7 +228,8 @@ case class DvlaPersonalDetailsServerError(forename: String, surname: String, dob
 
 case class DvlaPersonalDetailsSuppressed(dln: String, forename: String, surname: String, dob: DateTime, gender: Int,
                                          postCode: String, requestSent: DateTime, responseSent: DateTime,
-                                         suppressionReason: String, contactChannel: String,enquiryReasons: java.util.List[String],
+                                         suppressionReason: String, contactChannel: String,
+                                         enquiryReasons: List[String],
                                          ipAddress: String) extends AuditMessage {
   val result = Result.Failure
   val status = Status.Suppressed
