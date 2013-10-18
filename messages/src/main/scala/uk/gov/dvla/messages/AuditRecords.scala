@@ -193,7 +193,6 @@ case class DvlaDlnSuppressed(dln: String, requestSent: DateTime, responseSent: D
 }
 
 
-
 case class DvlaPersonalDetailsSuccessful(dln: String, forename: String, surname: String, dob: DateTime, gender: Int,
                                          postCode: String, requestSent: DateTime, responseSent: DateTime,
                                          contactChannel: String, enquiryReasons: List[String], userId: String,
