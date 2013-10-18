@@ -74,7 +74,7 @@ public class AuditorServiceImpl implements AuditorService {
                                         String contactChannel, List<String> enquiryReasons, HttpServletRequest request) {
         if (isDriverFullySuppressed(result)) {
             this.serviceBus.send(new DvlaDlnSuppressed(dln, requestSent, new DateTime(),
-                    result.getRuleApplied(), contactChannel, enquiryReasons, httpHelperService.getIpAddress(request)));
+                    result.getRuleApplied(), contactChannel, asScala(enquiryReasons), httpHelperService.getIpAddress(request)));
         }
     }
 
@@ -85,11 +85,16 @@ public class AuditorServiceImpl implements AuditorService {
                                             HttpServletRequest request) throws ParseException {
         if (isDriverFullySuppressed(result)) {
             Date parsedDob = ServiceDateFormat.DEFAULT.parse(dob);
+
             this.serviceBus.send(new DvlaPersonalDetailsSuppressed(dln, forenames, surname, new DateTime(parsedDob),
                     gender, postcode, requestSent, new DateTime(), result.getRuleApplied(),
-                    contactChannel, enquiryReasons, httpHelperService.getIpAddress(request)));
+                    contactChannel, asScala(enquiryReasons), httpHelperService.getIpAddress(request)));
         }
 
+    }
+
+    private scala.collection.immutable.List<String> asScala(java.util.List<String> list) {
+        return scala.collection.JavaConversions.asScalaBuffer(list).toList();
     }
 
     @Override
