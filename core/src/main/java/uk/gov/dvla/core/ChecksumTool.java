@@ -11,7 +11,13 @@ public class ChecksumTool {
 
     public static String generateSha256Checksum(File fileInput) throws Exception {
         FileInputStream fis = new FileInputStream(fileInput);
-        byte[] b = createChecksum(fis);
+        byte b[];
+        try {
+            b = createChecksum(fis);
+        } finally {
+            fis.close();
+        }
+
         String result = "";
         for (int i=0; i < b.length; i++) {
             result +=
@@ -42,20 +48,22 @@ public class ChecksumTool {
                 complete.update(buffer, 0, numRead);
             }
         } while (numRead != -1);
-        fileInputStream.close();
         return complete.digest();
     }
 
     public static String readShaChecksumFile(String filePath) throws Exception {
         FileInputStream fin = new FileInputStream(filePath);
-        BufferedReader myInput = new BufferedReader(new InputStreamReader(fin));
         StringBuilder sb = new StringBuilder();
-        String thisLine = null;
-        while ((thisLine = myInput.readLine()) != null) {
-            sb.append(thisLine);
+        try {
+            BufferedReader myInput = new BufferedReader(new InputStreamReader(fin));
+            String thisLine;
+            while ((thisLine = myInput.readLine()) != null) {
+                sb.append(thisLine);
+            }
+        } finally {
+            fin.close();
         }
 
         return sb.toString();
     }
-
 }
