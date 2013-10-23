@@ -227,6 +227,7 @@ public class PortalDriverTransformService implements TransformService<RulesDrive
             portalTestPasses.setEntitlementType(testPass.getEntitlementType());
             portalTestPasses.setStatusType(testPass.getStatusType());
             portalTestPasses.setTestPassDate(testPass.getTestPassDate());
+            portalTestPasses.setExpiryDate(testPass.getExpiryDate());
             testPasses.add(portalTestPasses);
         }
         return testPasses;
