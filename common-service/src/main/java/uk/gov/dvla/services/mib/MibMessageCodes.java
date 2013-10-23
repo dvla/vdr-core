@@ -11,6 +11,7 @@ public interface MibMessageCodes {
     public static final String BATCH_ERROR_DIRECTORY_FOUND = "204";
     public static final String BATCH_ERROR_UNEXPECTED_FILE = "205";
     public static final String BATCH_ERROR_MULTIPLE_FILES = "206";
+    public static final String BATCH_ERROR_INVALID_ZIPFILE = "207";
 
     public static final String VALIDATION_ERROR_MISSING_GUID = "300";
     public static final String VALIDATION_ERROR_MISSING_DLN = "301";
