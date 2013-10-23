@@ -54,7 +54,10 @@ public class PortalDriverTransformService implements TransformService<RulesDrive
     private PortalDTO.Address getAddress(Address address) {
 
         PortalDTO.Address portalAddress = new PortalDTO.Address();
-        if (address == null) return portalAddress;
+        if (address == null) {
+            return portalAddress;
+        }
+
         portalAddress.setBuildingName(address.getBuildingName());
         portalAddress.setDdtfare(address.getDdtfare());
         portalAddress.setPostTown(address.getPostTown());
@@ -68,7 +71,9 @@ public class PortalDriverTransformService implements TransformService<RulesDrive
     private PortalDTO.BirthDetails getBirthDetails(BirthDetails birthDetails) {
 
         PortalDTO.BirthDetails portalBirthDetails = new PortalDTO.BirthDetails();
-        if (birthDetails == null) return portalBirthDetails;
+        if (birthDetails == null) {
+            return portalBirthDetails;
+        }
         portalBirthDetails.setDate(birthDetails.getDate());
         return portalBirthDetails;
     }
@@ -76,7 +81,9 @@ public class PortalDriverTransformService implements TransformService<RulesDrive
     private PortalDTO.DriverStatus getStatus(DriverStatus driverStatus) {
 
         PortalDTO.DriverStatus portalDriverStatus = new PortalDTO.DriverStatus();
-        if (driverStatus == null) return portalDriverStatus;
+        if (driverStatus == null) {
+            return portalDriverStatus;
+        }
         portalDriverStatus.setCode(driverStatus.getCode());
         return portalDriverStatus;
     }
@@ -84,7 +91,9 @@ public class PortalDriverTransformService implements TransformService<RulesDrive
     private PortalDTO.DriverStatedFlags getDriverStatedFlags(Driver driver) {
         PortalDTO.DriverStatedFlags portalDriverStatedFlags = new PortalDTO.DriverStatedFlags();
 
-        if (driver.getDriverStatedFlags() == null) return portalDriverStatedFlags;
+        if (driver.getDriverStatedFlags() == null) {
+            return portalDriverStatedFlags;
+        }
 
         portalDriverStatedFlags.setExcessEndorsements(driver.getDriverStatedFlags().getExcessEndorsements());
         return portalDriverStatedFlags;
@@ -93,7 +102,9 @@ public class PortalDriverTransformService implements TransformService<RulesDrive
     private List<PortalDTO.DriverFlag> getFlags(Driver driver) {
         List<PortalDTO.DriverFlag> flags = new ArrayList<PortalDTO.DriverFlag>();
 
-        if (driver.getFlags() == null) return flags;
+        if (driver.getFlags() == null) {
+            return flags;
+        }
         for (DriverFlag flag : driver.getFlags()) {
             PortalDTO.DriverFlag portalDriverFlag = new PortalDTO.DriverFlag();
             portalDriverFlag.setFlag(flag.getFlag());
@@ -107,7 +118,9 @@ public class PortalDriverTransformService implements TransformService<RulesDrive
     private PortalDTO.Licence getLicence(Licence licence) {
 
         PortalDTO.Licence portalLicence = new PortalDTO.Licence();
-        if (licence == null) return portalLicence;
+        if (licence == null) {
+            return portalLicence;
+        }
         portalLicence.setCurrentIssueNum(licence.getCurrentIssueNum());
         portalLicence.setValidFrom(licence.getValidFrom());
         portalLicence.setValidTo(licence.getValidTo());
@@ -118,13 +131,14 @@ public class PortalDriverTransformService implements TransformService<RulesDrive
 
     private List<PortalDTO.Entitlement> getEntitlements(Driver driver) {
         Licence licence = driver.getLicence();
-        List<TestPass> testPasses = driver.getTestPasses();
+
         List<PortalDTO.Entitlement> entitlements = new ArrayList<PortalDTO.Entitlement>();
-        if (licence.getEntitlements() == null) return entitlements;
+        if (licence.getEntitlements() == null) {
+            return entitlements;
+        }
 
         for (Entitlement ent : licence.getEntitlements()) {
             PortalDTO.Entitlement portalEntitlement = new PortalDTO.Entitlement();
-            TestPass testPass = driver.getTestPassForEntitlement(ent);
             portalEntitlement.setCode(ent.getCode());
             portalEntitlement.setValidFrom(ent.getValidFrom());
             portalEntitlement.setValidTo(ent.getValidTo());
@@ -140,7 +154,9 @@ public class PortalDriverTransformService implements TransformService<RulesDrive
 
     private List<PortalDTO.Endorsement> getEndorsements(Licence licence) {
         List<PortalDTO.Endorsement> endorsements = new ArrayList<PortalDTO.Endorsement>();
-        if (licence.getEndorsements() == null) return endorsements;
+        if (licence.getEndorsements() == null) {
+            return endorsements;
+        }
 
         for (Endorsement end : licence.getEndorsements()) {
             PortalDTO.Endorsement portalEndorsement = new PortalDTO.Endorsement();
@@ -184,7 +200,10 @@ public class PortalDriverTransformService implements TransformService<RulesDrive
     private List<PortalDTO.Disqualification> getDisqualifications(Driver driver) {
         List<PortalDTO.Disqualification> disqualifications = new ArrayList<PortalDTO.Disqualification>();
 
-        if (driver.getDisqualifications() == null) return disqualifications;
+        if (driver.getDisqualifications() == null) {
+            return disqualifications;
+        }
+
         for (Disqualification disqualification : driver.getDisqualifications()) {
             PortalDTO.Disqualification portalDisqualification = new PortalDTO.Disqualification();
             portalDisqualification.setEndorsementID(disqualification.getEndorsementID());
@@ -199,7 +218,10 @@ public class PortalDriverTransformService implements TransformService<RulesDrive
     private List<PortalDTO.TestPass> getTestPasses(Driver driver) {
         List<PortalDTO.TestPass> testPasses = new ArrayList<PortalDTO.TestPass>();
 
-        if (driver.getTestPasses() == null) return testPasses;
+        if (driver.getTestPasses() == null) {
+            return testPasses;
+        }
+
         for (TestPass testPass : driver.getTestPasses()) {
             PortalDTO.TestPass portalTestPasses = new PortalDTO.TestPass();
             portalTestPasses.setEntitlementType(testPass.getEntitlementType());
