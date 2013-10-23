@@ -643,6 +643,7 @@ public class PortalDTO {
         private String entitlementType;
         private String statusType;
         private Date testPassDate;
+        private Date expiryDate;
 
         public String getEntitlementType() {
             return entitlementType;
@@ -666,6 +667,14 @@ public class PortalDTO {
 
         public void setTestPassDate(Date testPassDate) {
             this.testPassDate = testPassDate;
+        }
+
+        public void setExpiryDate(Date expiryDate) {
+            this.expiryDate = expiryDate;
+        }
+
+        public Date getExpiryDate() {
+            return expiryDate;
         }
     }
 
