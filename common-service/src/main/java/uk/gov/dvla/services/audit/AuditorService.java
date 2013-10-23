@@ -5,6 +5,7 @@ import uk.gov.dvla.domain.RulesDriver;
 
 import javax.servlet.http.HttpServletRequest;
 import java.text.ParseException;
+import java.util.List;
 import java.util.UUID;
 
 public interface AuditorService {
@@ -24,12 +25,12 @@ public interface AuditorService {
                                         DateTime requestSent) throws ParseException;
 
     public void auditDVLADlnSuppression(RulesDriver driver, String dln, DateTime requestSent, String
-            contactChannel, String enquiryReason, HttpServletRequest request);
+            contactChannel, List<String> enquiryReasons, HttpServletRequest request);
 
     public void auditDVLADetailsSuppression(RulesDriver driver, String dln, String forenames,
                                             String surname, String dob, Integer gender, String postcode,
                                             DateTime requestSent, String contactChannel,
-                                            String enquiryReason, HttpServletRequest request) throws ParseException;
+                                            List<String> enquiryReasons, HttpServletRequest request) throws ParseException;
 
     public void auditMibRealTimeInvalidDetails(UUID enquiryId, String dln, String postcode, DateTime requestSent,
                                                HttpServletRequest request);

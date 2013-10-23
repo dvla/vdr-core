@@ -10,6 +10,7 @@ import uk.gov.dvla.services.common.ServiceDateFormat;
 import javax.servlet.http.HttpServletRequest;
 import java.text.ParseException;
 import java.util.Date;
+import java.util.List;
 import java.util.UUID;
 
 public class AuditorServiceImpl implements AuditorService {
@@ -70,25 +71,30 @@ public class AuditorServiceImpl implements AuditorService {
 
     @Override
     public void auditDVLADlnSuppression(RulesDriver result, String dln, DateTime requestSent,
-                                        String contactChannel, String enquiryReason, HttpServletRequest request) {
+                                        String contactChannel, List<String> enquiryReasons, HttpServletRequest request) {
         if (isDriverFullySuppressed(result)) {
             this.serviceBus.send(new DvlaDlnSuppressed(dln, requestSent, new DateTime(),
-                    result.getRuleApplied(), contactChannel, enquiryReason, httpHelperService.getIpAddress(request)));
+                    result.getRuleApplied(), contactChannel, asScala(enquiryReasons), httpHelperService.getIpAddress(request)));
         }
     }
 
     @Override
     public void auditDVLADetailsSuppression(RulesDriver result, String dln, String forenames, String surname,
                                             String dob, Integer gender, String postcode, DateTime requestSent,
-                                            String contactChannel, String enquiryReason,
+                                            String contactChannel, List<String> enquiryReasons,
                                             HttpServletRequest request) throws ParseException {
         if (isDriverFullySuppressed(result)) {
             Date parsedDob = ServiceDateFormat.DEFAULT.parse(dob);
+
             this.serviceBus.send(new DvlaPersonalDetailsSuppressed(dln, forenames, surname, new DateTime(parsedDob),
                     gender, postcode, requestSent, new DateTime(), result.getRuleApplied(),
-                    contactChannel, enquiryReason, httpHelperService.getIpAddress(request)));
+                    contactChannel, asScala(enquiryReasons), httpHelperService.getIpAddress(request)));
         }
 
+    }
+
+    private scala.collection.immutable.List<String> asScala(java.util.List<String> list) {
+        return scala.collection.JavaConversions.asScalaBuffer(list).toList();
     }
 
     @Override
