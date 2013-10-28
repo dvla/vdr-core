@@ -14,12 +14,15 @@ public class MibDriverTransformService implements TransformService<RulesDriver, 
     private static final String MIB_EXPIRED_FULL_LICENCE = "FE";
     private static final String MIB_EXPIRED_PROV_LICENCE = "PE";
     private static final String MIB_DISQUALIFIED_LICENCE = "DQ";
+    private static final String MIB_SURRENDERED_PROV_LICENCE = "PS";
+    private static final String MIB_SURRENDERED_FULL_LICENCE = "FS";
     private static final String MIB_DISQUALIFIED_UNTIL_GIVEN_DATE = "DD";
     private static final String MIB_DISQUALIFIED_UNTIL_TEST_PASS = "DT";
     private static final String MIB_DISQUALIFIED_UNTIL_GIVEN_DATE_AND_TEST_PASS = "DP";
     private static final String MIB_DISQUALIFIED_UNTIL_SENTENCED = "DS";
     private static final String MIB_DISQUALIFIED_FOR_LIFE = "DX";
     private static final String MIB_REVOKED_UNTIL_TEST_PASS = "RV";
+    private static final String MIB_NO_CURRENT_GB_LICENCE_HELP = "NE";
 
     private static final String LICENCE_STATUS_A = "A";
     private static final String LICENCE_STATUS_B = "B";
@@ -194,20 +197,16 @@ public class MibDriverTransformService implements TransformService<RulesDriver, 
                 mibLicenceStatusCode = MIB_EXPIRED_FULL_LICENCE;
             }
             else if (code.equalsIgnoreCase(LICENCE_STATUS_M)) {
-                // TODO: find out what status should be returned to the MIB
-                mibLicenceStatusCode = LICENCE_STATUS_M;
+                mibLicenceStatusCode = MIB_NO_CURRENT_GB_LICENCE_HELP;
             }
             else if (code.equalsIgnoreCase(LICENCE_STATUS_O)) {
-                // TODO: find out what status should be returned to the MIB
-                mibLicenceStatusCode = LICENCE_STATUS_O;
+                mibLicenceStatusCode = MIB_SURRENDERED_PROV_LICENCE;
             }
             else if (code.equalsIgnoreCase(LICENCE_STATUS_Q)) {
-                // TODO: find out what status should be returned to the MIB
-                mibLicenceStatusCode = LICENCE_STATUS_Q;
+                mibLicenceStatusCode = MIB_NO_CURRENT_GB_LICENCE_HELP;
             }
             else if (code.equalsIgnoreCase(LICENCE_STATUS_S)) {
-                // TODO: find out what status should be returned to the MIB
-                mibLicenceStatusCode = LICENCE_STATUS_S;
+                mibLicenceStatusCode = MIB_SURRENDERED_FULL_LICENCE;
             }
         }
         // Now check if there are any messages returned from the rules
