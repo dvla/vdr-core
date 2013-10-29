@@ -107,6 +107,7 @@ public class MibDriverTransformService implements TransformService<RulesDriver, 
             mibEndorsement.setIsDisqual(end.getDisqual());
             mibEndorsement.setDisqualPeriod(end.getDuration());
             // TODO: this logic needs to be updated once we confirm what disqual should be returned
+            // TODO: check if this logic shouldn't be in Drools rules.
             if (driver.getDisqualifications() != null) {
                 for (Disqualification disq : driver.getDisqualifications()) {
                     if (disq.getEndorsementID() == end.getId()) {
