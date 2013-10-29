@@ -463,6 +463,7 @@ public class PortalDTO {
         private Double fine;
         private Integer noPoints;
         private OtherSentence otherSentence;
+        public Boolean nonEndorseableOffence;
 
         public Integer getId() {
             return id;
@@ -570,6 +571,14 @@ public class PortalDTO {
             DTOotherSentence.duration = otherSentence.getDuration();
             this.otherSentence = DTOotherSentence;
 
+        }
+
+        public Boolean getNonEndorseableOffence() {
+            return nonEndorseableOffence;
+        }
+
+        public void setNonEndorseableOffence(Boolean nonEndorseableOffence) {
+            this.nonEndorseableOffence = nonEndorseableOffence;
         }
     }
 
