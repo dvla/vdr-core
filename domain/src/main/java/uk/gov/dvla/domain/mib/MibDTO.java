@@ -152,6 +152,15 @@ public class MibDTO {
         private Date disqualStartDate;
         private Date disqualEndDate;
         private Date rehabSpentDate;
+        private String custodialPeriod;
+
+        public String getCustodialPeriod() {
+            return custodialPeriod;
+        }
+
+        public void setCustodialPeriod(String custodialPeriod) {
+            this.custodialPeriod = custodialPeriod;
+        }
 
         public Boolean getIsDisqual() {
             return isDisqual;
