@@ -36,4 +36,9 @@ public class OtherSentence {
     public void setDuration(String duration) {
         this.duration = duration;
     }
+
+    @Override
+    public String toString() {
+        return code + duration;
+    }
 }
