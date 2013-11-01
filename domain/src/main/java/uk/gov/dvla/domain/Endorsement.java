@@ -36,6 +36,8 @@ public class Endorsement {
     public String sentencingCourt;
     public String susPrisonSentenceDur;
     public String custodialPeriod;
+    public Boolean nonEndorseableOffence;
+
 
     public Integer getId() {
         return id;
@@ -227,6 +229,14 @@ public class Endorsement {
 
     public void setCustodialPeriod(String custodialPeriod) {
         this.custodialPeriod = custodialPeriod;
+    }
+
+    public Boolean getNonEndorseableOffence() {
+        return nonEndorseableOffence;
+    }
+
+    public void setNonEndorseableOffence(Boolean nonEndorseableOffence) {
+        this.nonEndorseableOffence = nonEndorseableOffence;
     }
 }
 
