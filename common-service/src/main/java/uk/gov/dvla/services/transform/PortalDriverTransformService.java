@@ -172,6 +172,8 @@ public class PortalDriverTransformService implements TransformService<RulesDrive
             portalEndorsement.setDuration(end.getDuration());
             portalEndorsement.setFine(end.getFine());
             portalEndorsement.setNoPoints(end.getNoPoints());
+            portalEndorsement.setNonEndorseableOffence(end.getNonEndorseableOffence());
+
             if (end.getOtherSentence() == null) {
                 portalEndorsement.setOtherSentence(new OtherSentence());
             } else {

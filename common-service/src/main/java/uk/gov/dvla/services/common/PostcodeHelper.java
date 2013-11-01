@@ -1,9 +1,22 @@
 package uk.gov.dvla.services.common;
 
+import com.typesafe.config.Config;
+import com.typesafe.config.ConfigFactory;
+
 import java.util.List;
 import java.util.regex.Pattern;
 
 public class PostcodeHelper {
+
+    private static Config config;
+
+    static {
+        config = ConfigFactory.load("postcodes");
+    }
+
+    public static List<String> getDummyPostcodes() {
+        return config.getStringList("dummyPostcodes");
+    }
 
     /**
      * Checks if a postcode contains any non-alpha characters
