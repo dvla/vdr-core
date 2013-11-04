@@ -112,14 +112,36 @@ public class TestMibDriverTransformLicenceStatus {
     }
 
     @Test
-    public void testLicenceRevoked() {
+     public void testLicenceRevoked() {
         MibDriverTransformService transformService = new MibDriverTransformService();
-        MibDTO result = transformService.transform(buildRulesDriverWithMessage("F", "licence.status.revoked.reapply"));
+        MibDTO result = transformService.transform(buildRulesDriverWithMessage("E", "licence.status.revoked.reapply"));
         MibDTO.Licence licenceResult = result.getLicence();
 
         // Test correct licence status is returned
         Assert.assertNotNull(licenceResult);
         Assert.assertEquals("RV", licenceResult.getStatus());
+    }
+
+    @Test
+    public void testLicenceRevokedFE() {
+        MibDriverTransformService transformService = new MibDriverTransformService();
+        MibDTO result = transformService.transform(buildRulesDriverWithMessage("G", "licence.status.revoked", "G"));
+        MibDTO.Licence licenceResult = result.getLicence();
+
+        // Test correct licence status is returned
+        Assert.assertNotNull(licenceResult);
+        Assert.assertEquals("FE", licenceResult.getStatus());
+    }
+
+    @Test
+    public void testLicenceRevokedPE() {
+        MibDriverTransformService transformService = new MibDriverTransformService();
+        MibDTO result = transformService.transform(buildRulesDriverWithMessage("B", "licence.status.revoked", "B"));
+        MibDTO.Licence licenceResult = result.getLicence();
+
+        // Test correct licence status is returned
+        Assert.assertNotNull(licenceResult);
+        Assert.assertEquals("PE", licenceResult.getStatus());
     }
 
     @Test
@@ -131,17 +153,6 @@ public class TestMibDriverTransformLicenceStatus {
         // Test correct licence status is returned
         Assert.assertNotNull(licenceResult);
         Assert.assertEquals("DS", licenceResult.getStatus());
-    }
-
-    @Test
-    public void testLicenceRevoked2() {
-        MibDriverTransformService transformService = new MibDriverTransformService();
-        MibDTO result = transformService.transform(buildRulesDriverWithMessage("F", "licence.status.revoked"));
-        MibDTO.Licence licenceResult = result.getLicence();
-
-        // Test correct licence status is returned
-        Assert.assertNotNull(licenceResult);
-        Assert.assertEquals("RV", licenceResult.getStatus());
     }
 
     @Test
@@ -183,15 +194,19 @@ public class TestMibDriverTransformLicenceStatus {
         return driver;
     }
 
-    private List<Message> buildMessage(String message) {
+    private List<Message> buildMessage(String message, String extra) {
         List<Message> messages = new ArrayList<Message>();
-        messages.add(new Message((message)));
+        messages.add(new Message(message, MessageType.LicenceStatusModified, extra));
         return messages;
     }
 
     private RulesDriver buildRulesDriverWithMessage(String statusCode, String message) {
+        return buildRulesDriverWithMessage(statusCode, message, null);
+    }
+
+    private RulesDriver buildRulesDriverWithMessage(String statusCode, String message, String extra) {
         RulesDriver driver = buildRulesDriver(statusCode);
-        driver.setMessages(buildMessage(message));
+        driver.setMessages(buildMessage(message, extra));
         return driver;
     }
 }
