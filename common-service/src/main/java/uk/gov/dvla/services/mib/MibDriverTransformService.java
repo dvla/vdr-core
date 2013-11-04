@@ -231,10 +231,14 @@ public class MibDriverTransformService implements TransformService<RulesDriver, 
                 else if (m.getKey().equalsIgnoreCase(DISQUALIFIED_UNTIL_DATE)) {
                     return MIB_DISQUALIFIED_UNTIL_GIVEN_DATE;
                 }
-                else if (m.getKey().equalsIgnoreCase(REVOKED_REAPPLY)
-                        || m.getKey().equalsIgnoreCase(REVOKED)) {
+                else if (m.getKey().equalsIgnoreCase(REVOKED_REAPPLY)) {
                     // TODO: Revoked will be removed from this list and set to a specific status - future user story
                     return MIB_REVOKED_UNTIL_TEST_PASS;
+                }
+                else if (m.getKey().equalsIgnoreCase(REVOKED)) {
+                    return m.getExtra().equalsIgnoreCase("B")
+                            ? MIB_EXPIRED_PROV_LICENCE
+                            : MIB_EXPIRED_FULL_LICENCE;
                 }
                 else if (m.getKey().equalsIgnoreCase(DISQUALIFIED_UNTIL_SENTENCING)) {
                     return MIB_DISQUALIFIED_UNTIL_SENTENCED;
