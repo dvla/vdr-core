@@ -1,76 +1,79 @@
 package uk.gov.dvla.domain;
 
 
-public class Message
-{
+public class Message {
     private String key;
     private String description;
     private boolean error;
     private int type;
+    private String extra;
 
-    public Message(){}
+    public Message() {
+    }
 
-    public Message(String key)
-    {
+    public Message(String key) {
         this.key = key;
     }
 
-    public Message(String key, MessageType type)
-    {
+    public Message(String key, MessageType type) {
         this.key = key;
         this.type = type.getMessageType();
     }
 
-    public Message(String description, boolean error)
-    {
+    public Message(String key, MessageType type, String extra) {
+        this.key = key;
+        this.type = type.getMessageType();
+        this.extra = extra;
+    }
+
+    public Message(String description, boolean error) {
         this.description = description;
         this.error = error;
     }
 
-    public Message(String description, MessageType type, boolean error)
-    {
+    public Message(String description, MessageType type, boolean error) {
         this.description = description;
         this.type = type.getMessageType();
         this.error = error;
     }
 
-    public String getKey()
-    {
+    public String getKey() {
         return key;
     }
 
-    public void setKey(String key)
-    {
+    public void setKey(String key) {
         this.key = key;
     }
 
-    public String getDescription()
-    {
+    public String getDescription() {
         return this.description;
     }
 
-    public void setDescription(String description)
-    {
+    public void setDescription(String description) {
         this.description = description;
     }
 
-    public void setError(boolean error)
-    {
+    public void setError(boolean error) {
         this.error = error;
     }
 
-    public boolean isError()
-    {
+    public boolean isError() {
         return this.error;
     }
 
-    public int getType()
-    {
+    public int getType() {
         return type;
     }
 
-    public void setType(int type)
-    {
+    public void setType(int type) {
         this.type = type;
+    }
+
+    public String getExtra() {
+        return extra;
+    }
+
+    public void setExtra(String extra) {
+        this.extra = extra;
     }
 }
