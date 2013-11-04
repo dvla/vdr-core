@@ -18,6 +18,7 @@ object Status extends Enumeration {
   UnauthorisedAccess,
   MessageReturned,
   CoreMatch,
+  Maintenance,
   NegativeCoreMatch,
   Deceased = Value
 }
@@ -346,5 +347,27 @@ case class NINOAuthenticateDeceased(dln: String,
   val authenticationType = "DWP"
   val result = Result.Failure
   val status = Status.Deceased
+  val serviceType = ServiceType.CustomerPortal
+}
+
+case class NINOAuthenticateServiceMaintenance(dln: String,
+                                    requestSent: DateTime,
+                                    responseSent: DateTime,
+                                    ipAddress: String
+                                     ) extends AuditMessage {
+  val authenticationType = "DWP"
+  val result = Result.Failure
+  val status = Status.Maintenance
+  val serviceType = ServiceType.CustomerPortal
+}
+
+case class NINOAuthenticateServiceError(dln: String,
+                                       requestSent: DateTime,
+                                       responseSent: DateTime,
+                                       ipAddress: String
+                                        ) extends AuditMessage {
+  val authenticationType = "DWP"
+  val result = Result.Failure
+  val status = Status.ServerError
   val serviceType = ServiceType.CustomerPortal
 }
