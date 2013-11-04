@@ -43,7 +43,7 @@ public class MibDriverTransformService implements TransformService<RulesDriver, 
     private static final String REVOKED = "licence.status.revoked";
     private static final String DISQUALIFIED_UNTIL_SENTENCING = "licence.status.disqualified.until.sentencing";
     private static final String DISQUALIFIED = "licence.status.disqualified";
-    private static final String DISQUALIFIED_REAPPLY  = "licence.status.disqualified.reapply";
+    private static final String DISQUALIFIED_REAPPLY = "licence.status.disqualified.reapply";
 
 
     @Override
@@ -53,8 +53,7 @@ public class MibDriverTransformService implements TransformService<RulesDriver, 
         Driver driver = result.getDriver();
         Licence licence = driver.getLicence();
 
-        if(null != licence)
-        {
+        if (null != licence) {
             mibDTO.setLicence(getLicence(licence));
             MibDTO.Licence mibLicence = mibDTO.getLicence();
             mibLicence.setStatus(getStatus(result));
@@ -87,7 +86,7 @@ public class MibDriverTransformService implements TransformService<RulesDriver, 
             mibEntitlement.setPriorTo(ent.getPriorTo());
             mibEntitlement.setType(getEntitlementType(ent, testPass));
             mibEntitlement.setRestrictions(getEntitlementRestrictions(ent));
-            
+
             entitlements.add(mibEntitlement);
         }
         return entitlements;
@@ -106,11 +105,13 @@ public class MibDriverTransformService implements TransformService<RulesDriver, 
             mibEndorsement.setNoOfPoints(end.getNoPoints());
             mibEndorsement.setIsDisqual(end.getDisqual());
             mibEndorsement.setDisqualPeriod(end.getDuration());
+
+            mibEndorsement.setCustodialPeriod(end.getCustodialPeriod());
             // TODO: this logic needs to be updated once we confirm what disqual should be returned
             // TODO: check if this logic shouldn't be in Drools rules.
             if (driver.getDisqualifications() != null) {
                 for (Disqualification disq : driver.getDisqualifications()) {
-                    if (disq.getEndorsementID() == end.getId()) {
+                    if (end.getId().equals(disq.getEndorsementID())) {
                         mibEndorsement.setDisqualStartDate(disq.getDisqFromDate());
                         mibEndorsement.setDisqualEndDate(disq.getDisqToDate());
                     }
@@ -126,13 +127,11 @@ public class MibDriverTransformService implements TransformService<RulesDriver, 
 
     private EntitlementType getEntitlementType(Entitlement ent, TestPass testPass) {
         EntitlementType entitlementType = EntitlementType.Full;
-        if(ent.getProvisional() != null && ent.getProvisional())
-        {
+        if (ent.getProvisional() != null && ent.getProvisional()) {
             entitlementType = EntitlementType.Provisional;
-            if(testPass != null
+            if (testPass != null
                     && testPass.getStatusType().equals(TestPassStatus.NotYetClaimed.getTestPassStatus())
-                    && testPass.getExpiryDate().after(new Date()))
-            {
+                    && testPass.getExpiryDate().after(new Date())) {
                 entitlementType = EntitlementType.UnclaimedTestPass;
             }
         }
@@ -166,10 +165,9 @@ public class MibDriverTransformService implements TransformService<RulesDriver, 
     private Date getValidTo(Entitlement entitlement, TestPass testPass) {
         Date validTo = entitlement.getValidTo();
         Date expiryDate = null;
-        if(testPass != null
+        if (testPass != null
                 && testPass.getStatusType().equals(TestPassStatus.NotYetClaimed.getTestPassStatus())
-                && testPass.getExpiryDate().after(new Date()))
-        {
+                && testPass.getExpiryDate().after(new Date())) {
             expiryDate = testPass.getExpiryDate();
         }
 
@@ -184,29 +182,21 @@ public class MibDriverTransformService implements TransformService<RulesDriver, 
 
             if (code.equalsIgnoreCase(LICENCE_STATUS_A)) {
                 mibLicenceStatusCode = MIB_CURRENT_PROV_LICENCE;
-            }
-            else if (code.equalsIgnoreCase(LICENCE_STATUS_B)) {
+            } else if (code.equalsIgnoreCase(LICENCE_STATUS_B)) {
                 mibLicenceStatusCode = MIB_EXPIRED_PROV_LICENCE;
-            }
-            else if (code.equalsIgnoreCase(LICENCE_STATUS_E)) {
+            } else if (code.equalsIgnoreCase(LICENCE_STATUS_E)) {
                 mibLicenceStatusCode = MIB_DISQUALIFIED_LICENCE;
-            }
-            else if (code.equalsIgnoreCase(LICENCE_STATUS_F)) {
+            } else if (code.equalsIgnoreCase(LICENCE_STATUS_F)) {
                 mibLicenceStatusCode = MIB_CURRENT_FULL_LICENCE;
-            }
-            else if (code.equalsIgnoreCase(LICENCE_STATUS_G)) {
+            } else if (code.equalsIgnoreCase(LICENCE_STATUS_G)) {
                 mibLicenceStatusCode = MIB_EXPIRED_FULL_LICENCE;
-            }
-            else if (code.equalsIgnoreCase(LICENCE_STATUS_M)) {
+            } else if (code.equalsIgnoreCase(LICENCE_STATUS_M)) {
                 mibLicenceStatusCode = MIB_NO_CURRENT_GB_LICENCE_HELP;
-            }
-            else if (code.equalsIgnoreCase(LICENCE_STATUS_O)) {
+            } else if (code.equalsIgnoreCase(LICENCE_STATUS_O)) {
                 mibLicenceStatusCode = MIB_SURRENDERED_PROV_LICENCE;
-            }
-            else if (code.equalsIgnoreCase(LICENCE_STATUS_Q)) {
+            } else if (code.equalsIgnoreCase(LICENCE_STATUS_Q)) {
                 mibLicenceStatusCode = MIB_NO_CURRENT_GB_LICENCE_HELP;
-            }
-            else if (code.equalsIgnoreCase(LICENCE_STATUS_S)) {
+            } else if (code.equalsIgnoreCase(LICENCE_STATUS_S)) {
                 mibLicenceStatusCode = MIB_SURRENDERED_FULL_LICENCE;
             }
         }
@@ -223,30 +213,23 @@ public class MibDriverTransformService implements TransformService<RulesDriver, 
             for (Message m : messages) {
                 if (m.getKey().equalsIgnoreCase(DISQUALIFIED_FOR_LIFE)) {
                     return MIB_DISQUALIFIED_FOR_LIFE;
-                }
-                else if (m.getKey().equalsIgnoreCase(DISQUALIFIED_REAPPLY_WITH_DATE)
+                } else if (m.getKey().equalsIgnoreCase(DISQUALIFIED_REAPPLY_WITH_DATE)
                         || m.getKey().equalsIgnoreCase(DISQUALIFICATION_EXPIRED_REAPPLY_WITH_DATE)) {
                     return MIB_DISQUALIFIED_UNTIL_GIVEN_DATE_AND_TEST_PASS;
-                }
-                else if (m.getKey().equalsIgnoreCase(DISQUALIFIED_UNTIL_DATE)) {
+                } else if (m.getKey().equalsIgnoreCase(DISQUALIFIED_UNTIL_DATE)) {
                     return MIB_DISQUALIFIED_UNTIL_GIVEN_DATE;
-                }
-                else if (m.getKey().equalsIgnoreCase(REVOKED_REAPPLY)) {
+                } else if (m.getKey().equalsIgnoreCase(REVOKED_REAPPLY)) {
                     // TODO: Revoked will be removed from this list and set to a specific status - future user story
                     return MIB_REVOKED_UNTIL_TEST_PASS;
-                }
-                else if (m.getKey().equalsIgnoreCase(REVOKED)) {
+                } else if (m.getKey().equalsIgnoreCase(REVOKED)) {
                     return m.getExtra().equalsIgnoreCase("B")
                             ? MIB_EXPIRED_PROV_LICENCE
                             : MIB_EXPIRED_FULL_LICENCE;
-                }
-                else if (m.getKey().equalsIgnoreCase(DISQUALIFIED_UNTIL_SENTENCING)) {
+                } else if (m.getKey().equalsIgnoreCase(DISQUALIFIED_UNTIL_SENTENCING)) {
                     return MIB_DISQUALIFIED_UNTIL_SENTENCED;
-                }
-                else if (m.getKey().equalsIgnoreCase(DISQUALIFIED)) {
+                } else if (m.getKey().equalsIgnoreCase(DISQUALIFIED)) {
                     return MIB_DISQUALIFIED_LICENCE;
-                }
-                else if (m.getKey().equalsIgnoreCase(DISQUALIFIED_REAPPLY)) {
+                } else if (m.getKey().equalsIgnoreCase(DISQUALIFIED_REAPPLY)) {
                     return MIB_DISQUALIFIED_UNTIL_TEST_PASS;
                 }
             }

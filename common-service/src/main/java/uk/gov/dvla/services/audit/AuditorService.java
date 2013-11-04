@@ -77,4 +77,12 @@ public interface AuditorService {
                                               String deceased,
                                               DateTime requestSent,
                                               HttpServletRequest request);
+
+    public void auditNINOAuthenticateServiceMaintenance(String dln,
+                                              DateTime requestSent,
+                                              HttpServletRequest request);
+
+    public void auditNINOAuthenticateServiceError(String dln,
+                                                        DateTime requestSent,
+                                                        HttpServletRequest request);
 }
