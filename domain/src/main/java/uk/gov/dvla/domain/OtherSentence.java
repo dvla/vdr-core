@@ -39,6 +39,9 @@ public class OtherSentence {
 
     @Override
     public String toString() {
-        return code + duration;
+        if (duration != null)
+            return code + duration.replace("P", "");
+        else
+            return code;
     }
 }
