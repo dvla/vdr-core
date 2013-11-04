@@ -185,7 +185,7 @@ public class AuditorServiceImpl implements AuditorService {
 
     @Override
     public void auditNINOAuthenticateServiceError(String dln, DateTime requestSent, HttpServletRequest request) {
-        this.serviceBus.send(new NINOAuthenticateServiceMaintenance(dln, requestSent, new DateTime(), httpHelperService.getIpAddress(request)));
+        this.serviceBus.send(new NINOAuthenticateServiceError(dln, requestSent, new DateTime(), httpHelperService.getIpAddress(request)));
     }
 
 
