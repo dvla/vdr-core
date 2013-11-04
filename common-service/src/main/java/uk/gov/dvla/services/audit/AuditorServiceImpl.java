@@ -178,6 +178,16 @@ public class AuditorServiceImpl implements AuditorService {
                 coreMatch, coreAndAddressMatch, deceased, requestSent, new DateTime(), httpHelperService.getIpAddress(request)));
     }
 
+    @Override
+    public void auditNINOAuthenticateServiceMaintenance(String dln, DateTime requestSent, HttpServletRequest request) {
+        this.serviceBus.send(new NINOAuthenticateServiceMaintenance(dln, requestSent, new DateTime(), httpHelperService.getIpAddress(request)));
+    }
+
+    @Override
+    public void auditNINOAuthenticateServiceError(String dln, DateTime requestSent, HttpServletRequest request) {
+        this.serviceBus.send(new NINOAuthenticateServiceMaintenance(dln, requestSent, new DateTime(), httpHelperService.getIpAddress(request)));
+    }
+
 
     private boolean isDriverFullySuppressed(RulesDriver driverResult) {
         boolean isFullySuppressed = false;
