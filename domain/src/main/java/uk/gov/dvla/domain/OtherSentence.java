@@ -36,4 +36,12 @@ public class OtherSentence {
     public void setDuration(String duration) {
         this.duration = duration;
     }
+
+    @Override
+    public String toString() {
+        if (duration != null)
+            return code + duration.replace("P", "");
+        else
+            return code;
+    }
 }

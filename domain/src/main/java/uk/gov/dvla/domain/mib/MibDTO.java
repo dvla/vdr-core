@@ -152,6 +152,15 @@ public class MibDTO {
         private Date disqualStartDate;
         private Date disqualEndDate;
         private Date rehabSpentDate;
+        private String custodialPeriod;
+
+        public String getCustodialPeriod() {
+            return custodialPeriod;
+        }
+
+        public void setCustodialPeriod(String custodialPeriod) {
+            this.custodialPeriod = custodialPeriod;
+        }
 
         //Currently there is no logic for this field, but it's in the specification (US528)
         //It might end up something other than String
