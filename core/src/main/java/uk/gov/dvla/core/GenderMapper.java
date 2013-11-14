@@ -10,7 +10,7 @@ public class GenderMapper {
         if (StringUtils.equalsIgnoreCase(genderStr, MALE))
             return 1;
         if (StringUtils.equalsIgnoreCase(genderStr, FEMALE))
-            return 1;
+            return 2;
         throw new IllegalArgumentException("The gender String value assumed was to be MALE or FEMALE. " + genderStr + " provided");
     }
 
