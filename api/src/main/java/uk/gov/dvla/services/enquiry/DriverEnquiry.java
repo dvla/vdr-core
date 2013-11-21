@@ -8,16 +8,19 @@ public interface DriverEnquiry extends ManagedService {
     public static final String MIB_SERVICE_ENDPOINT = "/iiadd/api/v1/driver";
     public static final String MIB_SERVICE_VERSION_NUMBER = "1";
     public static final String CUSTOMER_PORTAL_SERVICE_ENDPOINT = "/driver/";
+    public static final String CUSTOMER_PORTAL_SERVICE_ENDPOINT_PARTY_SEARCH = "/driver/party";
     public static final String HEALTH_CHECK_ENDPOINT = "/healthcheck";
     public static final String DCS_SERVICE_ENDPOINT = "/search";
     public static final String DLN_SEARCH = "dlnSearch";
     public static final String PERSONAL_DETAILS_SEARCH = "personalDetailsSearch";
+    public static final String PARTY_ID = "partyIdSearch";
     public static final String CUSTOMER_PORTAL = "customer.portal";
     public static final String MIB = "mib";
     public static final String NINO_PARAM = "n";
 
 
     public static final String DLN_PARAM = "dln";
+    public static final String PARTY_ID_PARAM = "id";
     public static final String ENQUIRY_ID_PARAM = "guid";
 
     public static final String FORENAME_PARAM = "fn";
@@ -39,4 +42,6 @@ public interface DriverEnquiry extends ManagedService {
 
     public Driver get(String forename, String surname, String dob,
                       String gender, String postCode);
+
+    public Driver getByPartyId(String partyId);
 }
