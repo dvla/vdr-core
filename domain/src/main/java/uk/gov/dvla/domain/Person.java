@@ -5,16 +5,17 @@ import java.lang.String;
 import java.util.Date;
 import java.util.List;
 
-import org.bson.types.ObjectId;
-
 import com.google.code.morphia.annotations.Entity;
 import com.google.code.morphia.annotations.Id;
+import com.google.code.morphia.annotations.Indexed;
 import com.google.code.morphia.annotations.Property;
 
 @Entity
 public class Person {
-	
-	private @Id String partyID;
+
+    @Id
+    @Indexed(unique = true, name = "partyID")
+	private String partyID;
 	private String nino = null;
 	private Passport passport = null;
 	private BirthDetails birthDetails;
