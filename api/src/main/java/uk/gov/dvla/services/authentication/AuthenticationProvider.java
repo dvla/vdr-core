@@ -11,7 +11,7 @@ public interface AuthenticationProvider<A extends AuthenticationToken> extends M
     public static final String yes = "y";
     public static final String no = "n";
     public static final String AUTHENTICATION_URI = "/auth/";
-    public static final String PARTY_ID_AUTHENTICATION_URI = "/party/";
+    public static final String PARTY_ID_AUTHENTICATION_URI = "auth/party/";
 
 
     public A authenticate(A authToken) throws AuthenticationException;
