@@ -463,7 +463,7 @@ public class PortalDTO {
         private Double fine;
         private Integer noPoints;
         private OtherSentence otherSentence;
-        public Boolean nonEndorseableOffence;
+        public Boolean nonEndorsableOffence;
 
         public Integer getId() {
             return id;
@@ -573,12 +573,12 @@ public class PortalDTO {
 
         }
 
-        public Boolean getNonEndorseableOffence() {
-            return nonEndorseableOffence;
+        public Boolean getNonEndorsableOffence() {
+            return nonEndorsableOffence;
         }
 
-        public void setNonEndorseableOffence(Boolean nonEndorseableOffence) {
-            this.nonEndorseableOffence = nonEndorseableOffence;
+        public void setNonEndorsableOffence(Boolean nonEndorsableOffence) {
+            this.nonEndorsableOffence = nonEndorsableOffence;
         }
     }
 
