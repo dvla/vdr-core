@@ -27,6 +27,7 @@ public class DriverStatedFlags {
     private Boolean disqualified;
     private Boolean dttp;
     private Boolean rttp;
+    private Boolean dtetp;
     private Boolean bretEntitlementStatus;
     private Boolean notRetainedC1D1EntitlementStatus;
     private Boolean retainedC1D1EntitlementStatus;
@@ -184,6 +185,14 @@ public class DriverStatedFlags {
 
     public void setRttp(Boolean rttp) {
         this.rttp = rttp;
+    }
+
+    public Boolean getDtetp() {
+        return dtetp;
+    }
+
+    public void setDtetp(Boolean dtetp) {
+        this.dtetp = dtetp;
     }
 
     public Boolean getBretEntitlementStatus() {
