@@ -15,7 +15,16 @@ public class PortalDTO {
     private static final Logger logger = LoggerFactory.getLogger(PortalDTO.class.getName());
 
     private Driver driver;
+    private String requestedDln;
     private List<Message> messages;
+
+    public String getRequestedDln() {
+        return requestedDln;
+    }
+
+    public void setRequestedDln(String requestedDln) {
+        this.requestedDln = requestedDln;
+    }
 
     public List<Message> getMessages() {
         return messages;

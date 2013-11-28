@@ -6,9 +6,18 @@ public class RulesDriver {
     Driver driver;
     List<Message> messages;
     String ruleApplied;
+    String requestedDln;
 
     public Driver getDriver() {
         return driver;
+    }
+
+    public String getRequestedDln() {
+        return  requestedDln;
+    }
+
+    public void setRequestedDln(String requestedDln) {
+        this.requestedDln = requestedDln;
     }
 
     public void setDriver(Driver driver) {
