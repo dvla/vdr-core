@@ -9,7 +9,7 @@ public class ConductCaseEvent {
 
     private Date eventDate;
     private String eventType;
-    private String nonEndorseableOffence;
+    private String nonEndorsableOffence;
 
     public Date getEventDate() {
         return eventDate;
@@ -27,11 +27,11 @@ public class ConductCaseEvent {
         this.eventType = eventType;
     }
 
-    public String getNonEndorseableOffence() {
-        return nonEndorseableOffence;
+    public String getNonEndorsableOffence() {
+        return nonEndorsableOffence;
     }
 
-    public void setNonEndorseableOffence(String nonEndorseableOffence) {
-        this.nonEndorseableOffence = nonEndorseableOffence;
+    public void setNonEndorsableOffence(String nonEndorsableOffence) {
+        this.nonEndorsableOffence = nonEndorsableOffence;
     }
 }
