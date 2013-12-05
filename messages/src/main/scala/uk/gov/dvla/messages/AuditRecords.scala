@@ -20,6 +20,8 @@ object Status extends Enumeration {
   CoreMatch,
   Maintenance,
   NegativeCoreMatch,
+  IDASamlRequestSent,
+  IDASamlResponseReceived,
   Deceased = Value
 }
 
@@ -370,4 +372,20 @@ case class NINOAuthenticateServiceError(dln: String,
   val result = Result.Failure
   val status = Status.ServerError
   val serviceType = ServiceType.CustomerPortal
+}
+
+case class IDASamlRequest(requestId: String, requestSent: DateTime) extends AuditMessage {
+  val authenticationType = "IDA"
+  val result = Result.Success
+  val status = Status.IDASamlRequestSent
+  val serviceType = ServiceType.CustomerPortal
+
+}
+
+case class IDASamlResponse(requestId: String, pid: String, requestSent: DateTime) extends AuditMessage {
+  val authenticationType = "IDA"
+  val result = Result.Success
+  val status = Status.IDASamlResponseReceived
+  val serviceType = ServiceType.CustomerPortal
+
 }
