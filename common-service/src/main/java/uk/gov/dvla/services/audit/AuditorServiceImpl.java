@@ -188,6 +188,9 @@ public class AuditorServiceImpl implements AuditorService {
         this.serviceBus.send(new NINOAuthenticateServiceError(dln, requestSent, new DateTime(), httpHelperService.getIpAddress(request)));
     }
 
+    public void auditIDAMatch(String matchId, DateTime requestReceived, String matchingOutcome, String matchingBasis, String pid) {
+        this.serviceBus.send(new IDAMatchRequest(matchId, requestReceived, matchingOutcome, matchingBasis, pid));
+    }
 
     private boolean isDriverFullySuppressed(RulesDriver driverResult) {
         boolean isFullySuppressed = false;

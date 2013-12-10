@@ -85,4 +85,6 @@ public interface AuditorService {
     public void auditNINOAuthenticateServiceError(String dln,
                                                         DateTime requestSent,
                                                         HttpServletRequest request);
+
+    public void auditIDAMatch(String matchId, DateTime requestReceived, String matchingOutcome, String matchingBasis, String pid);
 }
