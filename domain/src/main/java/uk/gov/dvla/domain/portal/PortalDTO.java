@@ -662,6 +662,10 @@ public class PortalDTO {
         private String statusType;
         private Date testPassDate;
         private Date expiryDate;
+        private Boolean extended;
+        private Boolean harmonised;
+        private Boolean automatic;
+        private Boolean lessThanEqual25kw;
 
         public String getEntitlementType() {
             return entitlementType;
@@ -693,6 +697,38 @@ public class PortalDTO {
 
         public Date getExpiryDate() {
             return expiryDate;
+        }
+
+        public Boolean getExtended() {
+            return extended;
+        }
+
+        public void setExtended(Boolean extended) {
+            this.extended = extended;
+        }
+
+        public Boolean getHarmonised() {
+            return harmonised;
+        }
+
+        public void setHarmonised(Boolean harmonised) {
+            this.harmonised = harmonised;
+        }
+
+        public Boolean getAutomatic() {
+            return automatic;
+        }
+
+        public void setAutomatic(Boolean automatic) {
+            this.automatic = automatic;
+        }
+
+        public Boolean getLessThanEqual25kw() {
+            return lessThanEqual25kw;
+        }
+
+        public void setLessThanEqual25kw(Boolean lessThanEqual25kw) {
+            this.lessThanEqual25kw = lessThanEqual25kw;
         }
     }
 
