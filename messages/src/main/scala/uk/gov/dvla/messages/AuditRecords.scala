@@ -22,6 +22,7 @@ object Status extends Enumeration {
   NegativeCoreMatch,
   IDASamlRequestSent,
   IDASamlResponseReceived,
+  IDAMatchRequestReceived,
   Deceased = Value
 }
 
@@ -30,7 +31,7 @@ object Result extends Enumeration {
 }
 
 object ServiceType extends Enumeration {
-  val CustomerPortal, DvlaPortal, MibRealTime, MibBatch = Value
+  val CustomerPortal, DvlaPortal, MibRealTime, MibBatch, IDAMatcherService = Value
 }
 
 object AttributeType extends Enumeration {
@@ -388,4 +389,11 @@ case class IDASamlResponse(requestId: String, pid: String, requestSent: DateTime
   val status = Status.IDASamlResponseReceived
   val serviceType = ServiceType.CustomerPortal
 
+}
+
+case class IDAMatchRequest(matchId: String, requestReceived: DateTime, matchingOutcome: String, matchingBasis: String, pid: String) extends AuditMessage {
+  val authenticationType = "IDA"
+  val result = Result.Success
+  val status = Status.IDAMatchRequestReceived
+  val serviceType = ServiceType.IDAMatcherService
 }
