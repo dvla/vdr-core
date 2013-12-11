@@ -29,7 +29,7 @@ public class CustodialPeriodCalculator {
         } else if (duration.isLongerThan(Duration.ZERO)) {
             return "1";
         } else {
-            return "0";
+            return null;
         }
     }
 }
