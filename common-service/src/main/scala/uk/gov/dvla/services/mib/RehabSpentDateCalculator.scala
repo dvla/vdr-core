@@ -34,7 +34,7 @@ object RehabSpentDateCalculator {
         def custodialPeriod(spentDate: DateTime) = endorsement.getCustodialPeriod match {
           case "3" => Never
           case "2" =>
-            if (new Duration(startDate, spentDate).compareTo(P7Y.toDurationFrom(startDate)) > 1)
+            if (new Duration(startDate, spentDate).compareTo(P7Y.toDurationFrom(startDate)) > 0)
               spentDate
             else
               startDate plus P7Y
