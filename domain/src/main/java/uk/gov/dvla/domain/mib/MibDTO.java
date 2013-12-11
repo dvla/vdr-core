@@ -151,7 +151,7 @@ public class MibDTO {
         private String disqualPeriod;
         private Date disqualStartDate;
         private Date disqualEndDate;
-        private Date rehabSpentDate;
+        private Date indicativeRehabSpentDate;
         private String custodialPeriod;
 
         public Boolean getIsDisqual() {
@@ -226,12 +226,12 @@ public class MibDTO {
             this.disqualEndDate = disqualEndDate;
         }
 
-        public Date getRehabSpentDate() {
-            return rehabSpentDate;
+        public Date getIndicativeRehabSpentDate() {
+            return indicativeRehabSpentDate;
         }
 
-        public void setRehabSpentDate(Date rehabSpentDate) {
-            this.rehabSpentDate = rehabSpentDate;
+        public void setIndicativeRehabSpentDate(Date indicativeRehabSpentDate) {
+            this.indicativeRehabSpentDate = indicativeRehabSpentDate;
         }
 
         public String getCustodialPeriod() {

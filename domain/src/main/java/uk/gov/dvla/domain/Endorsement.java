@@ -36,6 +36,7 @@ public class Endorsement {
     public String sentencingCourt;
     public String susPrisonSentenceDur;
     public String custodialPeriod;
+    public Date indicativeRehabSpentDate;
     public Boolean nonEndorsableOffence;
 
 
@@ -237,6 +238,14 @@ public class Endorsement {
 
     public void setNonEndorsableOffence(Boolean nonEndorsableOffence) {
         this.nonEndorsableOffence = nonEndorsableOffence;
+    }
+
+    public Date getIndicativeRehabSpentDate() {
+        return indicativeRehabSpentDate;
+    }
+
+    public void setIndicativeRehabSpentDate(Date indicativeRehabSpentDate) {
+        this.indicativeRehabSpentDate = indicativeRehabSpentDate;
     }
 }
 
