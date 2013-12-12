@@ -17,7 +17,9 @@ object RehabSpentDateCalculator {
       .map { startDate =>
 
         val defaultSpentDate = startDate plus P5Y
-        val disq = driver.getDisqualifications find (_.getEndorsementID == endorsement.getId)
+        val disq = Option(driver.getDisqualifications) flatMap {
+         _ find (_.getEndorsementID == endorsement.getId)
+        }
 
         def disqLongerThan5Y(spentDate: DateTime) =
           (for {
@@ -29,7 +31,7 @@ object RehabSpentDateCalculator {
           } yield spent) getOrElse spentDate
     
         def lifetimeDisq(spentDate: DateTime) =
-          disq filter (_.getForLife) map (_ => Never) getOrElse spentDate
+          disq filter (d => d.getForLife != null && d.getForLife) map (_ => Never) getOrElse spentDate
     
         def custodialPeriod(spentDate: DateTime) = endorsement.getCustodialPeriod match {
           case "3" => Never
@@ -55,7 +57,7 @@ object RehabSpentDateCalculator {
           }
         }
 
-        val rules = (disqLongerThan5Y _) andThen lifetimeDisq andThen custodialPeriod andThen minor
+        val rules = disqLongerThan5Y _ andThen lifetimeDisq andThen custodialPeriod andThen minor
         rules(defaultSpentDate).toDate
       } getOrElse null
   }
