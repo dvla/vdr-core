@@ -18,6 +18,7 @@ public interface DriverEnquiry extends ManagedService {
     public static final String MIB = "mib";
     public static final String NINO_PARAM = "n";
 
+    public static final String MESSAGE_ENQUEUER_ENDPOINT = "/enqueue/";
 
     public static final String DLN_PARAM = "dln";
     public static final String PARTY_ID_PARAM = "id";
