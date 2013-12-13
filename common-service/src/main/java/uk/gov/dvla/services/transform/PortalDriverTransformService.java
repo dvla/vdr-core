@@ -225,12 +225,16 @@ public class PortalDriverTransformService implements TransformService<RulesDrive
         }
 
         for (TestPass testPass : driver.getTestPasses()) {
-            PortalDTO.TestPass portalTestPasses = new PortalDTO.TestPass();
-            portalTestPasses.setEntitlementType(testPass.getEntitlementType());
-            portalTestPasses.setStatusType(testPass.getStatusType());
-            portalTestPasses.setTestPassDate(testPass.getTestPassDate());
-            portalTestPasses.setExpiryDate(testPass.getExpiryDate());
-            testPasses.add(portalTestPasses);
+            PortalDTO.TestPass portalTestPass = new PortalDTO.TestPass();
+            portalTestPass.setEntitlementType(testPass.getEntitlementType());
+            portalTestPass.setStatusType(testPass.getStatusType());
+            portalTestPass.setTestPassDate(testPass.getTestPassDate());
+            portalTestPass.setExpiryDate(testPass.getExpiryDate());
+            portalTestPass.setAutomatic(testPass.getAutomatic());
+            portalTestPass.setExtended(testPass.getExtended());
+            portalTestPass.setLessThanEqual25kw(testPass.getLessThanEqual25kw());
+            portalTestPass.setHarmonised(testPass.getHarmonised());
+            testPasses.add(portalTestPass);
         }
         return testPasses;
     }
