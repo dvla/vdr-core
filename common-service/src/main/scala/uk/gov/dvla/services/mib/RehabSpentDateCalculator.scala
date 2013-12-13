@@ -48,7 +48,7 @@ object RehabSpentDateCalculator {
           val age = new Duration(bDay, startDate)
           val isAdult = age.compareTo(P18Y.toDurationFrom(bDay)) >= 0
 
-          if (isAdult)
+          if (isAdult || spentDate == Never)
             spentDate
           else {
             val normalDuration = new Duration(startDate, spentDate)
