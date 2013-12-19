@@ -5,6 +5,36 @@ import org.joda.time.DateTime
 import scala.collection.immutable.Map
 import scala.xml.{Null, Text, Attribute, NodeSeq}
 
+class RecordSuppressionEnrichedMessage(val suppressionReasonParam: String,
+                                       val contactDetailsParam: Map[String, String],
+                                       baseMessage: RecordSuppressionEnquiryMessage)
+  extends Message with Serializable {
+
+  val timestamp = baseMessage.timestamp
+  val formData = baseMessage.formData
+
+  /**
+   * Serializes this object to an XML representation.
+   *
+   * @return XML nodes representing this class.
+   */
+  def toXml: NodeSeq = {
+    val fields = getClass.getDeclaredFields
+    fields foreach {
+      _.setAccessible(true)
+    }
+    val data = fields map {
+      f => f.getName -> f.get(this).toString
+    }
+    val xmlTag = <a/>.copy(label = getClass.getSimpleName)
+
+    (xmlTag /: data) {
+      case (rec, (name, value)) =>
+        rec % Attribute(None, name, Text(value), Null)
+    }
+  }
+}
+
 /**
  * A record suppression enquiry DTO.
  *
