@@ -361,13 +361,13 @@ case class NINOAuthenticateServiceMaintenance(dln: String,
   val serviceType = ServiceType.CustomerPortal
 }
 
-case class NINOAuthenticateServiceError(dln: String,
-                                       requestSent: DateTime,
-                                       responseSent: DateTime,
-                                       ipAddress: String
-                                        ) extends AuditMessage {
-  val authenticationType = "DWP"
-  val result = Result.Failure
-  val status = Status.ServerError
-  val serviceType = ServiceType.CustomerPortal
-}
+//case class NINOAuthenticateServiceError(dln: String,
+//                                       requestSent: DateTime,
+//                                       responseSent: DateTime,
+//                                       ipAddress: String
+//                                        ) extends AuditMessage {
+//  val authenticationType = "DWP"
+//  val result = Result.Failure
+//  val status = Status.ServerError
+//  val serviceType = ServiceType.CustomerPortal
+//}
