@@ -188,7 +188,6 @@ public class AuditorServiceImpl implements AuditorService {
         this.serviceBus.send(new NINOAuthenticateServiceError(dln, requestSent, new DateTime(), httpHelperService.getIpAddress(request)));
     }
 
-
     private boolean isDriverFullySuppressed(RulesDriver driverResult) {
         boolean isFullySuppressed = false;
 
