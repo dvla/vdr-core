@@ -11,54 +11,62 @@ object RehabSpentDateCalculator {
   val P18Y = new Period("P18Y")
   val Never = DateTime.parse("3000-01-01")
 
+  trait RehabPeriod
+  case object Indefinite extends RehabPeriod
+  case class UntilDisqualified(date: DateTime) extends RehabPeriod
+  case class StandardPeriod(period: Period) extends RehabPeriod
+
   def apply(driver: Driver, endorsement: Endorsement): Date = {
     (Option(endorsement.getConviction) orElse Option(endorsement.getOffence))
       .map(new DateTime(_))
       .map { startDate =>
 
-        val defaultSpentDate = startDate plus P5Y
         val disq = Option(driver.getDisqualifications) flatMap {
-         _ find (_.getEndorsementID == endorsement.getId)
+          _ find (_.getEndorsementID == endorsement.getId)
+        }
+    
+        def lifetimeDisq(rehab: RehabPeriod): RehabPeriod =
+          disq filter (d => d.getForLife != null && d.getForLife) map (_ => Indefinite) getOrElse rehab
+    
+        def custodialPeriod(rehab: RehabPeriod): RehabPeriod  = endorsement.getCustodialPeriod match {
+          case "3" => Indefinite
+          case "2" => StandardPeriod(P7Y)
+          case _ => rehab
         }
 
-        def disqLongerThan5Y(spentDate: DateTime) =
-          (for {
-            dq <- disq
-            from <- Option(dq.getDisqFromDate) map (new DateTime(_))
-            to <- Option(dq.getDisqToDate) map (new DateTime(_))
-            isLonger = new Duration(from, to).compareTo(P5Y.toDurationFrom(from)) > 0
-            spent = to if isLonger
-          } yield spent) getOrElse spentDate
-    
-        def lifetimeDisq(spentDate: DateTime) =
-          disq filter (d => d.getForLife != null && d.getForLife) map (_ => Never) getOrElse spentDate
-    
-        def custodialPeriod(spentDate: DateTime) = endorsement.getCustodialPeriod match {
-          case "3" => Never
-          case "2" =>
-            if (new Duration(startDate, spentDate).compareTo(P7Y.toDurationFrom(startDate)) > 0)
-              spentDate
-            else
-              startDate plus P7Y
-          case _ => spentDate
-        }
-
-        def minor(spentDate: DateTime) = {
+        def minor(rehab: RehabPeriod): RehabPeriod = {
           val bDay = new DateTime(driver.getBirthDetails.getDate)
           val age = new Duration(bDay, startDate)
-          val isAdult = age.compareTo(P18Y.toDurationFrom(bDay)) >= 0
+          val wasMinor = age.compareTo(P18Y.toDurationFrom(bDay)) < 0
 
-          if (isAdult || spentDate == Never)
-            spentDate
-          else {
-            val normalDuration = new Duration(startDate, spentDate)
-            val halvedDuration = Duration.millis(normalDuration.getMillis / 2)
-            startDate plus halvedDuration
+          (wasMinor, rehab) match {
+            case (true, StandardPeriod(p)) => StandardPeriod(halvePeriod(p))
+            case _ => rehab
           }
         }
 
-        val rules = disqLongerThan5Y _ andThen lifetimeDisq andThen custodialPeriod andThen minor
-        rules(defaultSpentDate).toDate
+        def longerDisq(rehab: RehabPeriod): RehabPeriod =
+          (rehab, disq map (d => new DateTime(d.getDisqToDate))) match {
+            case (StandardPeriod(p), Some(disqTo)) if startDate.plus(p).isBefore(disqTo) =>
+              UntilDisqualified(disqTo.plusDays(1))
+            case _ => rehab
+          }
+
+        val defaultPeriod = StandardPeriod(P5Y)
+        val rules = custodialPeriod _ andThen lifetimeDisq andThen minor andThen longerDisq
+        (rules(defaultPeriod) match {
+          case StandardPeriod(p) => startDate.plus(p)
+          case UntilDisqualified(d) => d
+          case Indefinite => Never
+        }).toDate
       } getOrElse null
+  }
+
+  def halvePeriod(period: Period) = {
+    require(period.withYears(0).withMonths(0) == Period.ZERO,
+      "Handling periods of granularity less than a month is not implemented")
+    val (yh, yc) = (period.getYears / 2, period.getYears % 2)
+    val (mh, mc) = (period.getMonths / 2, period.getMonths % 2)
+    Period.years(yh).withMonths(mh + 6 * yc + mc)
   }
 }
