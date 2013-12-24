@@ -9,6 +9,7 @@ public interface DriverEnquiry extends ManagedService {
     public static final String MIB_SERVICE_VERSION_NUMBER = "1";
     public static final String CUSTOMER_PORTAL_SERVICE_ENDPOINT = "/driver/";
     public static final String CUSTOMER_PORTAL_SERVICE_ENDPOINT_PARTY_SEARCH = "/driver/party";
+    public static final String ENRICHMENT_SERVICE_ENDPOINT = "/internal/enrichment/driver";
     public static final String HEALTH_CHECK_ENDPOINT = "/healthcheck";
     public static final String DCS_SERVICE_ENDPOINT = "/search";
     public static final String DLN_SEARCH = "dlnSearch";
@@ -16,6 +17,7 @@ public interface DriverEnquiry extends ManagedService {
     public static final String PARTY_ID = "partyIdSearch";
     public static final String CUSTOMER_PORTAL = "customer.portal";
     public static final String MIB = "mib";
+    public static final String ENRICHMENT_PORTAL = "enrichment.portal";
     public static final String NINO_PARAM = "n";
 
 
