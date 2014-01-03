@@ -5,7 +5,7 @@ import java.lang.String;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.google.code.morphia.annotations.Embedded;
+import org.mongodb.morphia.annotations.Embedded;
 
 @Embedded
 public class Name {

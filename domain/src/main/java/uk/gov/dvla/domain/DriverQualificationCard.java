@@ -1,6 +1,6 @@
 package uk.gov.dvla.domain;
 
-import com.google.code.morphia.annotations.Embedded;
+import org.mongodb.morphia.annotations.Embedded;
 
 import java.lang.Integer;
 import java.lang.Number;

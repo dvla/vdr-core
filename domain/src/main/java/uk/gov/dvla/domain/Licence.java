@@ -6,8 +6,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import com.google.code.morphia.annotations.Embedded;
-import com.google.code.morphia.annotations.Property;
+import org.mongodb.morphia.annotations.Embedded;
+import org.mongodb.morphia.annotations.Property;
 
 @Embedded
 public class Licence {
