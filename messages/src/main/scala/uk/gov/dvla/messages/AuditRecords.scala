@@ -20,6 +20,9 @@ object Status extends Enumeration {
   CoreMatch,
   Maintenance,
   NegativeCoreMatch,
+  IDASamlRequestSent,
+  IDASamlResponseReceived,
+  IDAMatchRequestReceived,
   Deceased = Value
 }
 
@@ -28,7 +31,7 @@ object Result extends Enumeration {
 }
 
 object ServiceType extends Enumeration {
-  val CustomerPortal, DvlaPortal, MibRealTime, MibBatch = Value
+  val CustomerPortal, DvlaPortal, MibRealTime, MibBatch, IDAMatcherService = Value
 }
 
 object AttributeType extends Enumeration {
@@ -361,13 +364,36 @@ case class NINOAuthenticateServiceMaintenance(dln: String,
   val serviceType = ServiceType.CustomerPortal
 }
 
-//case class NINOAuthenticateServiceError(dln: String,
-//                                       requestSent: DateTime,
-//                                       responseSent: DateTime,
-//                                       ipAddress: String
-//                                        ) extends AuditMessage {
-//  val authenticationType = "DWP"
-//  val result = Result.Failure
-//  val status = Status.ServerError
-//  val serviceType = ServiceType.CustomerPortal
-//}
+case class NINOAuthenticateServiceError(dln: String,
+                                       requestSent: DateTime,
+                                       responseSent: DateTime,
+                                       ipAddress: String
+                                        ) extends AuditMessage {
+  val authenticationType = "DWP"
+  val result = Result.Failure
+  val status = Status.ServerError
+  val serviceType = ServiceType.CustomerPortal
+}
+
+case class IDASamlRequest(requestId: String, requestSent: DateTime) extends AuditMessage {
+  val authenticationType = "IDA"
+  val result = Result.Success
+  val status = Status.IDASamlRequestSent
+  val serviceType = ServiceType.CustomerPortal
+
+}
+
+case class IDASamlResponse(requestId: String, pid: String, requestSent: DateTime) extends AuditMessage {
+  val authenticationType = "IDA"
+  val result = Result.Success
+  val status = Status.IDASamlResponseReceived
+  val serviceType = ServiceType.CustomerPortal
+
+}
+
+case class IDAMatchRequest(matchId: String, requestReceived: DateTime, matchingOutcome: String, matchingBasis: String, pid: String) extends AuditMessage {
+  val authenticationType = "IDA"
+  val result = Result.Success
+  val status = Status.IDAMatchRequestReceived
+  val serviceType = ServiceType.IDAMatcherService
+}
