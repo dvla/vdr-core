@@ -19,9 +19,9 @@ public class MongoConfiguration {
     @NotNull
     private String collection = "drivers";
 
-    private String username;
+    private String username = "";
 
-    private String password;
+    private String password = "";
 
     public final String getDatabase() {
         return database;

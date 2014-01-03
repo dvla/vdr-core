@@ -4,6 +4,8 @@ import com.mongodb.*;
 import uk.gov.dvla.services.ManagedService;
 
 import java.net.UnknownHostException;
+import java.util.ArrayList;
+import java.util.List;
 
 public abstract class AbstractMongoDatastore implements ManagedService
 {
@@ -12,7 +14,13 @@ public abstract class AbstractMongoDatastore implements ManagedService
 
     public AbstractMongoDatastore(String server, int port, String database, String collection, String username, String password) throws UnknownHostException
     {
-        mongoClient_i = new MongoClient(server, port);
+        List servers = new ArrayList<ServerAddress>();
+        List credentials = new ArrayList<MongoCredential>();
+
+        servers.add(new ServerAddress(server, port));
+        credentials.add(MongoCredential.createMongoCRCredential(username, database, password.toCharArray()));
+
+        mongoClient_i = new MongoClient(servers, credentials);
         //collection_i = prepareDatabase(mongoClient_i, database, collection, username, password);
     }
 
