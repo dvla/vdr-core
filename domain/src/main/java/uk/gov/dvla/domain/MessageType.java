@@ -1,5 +1,9 @@
 package uk.gov.dvla.domain;
 
+/**
+ * Used by the Drools environment to "tag" outbound data with additional information.
+ * Should match that in iep-customer-portal/app/model/Message.scala/MessageType.
+ */
 public enum MessageType {
     SuppressFullRecord(0, "Full Record Suppression"),
     SuppressEntitlements(1, "Entitlement Suppression"),
@@ -10,7 +14,8 @@ public enum MessageType {
     PostcodeMismatch(6,"Postcode Mismatch"),
     NoData(7, "No Data to provide"),
     LicenceStatusModified(8, "Licence status text modified"),
-    WithholdFullRecord(9, "Record withheld");
+    WithholdFullRecord(9, "Record withheld"),
+    SuppressionReason(10, "Suppression Reason");
 
     public int getMessageType()
     {
