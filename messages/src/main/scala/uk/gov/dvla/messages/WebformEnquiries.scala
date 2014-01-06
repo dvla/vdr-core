@@ -6,7 +6,7 @@ import scala.collection.immutable.Map
 import scala.xml.{Null, Text, Attribute, NodeSeq}
 
 class RecordSuppressionEnrichedMessage(val suppressionReasonParam: String,
-                                       val contactDetailsParam: Map[String, String],
+                                       val enrichedData: Map[String, String],
                                        baseMessage: RecordSuppressionEnquiryMessage)
   extends Message with Serializable {
 
