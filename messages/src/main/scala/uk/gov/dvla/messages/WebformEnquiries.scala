@@ -5,14 +5,13 @@ import org.joda.time.DateTime
 import scala.collection.immutable.Map
 import scala.xml.{Null, Text, Attribute, NodeSeq}
 
-class RecordSuppressionEnrichedMessage(val suppressionReasonParam: String,
-                                       val enrichedDataParam: Map[String, String],
+class RecordSuppressionEnrichedMessage(val suppressionReason: String,
+                                       val enrichedData: Map[String, String],
                                        baseMessage: RecordSuppressionEnquiryMessage)
   extends Message with Serializable {
 
   val timestamp = baseMessage.timestamp
   val formData = baseMessage.formData
-  val enrichedData = enrichedDataParam
 
   /**
    * Serializes this object to an XML representation.
