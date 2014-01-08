@@ -18,9 +18,13 @@ public abstract class AbstractMongoDatastore implements ManagedService
         List credentials = new ArrayList<MongoCredential>();
 
         servers.add(new ServerAddress(server, port));
-        credentials.add(MongoCredential.createMongoCRCredential(username, database, password.toCharArray()));
+
+        if (null != username) {
+            credentials.add(MongoCredential.createMongoCRCredential(username, database, password.toCharArray()));
+        }
 
         mongoClient_i = new MongoClient(servers, credentials);
+
         //collection_i = prepareDatabase(mongoClient_i, database, collection, username, password);
     }
 
