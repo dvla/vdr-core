@@ -23,6 +23,9 @@ object Status extends Enumeration {
   IDASamlRequestSent,
   IDASamlResponseReceived,
   IDAMatchRequestReceived,
+  BatchReceived,
+  BatchInvalid,
+  BatchValid,
   Deceased = Value
 }
 
@@ -253,6 +256,27 @@ case class DvlaUnauthorisedAccess(userId: String, requestSent: DateTime, respons
   val result = Result.Failure
   val status = Status.UnauthorisedAccess
   val serviceType = ServiceType.DvlaPortal
+}
+
+case class MibBatchReceived(batchId: String, receivedOn: DateTime, noRequests: Int)
+extends AuditMessage {
+  val result = Result.Success
+  val status = Status.BatchReceived
+  val serviceType = ServiceType.MibBatch
+}
+
+case class MibBatchInvalid(batchId: String, codes: List[String], responseCreatedOn: DateTime)
+  extends AuditMessage {
+  val result = Result.Failure
+  val status = Status.BatchInvalid
+  val serviceType = ServiceType.MibBatch
+}
+
+case class MibBatchValid(batchId: String, receivedOn: DateTime, successful: Int, invalid: Int,
+                         notFound: Int, suppressed: Int) extends AuditMessage {
+  val result = Result.Success
+  val status = Status.BatchValid
+  val serviceType = ServiceType.MibBatch
 }
 
 case class MibRealTimeMissingMandatoryFields(enquiryId: UUID, dln: String, postCode: String, requestSent: DateTime,
