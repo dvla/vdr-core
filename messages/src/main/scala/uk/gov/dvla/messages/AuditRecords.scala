@@ -258,21 +258,14 @@ case class DvlaUnauthorisedAccess(userId: String, requestSent: DateTime, respons
   val serviceType = ServiceType.DvlaPortal
 }
 
-case class MibBatchReceived(batchId: String, receivedOn: DateTime, noRequests: Int)
+case class MibBatchReceived(batchId: String, received: DateTime, noRequests: Int, errorCodes: List[String])
 extends AuditMessage {
-  val result = Result.Success
+  val result = if (errorCodes.isEmpty) Result.Success else Result.Failure
   val status = Status.BatchReceived
   val serviceType = ServiceType.MibBatch
 }
 
-case class MibBatchInvalid(batchId: String, codes: List[String], responseCreatedOn: DateTime)
-  extends AuditMessage {
-  val result = Result.Failure
-  val status = Status.BatchInvalid
-  val serviceType = ServiceType.MibBatch
-}
-
-case class MibBatchValid(batchId: String, receivedOn: DateTime, successful: Int, invalid: Int,
+case class MibBatchResponseCreated(batchId: String, created: DateTime, successful: Int, invalid: Int,
                          notFound: Int, suppressed: Int) extends AuditMessage {
   val result = Result.Success
   val status = Status.BatchValid
