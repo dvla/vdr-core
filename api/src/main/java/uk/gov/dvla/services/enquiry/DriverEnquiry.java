@@ -30,6 +30,7 @@ public interface DriverEnquiry extends ManagedService {
     public static final String POSTCODE_PARAM = "pc";
 
     public static final String VEHICLE_REGISTRATION_MARK_PARAM = "vrm";
+    public static final String BATCH_ID = "batch";
 
     public static final String SERVICE_TYPE_PARAM = "type";
 
