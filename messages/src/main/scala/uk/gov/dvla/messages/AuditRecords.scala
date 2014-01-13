@@ -273,56 +273,64 @@ case class MibBatchResponseCreated(batchId: String, result: Result.Value = Resul
 }
 
 case class MibRealTimeMissingMandatoryFields(enquiryId: UUID, dln: String, postCode: String, requestSent: DateTime,
-                                             responseSent: DateTime, ipAddress: String) extends AuditMessage {
+                                             responseSent: DateTime, ipAddress: String, batchId: String,
+                                             vrmProvided: Boolean) extends AuditMessage {
   val result = Result.Failure
   val status = Status.NotValid
   val serviceType = ServiceType.MibRealTime
 }
 
 case class MibRealTimeDlnNotFound(enquiryId: UUID, dln: String, postCode: String, requestSent: DateTime,
-                                  responseSent: DateTime, ipAddress: String) extends AuditMessage {
+                                  responseSent: DateTime, ipAddress: String, batchId: String,
+                                  vrmProvided: Boolean) extends AuditMessage {
   val result = Result.Failure
   val status = Status.NotFound
   val serviceType = ServiceType.MibRealTime
 }
 
 case class MibRealTimeDlnNotValid(enquiryId: UUID, dln: String, postCode: String, requestSent: DateTime,
-                                  responseSent: DateTime, ipAddress: String) extends AuditMessage {
+                                  responseSent: DateTime, ipAddress: String, batchId: String,
+                                  vrmProvided: Boolean) extends AuditMessage {
   val result = Result.Failure
   val status = Status.NotValid
   val serviceType = ServiceType.MibRealTime
 }
 
 case class MibRealTimeServerError(enquiryId: UUID, dln: String, postCode: String, requestSent: DateTime,
-                                  responseSent: DateTime, ipAddress: String) extends AuditMessage {
+                                  responseSent: DateTime, ipAddress: String, batchId: String,
+                                  vrmProvided: Boolean) extends AuditMessage {
   val result = Result.Failure
   val status = Status.ServerError
   val serviceType = ServiceType.MibRealTime
 }
 
 case class MibRealTimeRecordSuppression(enquiryId: UUID, dln: String, postCode: String, requestSent: DateTime,
-                                        responseSent: DateTime, ruleApplied: String, ipAddress: String) extends AuditMessage {
+                                        responseSent: DateTime, ruleApplied: String, ipAddress: String, batchId: String,
+                                        vrmProvided: Boolean) extends AuditMessage {
   val result = Result.Failure
   val status = Status.Suppressed
   val serviceType = ServiceType.MibRealTime
 }
 
 case class MibRealTimeEnquirySuccessful(enquiryId: UUID, dln: String, postCode: String, requestSent: DateTime,
-                                        responseSent: DateTime, ipAddress: String) extends AuditMessage {
+                                        responseSent: DateTime, ipAddress: String, batchId: String,
+                                        vrmProvided: Boolean) extends AuditMessage {
   val result = Result.Success
   val status = Status.RecordFound
   val serviceType = ServiceType.MibRealTime
 }
 
 case class MibRealTimeNoEntitlements(enquiryId: UUID, dln: String, postCode: String, requestSent: DateTime,
-                                     responseSent: DateTime, ipAddress: String) extends AuditMessage {
+                                     responseSent: DateTime, ipAddress: String, batchId: String,
+                                     vrmProvided: Boolean) extends AuditMessage {
   val result = Result.Failure
   val status = Status.NotAvailable
   val serviceType = ServiceType.MibRealTime
 }
 
 case class MibRealTimeEnquiryMessageReturned(enquiryId: UUID, dln: String, postCode: String, requestSent: DateTime,
-                                             responseSent: DateTime, ipAddress: String, message: String) extends AuditMessage {
+                                             responseSent: DateTime, message: String, ipAddress: String, batchId: String,
+                                             vrmProvided: Boolean) extends AuditMessage {
   val result = Result.Success
   val status = Status.MessageReturned
   val serviceType = ServiceType.MibRealTime
