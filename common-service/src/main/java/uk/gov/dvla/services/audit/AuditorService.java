@@ -1,90 +1,142 @@
 package uk.gov.dvla.services.audit;
 
 import org.joda.time.DateTime;
-import uk.gov.dvla.domain.RulesDriver;
+import uk.gov.dvla.domain.*;
+import uk.gov.dvla.messages.*;
+import uk.gov.dvla.servicebus.core.Bus;
+import uk.gov.dvla.services.common.HttpRequestHelper;
+import uk.gov.dvla.services.common.ServiceDateFormat;
+import uk.gov.dvla.services.utils.J2S;
 
 import javax.servlet.http.HttpServletRequest;
 import java.text.ParseException;
+import java.util.Date;
 import java.util.List;
-import java.util.UUID;
 
-public interface AuditorService {
+public class AuditorService {
 
-    public void auditPostcodeBlank(String dln, String postcode, HttpServletRequest request, DateTime requestSent);
+    private Bus serviceBus;
 
-    public void auditPostcodeContainsSpecialCharacter(String dln, String postcode, HttpServletRequest request,
-                                                      DateTime requestSent);
+    public AuditorService(Bus serviceBus) {
 
-    public void auditPostcodeMismatch(String dln, String postcode, HttpServletRequest request, DateTime requestSent);
+        this.serviceBus = serviceBus;
+    }
 
-    public void auditDlnSuppression(RulesDriver driver, String dln, HttpServletRequest request,
-                                    DateTime requestSent);
+    public void send(AuditMessage msg) {
+        serviceBus.send(msg);
+    }
+
+    public void auditPostcodeBlank(String dln, String searchedPostcode, HttpServletRequest request,
+                                   DateTime requestTime) {
+        send(new CustomerPostcodeIsBlank(dln, searchedPostcode, requestTime,
+                new DateTime(), HttpRequestHelper.getIpAddress(request)));
+    }
+
+    public void auditPostcodeContainsSpecialCharacter(String dln, String searchedPostcode,
+                                                      HttpServletRequest request, DateTime requestTime) {
+        send(new CustomerPostcodeContainsSpecialCharacter(dln, searchedPostcode, requestTime,
+                new DateTime(), HttpRequestHelper.getIpAddress(request)));
+    }
+
+    public void auditPostcodeMismatch(String dln, String searchedPostcode, HttpServletRequest request,
+                                      DateTime requestTime) {
+        send(new CustomerPostcodeNotMatched(dln, searchedPostcode, requestTime, new DateTime(),
+                HttpRequestHelper.getIpAddress(request)));
+    }
+
+    public void auditDlnSuppression(RulesDriver result, String dln, HttpServletRequest request,
+                                    DateTime requestSent) {
+
+        if (isDriverFullySuppressed(result)) {
+            send(new CustomerDlnSuppressed(dln, requestSent, new DateTime(),
+                    HttpRequestHelper.getIpAddress(request), result.getRuleApplied()));
+        }
+    }
 
     public void auditDetailsSuppression(RulesDriver result, String forenames, String surname, String dob,
                                         Integer gender, String postcode, HttpServletRequest request,
-                                        DateTime requestSent) throws ParseException;
+                                        DateTime requestSent) throws ParseException {
 
-    public void auditDVLADlnSuppression(RulesDriver driver, String dln, DateTime requestSent, String
-            contactChannel, List<String> enquiryReasons, HttpServletRequest request);
+        if (isDriverFullySuppressed(result)) {
+            Date parsedDob = ServiceDateFormat.DEFAULT.parse(dob);
 
-    public void auditDVLADetailsSuppression(RulesDriver driver, String dln, String forenames,
-                                            String surname, String dob, Integer gender, String postcode,
-                                            DateTime requestSent, String contactChannel,
-                                            List<String> enquiryReasons, HttpServletRequest request) throws ParseException;
+            send(new CustomerPersonalDetailsSuppressed(forenames, surname, new DateTime(parsedDob),
+                    gender, postcode, requestSent, new DateTime(), HttpRequestHelper.getIpAddress(request),
+                    result.getRuleApplied()));
+        }
+    }
 
-    public void auditMibRealTimeInvalidDetails(UUID enquiryId, String dln, String postcode, DateTime requestSent,
-                                               HttpServletRequest request);
+    public void auditDVLADlnSuppression(RulesDriver result, String dln, DateTime requestSent,
+                                        String contactChannel, List<String> enquiryReasons, HttpServletRequest request) {
+        if (isDriverFullySuppressed(result)) {
+            send(new DvlaDlnSuppressed(dln, requestSent, new DateTime(),
+                    result.getRuleApplied(), contactChannel, J2S.list(enquiryReasons),
+                    HttpRequestHelper.getIpAddress(request)));
+        }
+    }
 
-    public void auditMibRealTimeDlnNotFound(UUID enquiryId, String dln, String postcode, DateTime requestSent,
-                                            HttpServletRequest request);
+    public void auditDVLADetailsSuppression(RulesDriver result, String dln, String forenames, String surname,
+                                            String dob, Integer gender, String postcode, DateTime requestSent,
+                                            String contactChannel, List<String> enquiryReasons,
+                                            HttpServletRequest request) throws ParseException {
+        if (isDriverFullySuppressed(result)) {
+            Date parsedDob = ServiceDateFormat.DEFAULT.parse(dob);
 
-    public void auditMibRealTimeInvalidDln(UUID enquiryId, String dln, String postcode, DateTime requestSent,
-                                           HttpServletRequest request);
+            send(new DvlaPersonalDetailsSuppressed(dln, forenames, surname, new DateTime(parsedDob),
+                    gender, postcode, requestSent, new DateTime(), result.getRuleApplied(),
+                    contactChannel, J2S.list(enquiryReasons), HttpRequestHelper.getIpAddress(request)));
+        }
 
-    public void auditMibRealTimeServerError(UUID enquiryId, String dln, String postcode, DateTime requestSent,
-                                            HttpServletRequest request);
+    }
 
-    public void auditMibRealTimeRecordSuppression(UUID enquiryId, String dln, String postcode, DateTime requestSent,
-                                                  String ruleApplied, HttpServletRequest request);
+    public void auditNINOAuthenticateSuccess(String dln, String coreMatch,
+                                             String coreAndAddressMatch, String deceased,
+                                             DateTime requestSent, HttpServletRequest request) {
+        send(new NINOAuthenticateSuccess(dln,
+                coreMatch, coreAndAddressMatch, deceased, requestSent, new DateTime(),
+                HttpRequestHelper.getIpAddress(request)));
+    }
 
-    public void auditMibRealTimeEnquirySuccessful(UUID enquiryId, String dln, String postcode, DateTime requestSent,
-                                                  HttpServletRequest request);
+    public void auditNINOAuthenticateFailure(String dln, String coreMatch,
+                                             String coreAndAddressMatch, String deceased,
+                                             DateTime requestSent, HttpServletRequest request) {
+        send(new NINOAuthenticateFailure(dln,
+                coreMatch, coreAndAddressMatch, deceased, requestSent, new DateTime(),
+                HttpRequestHelper.getIpAddress(request)));
+    }
 
-    public void auditMibRealTimeNoEntitlements(UUID enquiryId, String dln, String postcode, DateTime requestSent,
-                                               HttpServletRequest request);
+    public void auditNINOAuthenticateDeceased(String dln, String coreMatch,
+                                              String coreAndAddressMatch, String deceased,
+                                              DateTime requestSent, HttpServletRequest request) {
+        send(new NINOAuthenticateDeceased(dln,
+                coreMatch, coreAndAddressMatch, deceased, requestSent, new DateTime(),
+                HttpRequestHelper.getIpAddress(request)));
+    }
 
-    public void auditMibRealTimeEnquiryMessageReturned(UUID enquiryId, String dln, String postcode,
-                                                       DateTime requestSent, String message,
-                                                       HttpServletRequest request);
+    public void auditNINOAuthenticateServiceMaintenance(String dln, DateTime requestSent, HttpServletRequest request) {
+        send(new NINOAuthenticateServiceMaintenance(dln, requestSent, new DateTime(),
+                HttpRequestHelper.getIpAddress(request)));
+    }
 
-    public void auditNINOAuthenticateSuccess(String dln,
-                                             String coreMatch,
-                                             String coreAndAddressMatch,
-                                             String deceased,
-                                             DateTime requestSent,
-                                             HttpServletRequest request);
+    public void auditNINOAuthenticateServiceError(String dln, DateTime requestSent, HttpServletRequest request) {
+        send(new NINOAuthenticateServiceError(dln, requestSent, new DateTime(),
+                HttpRequestHelper.getIpAddress(request)));
+    }
 
-    public void auditNINOAuthenticateFailure(String dln,
-                                             String coreMatch,
-                                             String coreAndAddressMatch,
-                                             String deceased,
-                                             DateTime requestSent,
-                                             HttpServletRequest request);
+    public void auditIDAMatch(String matchId, DateTime requestReceived, String matchingOutcome, String matchingBasis, String pid) {
+        send(new IDAMatchRequest(matchId, requestReceived, matchingOutcome, matchingBasis, pid));
+    }
 
-    public void auditNINOAuthenticateDeceased(String dln,
-                                              String coreMatch,
-                                              String coreAndAddressMatch,
-                                              String deceased,
-                                              DateTime requestSent,
-                                              HttpServletRequest request);
+    private boolean isDriverFullySuppressed(RulesDriver driverResult) {
+        boolean isFullySuppressed = false;
 
-    public void auditNINOAuthenticateServiceMaintenance(String dln,
-                                              DateTime requestSent,
-                                              HttpServletRequest request);
-
-    public void auditNINOAuthenticateServiceError(String dln,
-                                                        DateTime requestSent,
-                                                        HttpServletRequest request);
-
-    public void auditIDAMatch(String matchId, DateTime requestReceived, String matchingOutcome, String matchingBasis, String pid);
+        if (driverResult != null && driverResult.getMessages() != null) {
+            for (Message message : driverResult.getMessages()) {
+                if (message.getType() == MessageType.SuppressFullRecord.getMessageType()) {
+                    isFullySuppressed = true;
+                }
+            }
+        }
+        return isFullySuppressed;
+    }
 }
