@@ -1,6 +1,5 @@
 package uk.gov.dvla.messages
 
-import org.scalatest.matchers.MustMatchers
 import org.scalatest._
 import org.joda.time.DateTime
 
