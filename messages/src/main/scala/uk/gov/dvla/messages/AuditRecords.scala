@@ -24,8 +24,7 @@ object Status extends Enumeration {
   IDASamlResponseReceived,
   IDAMatchRequestReceived,
   BatchReceived,
-  BatchInvalid,
-  BatchValid,
+  BatchRespondedTo,
   Deceased = Value
 }
 
@@ -269,7 +268,7 @@ case class MibBatchReceived(batchId: String, received: DateTime = DateTime.now,
 case class MibBatchResponseCreated(batchId: String, result: Result.Value = Result.Success,
                                    created: DateTime = DateTime.now)
   extends AuditMessage {
-  val status = Status.BatchValid
+  val status = Status.BatchRespondedTo
   val serviceType = ServiceType.MibBatch
 }
 
