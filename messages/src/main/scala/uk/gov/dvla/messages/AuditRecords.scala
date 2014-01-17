@@ -4,7 +4,6 @@ import uk.gov.dvla.servicebus.core.Message
 import org.joda.time.DateTime
 import java.util.UUID
 
-
 object Status extends Enumeration {
   val RecordFound,
   NotFound,
