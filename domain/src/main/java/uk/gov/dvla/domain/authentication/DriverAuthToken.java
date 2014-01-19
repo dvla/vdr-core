@@ -93,7 +93,11 @@ public class DriverAuthToken extends AuthenticationToken {
         String[] addressArray = new String[1];
 
         //TODO revise if this is a proper way of builder the first address line
-        addressArray[0] = driver.getAddress().getBuildingName() + " " + driver.getAddress().getDdtfare();
+        StringBuilder sb = new StringBuilder();
+        sb.append(driver.getAddress().getBuildingName());
+        sb.append(" ");
+        sb.append(driver.getAddress().getDdtfare());
+        addressArray[0] = sb.toString();
         driverAuthToken.setAddress(addressArray);
 
         driverAuthToken.setGender(driver.getGender());
