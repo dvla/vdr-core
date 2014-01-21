@@ -112,7 +112,9 @@ public class TestMibDriverTransformService {
         assertEquals("Endorsement Offence Date returned", defaultOffenceDate, endorsement.getOffenceDate());
         assertEquals("Endorsement Conviction Date returned", defaultConvictionDate, endorsement.getConvictionDate());
         assertEquals("Endorsement Period returned", defaultPeriod, endorsement.getDisqualPeriod());
-        assertEquals("Endorsement Fine returned", defaultFine, endorsement.getFine());
+
+        //According to MIB specification v0.11 fines should be integers
+        assertEquals("Endorsement Fine returned", defaultFine.intValue(), endorsement.getFine());
     }
 
     private Entitlement createSampleEntitlement(String code, Boolean isProvisional) throws ParseException {
