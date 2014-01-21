@@ -200,7 +200,7 @@ public class MibDTO {
 
         public void setFine(Number fine) {
             //According MIB Specification v0.11 we want this number to be an integer
-            this.fine = fine.intValue();
+            this.fine = fine == null ? null : fine.intValue();
         }
 
         public Integer getNoOfPoints() {
