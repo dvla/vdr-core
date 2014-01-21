@@ -199,7 +199,8 @@ public class MibDTO {
         }
 
         public void setFine(Number fine) {
-            this.fine = fine;
+            //According MIB Specification v0.11 we want this number to be an integer
+            this.fine = fine.intValue();
         }
 
         public Integer getNoOfPoints() {
