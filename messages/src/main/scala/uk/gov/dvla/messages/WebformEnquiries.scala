@@ -3,36 +3,8 @@ package uk.gov.dvla
 import uk.gov.dvla.servicebus.core.Message
 import org.joda.time.DateTime
 import scala.collection.immutable.Map
-import scala.xml.{Null, Text, Attribute, NodeSeq}
+import uk.gov.dvla.messages.XmlMessageSerialization
 
-/**
- * Simple trait for XML serialization.
- *
- * Probably not needed in the final solution. It's used here because we're currently
- * dropping the enriched messages to disk and they need to be in a human-readable format.
- */
-trait WithXmlSerialization {
-  /**
-   * Serializes this object to an XML representation.
-   *
-   * @return XML nodes representing this class.
-   */
-  def toXml: NodeSeq = {
-    val fields = getClass.getDeclaredFields
-    fields foreach {
-      _.setAccessible(true)
-    }
-    val data = fields map {
-      f => f.getName -> f.get(this).toString
-    }
-    val xmlTag = <a/>.copy(label = getClass.getSimpleName)
-
-    (xmlTag /: data) {
-      case (rec, (name, value)) =>
-        rec % Attribute(None, name, Text(value), Null)
-    }
-  }
-}
 
 /**
  * An Enriched Record Suppression message.
@@ -47,7 +19,7 @@ trait WithXmlSerialization {
 class RecordSuppressionEnrichedMessage(val suppressionReason: String,
                                        val enrichedData: Map[String, String],
                                        baseMessage: RecordSuppressionEnquiryMessage)
-  extends Message with WithXmlSerialization with Serializable {
+  extends Message with XmlMessageSerialization with Serializable {
 
   val timestamp = baseMessage.timestamp
   val formData = baseMessage.formData
@@ -61,7 +33,7 @@ class RecordSuppressionEnrichedMessage(val suppressionReason: String,
  * @param formDataParam The form fields in a key-value map.
  */
 class RecordSuppressionEnquiryMessage(formDataParam: Map[String, String])
-  extends Message with WithXmlSerialization with Serializable {
+  extends Message with XmlMessageSerialization with Serializable {
 
   /**
    * Keep track of form submission times, and allows us to identify performance issues and

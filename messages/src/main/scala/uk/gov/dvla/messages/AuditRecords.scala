@@ -39,28 +39,10 @@ object AttributeType extends Enumeration {
   val RecordType, StatusCode, RestrictionKey, StopMarker = Value
 }
 
-sealed trait AuditMessage extends Message {
+sealed trait AuditMessage extends Message with XmlMessageSerialization{
   val result: Result.Value
   val status: Status.Value
   val serviceType: ServiceType.Value
-
-  import scala.xml._
-
-  def toXml: NodeSeq = {
-    val fields = getClass.getDeclaredFields
-    fields foreach {
-      _.setAccessible(true)
-    }
-    val data = fields map {
-      f => f.getName -> f.get(this).toString
-    }
-    val xmlTag = <a/>.copy(label = getClass.getSimpleName)
-
-    (xmlTag /: data) {
-      case (rec, (name, value)) =>
-        rec % Attribute(None, name, Text(value), Null)
-    }
-  }
 }
 
 case class CustomerDlnSuccessful(dln: String, postCode: String, requestSent: DateTime, responseSent: DateTime,
