@@ -212,9 +212,12 @@ public class MibDriverTransformService implements TransformService<RulesDriver, 
             for (Message m : messages) {
                 if (m.getKey().equalsIgnoreCase(DISQUALIFIED_FOR_LIFE)) {
                     return MIB_DISQUALIFIED_FOR_LIFE;
-                } else if (m.getKey().equalsIgnoreCase(DISQUALIFIED_REAPPLY_WITH_DATE)
-                        || m.getKey().equalsIgnoreCase(DISQUALIFICATION_EXPIRED_REAPPLY_WITH_DATE)) {
+                } else if (m.getKey().equalsIgnoreCase(DISQUALIFIED_REAPPLY_WITH_DATE)) {
                     return MIB_DISQUALIFIED_UNTIL_GIVEN_DATE_AND_TEST_PASS;
+                } else if (m.getKey().equalsIgnoreCase(DISQUALIFICATION_EXPIRED_REAPPLY_WITH_DATE)) {
+                    return m.getExtra().equalsIgnoreCase("E")
+                            ? MIB_DISQUALIFIED_UNTIL_GIVEN_DATE_AND_TEST_PASS
+                            : MIB_DISQUALIFIED_UNTIL_GIVEN_DATE;
                 } else if (m.getKey().equalsIgnoreCase(DISQUALIFIED_UNTIL_DATE)) {
                     return MIB_DISQUALIFIED_UNTIL_GIVEN_DATE;
                 } else if (m.getKey().equalsIgnoreCase(REVOKED_REAPPLY)) {
