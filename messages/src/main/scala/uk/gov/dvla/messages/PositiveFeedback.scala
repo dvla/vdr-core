@@ -1,6 +1,6 @@
 package uk.gov.dvla.messages
 
-import uk.gov.dvla.servicebus.core.{MessageRoutingKey, Message}
+import uk.gov.dvla.servicebus.core.{Message}
 import org.joda.time.DateTime
 
 case class PositiveFeedback(
@@ -9,6 +9,4 @@ case class PositiveFeedback(
                              responseSent: DateTime,
                              userId: String,
                              ipAddress: String
-                             ) extends Message with XmlMessageSerialization with MessageRoutingKey {
-  val key: String = "iep_audit"
-}
+                             ) extends Message with XmlMessageSerialization

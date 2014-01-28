@@ -1,6 +1,6 @@
 package uk.gov.dvla.messages
 
-import uk.gov.dvla.servicebus.core.{MessageRoutingKey, Message}
+import uk.gov.dvla.servicebus.core.{Message}
 import org.joda.time.DateTime
 import java.util.UUID
 
@@ -39,11 +39,10 @@ object AttributeType extends Enumeration {
   val RecordType, StatusCode, RestrictionKey, StopMarker = Value
 }
 
-sealed trait AuditMessage extends Message with XmlMessageSerialization with MessageRoutingKey {
+sealed trait AuditMessage extends Message with XmlMessageSerialization {
   val result: Result.Value
   val status: Status.Value
   val serviceType: ServiceType.Value
-  val key : String = "iep_audit"
 }
 
 case class CustomerDlnSuccessful(dln: String, postCode: String, requestSent: DateTime, responseSent: DateTime,

@@ -21,7 +21,7 @@ trait XmlMessageSerialization {
     }
     val data = fields map {
       f => f.getName -> f.get(this).toString
-    } filter (_._1 != "key")
+    }
     val xmlTag = <a/>.copy(label = getClass.getSimpleName)
 
     (xmlTag /: data) {
