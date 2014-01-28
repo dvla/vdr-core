@@ -1,9 +1,9 @@
 package uk.gov.dvla
 
-import uk.gov.dvla.servicebus.core.Message
+import uk.gov.dvla.servicebus.core.{MessageRoutingKey, Message}
 import org.joda.time.DateTime
 import scala.collection.immutable.Map
-import uk.gov.dvla.messages.XmlMessageSerialization
+import uk.gov.dvla.messages.{XmlMessageSerialization}
 
 
 /**
@@ -19,10 +19,13 @@ import uk.gov.dvla.messages.XmlMessageSerialization
 case class RecordSuppressionEnrichedMessage(suppressionReason: String,
                                             enrichedData: Map[String, String],
                                             baseMessage: RecordSuppressionEnquiryMessage)
-  extends Message with XmlMessageSerialization with Serializable {
+  extends Message with XmlMessageSerialization with Serializable with MessageRoutingKey {
 
   val timestamp = baseMessage.timestamp
+
   def formData = baseMessage.formData
+
+  val key: String = "kana_webform"
 }
 
 /**
@@ -32,7 +35,9 @@ case class RecordSuppressionEnrichedMessage(suppressionReason: String,
  * @param formData The form fields in a key-value map.
  */
 case class RecordSuppressionEnquiryMessage(formData: Map[String, String])
-  extends Message with XmlMessageSerialization with Serializable {
+  extends Message with XmlMessageSerialization with Serializable with MessageRoutingKey {
   val timestamp = DateTime.now
+
+  val key: String = "kana_webform"
 }
 
