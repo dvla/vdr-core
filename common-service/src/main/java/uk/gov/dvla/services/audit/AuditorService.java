@@ -13,17 +13,35 @@ import java.text.ParseException;
 import java.util.Date;
 import java.util.List;
 
+/**
+ * This service handles creating and sending message objects to the bus, with a provided route key.
+ */
 public class AuditorService {
 
-    private Bus serviceBus;
+    private final String routingKey;
+    private final Bus serviceBus;
 
+    /**
+     * Creates the service with just a service bus, the route key is defaulted to ''
+     * @param serviceBus AMPQ service bus
+     */
     public AuditorService(Bus serviceBus) {
+        this.routingKey = "";
+        this.serviceBus = serviceBus;
+    }
 
+    /**
+     * Creates the service with just a service bus and a route key
+     * @param serviceBus AMPQ service bus
+     * @param routingKey Route key used to route different type of messages
+     */
+    public AuditorService(Bus serviceBus, String routingKey) {
+        this.routingKey = routingKey;
         this.serviceBus = serviceBus;
     }
 
     public void send(AuditMessage msg) {
-        serviceBus.send(msg);
+        serviceBus.send(msg, routingKey);
     }
 
     public void auditPostcodeBlank(String dln, String searchedPostcode, HttpServletRequest request,
