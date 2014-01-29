@@ -21,6 +21,7 @@ public class Driver extends Person {
     private DriverStatedFlags driverStatedFlags;
     private Date firstProvisionalDate;
     private Date disqualifiedUntilDate;
+    private DisqualificationUntilType disqualifiedUntilType;
     private String HROType;
     private List<ConductCase> conductCases;
     private List<Disqualification> disqualifications;
@@ -232,5 +233,13 @@ public class Driver extends Person {
 
     public void setLicenceTokens(List<LicenceToken> licenceTokens) {
         this.licenceTokens = licenceTokens;
+    }
+
+    public DisqualificationUntilType getDisqualifiedUntilType() {
+        return disqualifiedUntilType;
+    }
+
+    public void setDisqualifiedUntilType(DisqualificationUntilType disqualifiedUntilType) {
+        this.disqualifiedUntilType = disqualifiedUntilType;
     }
 }
