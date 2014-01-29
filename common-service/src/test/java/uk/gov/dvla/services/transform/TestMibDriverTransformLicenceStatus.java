@@ -92,7 +92,7 @@ public class TestMibDriverTransformLicenceStatus {
     @Test
     public void testDisqualifiedUntilDateWithTestPassRequired() {
         MibDriverTransformService transformService = new MibDriverTransformService();
-        MibDTO result = transformService.transform(buildRulesDriverWithMessage("F", "licence.status.disqualified.reapply.with.date"));
+        MibDTO result = transformService.transform(buildRulesDriverWithMessage("E", "licence.status.disqualified.reapply.with.date"));
         MibDTO.Licence licenceResult = result.getLicence();
 
         // Test correct licence status is returned
@@ -103,7 +103,7 @@ public class TestMibDriverTransformLicenceStatus {
     @Test
     public void testDisqualifiedUntilDateWithTestPassRequired2() {
         MibDriverTransformService transformService = new MibDriverTransformService();
-        MibDTO result = transformService.transform(buildRulesDriverWithMessage("F", "licence.status.not.disqualified.reapply.with.date"));
+        MibDTO result = transformService.transform(buildRulesDriverWithMessage("E", "licence.status.not.disqualified.reapply.with.date", "E"));
         MibDTO.Licence licenceResult = result.getLicence();
 
         // Test correct licence status is returned
