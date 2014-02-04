@@ -32,7 +32,7 @@ object Result extends Enumeration {
 }
 
 object ServiceType extends Enumeration {
-  val CustomerPortal, DvlaPortal, MibRealTime, MibBatch, IDAMatcherService = Value
+  val CustomerPortal, DvlaPortal, MibRealTime, MibBatch, IDAMatcherService, WebFormEnrichmentService = Value
 }
 
 object AttributeType extends Enumeration {
@@ -41,7 +41,6 @@ object AttributeType extends Enumeration {
 
 sealed trait AuditMessage extends Message with XmlMessageSerialization {
   val result: Result.Value
-  val status: Status.Value
   val serviceType: ServiceType.Value
 }
 
@@ -402,4 +401,9 @@ case class IDAMatchRequest(matchId: String, requestReceived: DateTime, matchingO
   val result = Result.Success
   val status = Status.IDAMatchRequestReceived
   val serviceType = ServiceType.IDAMatcherService
+}
+
+case class WebFormSubmission(data: Map[String, String]) extends AuditMessage with XmlMapBasedSerialization {
+  val result = Result.Success
+  val serviceType = ServiceType.WebFormEnrichmentService
 }

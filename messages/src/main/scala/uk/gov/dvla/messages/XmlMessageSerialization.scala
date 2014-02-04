@@ -1,12 +1,9 @@
 package uk.gov.dvla.messages
 
-import scala.xml.{Null, Text, Attribute, NodeSeq}
+import scala.xml._
 
 /**
  * Simple trait for XML serialization.
- *
- * Probably not needed in the final solution. It's used here because we're currently
- * dropping the enriched messages to disk and they need to be in a human-readable format.
  */
 trait XmlMessageSerialization {
   /**
@@ -22,6 +19,11 @@ trait XmlMessageSerialization {
     val data = fields map {
       f => f.getName -> f.get(this).toString
     }
+
+    xmlFromMap(data.toMap)
+  }
+
+  def xmlFromMap(data: Map[String, String]): NodeSeq = {
     val xmlTag = <a/>.copy(label = getClass.getSimpleName)
 
     (xmlTag /: data) {
@@ -29,4 +31,13 @@ trait XmlMessageSerialization {
         rec % Attribute(None, name, Text(value), Null)
     }
   }
+}
+
+trait XmlMapBasedSerialization extends XmlMessageSerialization {
+  val data: Map[String, String]
+
+  /**
+   * @return XML node named like the class with attributes set from 'data' map.
+   */
+  override def toXml: NodeSeq = xmlFromMap(data)
 }
