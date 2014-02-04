@@ -18,21 +18,23 @@ public abstract class AbstractMongoDatastore implements ManagedService {
     private DBCollection collection_i;
     protected Datastore dataStore_i;
 
-    private AbstractMongoDatastore(List<String> servers, String database, String collection, List<String> credentials) {
+    private AbstractMongoDatastore(List<String> servers, String database, String collection, List<String> credentials, ReadPreference readPreference) {
+        MongoClientOptions mongoClientOptions = MongoClientOptions.builder().readPreference(readPreference).build();
+
         if (credentials == null || credentials.isEmpty()) {
-            mongoClient_i = new MongoClient(parseServerAddresses(servers));
+            mongoClient_i = new MongoClient(parseServerAddresses(servers), mongoClientOptions);
         } else {
-            mongoClient_i = new MongoClient(parseServerAddresses(servers), parseCredentials(credentials, database));
+            mongoClient_i = new MongoClient(parseServerAddresses(servers), parseCredentials(credentials, database), mongoClientOptions);
         }
     }
 
-    public AbstractMongoDatastore(List<String> servers, String database, String collection, List<String> credentials, String packageToMap) throws UnknownHostException {
-        this(servers, database, collection, credentials);
+    public AbstractMongoDatastore(List<String> servers, String database, String collection, List<String> credentials, String packageToMap, ReadPreference readPreference) throws UnknownHostException {
+        this(servers, database, collection, credentials, readPreference);
         dataStore_i = prepareMorphia(mongoClient_i, database, packageToMap);
     }
 
-    public AbstractMongoDatastore(List<String> servers, String database, String collection, List<String> credentials, Class classToMap) throws UnknownHostException {
-        this(servers, database, collection, credentials);
+    public AbstractMongoDatastore(List<String> servers, String database, String collection, List<String> credentials, Class classToMap, ReadPreference readPreference) throws UnknownHostException {
+        this(servers, database, collection, credentials, readPreference);
         dataStore_i = prepareMorphia(mongoClient_i, database, classToMap);
     }
 

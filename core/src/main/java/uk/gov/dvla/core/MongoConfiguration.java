@@ -1,6 +1,9 @@
 package uk.gov.dvla.core;
 
 
+import com.mongodb.Mongo;
+;
+
 import javax.validation.constraints.NotNull;
 
 import java.util.*;
@@ -10,6 +13,13 @@ import java.util.*;
  * Does contain a list of servers, list of credentials, the database name and mongo collection
  */
 public class MongoConfiguration {
+
+    public enum ReadPreference {
+        PRIMARY, PRIMARY_PREFERRED, SECONDARY, SECONDARY_PREFERRED, NEAREST
+    }
+
+    private ReadPreference readPreference = ReadPreference.NEAREST;
+
 
     @NotNull
     private List<String> servers = Arrays.asList("localhost:27017");
@@ -32,7 +42,7 @@ public class MongoConfiguration {
     private String database = "dvla";
 
     /**
-     * Returns the database name, if not specified in the YAML file, it defaults to 'dvla'
+     * @return Returns the database name, if not specified in the YAML file, it defaults to 'dvla'
      */
     public final String getDatabase() {
         return database;
@@ -42,9 +52,35 @@ public class MongoConfiguration {
     private String collection = "drivers";
 
     /**
-     * Returns the mongo collection name, if not specified in the YAML file, it defaults to 'drivers'
+     * @return Returns the mongo collection name, if not specified in the YAML file, it defaults to 'drivers'
      */
     public final String getCollection() {
         return collection;
     }
+
+    /**
+     * @return returns a read preference which will be used by morphia.
+     */
+    public com.mongodb.ReadPreference getReadPreference() {
+        switch (readPreference) {
+            case PRIMARY:
+                return com.mongodb.ReadPreference.primary();
+
+            case PRIMARY_PREFERRED:
+                return com.mongodb.ReadPreference.primaryPreferred();
+
+            case SECONDARY:
+                return com.mongodb.ReadPreference.secondary();
+
+            case SECONDARY_PREFERRED:
+                return com.mongodb.ReadPreference.secondaryPreferred();
+
+            case NEAREST:
+                return com.mongodb.ReadPreference.nearest();
+
+            default:
+                return com.mongodb.ReadPreference.nearest();
+        }
+    }
+
 }
