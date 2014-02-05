@@ -20,6 +20,8 @@ public class MongoConfiguration {
 
     private ReadPreference readPreference = ReadPreference.NEAREST;
 
+    private boolean ensureIndexes = false;
+
 
     @NotNull
     private List<String> servers = Arrays.asList("localhost:27017");
@@ -82,5 +84,13 @@ public class MongoConfiguration {
                 return com.mongodb.ReadPreference.nearest();
         }
     }
+
+    /**
+     * @return returns flag if the database indexes should be ensured. Set true only for services writing to the database, defaults to 'false'
+     */
+    public boolean isEnsureIndexes() {
+        return ensureIndexes;
+    }
+
 
 }

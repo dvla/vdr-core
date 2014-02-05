@@ -17,10 +17,11 @@ public abstract class AbstractMongoDatastore implements ManagedService {
     private MongoClient mongoClient_i;
     private DBCollection collection_i;
     protected Datastore dataStore_i;
+    private final boolean ensureIndexes;
 
-    private AbstractMongoDatastore(List<String> servers, String database, String collection, List<String> credentials, ReadPreference readPreference) {
+    private AbstractMongoDatastore(List<String> servers, String database, String collection, List<String> credentials, ReadPreference readPreference, boolean ensureIndexes) {
         MongoClientOptions mongoClientOptions = MongoClientOptions.builder().readPreference(readPreference).build();
-
+        this.ensureIndexes = ensureIndexes;
         if (credentials == null || credentials.isEmpty()) {
             mongoClient_i = new MongoClient(parseServerAddresses(servers), mongoClientOptions);
         } else {
@@ -28,13 +29,13 @@ public abstract class AbstractMongoDatastore implements ManagedService {
         }
     }
 
-    public AbstractMongoDatastore(List<String> servers, String database, String collection, List<String> credentials, String packageToMap, ReadPreference readPreference) throws UnknownHostException {
-        this(servers, database, collection, credentials, readPreference);
+    public AbstractMongoDatastore(List<String> servers, String database, String collection, List<String> credentials, String packageToMap, ReadPreference readPreference, boolean ensureIndexes) throws UnknownHostException {
+        this(servers, database, collection, credentials, readPreference, ensureIndexes);
         dataStore_i = prepareMorphia(mongoClient_i, database, packageToMap);
     }
 
-    public AbstractMongoDatastore(List<String> servers, String database, String collection, List<String> credentials, Class classToMap, ReadPreference readPreference) throws UnknownHostException {
-        this(servers, database, collection, credentials, readPreference);
+    public AbstractMongoDatastore(List<String> servers, String database, String collection, List<String> credentials, Class classToMap, ReadPreference readPreference, boolean ensureIndexes) throws UnknownHostException {
+        this(servers, database, collection, credentials, readPreference, ensureIndexes);
         dataStore_i = prepareMorphia(mongoClient_i, database, classToMap);
     }
 
@@ -75,8 +76,8 @@ public abstract class AbstractMongoDatastore implements ManagedService {
         morphia.mapPackage(packageToMap);
 
         datastore = morphia.createDatastore(client, database);
-
-        datastore.ensureIndexes();
+        if (ensureIndexes)
+            datastore.ensureIndexes();
         return datastore;
     }
 
