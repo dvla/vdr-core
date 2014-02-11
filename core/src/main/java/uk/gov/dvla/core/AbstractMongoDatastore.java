@@ -90,7 +90,8 @@ public abstract class AbstractMongoDatastore implements ManagedService {
 
         datastore = morphia.createDatastore(client, database);
 
-        datastore.ensureIndexes();
+        if (ensureIndexes)
+            datastore.ensureIndexes();
         return datastore;
     }
 
