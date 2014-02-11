@@ -4,7 +4,7 @@ import javax.validation.constraints.NotNull;
 
 public class GraphiteConfig {
     @NotNull
-    public String status = "on";
+    public String status = "off";
 
     @NotNull
     public String server = "localhost";
