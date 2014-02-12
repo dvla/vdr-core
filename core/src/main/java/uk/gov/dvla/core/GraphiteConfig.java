@@ -17,7 +17,7 @@ public class GraphiteConfig {
 
     @Override
     public String toString() {
-        return String.format("GraphiteConfiguration: Status $s Server %s  Port: %s DB: %s Timeout(secs): %s", status, server, port, timeoutSecs);
+        return String.format("GraphiteConfiguration: Status %s Server %s  Port: %s DB: %s Timeout(secs): %s", status, server, port, timeoutSecs);
     }
 
 }
