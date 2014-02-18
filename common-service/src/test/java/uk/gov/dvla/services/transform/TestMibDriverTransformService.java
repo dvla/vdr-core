@@ -1,6 +1,7 @@
 package uk.gov.dvla.services.transform;
 
 import org.joda.time.DateTime;
+import org.joda.time.Period;
 import org.junit.Test;
 import uk.gov.dvla.domain.*;
 import uk.gov.dvla.domain.mib.EntitlementType;
@@ -25,7 +26,7 @@ public class TestMibDriverTransformService {
     private final Date defaultOffenceDate = new DateTime().minusMonths(8).toDate();
     private final Date defaultSentencingDate = new DateTime().minusMonths(7).toDate();
     private final Date defaultConvictionDate = new DateTime().minusMonths(7).toDate();
-    private final String defaultPeriod = "P12M";
+    private final Period defaultPeriod = Period.parse("P12M");
     private final Double defaultFine = 123.99;
 
     @Test
@@ -140,7 +141,7 @@ public class TestMibDriverTransformService {
         sample.setDisqual(true);
         sample.setConviction(defaultConvictionDate);
         sample.setSentencing(defaultSentencingDate);
-        sample.setDuration(defaultPeriod);
+        sample.setDuration(defaultPeriod.toString());
         sample.setFine(defaultFine);
 
         return sample;
