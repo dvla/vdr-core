@@ -1,5 +1,7 @@
 package uk.gov.dvla.domain.mib;
 
+import org.joda.time.Period;
+
 import java.util.Date;
 import java.util.List;
 
@@ -148,7 +150,7 @@ public class MibDTO {
         private Number fine;
         private Integer noOfPoints;
         private Boolean isDisqual;
-        private String disqualPeriod;
+        private Period disqualPeriod;
         private Date disqualStartDate;
         private Date disqualEndDate;
         private Date indicativeRehabilitationSpentDate;
@@ -186,11 +188,19 @@ public class MibDTO {
             this.convictionDate = convictionDate;
         }
 
-        public String getDisqualPeriod() {
+        public Period getDisqualPeriod() {
             return disqualPeriod;
         }
 
         public void setDisqualPeriod(String disqualPeriod) {
+            try {
+                this.disqualPeriod = Period.parse(disqualPeriod);
+            } catch (Exception e) {
+                this.disqualPeriod = Period.days(0);
+            }
+        }
+
+        public void setDisqualPeriod(Period disqualPeriod) {
             this.disqualPeriod = disqualPeriod;
         }
 
