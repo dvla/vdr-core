@@ -21,7 +21,7 @@ public class NinoAuthenticationToken extends DriverAuthToken {
     public NinoAuthenticationToken() {
     }
 
-    public NinoAuthenticationToken(String dln, String postcode, String nino, Date dob, String surname, String forename1, String forename2) {
+    public NinoAuthenticationToken(String dln, String postcode, String nino, Date dob, String surname, String forename1, String forename2, int gender) {
 
         this.dln = dln;
         this.postCode = postcode;
@@ -30,6 +30,7 @@ public class NinoAuthenticationToken extends DriverAuthToken {
         this.surname = surname;
         this.forename1 = forename1;
         this.forename2 = forename2;
+        this.gender = gender;
 
     }
 
@@ -47,7 +48,7 @@ public class NinoAuthenticationToken extends DriverAuthToken {
     }
 
     public NinoAuthenticationToken(DriverAuthToken driverAuthToken) {
-        this(driverAuthToken.getDln(), driverAuthToken.getPostCode(), null, driverAuthToken.getDob(), driverAuthToken.getSurname(), driverAuthToken.getForename1(), driverAuthToken.getForename2());
+        this(driverAuthToken.getDln(), driverAuthToken.getPostCode(), null, driverAuthToken.getDob(), driverAuthToken.getSurname(), driverAuthToken.getForename1(), driverAuthToken.getForename2(), driverAuthToken.getGender());
     }
 
     public String getNino() {
