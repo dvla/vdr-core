@@ -6,7 +6,7 @@ public class Message {
     private String description;
     private boolean error;
     private int type;
-    private String extra;
+    private Object extra;
 
     public Message() {
     }
@@ -20,7 +20,7 @@ public class Message {
         this.type = type.getMessageType();
     }
 
-    public Message(String key, MessageType type, String extra) {
+    public Message(String key, MessageType type, Object extra) {
         this.key = key;
         this.type = type.getMessageType();
         this.extra = extra;
@@ -69,11 +69,11 @@ public class Message {
         this.type = type;
     }
 
-    public String getExtra() {
+    public Object getExtra() {
         return extra;
     }
 
-    public void setExtra(String extra) {
+    public void setExtra(Object extra) {
         this.extra = extra;
     }
 }

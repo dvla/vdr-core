@@ -17,8 +17,7 @@ public enum MessageType {
     WithholdFullRecord(9, "Record withheld"),
     SuppressionReason(10, "Suppression Reason");
 
-    public int getMessageType()
-    {
+    public int getMessageType() {
         return value;
     }
 

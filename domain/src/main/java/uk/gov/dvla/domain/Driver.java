@@ -24,6 +24,7 @@ public class Driver extends Person {
     private DisqualificationUntilType disqualifiedUntilType;
     private String HROType;
     private List<ConductCase> conductCases;
+    private Disqualification matchedDisqualification;
     private List<Disqualification> disqualifications;
 
     private List<TachoCard> tachoCards;
@@ -241,5 +242,13 @@ public class Driver extends Person {
 
     public void setDisqualifiedUntilType(DisqualificationUntilType disqualifiedUntilType) {
         this.disqualifiedUntilType = disqualifiedUntilType;
+    }
+
+    public Disqualification getMatchedDisqualification() {
+        return matchedDisqualification;
+    }
+
+    public void setMatchedDisqualification(Disqualification matchedDisqualification) {
+        this.matchedDisqualification = matchedDisqualification;
     }
 }
