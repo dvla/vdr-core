@@ -3,26 +3,28 @@ package uk.gov.dvla.services.mib;
 import uk.gov.dvla.domain.*;
 import uk.gov.dvla.domain.mib.EntitlementType;
 import uk.gov.dvla.domain.mib.MibDTO;
+import uk.gov.dvla.services.common.disqualifications.DisqualificationStatus;
 import uk.gov.dvla.services.transform.TransformService;
 
 import java.util.*;
 
 public class MibDriverTransformService implements TransformService<RulesDriver, MibDTO> {
 
-    private static final String MIB_CURRENT_FULL_LICENCE = "FC";
-    private static final String MIB_CURRENT_PROV_LICENCE = "PC";
-    private static final String MIB_EXPIRED_FULL_LICENCE = "FE";
-    private static final String MIB_EXPIRED_PROV_LICENCE = "PE";
-    private static final String MIB_DISQUALIFIED_LICENCE = "DQ";
-    private static final String MIB_SURRENDERED_PROV_LICENCE = "PS";
-    private static final String MIB_SURRENDERED_FULL_LICENCE = "FS";
-    private static final String MIB_DISQUALIFIED_UNTIL_GIVEN_DATE = "DD";
-    private static final String MIB_DISQUALIFIED_UNTIL_TEST_PASS = "DT";
-    private static final String MIB_DISQUALIFIED_UNTIL_GIVEN_DATE_AND_TEST_PASS = "DP";
-    private static final String MIB_DISQUALIFIED_UNTIL_SENTENCED = "DS";
-    private static final String MIB_DISQUALIFIED_FOR_LIFE = "DX";
-    private static final String MIB_REVOKED_UNTIL_TEST_PASS = "RV";
-    private static final String MIB_NO_CURRENT_GB_LICENCE_HELP = "NE";
+    public static final String MIB_CURRENT_FULL_LICENCE = "FC";
+    public static final String MIB_CURRENT_PROV_LICENCE = "PC";
+    public static final String MIB_EXPIRED_FULL_LICENCE = "FE";
+    public static final String MIB_EXPIRED_PROV_LICENCE = "PE";
+    public static final String MIB_DISQUALIFIED_LICENCE = "DQ";
+    public static final String MIB_SURRENDERED_PROV_LICENCE = "PS";
+    public static final String MIB_SURRENDERED_FULL_LICENCE = "FS";
+    public static final String MIB_DISQUALIFIED_UNTIL_GIVEN_DATE = "DD";
+    public static final String MIB_DISQUALIFIED_UNTIL_TEST_PASS = "DT";
+    //What about this one?
+    public static final String MIB_DISQUALIFIED_UNTIL_GIVEN_DATE_AND_TEST_PASS = "DP";
+    public static final String MIB_DISQUALIFIED_UNTIL_SENTENCED = "DS";
+    public static final String MIB_DISQUALIFIED_FOR_LIFE = "DX";
+    public static final String MIB_REVOKED_UNTIL_TEST_PASS = "RV";
+    public static final String MIB_NO_CURRENT_GB_LICENCE_HELP = "NE";
 
     private static final String LICENCE_STATUS_A = "A";
     private static final String LICENCE_STATUS_B = "B";
@@ -33,17 +35,6 @@ public class MibDriverTransformService implements TransformService<RulesDriver, 
     private static final String LICENCE_STATUS_O = "O";
     private static final String LICENCE_STATUS_Q = "Q";
     private static final String LICENCE_STATUS_S = "S";
-
-    private static final String DISQUALIFIED_FOR_LIFE = "licence.status.disqualified.for.life";
-    private static final String DISQUALIFIED_REAPPLY_WITH_DATE = "licence.status.disqualified.reapply.with.date";
-    private static final String DISQUALIFICATION_EXPIRED_REAPPLY_WITH_DATE =
-            "licence.status.not.disqualified.reapply.with.date";
-    private static final String DISQUALIFIED_UNTIL_DATE = "licence.status.disqualified.until.date";
-    private static final String REVOKED_REAPPLY = "licence.status.revoked.reapply";
-    private static final String REVOKED = "licence.status.revoked";
-    private static final String DISQUALIFIED_UNTIL_SENTENCING = "licence.status.disqualified.until.sentencing";
-    private static final String DISQUALIFIED = "licence.status.disqualified";
-    private static final String DISQUALIFIED_REAPPLY = "licence.status.disqualified.reapply";
 
 
     @Override
@@ -108,8 +99,6 @@ public class MibDriverTransformService implements TransformService<RulesDriver, 
 
             mibEndorsement.setCustodialPeriod(end.getCustodialPeriod());
             mibEndorsement.setIndicativeRehabilitationSpentDate(end.getIndicativeRehabSpentDate());
-            // TODO: this logic needs to be updated once we confirm what disqual should be returned
-            // TODO: check if this logic shouldn't be in Drools rules.
             if (driver.getDisqualifications() != null) {
                 for (Disqualification disq : driver.getDisqualifications()) {
                     if (end.getId().equals(disq.getEndorsementID())) {
@@ -210,29 +199,8 @@ public class MibDriverTransformService implements TransformService<RulesDriver, 
     private String checkDisqualifications(List<Message> messages) {
         if (messages != null) {
             for (Message m : messages) {
-                if (m.getKey().equalsIgnoreCase(DISQUALIFIED_FOR_LIFE)) {
-                    return MIB_DISQUALIFIED_FOR_LIFE;
-                } else if (m.getKey().equalsIgnoreCase(DISQUALIFIED_REAPPLY_WITH_DATE)) {
-                    return MIB_DISQUALIFIED_UNTIL_GIVEN_DATE_AND_TEST_PASS;
-                } else if (m.getKey().equalsIgnoreCase(DISQUALIFICATION_EXPIRED_REAPPLY_WITH_DATE)) {
-                    return m.getExtra() != null && m.getExtra().equalsIgnoreCase("E")
-                            ? MIB_DISQUALIFIED_UNTIL_GIVEN_DATE_AND_TEST_PASS
-                            : MIB_DISQUALIFIED_UNTIL_GIVEN_DATE;
-                } else if (m.getKey().equalsIgnoreCase(DISQUALIFIED_UNTIL_DATE)) {
-                    return MIB_DISQUALIFIED_UNTIL_GIVEN_DATE;
-                } else if (m.getKey().equalsIgnoreCase(REVOKED_REAPPLY)) {
-                    // TODO: Revoked will be removed from this list and set to a specific status - future user story
-                    return MIB_REVOKED_UNTIL_TEST_PASS;
-                } else if (m.getKey().equalsIgnoreCase(REVOKED)) {
-                    return m.getExtra() != null && m.getExtra().equalsIgnoreCase("B")
-                            ? MIB_EXPIRED_PROV_LICENCE
-                            : MIB_EXPIRED_FULL_LICENCE;
-                } else if (m.getKey().equalsIgnoreCase(DISQUALIFIED_UNTIL_SENTENCING)) {
-                    return MIB_DISQUALIFIED_UNTIL_SENTENCED;
-                } else if (m.getKey().equalsIgnoreCase(DISQUALIFIED)) {
-                    return MIB_DISQUALIFIED_LICENCE;
-                } else if (m.getKey().equalsIgnoreCase(DISQUALIFIED_REAPPLY)) {
-                    return MIB_DISQUALIFIED_UNTIL_TEST_PASS;
+                if (m.getExtra() instanceof DisqualificationStatus) {
+                    return ((DisqualificationStatus) m.getExtra()).mibCode;
                 }
             }
         }
