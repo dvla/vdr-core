@@ -12,6 +12,10 @@ public enum DisqualificationStatus {
     DISQ_PAST_DATE_REAPPLY_PROV("licence.status.not.disqualified.reapply.with.date", MIB_EXPIRED_PROV_LICENCE),
     DISQ_PAST_DATE("licence.status.not.disqualified", null),
     DISQ_PAST_DATE_REAPPLY_GB("licence.status.disqualification.expired.without.renewal", null),
+    DISQ_PAST_NO_DATE_REAPPLY_FULL("licence.status.not.disqualified.reapply.without.date", MIB_EXPIRED_FULL_LICENCE),
+    DISQ_PAST_NO_DATE_REAPPLY_PROV("licence.status.not.disqualified.reapply.without.date", MIB_EXPIRED_PROV_LICENCE),
+    DISQ_PAST_NO_DATE("licence.status.not.disqualified.without.date", null),
+    DISQ_PAST_NO_DATE_REAPPLY_GB("licence.status.disqualification.expired.without.renewal.without.date", null),
     REVOKED_TEST_PASS("licence.status.revoked.reapply", MIB_REVOKED_UNTIL_TEST_PASS),
     REVOKED_FULL("licence.status.revoked", MIB_EXPIRED_FULL_LICENCE),
     REVOKED_PROV("licence.status.revoked", MIB_EXPIRED_PROV_LICENCE);
