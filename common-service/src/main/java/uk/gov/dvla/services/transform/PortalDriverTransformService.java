@@ -52,20 +52,9 @@ public class PortalDriverTransformService implements TransformService<RulesDrive
     }
 
     private PortalDTO.Address getAddress(Address address) {
-
-        PortalDTO.Address portalAddress = new PortalDTO.Address();
-        if (address == null) {
-            return portalAddress;
-        }
-
-        portalAddress.setBuildingName(address.getBuildingName());
-        portalAddress.setDdtfare(address.getDdtfare());
-        portalAddress.setPostTown(address.getPostTown());
-        portalAddress.setPostCode(address.getPostCode());
-        portalAddress.setType(address.getType());
-        portalAddress.setuPostCode(address.getuPostCode());
-        portalAddress.setuLine(address.getuLine());
-        return portalAddress;
+        return address != null
+                ? AddressTransformer.apply(address)
+                : new PortalDTO.Address();
     }
 
     private PortalDTO.BirthDetails getBirthDetails(BirthDetails birthDetails) {
