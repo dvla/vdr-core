@@ -244,37 +244,8 @@ public class PortalDTO {
 
     public static class Address {
 
-        private String buildingName;
-        private String ddtfare;
-        private String postTown;
+        private String addrLine;
         private String postCode;
-        private String type;
-        private List<String> uLine;
-        private String uPostCode;
-
-        public String getBuildingName() {
-            return buildingName;
-        }
-
-        public void setBuildingName(String buildingName) {
-            this.buildingName = buildingName;
-        }
-
-        public String getDdtfare() {
-            return ddtfare;
-        }
-
-        public void setDdtfare(String ddtfare) {
-            this.ddtfare = ddtfare;
-        }
-
-        public String getPostTown() {
-            return postTown;
-        }
-
-        public void setPostTown(String postTown) {
-            this.postTown = postTown;
-        }
 
         public String getPostCode() {
             return postCode;
@@ -284,28 +255,12 @@ public class PortalDTO {
             this.postCode = postCode;
         }
 
-        public String getType() {
-            return type;
+        public String getAddrLine() {
+            return addrLine;
         }
 
-        public void setType(String type) {
-            this.type = type;
-        }
-
-        public List<String> getuLine() {
-            return uLine;
-        }
-
-        public void setuLine(List<String> uLine) {
-            this.uLine = uLine;
-        }
-
-        public String getuPostCode() {
-            return uPostCode;
-        }
-
-        public void setuPostCode(String uPostCode) {
-            this.uPostCode = uPostCode;
+        public void setAddrLine(String addrLine) {
+            this.addrLine = addrLine;
         }
     }
 
