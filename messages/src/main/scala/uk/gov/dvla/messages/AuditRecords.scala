@@ -28,7 +28,7 @@ object Status extends Enumeration {
 }
 
 object Result extends Enumeration {
-  val Success, Failure = Value
+  val Success, Failure, Cancellation = Value
 }
 
 object ServiceType extends Enumeration {
@@ -388,12 +388,25 @@ case class IDASamlRequest(requestId: String, requestSent: DateTime) extends Audi
 
 }
 
-case class IDASamlResponse(requestId: String, pid: String, requestSent: DateTime) extends AuditMessage {
+case class IDASamlResponseSuccess(requestId: String, pid: String, requestSent: DateTime) extends AuditMessage {
   val authenticationType = "IDA"
   val result = Result.Success
   val status = Status.IDASamlResponseReceived
   val serviceType = ServiceType.CustomerPortal
+}
 
+case class IDASamlResponseFailure(requestId: String, pid: String, requestSent: DateTime) extends AuditMessage {
+  val authenticationType = "IDA"
+  val result = Result.Failure
+  val status = Status.IDASamlResponseReceived
+  val serviceType = ServiceType.CustomerPortal
+}
+
+case class IDASamlResponseCancellation(requestId: String, pid: String, requestSent: DateTime) extends AuditMessage {
+  val authenticationType = "IDA"
+  val result = Result.Cancellation
+  val status = Status.IDASamlResponseReceived
+  val serviceType = ServiceType.CustomerPortal
 }
 
 case class IDAMatchRequest(matchId: String, requestReceived: DateTime, matchingOutcome: String, matchingBasis: String, pid: String) extends AuditMessage {
@@ -407,3 +420,4 @@ case class WebFormSubmission(data: Map[String, String]) extends AuditMessage wit
   val result = Result.Success
   val serviceType = ServiceType.WebFormEnrichmentService
 }
+
