@@ -15,7 +15,8 @@ public enum MessageType {
     NoData(7, "No Data to provide"),
     LicenceStatusModified(8, "Licence status text modified"),
     WithholdFullRecord(9, "Record withheld"),
-    SuppressionReason(10, "Suppression Reason");
+    SuppressionReason(10, "Suppression Reason"),
+    PartialSuppressionReason(11, "Partial Suppression Reason");
 
     public int getMessageType() {
         return value;
