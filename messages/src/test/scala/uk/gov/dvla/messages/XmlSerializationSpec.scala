@@ -143,7 +143,7 @@ object XmlSerializationSpec extends Specification {
     "correctly reflect IDASamlResponse instance" in {
       val message = IDASamlResponseSuccess("123456-abc", "1234", org.joda.time.DateTime.parse("2013-07-13T12:13:14"))
       message.toXml mustEqual
-          <IDASamlResponse messageId="321741ef-0980-4d33-88e7-88122cb39a98" serviceType="CustomerPortal" status="IDASamlResponseReceived" result="Success" authenticationType="IDA" requestSent="2013-07-13T12:13:14.000+01:00" pid="1234" requestId="123456-abc"/>.withMessageId(message.messageId)
+          <IDASamlResponseSuccess messageId="321741ef-0980-4d33-88e7-88122cb39a98" serviceType="CustomerPortal" status="IDASamlResponseReceived" result="Success" authenticationType="IDA" requestSent="2013-07-13T12:13:14.000+01:00" pid="1234" requestId="123456-abc"/>.withMessageId(message.messageId)
     }
 
 
