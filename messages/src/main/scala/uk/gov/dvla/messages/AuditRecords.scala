@@ -110,6 +110,20 @@ case class CustomerPersonalDetailsSuppressed(forename: String, surname: String, 
   val serviceType = ServiceType.CustomerPortal
 }
 
+case class CustomerDlnPartiallySuppressed(dln: String, suppressionReason: String, postCode: String, requestSent: DateTime, responseSent: DateTime,
+                                                    ipAddress: String) extends AuditMessage {
+  val result = Result.Success
+  val status = Status.RecordFound
+  val serviceType = ServiceType.CustomerPortal
+}
+
+case class CustomerPersonalDetailsPartiallySuppressed(dln: String, suppressionReason: String, forename: String, surname: String, dob: DateTime, gender: Int, postCode: String,
+                                                      requestSent: DateTime, responseSent: DateTime, ipAddress: String) extends AuditMessage {
+  val result = Result.Success
+  val status = Status.RecordFound
+  val serviceType = ServiceType.CustomerPortal
+}
+
 case class CustomerMultipleFound(forename: String, surname: String, dob: DateTime, gender: Int, postCode: String,
                                  requestSent: DateTime, responseSent: DateTime, ipAddress: String) extends AuditMessage {
   val result = Result.Failure
@@ -177,6 +191,13 @@ case class DvlaDlnSuppressed(dln: String, requestSent: DateTime, responseSent: D
   val serviceType = ServiceType.DvlaPortal
 }
 
+case class DvlaDlnPartiallySuppressed(dln: String, suppressionReason: String, requestSent: DateTime, responseSent: DateTime,
+                                      contactChannel: String, enquiryReasons: List[String], userId: String,
+                                      ipAddress: String) extends AuditMessage {
+  val result = Result.Success
+  val status = Status.RecordFound
+  val serviceType = ServiceType.DvlaPortal
+}
 
 case class DvlaPersonalDetailsSuccessful(dln: String, forename: String, surname: String, dob: DateTime, gender: Int,
                                          postCode: String, requestSent: DateTime, responseSent: DateTime,
@@ -186,6 +207,7 @@ case class DvlaPersonalDetailsSuccessful(dln: String, forename: String, surname:
   val status = Status.RecordFound
   val serviceType = ServiceType.DvlaPortal
 }
+
 
 case class DvlaPersonalDetailsNotFound(forename: String, surname: String, dob: DateTime, gender: Int, postCode: String,
                                        requestSent: DateTime, responseSent: DateTime, contactChannel: String,
@@ -219,6 +241,15 @@ case class DvlaPersonalDetailsSuppressed(dln: String, forename: String, surname:
                                          ipAddress: String) extends AuditMessage {
   val result = Result.Failure
   val status = Status.Suppressed
+  val serviceType = ServiceType.DvlaPortal
+}
+
+case class DvlaPersonalDetailsPartiallySuppressed(dln: String, suppressionReason: String, forename: String, surname: String, dob: DateTime, gender: Int,
+                                                  postCode: String, requestSent: DateTime, responseSent: DateTime,
+                                                  contactChannel: String, enquiryReasons: List[String], userId: String,
+                                                  ipAddress: String) extends AuditMessage {
+  val result = Result.Success
+  val status = Status.RecordFound
   val serviceType = ServiceType.DvlaPortal
 }
 
@@ -288,6 +319,14 @@ case class MibRealTimeRecordSuppression(enquiryId: UUID, dln: String, postCode: 
                                         responseSent: DateTime, ruleApplied: String, ipAddress: String, batchId: String,
                                         vrmProvided: Boolean) extends AuditMessage {
   val result = Result.Failure
+  val status = Status.Suppressed
+  val serviceType = ServiceType.MibRealTime
+}
+
+case class MibRealTimeRecordPartialSuppression(enquiryId: UUID, dln: String, postCode: String, requestSent: DateTime,
+                                        responseSent: DateTime, ruleApplied: String, ipAddress: String, batchId: String,
+                                        vrmProvided: Boolean) extends AuditMessage {
+  val result = Result.Success
   val status = Status.Suppressed
   val serviceType = ServiceType.MibRealTime
 }
