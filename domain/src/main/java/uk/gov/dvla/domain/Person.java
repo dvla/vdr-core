@@ -16,7 +16,6 @@ public class Person {
     @Id
     @Indexed(unique = true, name = "partyID")
 	private String partyID;
-	private String nino = null;
 	private Passport passport = null;
 	private BirthDetails birthDetails;
     private DeathDetails deathDetails;
@@ -51,14 +50,6 @@ public class Person {
 
     public void setPartyID(String partyID) {
         this.partyID = partyID;
-    }
-
-    public String getNino() {
-        return nino;
-    }
-
-    public void setNino(String nino) {
-        this.nino = nino;
     }
 
     public Passport getPassport() {
