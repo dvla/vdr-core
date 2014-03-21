@@ -35,7 +35,6 @@ public class DriverBuilder {
         driver.setBirthDetails(bd);
         driver.setGender(gender);
         driver.setName(name);
-        driver.setNino(nino);
         Passport pass = new Passport();
         pass.setNumber(pno);
         driver.setPassport(pass);

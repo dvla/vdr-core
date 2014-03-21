@@ -64,12 +64,6 @@ public class TestDriverBuilder{
     }
     
     @Test
-    public void testNino()
-    {
-    	Assert.assertEquals("AA123456A", driver_i.getNino());
-    }
-    
-    @Test
     public void testGender()
     {
     	Assert.assertEquals(DriverRandomiser.MALE, driver_i.getGender());
