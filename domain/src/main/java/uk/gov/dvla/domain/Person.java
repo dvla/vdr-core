@@ -10,7 +10,6 @@ import org.mongodb.morphia.annotations.Id;
 import org.mongodb.morphia.annotations.Indexed;
 import org.mongodb.morphia.annotations.Property;
 
-@Entity
 public class Person {
 
     @Id
@@ -23,6 +22,8 @@ public class Person {
     private Address address;
 
 	private Name name;
+
+    @Indexed
 	private int gender;
 	
 	private Date validFrom;

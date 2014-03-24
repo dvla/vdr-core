@@ -1,6 +1,7 @@
 package uk.gov.dvla.domain;
 
 import org.mongodb.morphia.annotations.Embedded;
+import org.mongodb.morphia.annotations.Indexed;
 import org.mongodb.morphia.annotations.Property;
 
 import java.lang.String;
@@ -8,6 +9,7 @@ import java.util.Date;
 
 @Embedded
 public class BirthDetails {
+    @Indexed
     private Date date;
     private Country country;
     private @Property("vlBirthDateCode") String verificationLevelBirthDateCode;

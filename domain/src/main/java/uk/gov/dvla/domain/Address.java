@@ -4,27 +4,30 @@ import java.util.Date;
 import java.util.List;
 
 import org.mongodb.morphia.annotations.Embedded;
+import org.mongodb.morphia.annotations.Indexed;
 
 @Embedded
 public class Address {
 
-	private Boolean insecure;
-	private Country country;
-	private String langCode;
-	private String pafKey;
-	private String orgName;
+    private Boolean insecure;
+    private Country country;
+    private String langCode;
+    private String pafKey;
+    private String orgName;
     private String buildingNumber;
-	private String buildingName;
-	private String subBuildingName;
-	private String tfare;
-	private String dtfare;
-	private String ddtfare;
-	private String dLocality;
-	private String ddLocality;
-	private String postTown;
-	private String county;
-	private String postCode;
-	private String poBox;
+    private String buildingName;
+    private String subBuildingName;
+    private String tfare;
+    private String dtfare;
+    private String ddtfare;
+    private String dLocality;
+    private String ddLocality;
+    private String postTown;
+    private String county;
+
+    @Indexed
+    private String postCode;
+    private String poBox;
     private String mBarracks;
     private String mBFPONumber;
     private String mRank;
@@ -35,9 +38,11 @@ public class Address {
     private Date validFrom;
     private Date validTo;
     private String vanityInfo;
-	
-	private List<String> uLine;
-	private String uPostCode;
+
+    private List<String> uLine;
+
+    @Indexed
+    private String uPostCode;
 
     public Boolean isInsecure() {
         return insecure;
