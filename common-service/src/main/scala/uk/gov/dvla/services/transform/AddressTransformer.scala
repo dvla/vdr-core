@@ -15,6 +15,7 @@ object AddressTransformer {
       address.getSubBuildingName ::
       address.getBuildingName ::
       address.getBuildingNumber ::
+      address.getDdtfare ::
       address.getDtfare ::
       address.getTfare ::
       address.getDdLocality ::
