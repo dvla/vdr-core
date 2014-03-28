@@ -18,17 +18,11 @@ public class Person {
 	private Passport passport = null;
 	private BirthDetails birthDetails;
     private DeathDetails deathDetails;
-
     private Address address;
-
 	private Name name;
-
-    @Indexed
 	private int gender;
-	
 	private Date validFrom;
 	private Date validTo;
-	
 	private Boolean adi;
 	private Boolean military;
 	private Boolean foreignLicenceOffender;

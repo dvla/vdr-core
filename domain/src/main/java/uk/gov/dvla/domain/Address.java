@@ -24,8 +24,6 @@ public class Address {
     private String ddLocality;
     private String postTown;
     private String county;
-
-    @Indexed
     private String postCode;
     private String poBox;
     private String mBarracks;
@@ -40,8 +38,6 @@ public class Address {
     private String vanityInfo;
 
     private List<String> uLine;
-
-    @Indexed
     private String uPostCode;
 
     public Boolean isInsecure() {
