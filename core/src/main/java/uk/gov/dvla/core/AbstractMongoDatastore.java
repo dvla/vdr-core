@@ -15,7 +15,6 @@ public abstract class AbstractMongoDatastore implements ManagedService {
     private static final Logger logger = LoggerFactory.getLogger(AbstractMongoDatastore.class.getName());
 
     private MongoClient mongoClient_i;
-    private DBCollection collection_i;
     protected Datastore dataStore_i;
     private final boolean ensureIndexes;
 
@@ -39,14 +38,6 @@ public abstract class AbstractMongoDatastore implements ManagedService {
         dataStore_i = prepareMorphia(mongoClient_i, database, classToMap);
     }
 
-    public boolean isAlive() {
-        /**
-         * A very arbritary check that the mongo connection is alive
-         * Throws an exception if not able to do this simple check
-         */
-        return mongoClient_i.getDatabaseNames().size() >= 0;
-    }
-
     @Override
     public void start() {
         // Do nothing
@@ -61,9 +52,6 @@ public abstract class AbstractMongoDatastore implements ManagedService {
         return this.dataStore_i;
     }
 
-    protected DBCollection getCollection() {
-        return this.collection_i;
-    }
 
     protected MongoClient getClient() {
         return this.mongoClient_i;
@@ -76,8 +64,9 @@ public abstract class AbstractMongoDatastore implements ManagedService {
         morphia.mapPackage(packageToMap);
 
         datastore = morphia.createDatastore(client, database);
-        if (ensureIndexes)
-            datastore.ensureIndexes();
+        if (ensureIndexes) {
+            datastore.ensureIndexes(true);
+        }
         return datastore;
     }
 
@@ -90,8 +79,9 @@ public abstract class AbstractMongoDatastore implements ManagedService {
 
         datastore = morphia.createDatastore(client, database);
 
-        if (ensureIndexes)
-            datastore.ensureIndexes();
+        if (ensureIndexes) {
+            datastore.ensureIndexes(true);
+        }
         return datastore;
     }
 
