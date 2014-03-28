@@ -9,7 +9,6 @@ import java.util.Date;
 
 @Embedded
 public class BirthDetails {
-    @Indexed
     private Date date;
     private Country country;
     private @Property("vlBirthDateCode") String verificationLevelBirthDateCode;

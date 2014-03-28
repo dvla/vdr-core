@@ -12,11 +12,7 @@ import org.mongodb.morphia.annotations.Indexed;
 public class Name {
 	
 	private String title = null;
-
-    @Indexed
 	private List<String> givenName = null;
-
-    @Indexed
 	private String familyName = null;
     private Boolean isTitleAddress = false;
     private String initials = null;
