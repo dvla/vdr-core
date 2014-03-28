@@ -32,7 +32,7 @@ object Result extends Enumeration {
 }
 
 object ServiceType extends Enumeration {
-  val CustomerPortal, DvlaPortal, MibRealTime, MibBatch, IDAMatcherService, WebFormEnrichmentService = Value
+  val CustomerPortal, DvlaPortal, MibRealTime, MibBatch, IDAMatcherService, WebFormEnrichmentService, DocumentCheckingService = Value
 }
 
 object AttributeType extends Enumeration {
@@ -111,7 +111,7 @@ case class CustomerPersonalDetailsSuppressed(forename: String, surname: String, 
 }
 
 case class CustomerDlnPartiallySuppressed(dln: String, suppressionReason: String, postCode: String, requestSent: DateTime, responseSent: DateTime,
-                                                    ipAddress: String) extends AuditMessage {
+                                          ipAddress: String) extends AuditMessage {
   val result = Result.Success
   val status = Status.RecordFound
   val serviceType = ServiceType.CustomerPortal
@@ -324,8 +324,8 @@ case class MibRealTimeRecordSuppression(enquiryId: UUID, dln: String, postCode: 
 }
 
 case class MibRealTimeRecordPartialSuppression(enquiryId: UUID, dln: String, postCode: String, requestSent: DateTime,
-                                        responseSent: DateTime, ruleApplied: String, ipAddress: String, batchId: String,
-                                        vrmProvided: Boolean) extends AuditMessage {
+                                               responseSent: DateTime, ruleApplied: String, ipAddress: String, batchId: String,
+                                               vrmProvided: Boolean) extends AuditMessage {
   val result = Result.Success
   val status = Status.Suppressed
   val serviceType = ServiceType.MibRealTime
@@ -460,3 +460,58 @@ case class WebFormSubmission(data: Map[String, String]) extends AuditMessage wit
   val serviceType = ServiceType.WebFormEnrichmentService
 }
 
+case class DCSValidationFailed(
+                                address: String,
+                                dateOfBirth: Option[DateTime],
+                                dln: String,
+                                familyName: String,
+                                givenNames: List[String],
+                                issueNumber: String,
+                                issuerID: String,
+                                placeOfBirth: Option[String],
+                                requestID: String,
+                                validFrom: String,
+                                validTo: String,
+                                reasons: List[String]) extends AuditMessage {
+  val authenticationType = "DCS"
+  val result = Result.Failure
+  val serviceType = ServiceType.DocumentCheckingService
+}
+
+case class DCSDlnNotFound(
+                           dln: String,
+                           requestID: String
+                           ) extends AuditMessage {
+  val authenticationType = "DCS"
+  val result = Result.Failure
+  val serviceType = ServiceType.DocumentCheckingService
+}
+
+case class DCSMatchingRulesFail(
+                                 dln: String,
+                                 requestID: String
+                                 ) extends AuditMessage {
+  val authenticationType = "DCS"
+  val result = Result.Failure
+  val serviceType = ServiceType.DocumentCheckingService
+}
+
+
+case class DCSSuppressed(
+                          dln: String,
+                          requestID: String
+                          ) extends AuditMessage {
+  val authenticationType = "DCS"
+  val result = Result.Failure
+  val serviceType = ServiceType.DocumentCheckingService
+}
+
+
+case class DCSMatchingSuccess(
+                               dln: String,
+                               requestID: String
+                               ) extends AuditMessage {
+  val authenticationType = "DCS"
+  val result = Result.Success
+  val serviceType = ServiceType.DocumentCheckingService
+}
