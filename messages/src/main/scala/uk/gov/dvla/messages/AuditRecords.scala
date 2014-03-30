@@ -28,7 +28,7 @@ object Status extends Enumeration {
 }
 
 object Result extends Enumeration {
-  val Success, Failure, Cancellation = Value
+  val Success, Failure, Cancellation, NA = Value
 }
 
 object ServiceType extends Enumeration {
@@ -39,7 +39,7 @@ object AttributeType extends Enumeration {
   val RecordType, StatusCode, RestrictionKey, StopMarker = Value
 }
 
-sealed trait AuditMessage extends Message with XmlMessageSerialization {
+trait AuditMessage extends Message with XmlMessageSerialization {
   val result: Result.Value
   val serviceType: ServiceType.Value
 }
