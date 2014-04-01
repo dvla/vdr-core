@@ -1,5 +1,8 @@
 package uk.gov.dvla.services.ida.dcs;
 
+import com.google.common.base.Optional;
+import java.util.List;
+
 public interface DriverMatcher<A, B> {
-    public boolean match(A matchRequest, B matchResponse);
+    public Optional<List<String>> match(A matchRequest, B matchResponse);
 }
