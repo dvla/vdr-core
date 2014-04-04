@@ -23,6 +23,7 @@ public class AuditorService {
 
     /**
      * Creates the service with just a service bus, the route key is defaulted to ''
+     *
      * @param serviceBus AMPQ service bus
      */
     public AuditorService(Bus serviceBus) {
@@ -32,6 +33,7 @@ public class AuditorService {
 
     /**
      * Creates the service with just a service bus and a route key
+     *
      * @param serviceBus AMPQ service bus
      * @param routingKey Route key used to route different type of messages
      */
@@ -143,6 +145,14 @@ public class AuditorService {
 
     public void auditIDAMatch(String matchId, DateTime requestReceived, String matchingOutcome, String matchingBasis, String pid) {
         send(new IDAMatchRequest(matchId, requestReceived, matchingOutcome, matchingBasis, pid));
+    }
+
+    public void auditDCSValidationFailed(String address, DateTime dateOfBirth,
+                                         String dln, String familyName, String givenNames,
+                                         String issueNumber, String issuerID, String placeOfBirth,
+                                         String requestId, DateTime validFrom, DateTime validTo,
+                                         List<String> reason) {
+
     }
 
     private boolean isDriverFullySuppressed(RulesDriver driverResult) {
