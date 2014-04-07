@@ -1,6 +1,6 @@
 package uk.gov.dvla.messages
 
-import uk.gov.dvla.servicebus.core.{Message}
+import uk.gov.dvla.servicebus.core.Message
 import org.joda.time.DateTime
 import java.util.UUID
 
@@ -461,7 +461,7 @@ case class WebFormSubmission(data: Map[String, String]) extends AuditMessage wit
 }
 
 case class DCSValidationFailed(
-                                address: String,
+                                address: Option[String],
                                 dateOfBirth: Option[DateTime],
                                 dln: String,
                                 familyName: String,
@@ -488,8 +488,18 @@ case class DCSDlnNotFound(
 }
 
 case class DCSMatchingRulesFail(
+                                 address: Option[String],
+                                 dateOfBirth: Option[DateTime],
                                  dln: String,
-                                 requestID: String
+                                 familyName: String,
+                                 givenNames: List[String],
+                                 issueNumber: String,
+                                 issuerID: String,
+                                 placeOfBirth: Option[String],
+                                 requestID: String,
+                                 validFrom: String,
+                                 validTo: String,
+                                 matchingFalures: List[String]
                                  ) extends AuditMessage {
   val authenticationType = "DCS"
   val result = Result.Failure
@@ -498,8 +508,18 @@ case class DCSMatchingRulesFail(
 
 
 case class DCSSuppressed(
+                          address: Option[String],
+                          dateOfBirth: Option[DateTime],
                           dln: String,
-                          requestID: String
+                          familyName: String,
+                          givenNames: List[String],
+                          issueNumber: String,
+                          issuerID: String,
+                          placeOfBirth: Option[String],
+                          requestID: String,
+                          validFrom: String,
+                          validTo: String,
+                          suppressions: List[String]
                           ) extends AuditMessage {
   val authenticationType = "DCS"
   val result = Result.Failure
