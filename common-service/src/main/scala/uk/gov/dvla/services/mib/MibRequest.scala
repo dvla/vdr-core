@@ -8,13 +8,10 @@ object MibRequest {
   val logger = LoggerFactory.getLogger(classOf[MibRequest])
   val NOColumns = 6
 
-  def apply(columns: JList[String]): MibRequest =
-    apply(columns.toList)
+  def apply(batchId: String, columns: JList[String]): MibRequest =
+    apply(batchId, columns.toList)
 
-  def apply(requestId: String, dln: String, postcode: String, vrm: String): MibRequest =
-    MibRequest(null, requestId, null, dln, postcode, vrm)
-
-  def apply(columns: List[String]): MibRequest = {
+  def apply(batchId: String, columns: List[String]): MibRequest = {
     val (groupId :: requestId ::
       proposerIndicator :: dln ::
       postcode :: vrm :: tail) = supplementList(columns)
@@ -22,7 +19,7 @@ object MibRequest {
     if (!tail.isEmpty)
       logger.warn("Ignoring extra columns in request [{}]", requestId)
 
-    MibRequest(groupId, requestId, proposerIndicator, dln, postcode, vrm)
+    MibRequest(batchId, groupId, requestId, proposerIndicator, dln, postcode, vrm)
   }
 
   def supplementList(list: List[String]) =
@@ -30,6 +27,7 @@ object MibRequest {
 }
 
 case class MibRequest(
+  batchId: String,
   groupId: String,
   requestId: String,
   proposerIndicator: String,
