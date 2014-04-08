@@ -1,10 +1,13 @@
 package uk.gov.dvla.domain.authentication;
 
+import org.apache.commons.lang.StringUtils;
+import uk.gov.dvla.domain.Address;
 import uk.gov.dvla.domain.Driver;
 
 import java.util.Date;
 
 public class DriverAuthToken extends AuthenticationToken {
+    private static final String UNSTRUCTURED_ADDRESS_MARKER = "UN";
     protected String dln;
     protected String postCode;
     protected Date dob;
@@ -83,29 +86,49 @@ public class DriverAuthToken extends AuthenticationToken {
         DriverAuthToken driverAuthToken = new DriverAuthToken();
         driverAuthToken.setDln(driver.getCurrentDriverNumber());
         driverAuthToken.setDob(driver.getBirthDetails().getDate());
-        driverAuthToken.setPostCode(driver.getAddress().getPostCode());
+        driverAuthToken.setGender(driver.getGender());
         driverAuthToken.setSurname(driver.getName().getFamilyName());
         driverAuthToken.setForename1(driver.getName().getGivenName().get(0));
         if (driver.getName().getGivenName().size() > 1) {
             driverAuthToken.setForename1(driver.getName().getGivenName().get(1));
         }
 
-        String[] addressArray = new String[1];
+        Address address = driver.getAddress();
 
-        //TODO revise if this is a proper way of builder the first address line
-        StringBuilder sb = new StringBuilder();
-        sb.append(driver.getAddress().getBuildingName());
-        sb.append(" ");
-        sb.append(driver.getAddress().getDdtfare());
-        addressArray[0] = sb.toString();
+        if (address == null) {
+            throw new NullPointerException("Address is missing from driver object");
+        }
+
+        String[] addressArray = new String[1];
+        String postcode;
+        if (isUnstructured(address)) {
+            postcode = address
+                    .getuPostCode();
+            if (address.getuLine() == null || address.getuLine().size() == 0) {
+                throw new NullPointerException("Address is unstructured but has no uLines set");
+            }
+
+            addressArray[0] = address
+                    .getuLine()
+                    .get(0);
+        } else {
+            postcode = address
+                    .getPostCode();
+            addressArray[0] = address.getBuildingName() + " " + address.getDdtfare();
+        }
+        driverAuthToken.setPostCode(postcode);
         driverAuthToken.setAddress(addressArray);
 
-        driverAuthToken.setGender(driver.getGender());
+
         return driverAuthToken;
     }
 
-
     public boolean isValid() {
-        return !(surname == null || dob == null || postCode == null || dln == null);
+        setIsValid(!(surname == null || dob == null || postCode == null || dln == null));
+        return getIsValid();
+    }
+
+    private static boolean isUnstructured(Address address) {
+        return StringUtils.equalsIgnoreCase(address.getType(), UNSTRUCTURED_ADDRESS_MARKER);
     }
 }
