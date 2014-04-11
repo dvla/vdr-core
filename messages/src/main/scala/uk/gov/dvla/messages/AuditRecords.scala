@@ -506,6 +506,25 @@ case class DCSMatchingRulesFail(
   val serviceType = ServiceType.DocumentCheckingService
 }
 
+case class DCSOnlyOptionalMatchingRulesFail(
+                                 address: Option[String],
+                                 dateOfBirth: Option[DateTime],
+                                 dln: String,
+                                 familyName: String,
+                                 givenNames: List[String],
+                                 issueNumber: String,
+                                 issuerID: String,
+                                 placeOfBirth: Option[String],
+                                 requestID: String,
+                                 validFrom: String,
+                                 validTo: String,
+                                 matchingFalures: List[String]
+                                 ) extends AuditMessage {
+  val authenticationType = "DCS"
+  val result = Result.Success
+  val serviceType = ServiceType.DocumentCheckingService
+}
+
 
 case class DCSSuppressed(
                           address: Option[String],
