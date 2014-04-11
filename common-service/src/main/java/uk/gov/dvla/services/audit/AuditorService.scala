@@ -176,6 +176,37 @@ class AuditorService {
     )
   }
 
+  def auditDCSOptionalMatchingError(
+                             address: String,
+                             dateOfBirth: String,
+                             dln: String,
+                             familyName: String,
+                             givenNames: JList[String],
+                             issueNumber: String,
+                             issuerID: String,
+                             placeOfBirth: String,
+                             requestId: String,
+                             validFrom: String,
+                             validTo: String,
+                             matchingFailures: JList[String]) {
+    send(
+      new DCSOnlyOptionalMatchingRulesFail(
+        Option(address),
+        Option(dateOfBirth).map(DateTime.parse),
+        dln,
+        familyName,
+        J2S.list(givenNames),
+        issueNumber,
+        issuerID,
+        Option(placeOfBirth),
+        requestId,
+        validFrom,
+        validTo,
+        J2S.list(matchingFailures)
+      )
+    )
+  }
+
   def auditDCSSuppression(
                            address: String,
                            dateOfBirth: String,
