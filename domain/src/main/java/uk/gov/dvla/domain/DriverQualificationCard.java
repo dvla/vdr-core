@@ -9,8 +9,8 @@ import java.util.Date;
 
 @Embedded
 public class DriverQualificationCard {
-    private Number communityCode;
-    private Number dispatchedToAddressID;
+    private Integer communityCode;
+    private Integer dispatchedToAddressID;
     private Integer photoImageID;
     private String reasonRequested;
     private Integer signatureImageID;
@@ -20,11 +20,11 @@ public class DriverQualificationCard {
     private Date dob;
     private String birthPlace;
 
-    public Number getCommunityCode() {
+    public Integer getCommunityCode() {
         return communityCode;
     }
 
-    public void setCommunityCode(Number communityCode) {
+    public void setCommunityCode(Integer communityCode) {
         this.communityCode = communityCode;
     }
 
@@ -32,7 +32,7 @@ public class DriverQualificationCard {
         return dispatchedToAddressID;
     }
 
-    public void setDispatchedToAddressID(Number dispatchedToAddressID) {
+    public void setDispatchedToAddressID(Integer dispatchedToAddressID) {
         this.dispatchedToAddressID = dispatchedToAddressID;
     }
 
