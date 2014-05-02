@@ -12,6 +12,7 @@ public interface DriverEnquiry extends ManagedService {
     public static final String ENRICHMENT_SERVICE_ENDPOINT = "/internal/enrichment/driver";
     public static final String HEALTH_CHECK_ENDPOINT = "/healthcheck";
     public static final String DCS_SERVICE_ENDPOINT = "/search";
+    public static final String IDA_MATCHER_SERVICE_ENDPOINT = "/match";
     public static final String DLN_SEARCH = "dlnSearch";
     public static final String PERSONAL_DETAILS_SEARCH = "personalDetailsSearch";
     public static final String PARTY_ID = "partyIdSearch";
