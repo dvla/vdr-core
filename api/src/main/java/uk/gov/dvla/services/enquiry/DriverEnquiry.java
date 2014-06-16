@@ -1,5 +1,6 @@
 package uk.gov.dvla.services.enquiry;
 
+import com.google.common.base.Optional;
 import uk.gov.dvla.domain.Driver;
 import uk.gov.dvla.domain.Person;
 import uk.gov.dvla.services.ManagedService;
@@ -47,7 +48,7 @@ public interface DriverEnquiry extends ManagedService {
     public Driver get(Person person);
 
     public Driver get(String forename, String surname, String dob,
-                      String gender, String postCode);
+                      String gender, Optional<String> postCode);
 
     public Driver getByPartyId(String partyId);
 }

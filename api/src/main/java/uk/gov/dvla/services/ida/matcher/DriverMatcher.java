@@ -1,6 +1,7 @@
 package uk.gov.dvla.services.ida.matcher;
 
 import com.google.common.base.Optional;
+
 import java.util.List;
 
 public interface DriverMatcher<A, B> {
