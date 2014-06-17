@@ -16,7 +16,7 @@ public interface DriverEnquiry extends ManagedService {
     public static final String IDA_MATCHER_SERVICE_ENDPOINT = "/match";
     public static final String DLN_SEARCH = "dlnSearch";
     public static final String PERSONAL_DETAILS_SEARCH = "personalDetailsSearch";
-    public static final String PARTY_ID = "partyIdSearch";
+    public static final String PUID = "puid";
     public static final String CUSTOMER_PORTAL = "customer.portal";
     public static final String MIB = "mib";
     public static final String ENRICHMENT_PORTAL = "enrichment.portal";
