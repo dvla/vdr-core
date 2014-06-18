@@ -38,6 +38,12 @@ public abstract class AbstractMongoDatastore implements ManagedService {
         dataStore_i = prepareMorphia(mongoClient_i, database, classToMap);
     }
 
+    //Interesting fact, Scala have problems with determining which method to use,
+    // with a single object or params of them, then call ambiguity error
+    public void saveSingle(Object entity){
+        dataStore_i.save(entity);
+    }
+
     @Override
     public void start() {
         // Do nothing
@@ -74,10 +80,10 @@ public abstract class AbstractMongoDatastore implements ManagedService {
         logger.debug("Preparing morphia mapper for {}", classToMap.getName());
 
         Morphia morphia = new Morphia();
-        Datastore datastore = null;
+
         morphia.map(classToMap);
 
-        datastore = morphia.createDatastore(client, database);
+        Datastore datastore = morphia.createDatastore(client, database);
 
         if (ensureIndexes) {
             datastore.ensureIndexes(true);
