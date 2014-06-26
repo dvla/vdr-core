@@ -122,7 +122,8 @@ class AuditorService {
                                 requestId: String,
                                 validFrom: String,
                                 validTo: String,
-                                reasons: JList[String]) {
+                                reasons: JList[String],
+                                responseSent: DateTime) {
     send(
       new DCSValidationFailed(
         Option(address),
@@ -136,13 +137,15 @@ class AuditorService {
         requestId,
         validFrom,
         validTo,
-        J2S.list(reasons)
+        J2S.list(reasons),
+        new DateTime(),
+        responseSent
       )
     )
   }
 
-  def auditDCSMismatchWithDriverRecord(driverLicenceNumber: String, requestID: String) {
-    send(new DCSDlnNotFound(driverLicenceNumber, requestID))
+  def auditDCSMismatchWithDriverRecord(driverLicenceNumber: String, requestID: String, responseSent: DateTime) {
+    send(new DCSDlnNotFound(driverLicenceNumber, requestID, new DateTime(), responseSent))
   }
 
   def auditDCSMatchingError(
@@ -157,7 +160,8 @@ class AuditorService {
                              requestId: String,
                              validFrom: String,
                              validTo: String,
-                             matchingFailures: JList[String]) {
+                             matchingFailures: JList[String],
+                             responseSent: DateTime) {
     send(
       new DCSMatchingRulesFail(
         Option(address),
@@ -171,24 +175,27 @@ class AuditorService {
         requestId,
         validFrom,
         validTo,
-        J2S.list(matchingFailures)
+        J2S.list(matchingFailures),
+        new DateTime(),
+        responseSent
       )
     )
   }
 
   def auditDCSOptionalMatchingError(
-                             address: String,
-                             dateOfBirth: String,
-                             dln: String,
-                             familyName: String,
-                             givenNames: JList[String],
-                             issueNumber: String,
-                             issuerID: String,
-                             placeOfBirth: String,
-                             requestId: String,
-                             validFrom: String,
-                             validTo: String,
-                             matchingFailures: JList[String]) {
+                                     address: String,
+                                     dateOfBirth: String,
+                                     dln: String,
+                                     familyName: String,
+                                     givenNames: JList[String],
+                                     issueNumber: String,
+                                     issuerID: String,
+                                     placeOfBirth: String,
+                                     requestId: String,
+                                     validFrom: String,
+                                     validTo: String,
+                                     matchingFailures: JList[String],
+                                     responseSent: DateTime) {
     send(
       new DCSOnlyOptionalMatchingRulesFail(
         Option(address),
@@ -202,7 +209,9 @@ class AuditorService {
         requestId,
         validFrom,
         validTo,
-        J2S.list(matchingFailures)
+        J2S.list(matchingFailures),
+        new DateTime(),
+        responseSent
       )
     )
   }
@@ -219,7 +228,8 @@ class AuditorService {
                            requestId: String,
                            validFrom: String,
                            validTo: String,
-                           suppressionsRules: JList[String]) {
+                           suppressionsRules: JList[String],
+                           responseSent: DateTime) {
     send(
       new DCSSuppressed(
         Option(address),
@@ -233,13 +243,15 @@ class AuditorService {
         requestId,
         validFrom,
         validTo,
-        J2S.list(suppressionsRules)
+        J2S.list(suppressionsRules),
+        new DateTime(),
+        responseSent
       )
     )
   }
 
-  def auditDCSDriverValidationSuccess(driverLicenceNumber: String, requestID: String) {
-    send(new DCSMatchingSuccess(driverLicenceNumber, requestID))
+  def auditDCSDriverValidationSuccess(driverLicenceNumber: String, requestID: String, responseSent: DateTime) {
+    send(new DCSMatchingSuccess(driverLicenceNumber, requestID, new DateTime(), responseSent))
   }
 
   private def isDriverFullySuppressed(driverResult: RulesDriver): Boolean = {
