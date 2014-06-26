@@ -472,7 +472,9 @@ case class DCSValidationFailed(
                                 requestID: String,
                                 validFrom: String,
                                 validTo: String,
-                                reasons: List[String]) extends AuditMessage {
+                                reasons: List[String],
+                                requestSent: DateTime,
+                                responseSent: DateTime) extends AuditMessage {
   val authenticationType = "DCS"
   val result = Result.Failure
   val serviceType = ServiceType.DocumentCheckingService
@@ -480,7 +482,9 @@ case class DCSValidationFailed(
 
 case class DCSDlnNotFound(
                            dln: String,
-                           requestID: String
+                           requestID: String,
+                           requestSent: DateTime,
+                           responseSent: DateTime
                            ) extends AuditMessage {
   val authenticationType = "DCS"
   val result = Result.Failure
@@ -499,7 +503,9 @@ case class DCSMatchingRulesFail(
                                  requestID: String,
                                  validFrom: String,
                                  validTo: String,
-                                 matchingFalures: List[String]
+                                 matchingFalures: List[String],
+                                 requestSent: DateTime,
+                                 responseSent: DateTime
                                  ) extends AuditMessage {
   val authenticationType = "DCS"
   val result = Result.Failure
@@ -518,7 +524,9 @@ case class DCSOnlyOptionalMatchingRulesFail(
                                  requestID: String,
                                  validFrom: String,
                                  validTo: String,
-                                 matchingFalures: List[String]
+                                 matchingFalures: List[String],
+                                 requestSent: DateTime,
+                                 responseSent: DateTime
                                  ) extends AuditMessage {
   val authenticationType = "DCS"
   val result = Result.Success
@@ -538,7 +546,9 @@ case class DCSSuppressed(
                           requestID: String,
                           validFrom: String,
                           validTo: String,
-                          suppressions: List[String]
+                          suppressions: List[String],
+                          requestSent: DateTime,
+                          responseSent: DateTime
                           ) extends AuditMessage {
   val authenticationType = "DCS"
   val result = Result.Failure
@@ -548,7 +558,9 @@ case class DCSSuppressed(
 
 case class DCSMatchingSuccess(
                                dln: String,
-                               requestID: String
+                               requestID: String,
+                               requestSent: DateTime,
+                               responseSent: DateTime
                                ) extends AuditMessage {
   val authenticationType = "DCS"
   val result = Result.Success
