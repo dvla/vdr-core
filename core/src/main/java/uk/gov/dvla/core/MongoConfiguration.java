@@ -1,12 +1,8 @@
 package uk.gov.dvla.core;
 
-
-import com.mongodb.Mongo;
-;
-
 import javax.validation.constraints.NotNull;
-
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Base mongo configuration that DVLA-IEP services use.
@@ -19,46 +15,6 @@ public class MongoConfiguration {
     }
 
     private ReadPreference readPreference = ReadPreference.NEAREST;
-
-    private boolean ensureIndexes = false;
-
-
-    @NotNull
-    private List<String> servers = Arrays.asList("localhost:27017");
-
-    public List<String> getServers() {
-        return servers;
-    }
-
-    private List<String> credentials = new ArrayList<>();
-
-    /**
-     * Returns a list of credentials in login:pass format which is used to connect with the replica sets
-     */
-    public List<String> getCredentials() {
-        return credentials;
-    }
-
-
-    @NotNull
-    private String database = "dvla";
-
-    /**
-     * @return Returns the database name, if not specified in the YAML file, it defaults to 'dvla'
-     */
-    public final String getDatabase() {
-        return database;
-    }
-
-    @NotNull
-    private String collection = "drivers";
-
-    /**
-     * @return Returns the mongo collection name, if not specified in the YAML file, it defaults to 'drivers'
-     */
-    public final String getCollection() {
-        return collection;
-    }
 
     /**
      * @return returns a read preference which will be used by morphia.
@@ -85,6 +41,8 @@ public class MongoConfiguration {
         }
     }
 
+    private boolean ensureIndexes = false;
+
     /**
      * @return returns flag if the database indexes should be ensured. Set true only for services writing to the database, defaults to 'false'
      */
@@ -92,5 +50,40 @@ public class MongoConfiguration {
         return ensureIndexes;
     }
 
+    @NotNull
+    private List<String> servers = new ArrayList<>();
+
+    public List<String> getServers() {
+        return servers;
+    }
+
+    private List<String> credentials = new ArrayList<>();
+
+    /**
+     * Returns a list of credentials in login:pass format which is used to connect with the replica sets
+     */
+    public List<String> getCredentials() {
+        return credentials;
+    }
+
+    @NotNull
+    private String database;
+
+    /**
+     * @return Returns the database name, if not specified in the YAML file, it defaults to 'dvla'
+     */
+    public final String getDatabase() {
+        return database;
+    }
+
+    @NotNull
+    private String collection;
+
+    /**
+     * @return Returns the mongo collection name, if not specified in the YAML file, it defaults to 'drivers'
+     */
+    public final String getCollection() {
+        return collection;
+    }
 
 }
