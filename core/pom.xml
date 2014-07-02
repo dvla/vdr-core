@@ -8,7 +8,7 @@
     <parent>
         <groupId>uk.gov.dvla.iep</groupId>
         <artifactId>parent</artifactId>
-        <version>${version}</version>
+        <version>1.0-SNAPSHOT</version>
     </parent>
     <artifactId>core</artifactId>
 
