@@ -12,6 +12,7 @@
     </parent>
 
     <artifactId>domain</artifactId>
+    <name>IEP Driver Domain</name>
 
     <dependencies>
         <dependency>
