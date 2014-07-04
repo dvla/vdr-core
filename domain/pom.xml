@@ -13,6 +13,7 @@
 
     <artifactId>domain</artifactId>
     <name>IEP Driver Domain</name>
+    <description>Contains VDR driver domain classes</description>
 
     <dependencies>
         <dependency>
