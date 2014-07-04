@@ -11,6 +11,9 @@
     </parent>
     <artifactId>api</artifactId>
 
+    <name>IEP API</name>
+    <description>Contains intefaces for common services</description>
+
     <dependencies>
         <dependency>
             <groupId>${project.groupId}</groupId>
