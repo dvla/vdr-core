@@ -12,6 +12,9 @@
     </parent>
     <artifactId>common-service</artifactId>
 
+    <name>IEP Commons</name>
+    <description>Utilities used across the solution</description>
+
     <dependencies>
         <dependency>
             <groupId>${project.groupId}</groupId>
