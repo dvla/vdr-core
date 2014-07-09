@@ -2,10 +2,8 @@ package uk.gov.dvla.core;
 
 
 import com.mongodb.Mongo;
-;
 
 import javax.validation.constraints.NotNull;
-
 import java.util.*;
 
 /**
