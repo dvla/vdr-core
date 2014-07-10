@@ -4,7 +4,7 @@ import java.util.regex.Pattern;
 
 public final class Validators {
 
-    public static final String DLN_REGEX = "^(?=.{16}$)[A-Za-z]{1,5}9{0,4}[0-9](?:[05][1-9]|[16][0-2])(?:[0][1-9]|[12][0-9]|3[01])[0-9](?:99|[A-Za-z][A-Za-z9])(?![IOQYZioqyz01_])\\w[A-Za-z]{2}";
+    public static final String DLN_REGEX = "^(?=.{16}$)[A-Za-z]{1,5}9{0,4}[0-9](?:[05][1-9]|[16][0-2])(?:[0][1-9]|[12][0-9]|3[01])[0-9](?:99|[A-Za-z][A-Za-z9])(?![IOQYZioqyz01_])\\w[A-Za-z]{2}$";
     public static final String POSTCODE_REGEX = "^[a-zA-Z0-9](?:\\s*[a-zA-Z0-9]){4,7}$";
     public static final String VRM_REGEX = "^(?:[a-zA-z0-9]){1,15}(?:;(?:[a-zA-z0-9]){1,15})*;?$";
     public static final String GUID_REGEX = "^[A-Fa-f0-9]{8}-[A-Fa-f0-9]{4}-[A-Fa-f0-9]{4}-[A-Fa-f0-9]{4}-[A-Fa-f0-9]{12}$";
