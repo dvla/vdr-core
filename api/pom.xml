@@ -19,8 +19,6 @@
     <properties>
         <guava.version>17.0</guava.version>
         <scala.version>2.11.1</scala.version>
-        <scalatest.version>2.2.0</scalatest.version>
-        <specs2.version>2.3.12</specs2.version>
     </properties>
 
     <dependencies>
@@ -43,18 +41,6 @@
             <groupId>com.google.guava</groupId>
             <artifactId>guava</artifactId>
             <version>${guava.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.scalatest</groupId>
-            <artifactId>scalatest_2.11</artifactId>
-            <version>${scalatest.version}</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.specs2</groupId>
-            <artifactId>specs2_2.11</artifactId>
-            <version>${specs2.version}</version>
-            <scope>test</scope>
         </dependency>
     </dependencies>
 
