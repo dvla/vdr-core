@@ -15,7 +15,27 @@
 
     <name>IEP Messages</name>
 
+    <properties>
+        <scala.version>2.11.1</scala.version>
+        <scala-modules.version>1.0.1</scala-modules.version>
+    </properties>
+
     <dependencies>
+        <dependency>
+            <groupId>org.scala-lang</groupId>
+            <artifactId>scala-library</artifactId>
+            <version>${scala.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.scala-lang</groupId>
+            <artifactId>scala-reflect</artifactId>
+            <version>${scala.version}</version>
+        </dependency>
+        <dependency>
+        <groupId>org.scala-lang.modules</groupId>
+        <artifactId>scala-xml_2.11</artifactId>
+        <version>${scala-modules.version}</version>
+        </dependency>
         <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>common-service</artifactId>
