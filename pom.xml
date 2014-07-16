@@ -78,7 +78,6 @@
         <module>api</module>
         <module>core</module>
         <module>domain</module>
-        <module>messages</module>
     </modules>
 
 </project>
