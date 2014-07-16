@@ -18,7 +18,6 @@
 
     <properties>
         <guava.version>17.0</guava.version>
-        <scala.version>2.11.1</scala.version>
     </properties>
 
     <dependencies>
